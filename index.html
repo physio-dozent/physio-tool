@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physiotherapie Lerntool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f1ea;
+  --bg-card: #fffcf6;
+  --ink: #1c1a17;
+  --ink-soft: #4a463f;
+  --ink-muted: #8a857a;
+  --accent: #a8431e;
+  --accent-soft: #d4a08a;
+  --accent-bg: #f4e3d7;
+  --line: #d8d2c4;
+  --line-soft: #e8e2d4;
+  --highlight: #fff3b0;
+  --correct: #2d6a3e;
+  --correct-bg: #e2efe5;
+  --wrong: #a83232;
+  --wrong-bg: #f4e0e0;
+  --shadow: 0 1px 2px rgba(28,26,23,0.04), 0 4px 12px rgba(28,26,23,0.06);
+  --shadow-lift: 0 2px 4px rgba(28,26,23,0.06), 0 8px 24px rgba(28,26,23,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+h1 { font-size: clamp(28px, 5vw, 36px); line-height: 1.15; margin-bottom: 4px; }
+h2 { font-size: clamp(22px, 4vw, 26px); line-height: 1.2; margin-bottom: 12px; }
+h3 { font-size: 18px; margin-bottom: 8px; }
+
+.lead {
+  color: var(--ink-soft);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .card { padding: 20px; }
+  .container { padding: 20px 14px 60px; }
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.brand-mark {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+.brand-sub {
+  font-size: 13px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+input[type="text"], input[type="date"], select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(168,67,30,0.12);
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+.field { margin-bottom: 18px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
+
+button {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 11px 22px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fffcf6;
+}
+.btn-primary:hover { background: #8c3818; }
+.btn-primary:disabled { background: var(--ink-muted); cursor: not-allowed; }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.btn-secondary:hover { background: var(--accent-bg); border-color: var(--accent-soft); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 14px;
+  padding: 6px 12px;
+}
+.btn-ghost:hover { color: var(--accent); }
+
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+
+/* Lerneinheiten-Auswahl */
+.unit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.unit-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.unit-item:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: var(--shadow-lift); }
+.unit-title { font-weight: 500; color: var(--ink); }
+.unit-meta { font-size: 13px; color: var(--ink-muted); margin-top: 2px; }
+.unit-tag {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+/* Fortschrittsanzeige */
+.progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.progress-text { font-size: 13px; color: var(--ink-soft); font-weight: 500; }
+.progress-bar {
+  height: 4px;
+  background: var(--line-soft);
+  border-radius: 2px;
+  overflow: hidden;
+  flex-grow: 1;
+  margin: 0 16px;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+/* Quizfragen */
+.question {
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.question:last-of-type { border-bottom: none; }
+.question-num {
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.question-text {
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.options { display: flex; flex-direction: column; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--bg);
+}
+.option:hover { border-color: var(--accent-soft); background: var(--accent-bg); }
+.option input[type="radio"], .option input[type="checkbox"] {
+  margin-top: 3px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+}
+.option-text { flex-grow: 1; line-height: 1.45; }
+
+.option.selected { border-color: var(--accent); background: var(--accent-bg); }
+.option.correct { border-color: var(--correct); background: var(--correct-bg); }
+.option.wrong { border-color: var(--wrong); background: var(--wrong-bg); }
+
+.feedback {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.feedback.correct { background: var(--correct-bg); color: var(--correct); border-left: 3px solid var(--correct); }
+.feedback.wrong { background: var(--wrong-bg); color: var(--wrong); border-left: 3px solid var(--wrong); }
+.feedback strong { display: block; margin-bottom: 4px; }
+
+/* Fall-Vignette */
+.vignette {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 20px 22px;
+  margin-bottom: 24px;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+.vignette-title {
+  font-family: 'Fraunces', serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.vignette-words {
+  user-select: none;
+  -webkit-user-select: none;
+}
+.word {
+  display: inline;
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 1px 1px;
+  transition: background 0.1s;
+}
+.word:hover { background: var(--line-soft); }
+.word.marked { background: var(--highlight); font-weight: 500; color: var(--ink); }
+
+.markings-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+.markings-count strong { color: var(--accent); }
+
+/* Reasoning-Sektion */
+.reasoning-section {
+  margin-bottom: 24px;
+}
+.reasoning-help {
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-style: italic;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.hypothesis-block {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  background: var(--bg);
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+}
+.hypothesis-block label { margin-bottom: 4px; }
+
+/* Score-Display */
+.score-card {
+  text-align: center;
+  padding: 32px 24px;
+  background: var(--accent-bg);
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+.score-number {
+  font-family: 'Fraunces', serif;
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.score-label {
+  font-size: 14px;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Status-Box */
+.status {
+  padding: 14px 18px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+.status-info { background: var(--accent-bg); color: var(--ink-soft); }
+.status-success { background: var(--correct-bg); color: var(--correct); }
+.status-error { background: var(--wrong-bg); color: var(--wrong); }
+
+.autosave-pill {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: var(--shadow-lift);
+}
+.autosave-pill.show { opacity: 0.9; }
+
+/* Loading */
+.loading {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.hidden { display: none !important; }
+
+.empty-state {
+  text-align: center;
+  color: var(--ink-muted);
+  padding: 40px 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="brand">
+    <div class="brand-mark">Skill Lab</div>
+    <div class="brand-sub">Physiotherapie · Lernwerkstatt</div>
+  </header>
+
+  <!-- SCHRITT 1: Anmeldung -->
+  <section id="screen-login" class="card">
+    <h1>Willkommen</h1>
+    <p class="lead">Bitte trage deine Daten ein, bevor du mit der Übung beginnst.</p>
+
+    <div class="field">
+      <label for="student_name">Name</label>
+      <input type="text" id="student_name" placeholder="Vor- und Nachname" autocomplete="off">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="class_name">Klasse / Kurs</label>
+        <input type="text" id="class_name" placeholder="z. B. PT-23" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="session_date">Datum</label>
+        <input type="date" id="session_date">
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" onclick="goToUnitSelection()">Weiter</button>
+    </div>
+  </section>
+
+  <!-- SCHRITT 2: Lerneinheit wählen -->
+  <section id="screen-units" class="hidden">
+    <div class="card">
+      <h1>Lerneinheit wählen</h1>
+      <p class="lead">Wähle die Einheit, die dein Dozent angegeben hat.</p>
+      <div id="unit-list" class="unit-list">
+        <div class="empty-state">Lade verfügbare Einheiten…</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-ghost" onclick="backToLogin()">← Zurück</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHRITT 3: Inhalt durcharbeiten -->
+  <section id="screen-content" class="hidden">
+    <div class="progress">
+      <span class="progress-text" id="progress-label">—</span>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span class="progress-text" id="progress-counter">—</span>
+    </div>
+    <div class="card" id="content-card"></div>
+    <div class="btn-row">
+      <button class="btn-ghost" onclick="confirmAbort()">Abbrechen</button>
+      <button class="btn-primary" id="submit-btn" onclick="submitContent()">Antworten absenden</button>
+    </div>
+  </section>
+
+  <!-- SCHRITT 4: Ergebnis -->
+  <section id="screen-result" class="hidden">
+    <div class="card" id="result-card"></div>
+  </section>
+
+</div>
+
+<div id="autosave-pill" class="autosave-pill">✓ Zwischengespeichert</div>
+
+<script>
+// ============= KONFIGURATION =============
+const SUPABASE_URL = 'https://oosqtqanwsijbmkxgyao.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9vc3F0cWFud3NpamJta3hneWFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyODI4NTYsImV4cCI6MjA5Mzg1ODg1Nn0.zSJsXeYRb8y5_XTN0-K9fdB2k1TnGMEK6imlIcqznTs';
+const UNITS_INDEX = 'einheiten/index.json';
+
+// ============= STATE =============
+let session = {
+  student_name: '',
+  class_name: '',
+  session_date: '',
+  unit: null,
+  answers: {},
+  markings: {}
+};
+
+let availableUnits = [];
+
+// ============= INITIALISIERUNG =============
+window.addEventListener('DOMContentLoaded', () => {
+  // Datum vorbelegen
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('session_date').value = today;
+
+  // Wiederhergestellten Zustand prüfen
+  const saved = loadSavedSession();
+  if (saved) {
+    if (confirm('Du hast eine ungespeicherte Sitzung. Fortsetzen?')) {
+      session = saved;
+      document.getElementById('student_name').value = session.student_name;
+      document.getElementById('class_name').value = session.class_name;
+      document.getElementById('session_date').value = session.session_date;
+      if (session.unit) {
+        showScreen('content');
+        renderContent();
+        return;
+      }
+    } else {
+      clearSavedSession();
+    }
+  }
+});
+
+// ============= NAVIGATION =============
+function showScreen(name) {
+  ['login', 'units', 'content', 'result'].forEach(s => {
+    document.getElementById('screen-' + s).classList.add('hidden');
+  });
+  document.getElementById('screen-' + name).classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goToUnitSelection() {
+  const name = document.getElementById('student_name').value.trim();
+  const klasse = document.getElementById('class_name').value.trim();
+  const date = document.getElementById('session_date').value;
+
+  if (!name || !klasse || !date) {
+    alert('Bitte alle Felder ausfüllen.');
+    return;
+  }
+  session.student_name = name;
+  session.class_name = klasse;
+  session.session_date = date;
+
+  showScreen('units');
+  loadUnits();
+}
+
+function backToLogin() {
+  showScreen('login');
+}
+
+async function loadUnits() {
+  const list = document.getElementById('unit-list');
+  list.innerHTML = '<div class="empty-state"><span class="loading"></span> Lade Einheiten…</div>';
+  try {
+    const res = await fetch(UNITS_INDEX + '?t=' + Date.now());
+    if (!res.ok) throw new Error('Index nicht gefunden');
+    availableUnits = await res.json();
+    renderUnitList();
+  } catch (err) {
+    list.innerHTML = '<div class="status status-error">Lerneinheiten konnten nicht geladen werden. Bitte deinen Dozenten ansprechen.</div>';
+  }
+}
+
+function renderUnitList() {
+  const list = document.getElementById('unit-list');
+  if (!availableUnits.length) {
+    list.innerHTML = '<div class="empty-state">Aktuell sind keine Einheiten verfügbar.</div>';
+    return;
+  }
+  list.innerHTML = '';
+  availableUnits.forEach(u => {
+    const div = document.createElement('div');
+    div.className = 'unit-item';
+    div.onclick = () => selectUnit(u.file);
+    const typeLabel = u.type === 'quiz' ? 'Quiz' : (u.type === 'short_case' ? 'Kurzfall' : 'Reasoning-Fall');
+    div.innerHTML = `
+      <div>
+        <div class="unit-title">${escapeHtml(u.title)}</div>
+        <div class="unit-meta">${escapeHtml(u.description || '')}</div>
+      </div>
+      <div class="unit-tag">${typeLabel}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+async function selectUnit(file) {
+  try {
+    const res = await fetch('einheiten/' + file + '?t=' + Date.now());
+    if (!res.ok) throw new Error('Einheit nicht gefunden');
+    session.unit = await res.json();
+    session.answers = {};
+    session.markings = {};
+    saveSession();
+    showScreen('content');
+    renderContent();
+  } catch (err) {
+    alert('Lerneinheit konnte nicht geladen werden: ' + err.message);
+  }
+}
+
+// ============= INHALT RENDERN =============
+function renderContent() {
+  const u = session.unit;
+  const card = document.getElementById('content-card');
+  const label = document.getElementById('progress-label');
+  const counter = document.getElementById('progress-counter');
+
+  label.textContent = u.title;
+  counter.textContent = u.type === 'quiz' ? `${u.questions.length} Fragen` : '';
+
+  if (u.type === 'quiz') {
+    renderQuiz(card, u);
+  } else if (u.type === 'short_case') {
+    renderShortCase(card, u);
+  } else if (u.type === 'reasoning_case') {
+    renderReasoningCase(card, u);
+  } else {
+    card.innerHTML = '<p>Unbekannter Inhaltstyp.</p>';
+  }
+  updateProgress();
+}
+
+function renderQuiz(card, u) {
+  let html = `<h1>${escapeHtml(u.title)}</h1>`;
+  if (u.intro) html += `<p class="lead">${escapeHtml(u.intro)}</p>`;
+  u.questions.forEach((q, idx) => {
+    html += renderQuestion(q, idx, 'q');
+  });
+  card.innerHTML = html;
+  attachOptionListeners();
+}
+
+function renderShortCase(card, u) {
+  let html = `<h1>${escapeHtml(u.title)}</h1>`;
+  if (u.intro) html += `<p class="lead">${escapeHtml(u.intro)}</p>`;
+  html += renderVignette(u.vignette, false);
+  if (u.questions && u.questions.length) {
+    html += '<h2 style="margin-top:24px;">Fragen</h2>';
+    u.questions.forEach((q, idx) => {
+      html += renderQuestion(q, idx, 'q');
+    });
+  }
+  card.innerHTML = html;
+  attachOptionListeners();
+}
+
+function renderReasoningCase(card, u) {
+  let html = `<h1>${escapeHtml(u.title)}</h1>`;
+  if (u.intro) html += `<p class="lead">${escapeHtml(u.intro)}</p>`;
+  html += renderVignette(u.vignette, true);
+
+  // Triage
+  html += `
+    <div class="reasoning-section" style="margin-top:24px;">
+      <h2>Triage</h2>
+      <p class="reasoning-help">Was ist deine Entscheidung auf Basis der Vignette?</p>
+      <div class="field">
+        <label for="r_triage">Triage-Entscheidung</label>
+        <select id="r_triage" onchange="saveReasoning()">
+          <option value="">Bitte wählen…</option>
+          <option value="Nur Physiotherapie">Nur Physiotherapie</option>
+          <option value="Physiotherapie + Arzt">Physiotherapie + Arzt</option>
+          <option value="Arzt (ohne PT)">Arzt (ohne PT)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="r_triage_reason">Begründung der Triage</label>
+        <textarea id="r_triage_reason" placeholder="Welche Befunde stützen deine Entscheidung?" oninput="saveReasoning()"></textarea>
+      </div>
+    </div>
+
+    <div class="reasoning-section">
+      <h2>Hypothesen</h2>
+      <p class="reasoning-help">Bilde deine Haupthypothese, weitere mögliche Hypothesen und eine Red-Flag-Hypothese.</p>
+
+      <div class="hypothesis-block">
+        <label for="r_main">Haupthypothese</label>
+        <textarea id="r_main" placeholder="Welches Krankheitsbild vermutest du primär?" oninput="saveReasoning()"></textarea>
+        <label for="r_main_reason" style="margin-top:10px;">Begründung Haupthypothese</label>
+        <textarea id="r_main_reason" placeholder="Welche Befunde stützen diese Hypothese?" oninput="saveReasoning()"></textarea>
+      </div>
+
+      <div class="hypothesis-block">
+        <label for="r_alt">Weitere mögliche Hypothesen</label>
+        <textarea id="r_alt" placeholder="Welche Differenzialdiagnosen kommen in Frage?" oninput="saveReasoning()"></textarea>
+      </div>
+
+      <div class="hypothesis-block">
+        <label for="r_redflag">Red-Flag-Hypothese</label>
+        <textarea id="r_redflag" placeholder="Welche ernsthafte Pathologie müsste ausgeschlossen werden?" oninput="saveReasoning()"></textarea>
+        <label for="r_redflag_reason" style="margin-top:10px;">Begründung Red-Flag-Hypothese</label>
+        <textarea id="r_redflag_reason" placeholder="Welche Befunde wecken den Verdacht?" oninput="saveReasoning()"></textarea>
+      </div>
+    </div>
+
+    <div class="reasoning-section">
+      <h2>Weitere Therapieplanung</h2>
+      <p class="reasoning-help">Welche Tests, Fragebögen oder Zusatzfragen würdest du einsetzen, um deine Hypothesen zu verifizieren oder falsifizieren?</p>
+      <div class="field">
+        <textarea id="r_plan" style="min-height:120px;" placeholder="Geplante Tests / Fragebögen / weitere Anamnesefragen…" oninput="saveReasoning()"></textarea>
+      </div>
+    </div>
+  `;
+  card.innerHTML = html;
+
+  // Wiederhergestellten Zustand einsetzen
+  if (session.answers.reasoning) {
+    const r = session.answers.reasoning;
+    setVal('r_triage', r.triage);
+    setVal('r_triage_reason', r.triage_reason);
+    setVal('r_main', r.main_hypothesis);
+    setVal('r_main_reason', r.main_reason);
+    setVal('r_alt', r.alternative_hypotheses);
+    setVal('r_redflag', r.redflag_hypothesis);
+    setVal('r_redflag_reason', r.redflag_reason);
+    setVal('r_plan', r.further_plan);
+  }
+
+  attachWordListeners();
+  // Markierungen wiederherstellen
+  if (session.markings && Object.keys(session.markings).length) {
+    document.querySelectorAll('.word').forEach(el => {
+      if (session.markings[el.dataset.idx]) el.classList.add('marked');
+    });
+    updateMarkingsCount();
+  }
+}
+
+function setVal(id, v) { if (v != null) document.getElementById(id).value = v; }
+
+function renderVignette(text, withMarking) {
+  let inner;
+  if (withMarking) {
+    // Zerlege in Wörter
+    const tokens = text.split(/(\s+|[.,;:!?„""()\-–])/);
+    inner = '<div class="vignette-words">';
+    let wordIdx = 0;
+    tokens.forEach(t => {
+      if (/^\s+$/.test(t)) {
+        inner += t;
+      } else if (/^[.,;:!?„""()\-–]$/.test(t)) {
+        inner += escapeHtml(t);
+      } else if (t.length === 0) {
+        // skip
+      } else {
+        inner += `<span class="word" data-idx="${wordIdx}" onclick="toggleMark(this)">${escapeHtml(t)}</span>`;
+        wordIdx++;
+      }
+    });
+    inner += '</div>';
+    inner += `
+      <div class="markings-info">
+        <div class="markings-count">Markiert: <strong id="marking-count">0</strong></div>
+        <button class="btn-ghost" onclick="clearMarkings()">Alle Markierungen löschen</button>
+      </div>
+    `;
+  } else {
+    inner = `<div>${escapeHtml(text).replace(/\n/g, '<br>')}</div>`;
+  }
+  return `
+    <div class="vignette">
+      <div class="vignette-title">Patientenvignette</div>
+      ${inner}
+    </div>
+  `;
+}
+
+function toggleMark(el) {
+  el.classList.toggle('marked');
+  const idx = el.dataset.idx;
+  if (el.classList.contains('marked')) {
+    session.markings[idx] = el.textContent;
+  } else {
+    delete session.markings[idx];
+  }
+  updateMarkingsCount();
+  saveSession();
+}
+
+function clearMarkings() {
+  document.querySelectorAll('.word.marked').forEach(el => el.classList.remove('marked'));
+  session.markings = {};
+  updateMarkingsCount();
+  saveSession();
+}
+
+function updateMarkingsCount() {
+  const el = document.getElementById('marking-count');
+  if (el) el.textContent = Object.keys(session.markings).length;
+}
+
+function attachWordListeners() {
+  // schon im HTML via onclick
+}
+
+function renderQuestion(q, idx, prefix) {
+  const isMulti = q.multi === true;
+  const inputType = isMulti ? 'checkbox' : 'radio';
+  let html = `
+    <div class="question" data-q="${idx}">
+      <div class="question-num">Frage ${idx + 1}${isMulti ? ' · Mehrfachauswahl' : ''}</div>
+      <div class="question-text">${escapeHtml(q.text)}</div>
+      <div class="options">
+  `;
+  q.options.forEach((opt, oi) => {
+    html += `
+      <label class="option" data-q="${idx}" data-o="${oi}">
+        <input type="${inputType}" name="${prefix}_${idx}" value="${oi}" onchange="onOptionChange(${idx})">
+        <span class="option-text">${escapeHtml(opt)}</span>
+      </label>
+    `;
+  });
+  html += `</div></div>`;
+  return html;
+}
+
+function attachOptionListeners() {
+  // Wiederhergestellte Antworten setzen
+  if (session.answers.questions) {
+    Object.entries(session.answers.questions).forEach(([qIdx, val]) => {
+      const arr = Array.isArray(val) ? val : [val];
+      arr.forEach(v => {
+        const input = document.querySelector(`input[name="q_${qIdx}"][value="${v}"]`);
+        if (input) {
+          input.checked = true;
+          input.closest('.option').classList.add('selected');
+        }
+      });
+    });
+  }
+}
+
+function onOptionChange(qIdx) {
+  const u = session.unit;
+  const q = u.questions ? u.questions[qIdx] : null;
+  if (!q) return;
+  const inputs = document.querySelectorAll(`input[name="q_${qIdx}"]`);
+  const selected = [];
+  inputs.forEach(i => {
+    const opt = i.closest('.option');
+    if (i.checked) {
+      selected.push(parseInt(i.value));
+      opt.classList.add('selected');
+    } else {
+      opt.classList.remove('selected');
+    }
+  });
+  if (!session.answers.questions) session.answers.questions = {};
+  session.answers.questions[qIdx] = q.multi ? selected : (selected[0] ?? null);
+  saveSession();
+  updateProgress();
+}
+
+function saveReasoning() {
+  session.answers.reasoning = {
+    triage: document.getElementById('r_triage').value,
+    triage_reason: document.getElementById('r_triage_reason').value,
+    main_hypothesis: document.getElementById('r_main').value,
+    main_reason: document.getElementById('r_main_reason').value,
+    alternative_hypotheses: document.getElementById('r_alt').value,
+    redflag_hypothesis: document.getElementById('r_redflag').value,
+    redflag_reason: document.getElementById('r_redflag_reason').value,
+    further_plan: document.getElementById('r_plan').value
+  };
+  saveSession();
+  updateProgress();
+}
+
+function updateProgress() {
+  const u = session.unit;
+  const fill = document.getElementById('progress-fill');
+  const counter = document.getElementById('progress-counter');
+  if (!u) return;
+  let progress = 0;
+  if (u.type === 'quiz' || u.type === 'short_case') {
+    const total = u.questions ? u.questions.length : 0;
+    const answered = session.answers.questions ? Object.keys(session.answers.questions).length : 0;
+    progress = total ? (answered / total) * 100 : 0;
+    counter.textContent = `${answered} / ${total}`;
+  } else if (u.type === 'reasoning_case') {
+    const r = session.answers.reasoning || {};
+    const fields = ['triage', 'main_hypothesis', 'further_plan'];
+    const filled = fields.filter(f => r[f] && r[f].trim().length > 0).length;
+    progress = (filled / fields.length) * 100;
+    counter.textContent = `${filled} / ${fields.length} Pflichtfelder`;
+  }
+  fill.style.width = progress + '%';
+}
+
+// ============= ABSENDEN =============
+async function submitContent() {
+  const u = session.unit;
+  if (!u) return;
+
+  // Validierung
+  if (u.type === 'quiz' || u.type === 'short_case') {
+    const total = u.questions ? u.questions.length : 0;
+    const answered = session.answers.questions ? Object.keys(session.answers.questions).length : 0;
+    if (answered < total) {
+      if (!confirm(`Du hast erst ${answered} von ${total} Fragen beantwortet. Trotzdem absenden?`)) return;
+    }
+  }
+
+  // Auswertung berechnen
+  let scoreCorrect = null, scoreTotal = null;
+  if ((u.type === 'quiz' || u.type === 'short_case') && u.questions) {
+    scoreTotal = u.questions.length;
+    scoreCorrect = 0;
+    u.questions.forEach((q, idx) => {
+      const ans = session.answers.questions ? session.answers.questions[idx] : null;
+      if (isAnswerCorrect(q, ans)) scoreCorrect++;
+    });
+  }
+
+  // Daten an Supabase senden
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading"></span> Sende…';
+
+  const payload = {
+    student_name: session.student_name,
+    class_name: session.class_name,
+    session_date: session.session_date,
+    unit_id: session.unit.id,
+    unit_title: session.unit.title,
+    content_type: session.unit.type,
+    answers: {
+      ...session.answers,
+      markings: Object.values(session.markings)
+    },
+    score_correct: scoreCorrect,
+    score_total: scoreTotal
+  };
+
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/submissions', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(errText || 'Speichern fehlgeschlagen');
+    }
+    clearSavedSession();
+    showResult(scoreCorrect, scoreTotal);
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Antworten absenden';
+    alert('Fehler beim Speichern: ' + err.message + '\n\nDeine Antworten sind lokal noch erhalten. Versuche es bitte gleich noch einmal.');
+  }
+}
+
+function isAnswerCorrect(q, ans) {
+  if (ans == null) return false;
+  if (q.multi) {
+    if (!Array.isArray(ans) || !Array.isArray(q.correct)) return false;
+    if (ans.length !== q.correct.length) return false;
+    const sorted1 = [...ans].sort();
+    const sorted2 = [...q.correct].sort();
+    return sorted1.every((v, i) => v === sorted2[i]);
+  }
+  return ans === q.correct;
+}
+
+function showResult(correct, total) {
+  const u = session.unit;
+  const card = document.getElementById('result-card');
+  let html = `<h1>Geschafft!</h1>
+  <p class="lead">Deine Antworten wurden gespeichert.</p>`;
+
+  if (correct !== null && total !== null && total > 0) {
+    const pct = Math.round((correct / total) * 100);
+    html += `
+      <div class="score-card">
+        <div class="score-number">${correct} / ${total}</div>
+        <div class="score-label">Richtig beantwortet · ${pct}%</div>
+      </div>
+    `;
+    // Detailauswertung pro Frage
+    html += '<h2 style="margin-top:20px;">Auswertung</h2>';
+    u.questions.forEach((q, idx) => {
+      const ans = session.answers.questions ? session.answers.questions[idx] : null;
+      const correct = isAnswerCorrect(q, ans);
+      html += `
+        <div class="question">
+          <div class="question-num">Frage ${idx + 1} · ${correct ? 'Richtig' : 'Falsch'}</div>
+          <div class="question-text">${escapeHtml(q.text)}</div>
+          <div class="options">
+      `;
+      q.options.forEach((opt, oi) => {
+        const isCorrectOption = q.multi ? q.correct.includes(oi) : q.correct === oi;
+        const wasSelected = q.multi ? (Array.isArray(ans) && ans.includes(oi)) : ans === oi;
+        let cls = 'option';
+        if (isCorrectOption) cls += ' correct';
+        else if (wasSelected) cls += ' wrong';
+        html += `<div class="${cls}"><span class="option-text">${escapeHtml(opt)}</span></div>`;
+      });
+      html += '</div>';
+      if (q.explanation) {
+        html += `<div class="feedback ${correct ? 'correct' : 'wrong'}"><strong>${correct ? '✓ Richtig' : '✗ Erläuterung'}</strong>${escapeHtml(q.explanation)}</div>`;
+      }
+      html += '</div>';
+    });
+  } else if (u.type === 'reasoning_case') {
+    html += `
+      <div class="status status-success">
+        Deine Falllösung wurde erfasst und wird im Unterricht besprochen. Eine automatische Auswertung gibt es bei Reasoning-Fällen nicht — dein Dozent prüft deine Antworten manuell.
+      </div>
+    `;
+    if (u.expert_solution) {
+      html += `<h2 style="margin-top:24px;">Wie es weiterging</h2>
+      <div class="vignette" style="border-left-color: var(--correct);">
+        <div class="vignette-title" style="color:var(--correct);">Experten-Lösung</div>
+        <div>${escapeHtml(u.expert_solution).replace(/\n/g, '<br>')}</div>
+      </div>`;
+    }
+  }
+
+  html += `
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="restartFlow()">Weitere Einheit bearbeiten</button>
+    </div>
+  `;
+  card.innerHTML = html;
+  showScreen('result');
+}
+
+function restartFlow() {
+  session.unit = null;
+  session.answers = {};
+  session.markings = {};
+  showScreen('units');
+  loadUnits();
+}
+
+function confirmAbort() {
+  if (confirm('Bist du sicher, dass du abbrechen willst? Deine bisherigen Eingaben gehen verloren.')) {
+    clearSavedSession();
+    location.reload();
+  }
+}
+
+// ============= ZWISCHENSPEICHERN =============
+let saveTimer = null;
+function saveSession() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try {
+      localStorage.setItem('physio_session_v1', JSON.stringify(session));
+      showAutosavePill();
+    } catch (e) { /* speicher voll oder geblockt */ }
+  }, 400);
+}
+
+function loadSavedSession() {
+  try {
+    const raw = localStorage.getItem('physio_session_v1');
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch (e) { return null; }
+}
+
+function clearSavedSession() {
+  try { localStorage.removeItem('physio_session_v1'); } catch (e) {}
+}
+
+function showAutosavePill() {
+  const pill = document.getElementById('autosave-pill');
+  pill.classList.add('show');
+  clearTimeout(pill._timer);
+  pill._timer = setTimeout(() => pill.classList.remove('show'), 1500);
+}
+
+// ============= UTILS =============
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+</script>
+
+</body>
+</html>

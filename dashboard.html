@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · Physiotherapie Lerntool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f1ea;
+  --bg-card: #fffcf6;
+  --ink: #1c1a17;
+  --ink-soft: #4a463f;
+  --ink-muted: #8a857a;
+  --accent: #a8431e;
+  --accent-bg: #f4e3d7;
+  --line: #d8d2c4;
+  --line-soft: #e8e2d4;
+  --correct: #2d6a3e;
+  --wrong: #a83232;
+  --shadow: 0 1px 2px rgba(28,26,23,0.04), 0 4px 12px rgba(28,26,23,0.06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  min-height: 100vh;
+  padding: 24px 16px 80px;
+}
+
+.container { max-width: 1200px; margin: 0 auto; }
+
+h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 600; }
+h1 { font-size: 30px; margin-bottom: 4px; letter-spacing: -0.01em; }
+h2 { font-size: 22px; margin-bottom: 12px; }
+h3 { font-size: 17px; margin-bottom: 8px; }
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.brand-mark { font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px; color: var(--accent); }
+.brand-sub { font-size: 13px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+}
+
+label { display: block; font-size: 12px; font-weight: 500; color: var(--ink-soft); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+input, select {
+  width: 100%;
+  padding: 9px 11px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+}
+input:focus, select:focus { outline: none; border-color: var(--accent); }
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+button {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 9px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-primary { background: var(--accent); color: #fffcf6; }
+.btn-primary:hover { background: #8c3818; }
+.btn-secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.btn-secondary:hover { background: var(--accent-bg); }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 16px 18px;
+  border-radius: 8px;
+}
+.stat-label { font-size: 12px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.stat-value {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 4px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+th, td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--line-soft);
+}
+th {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--bg);
+}
+tr.clickable { cursor: pointer; }
+tr.clickable:hover { background: var(--accent-bg); }
+
+.score-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+}
+.score-pill.high { background: #e2efe5; color: var(--correct); }
+.score-pill.mid { background: #fef3c7; color: #92400e; }
+.score-pill.low { background: #f4e0e0; color: var(--wrong); }
+.score-pill.na { background: var(--line-soft); color: var(--ink-muted); }
+
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.modal-bg {
+  position: fixed; inset: 0;
+  background: rgba(28,26,23,0.55);
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  z-index: 50;
+  padding: 24px 12px;
+  overflow-y: auto;
+}
+.modal-bg.active { display: flex; }
+.modal {
+  background: var(--bg);
+  border-radius: 10px;
+  max-width: 760px;
+  width: 100%;
+  padding: 28px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+}
+.modal-close { float: right; background: none; padding: 4px 10px; color: var(--ink-muted); }
+.modal-close:hover { color: var(--accent); background: var(--accent-bg); }
+
+.detail-block {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+}
+.detail-block h4 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+.detail-block p { white-space: pre-wrap; line-height: 1.55; }
+.detail-block .markings { display: flex; flex-wrap: wrap; gap: 6px; }
+.marking-chip {
+  background: #fff3b0;
+  color: var(--ink);
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+.q-detail {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--line);
+  background: var(--bg-card);
+  border-radius: 4px;
+}
+.q-detail.correct { border-left-color: var(--correct); }
+.q-detail.wrong { border-left-color: var(--wrong); }
+.q-detail .q-text { font-weight: 500; margin-bottom: 6px; }
+.q-detail .q-given, .q-detail .q-correct {
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-family: 'JetBrains Mono', monospace;
+}
+.q-detail .q-given strong, .q-detail .q-correct strong { font-family: 'Inter', sans-serif; color: var(--ink-muted); font-weight: 500; }
+
+.empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--ink-muted);
+}
+
+.password-screen {
+  max-width: 420px;
+  margin: 80px auto 0;
+}
+
+.error { color: var(--wrong); font-size: 13px; margin-top: 6px; }
+
+.loading-bar {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border: 2px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 600px) {
+  table { font-size: 13px; }
+  th, td { padding: 8px; }
+  .modal { padding: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="brand">
+    <div class="brand-mark">Skill Lab</div>
+    <div class="brand-sub">Dozenten-Dashboard</div>
+  </header>
+
+  <!-- PASSWORT-SCHUTZ -->
+  <section id="screen-pw">
+    <div class="card password-screen">
+      <h1>Anmeldung</h1>
+      <p style="color:var(--ink-soft);margin-bottom:16px;">Dieses Dashboard ist passwortgeschützt.</p>
+      <div style="margin-bottom:14px;">
+        <label for="pw">Dozenten-Passwort</label>
+        <input type="password" id="pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPw()">
+        <div class="error" id="pw-error" style="display:none;">Falsches Passwort.</div>
+      </div>
+      <button class="btn-primary" onclick="checkPw()">Einloggen</button>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="screen-main" style="display:none;">
+    <div class="card">
+      <h2>Filter</h2>
+      <div class="filters">
+        <div>
+          <label for="f-class">Klasse</label>
+          <select id="f-class" onchange="applyFilters()"><option value="">Alle</option></select>
+        </div>
+        <div>
+          <label for="f-date-from">Datum von</label>
+          <input type="date" id="f-date-from" onchange="applyFilters()">
+        </div>
+        <div>
+          <label for="f-date-to">Datum bis</label>
+          <input type="date" id="f-date-to" onchange="applyFilters()">
+        </div>
+        <div>
+          <label for="f-unit">Lerneinheit</label>
+          <select id="f-unit" onchange="applyFilters()"><option value="">Alle</option></select>
+        </div>
+        <div>
+          <label for="f-search">Schülername</label>
+          <input type="text" id="f-search" placeholder="Filter…" oninput="applyFilters()">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="loadData()">Aktualisieren</button>
+        <button class="btn-secondary" onclick="exportCsv()">CSV exportieren</button>
+        <button class="btn-secondary" onclick="logout()" style="margin-left:auto;">Abmelden</button>
+      </div>
+    </div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="card">
+      <h2 style="margin-bottom:14px;">Einsendungen</h2>
+      <div id="table-wrap">
+        <div class="empty"><span class="loading-bar"></span> Lade Daten…</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- DETAIL-MODAL -->
+<div id="modal" class="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal-body"></div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://oosqtqanwsijbmkxgyao.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9vc3F0cWFud3NpamJta3hneWFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyODI4NTYsImV4cCI6MjA5Mzg1ODg1Nn0.zSJsXeYRb8y5_XTN0-K9fdB2k1TnGMEK6imlIcqznTs';
+
+// ⚠️ Passwort-Hash. Wechsel bei Bedarf — Anleitung am Ende der Datei.
+// Entspricht dem Passwort: "aendern-bitte"
+const DOCENT_PW_HASH = '29e1734b0012a37b6288b400bae9efc60168740ef3e3e7e13dee3eb75c2460cd';
+
+let allRows = [];
+let unitsIndex = [];
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem('docent_ok') === '1') {
+    showMain();
+  }
+});
+
+async function checkPw() {
+  const pw = document.getElementById('pw').value;
+  const hash = await sha256(pw);
+  if (hash === DOCENT_PW_HASH) {
+    sessionStorage.setItem('docent_ok', '1');
+    showMain();
+  } else {
+    document.getElementById('pw-error').style.display = 'block';
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('docent_ok');
+  location.reload();
+}
+
+async function sha256(text) {
+  const buf = new TextEncoder().encode(text);
+  const hash = await crypto.subtle.digest('SHA-256', buf);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function showMain() {
+  document.getElementById('screen-pw').style.display = 'none';
+  document.getElementById('screen-main').style.display = 'block';
+  await loadUnitsIndex();
+  await loadData();
+}
+
+async function loadUnitsIndex() {
+  try {
+    const res = await fetch('einheiten/index.json?t=' + Date.now());
+    if (res.ok) unitsIndex = await res.json();
+  } catch (e) { unitsIndex = []; }
+}
+
+async function loadData() {
+  document.getElementById('table-wrap').innerHTML = '<div class="empty"><span class="loading-bar"></span> Lade Daten…</div>';
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/submissions?select=*&order=created_at.desc&limit=2000', {
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
+    });
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error(txt);
+    }
+    allRows = await res.json();
+    populateFilters();
+    applyFilters();
+  } catch (err) {
+    document.getElementById('table-wrap').innerHTML = `<div class="empty" style="color:var(--wrong);">
+      <strong>Daten konnten nicht geladen werden.</strong><br>
+      ${escapeHtml(err.message)}<br><br>
+      <small>Hinweis: Falls dies ein Berechtigungsfehler ist, musst du in Supabase eine SELECT-Policy für authentifizierte Nutzer einrichten oder das Dashboard direkt im Supabase-Editor verwenden.</small>
+    </div>`;
+  }
+}
+
+function populateFilters() {
+  const classes = [...new Set(allRows.map(r => r.class_name))].sort();
+  const units = [...new Set(allRows.map(r => r.unit_id))].sort();
+  const fc = document.getElementById('f-class');
+  const fu = document.getElementById('f-unit');
+  fc.innerHTML = '<option value="">Alle</option>' + classes.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+  fu.innerHTML = '<option value="">Alle</option>' + units.map(u => `<option value="${escapeHtml(u)}">${escapeHtml(u)}</option>`).join('');
+}
+
+function applyFilters() {
+  const fc = document.getElementById('f-class').value;
+  const ff = document.getElementById('f-date-from').value;
+  const ft = document.getElementById('f-date-to').value;
+  const fu = document.getElementById('f-unit').value;
+  const fs = document.getElementById('f-search').value.toLowerCase().trim();
+
+  const rows = allRows.filter(r => {
+    if (fc && r.class_name !== fc) return false;
+    if (fu && r.unit_id !== fu) return false;
+    if (ff && r.session_date < ff) return false;
+    if (ft && r.session_date > ft) return false;
+    if (fs && !r.student_name.toLowerCase().includes(fs)) return false;
+    return true;
+  });
+
+  renderStats(rows);
+  renderTable(rows);
+}
+
+function renderStats(rows) {
+  const total = rows.length;
+  const students = new Set(rows.map(r => r.student_name + '|' + r.class_name)).size;
+  const scored = rows.filter(r => r.score_total != null && r.score_total > 0);
+  const avgPct = scored.length ?
+    Math.round(scored.reduce((s, r) => s + (r.score_correct / r.score_total) * 100, 0) / scored.length) :
+    null;
+  const reasoningCount = rows.filter(r => r.content_type === 'reasoning_case').length;
+
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><div class="stat-label">Einsendungen</div><div class="stat-value">${total}</div></div>
+    <div class="stat"><div class="stat-label">Schüler</div><div class="stat-value">${students}</div></div>
+    <div class="stat"><div class="stat-label">Ø Quiz-Quote</div><div class="stat-value">${avgPct !== null ? avgPct + '%' : '—'}</div></div>
+    <div class="stat"><div class="stat-label">Reasoning-Fälle</div><div class="stat-value">${reasoningCount}</div></div>
+  `;
+}
+
+function renderTable(rows) {
+  if (!rows.length) {
+    document.getElementById('table-wrap').innerHTML = '<div class="empty">Keine Einsendungen für diese Filter.</div>';
+    return;
+  }
+  let html = `<div style="overflow-x:auto;"><table>
+    <thead><tr>
+      <th>Datum</th><th>Klasse</th><th>Name</th><th>Lerneinheit</th><th>Typ</th><th>Score</th><th>Eingegangen</th>
+    </tr></thead><tbody>`;
+  rows.forEach((r, idx) => {
+    const score = formatScore(r);
+    const typeLabel = r.content_type === 'quiz' ? 'Quiz' : (r.content_type === 'short_case' ? 'Kurzfall' : 'Reasoning');
+    const created = new Date(r.created_at).toLocaleString('de-DE', { dateStyle: 'short', timeStyle: 'short' });
+    html += `<tr class="clickable" onclick="showDetail('${r.id}')">
+      <td>${escapeHtml(r.session_date)}</td>
+      <td>${escapeHtml(r.class_name)}</td>
+      <td>${escapeHtml(r.student_name)}</td>
+      <td>${escapeHtml(r.unit_title)}</td>
+      <td><span class="tag">${typeLabel}</span></td>
+      <td>${score}</td>
+      <td style="color:var(--ink-muted);font-size:12px;">${created}</td>
+    </tr>`;
+  });
+  html += '</tbody></table></div>';
+  document.getElementById('table-wrap').innerHTML = html;
+}
+
+function formatScore(r) {
+  if (r.score_total == null || r.score_total === 0) return '<span class="score-pill na">—</span>';
+  const pct = (r.score_correct / r.score_total) * 100;
+  const cls = pct >= 75 ? 'high' : (pct >= 50 ? 'mid' : 'low');
+  return `<span class="score-pill ${cls}">${r.score_correct}/${r.score_total} · ${Math.round(pct)}%</span>`;
+}
+
+async function showDetail(id) {
+  const r = allRows.find(x => x.id === id);
+  if (!r) return;
+
+  // Versuche, zugehörige Lerneinheit zu laden, um Fragen-Texte anzeigen zu können
+  let unit = null;
+  const idx = unitsIndex.find(u => u.id === r.unit_id);
+  if (idx) {
+    try {
+      const res = await fetch('einheiten/' + idx.file + '?t=' + Date.now());
+      if (res.ok) unit = await res.json();
+    } catch (e) { /* ohne Unit-Daten weiter */ }
+  }
+
+  let html = `
+    <button class="modal-close" onclick="closeModal()">Schließen</button>
+    <h2>${escapeHtml(r.student_name)}</h2>
+    <p style="color:var(--ink-soft);margin-bottom:18px;">
+      ${escapeHtml(r.class_name)} · ${escapeHtml(r.session_date)} · ${escapeHtml(r.unit_title)} · 
+      ${formatScore(r)}
+    </p>
+  `;
+
+  // Quiz/Kurzfall-Antworten
+  if ((r.content_type === 'quiz' || r.content_type === 'short_case') && r.answers && r.answers.questions) {
+    html += '<h3>Antworten</h3>';
+    Object.entries(r.answers.questions).forEach(([qIdx, ans]) => {
+      const q = unit && unit.questions ? unit.questions[qIdx] : null;
+      const correct = q ? isAnswerCorrect(q, ans) : null;
+      const cls = correct === true ? 'correct' : (correct === false ? 'wrong' : '');
+      html += `<div class="q-detail ${cls}">`;
+      if (q) {
+        html += `<div class="q-text">${escapeHtml(q.text)}</div>`;
+        const givenText = formatAnswerText(q, ans);
+        const correctText = formatAnswerText(q, q.correct);
+        html += `<div class="q-given"><strong>Gegeben:</strong> ${escapeHtml(givenText)}</div>`;
+        html += `<div class="q-correct"><strong>Richtig:</strong> ${escapeHtml(correctText)}</div>`;
+      } else {
+        html += `<div class="q-text">Frage ${parseInt(qIdx) + 1}</div>`;
+        html += `<div class="q-given"><strong>Gegeben:</strong> ${escapeHtml(JSON.stringify(ans))}</div>`;
+        html += `<div style="color:var(--ink-muted);font-size:12px;margin-top:4px;">Originalfrage nicht mehr verfügbar (Lerneinheit geändert/gelöscht).</div>`;
+      }
+      html += '</div>';
+    });
+  }
+
+  // Reasoning-Antworten
+  if (r.content_type === 'reasoning_case' && r.answers && r.answers.reasoning) {
+    const re = r.answers.reasoning;
+    html += '<h3>Clinical Reasoning</h3>';
+    html += renderDetailBlock('Triage', re.triage);
+    html += renderDetailBlock('Begründung Triage', re.triage_reason);
+    html += renderDetailBlock('Haupthypothese', re.main_hypothesis);
+    html += renderDetailBlock('Begründung Haupthypothese', re.main_reason);
+    html += renderDetailBlock('Alternative Hypothesen', re.alternative_hypotheses);
+    html += renderDetailBlock('Red-Flag-Hypothese', re.redflag_hypothesis);
+    html += renderDetailBlock('Begründung Red Flag', re.redflag_reason);
+    html += renderDetailBlock('Weitere Therapieplanung', re.further_plan);
+  }
+
+  // Markierte Wörter
+  if (r.answers && Array.isArray(r.answers.markings) && r.answers.markings.length) {
+    html += '<h3>Markierte Hinweise im Vignettentext</h3>';
+    html += '<div class="detail-block"><div class="markings">';
+    r.answers.markings.forEach(w => {
+      html += `<span class="marking-chip">${escapeHtml(w)}</span>`;
+    });
+    html += '</div></div>';
+  }
+
+  document.getElementById('modal-body').innerHTML = html;
+  document.getElementById('modal').classList.add('active');
+}
+
+function renderDetailBlock(title, text) {
+  if (!text || !text.trim()) {
+    return `<div class="detail-block"><h4>${title}</h4><p style="color:var(--ink-muted);font-style:italic;">— leer —</p></div>`;
+  }
+  return `<div class="detail-block"><h4>${title}</h4><p>${escapeHtml(text)}</p></div>`;
+}
+
+function formatAnswerText(q, ans) {
+  if (ans == null) return '— keine Antwort —';
+  if (Array.isArray(ans)) {
+    return ans.map(i => q.options[i] || ('?' + i)).join(' | ');
+  }
+  return q.options[ans] || ('?' + ans);
+}
+
+function isAnswerCorrect(q, ans) {
+  if (ans == null) return false;
+  if (q.multi) {
+    if (!Array.isArray(ans) || !Array.isArray(q.correct)) return false;
+    if (ans.length !== q.correct.length) return false;
+    const s1 = [...ans].sort();
+    const s2 = [...q.correct].sort();
+    return s1.every((v, i) => v === s2[i]);
+  }
+  return ans === q.correct;
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+}
+
+function exportCsv() {
+  const fc = document.getElementById('f-class').value;
+  const ff = document.getElementById('f-date-from').value;
+  const ft = document.getElementById('f-date-to').value;
+  const fu = document.getElementById('f-unit').value;
+  const fs = document.getElementById('f-search').value.toLowerCase().trim();
+
+  const rows = allRows.filter(r => {
+    if (fc && r.class_name !== fc) return false;
+    if (fu && r.unit_id !== fu) return false;
+    if (ff && r.session_date < ff) return false;
+    if (ft && r.session_date > ft) return false;
+    if (fs && !r.student_name.toLowerCase().includes(fs)) return false;
+    return true;
+  });
+
+  const header = ['Datum', 'Klasse', 'Name', 'Lerneinheit', 'Typ', 'Score-Richtig', 'Score-Total', 'Score-Prozent', 'Eingegangen', 'Antworten-JSON'];
+  const lines = [header.join(';')];
+  rows.forEach(r => {
+    const pct = (r.score_total && r.score_total > 0) ? Math.round((r.score_correct / r.score_total) * 100) : '';
+    const line = [
+      r.session_date, r.class_name, r.student_name, r.unit_title,
+      r.content_type, r.score_correct ?? '', r.score_total ?? '', pct,
+      new Date(r.created_at).toLocaleString('de-DE'),
+      JSON.stringify(r.answers).replace(/"/g, '""')
+    ].map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(';');
+    lines.push(line);
+  });
+  const csv = '\uFEFF' + lines.join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `physio-tool-export-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+</script>
+
+</body>
+</html>

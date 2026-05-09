@@ -1,0 +1,42 @@
+{
+  "id": "demo-shortcase-001",
+  "type": "short_case",
+  "title": "Demo: Kurzfall Knie",
+  "intro": "Lies die Vignette aufmerksam und beantworte die Fragen anhand der Schlüsselsymptome.",
+  "vignette": "Eine 28-jährige Hobby-Fußballerin stellt sich nach einem Trainingsspiel vor. Beim Versuch, an einem Gegenspieler vorbeizulaufen, sei das rechte Knie bei fixiertem Fuß plötzlich nach innen weggeknickt. Sie habe einen lauten Knall gehört und konnte nicht weiterspielen. Innerhalb der ersten Stunde kam es zu einer starken Schwellung. Aktuell, drei Tage später, berichtet sie über ein Instabilitätsgefühl beim Gehen, insbesondere bei Drehbewegungen. Schmerzen bestehen vor allem bei Belastung, in Ruhe sind sie geringgradig.",
+  "questions": [
+    {
+      "text": "Welches Krankheitsbild ist anhand der geschilderten Symptome am wahrscheinlichsten?",
+      "options": [
+        "Patellofemorales Schmerzsyndrom",
+        "Ruptur des vorderen Kreuzbandes",
+        "Meniskusläsion ohne Bandbeteiligung",
+        "Patellaluxation"
+      ],
+      "correct": 1,
+      "explanation": "Das klassische Symptommuster — Knall beim Trauma mit Valgusstress am fixierten Fuß, sofortige Schwellung innerhalb der ersten Stunde (Hämarthros) und Instabilitätsgefühl bei Drehbewegungen — spricht stark für eine Ruptur des vorderen Kreuzbandes."
+    },
+    {
+      "text": "Welche Differenzialdiagnose lässt sich anhand der Schilderung am ehesten ausschließen?",
+      "options": [
+        "Begleitende Innenmeniskusläsion",
+        "Patellofemorales Schmerzsyndrom",
+        "Innenbandverletzung",
+        "Knöcherne Avulsionsfraktur"
+      ],
+      "correct": 1,
+      "explanation": "Ein patellofemorales Schmerzsyndrom entwickelt sich typischerweise schleichend über Wochen bis Monate, ohne akutes Trauma und ohne sofortigen Hämarthros. Die anderen Diagnosen sind im Kontext eines Valgus-Außenrotations-Traumas durchaus mit zu erwägen."
+    },
+    {
+      "text": "Welcher klinische Test ist primär geeignet, die Verdachtsdiagnose zu bestätigen?",
+      "options": [
+        "Apley-Grinding-Test",
+        "Lachman-Test",
+        "Patellar-Apprehension-Test",
+        "Thomas-Handgriff"
+      ],
+      "correct": 1,
+      "explanation": "Der Lachman-Test hat die höchste Sensitivität und Spezifität für eine VKB-Ruptur in der akuten Phase. Apley-Grinding testet primär den Meniskus, der Apprehension-Test die Patellastabilität, der Thomas-Handgriff die Hüftbeuger."
+    }
+  ]
+}
