@@ -1,0 +1,42 @@
+{
+  "id": "demo-quiz-001",
+  "type": "quiz",
+  "title": "Demo: Allgemeines Quiz",
+  "intro": "Dies ist eine Beispiel-Lerneinheit zum Testen des Tools. Der Inhalt ist sehr einfach gehalten und dient nur der Demonstration.",
+  "questions": [
+    {
+      "text": "Welche Struktur ist Teil des medialen Kapselbandapparats des Kniegelenks?",
+      "options": [
+        "Ligamentum collaterale fibulare",
+        "Ligamentum collaterale tibiale",
+        "Tractus iliotibialis",
+        "Ligamentum patellae"
+      ],
+      "correct": 1,
+      "explanation": "Das Ligamentum collaterale tibiale (Innenband) verläuft auf der medialen Seite des Knies. Das fibulare Außenband liegt lateral, der Tractus iliotibialis ist eine laterale Faszienverstärkung, das Ligamentum patellae verbindet Patella und Tuberositas tibiae."
+    },
+    {
+      "text": "Welche der folgenden Aussagen zu Red Flags bei Rückenschmerzen sind korrekt? (Mehrfachauswahl)",
+      "multi": true,
+      "options": [
+        "Plötzlich auftretende Blasen- oder Mastdarmstörung",
+        "Schmerzverstärkung beim Bücken",
+        "Ungeklärter Gewichtsverlust",
+        "Fieber unklarer Ursache"
+      ],
+      "correct": [0, 2, 3],
+      "explanation": "Blasen-/Mastdarmstörungen, ungeklärter Gewichtsverlust und Fieber gehören zu den klassischen Red Flags. Schmerzverstärkung beim Bücken ist ein häufiger Befund bei mechanischen Rückenschmerzen und allein keine Red Flag."
+    },
+    {
+      "text": "Was bedeutet 'Direct Access' in der Physiotherapie?",
+      "options": [
+        "Direkter Zugang zu bildgebenden Verfahren",
+        "Direkte Patientenversorgung ohne ärztliche Verordnung",
+        "Direkter Zugang zu allen Therapieräumen der Praxis",
+        "Direkte Abrechnung mit der Krankenkasse"
+      ],
+      "correct": 1,
+      "explanation": "Direct Access (Direktzugang) bezeichnet die Möglichkeit, dass Patienten ohne ärztliche Verordnung direkt zur Physiotherapie kommen können. Dies erfordert qualifiziertes Screening durch den Therapeuten."
+    }
+  ]
+}
