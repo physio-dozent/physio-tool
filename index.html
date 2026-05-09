@@ -975,7 +975,14 @@ async function submitContent() {
       throw new Error(errText || 'Speichern fehlgeschlagen');
     }
     clearSavedSession();
-    showResult(scoreCorrect, scoreTotal);
+    try {
+      showResult(scoreCorrect, scoreTotal);
+    } catch (e) {
+      console.error('Fehler bei Ergebnisanzeige:', e);
+      alert('Deine Antworten wurden gespeichert! Es gab nur ein kleines Problem bei der Anzeige der Ergebnisseite. Du kannst die Seite neu laden.');
+      btn.disabled = false;
+      btn.textContent = 'Antworten absenden';
+    }
   } catch (err) {
     btn.disabled = false;
     btn.textContent = 'Antworten absenden';
@@ -995,17 +1002,17 @@ function isAnswerCorrect(q, ans) {
   return ans === q.correct;
 }
 
-function showResult(correct, total) {
+function showResult(correctCount, total) {
   const u = session.unit;
   const card = document.getElementById('result-card');
   let html = `<h1>Geschafft!</h1>
   <p class="lead">Deine Antworten wurden gespeichert.</p>`;
 
-  if (correct !== null && total !== null && total > 0) {
-    const pct = Math.round((correct / total) * 100);
+  if (correctCount !== null && total !== null && total > 0) {
+    const pct = Math.round((correctCount / total) * 100);
     html += `
       <div class="score-card">
-        <div class="score-number">${correct} / ${total}</div>
+        <div class="score-number">${correctCount} / ${total}</div>
         <div class="score-label">Richtig beantwortet · ${pct}%</div>
       </div>
     `;
@@ -1013,10 +1020,10 @@ function showResult(correct, total) {
     html += '<h2 style="margin-top:20px;">Auswertung</h2>';
     u.questions.forEach((q, idx) => {
       const ans = session.answers.questions ? session.answers.questions[idx] : null;
-      const correct = isAnswerCorrect(q, ans);
+      const isCorrect = isAnswerCorrect(q, ans);
       html += `
         <div class="question">
-          <div class="question-num">Frage ${idx + 1} · ${correct ? 'Richtig' : 'Falsch'}</div>
+          <div class="question-num">Frage ${idx + 1} · ${isCorrect ? 'Richtig' : 'Falsch'}</div>
           <div class="question-text">${escapeHtml(q.text)}</div>
           <div class="options">
       `;
@@ -1030,7 +1037,7 @@ function showResult(correct, total) {
       });
       html += '</div>';
       if (q.explanation) {
-        html += `<div class="feedback ${correct ? 'correct' : 'wrong'}"><strong>${correct ? '✓ Richtig' : '✗ Erläuterung'}</strong>${escapeHtml(q.explanation)}</div>`;
+        html += `<div class="feedback ${isCorrect ? 'correct' : 'wrong'}"><strong>${isCorrect ? '✓ Richtig' : '✗ Erläuterung'}</strong>${escapeHtml(q.explanation)}</div>`;
       }
       html += '</div>';
     });
