@@ -16,10 +16,15 @@
   --ink-muted: #8a857a;
   --accent: #a8431e;
   --accent-bg: #f4e3d7;
+  --accent-soft: #d4a08a;
   --line: #d8d2c4;
   --line-soft: #e8e2d4;
   --correct: #2d6a3e;
+  --correct-bg: #e2efe5;
+  --warn: #92400e;
+  --warn-bg: #fef3c7;
   --wrong: #a83232;
+  --wrong-bg: #f4e0e0;
   --shadow: 0 1px 2px rgba(28,26,23,0.04), 0 4px 12px rgba(28,26,23,0.06);
 }
 
@@ -35,23 +40,25 @@ body {
   padding: 24px 16px 80px;
 }
 
-.container { max-width: 1200px; margin: 0 auto; }
+.container { max-width: 1280px; margin: 0 auto; }
 
-h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 600; }
-h1 { font-size: 30px; margin-bottom: 4px; letter-spacing: -0.01em; }
+h1, h2, h3, h4 { font-family: 'Fraunces', serif; font-weight: 600; letter-spacing: -0.01em; }
+h1 { font-size: 30px; margin-bottom: 4px; }
 h2 { font-size: 22px; margin-bottom: 12px; }
-h3 { font-size: 17px; margin-bottom: 8px; }
+h3 { font-size: 18px; margin-bottom: 10px; }
+h4 { font-size: 15px; margin-bottom: 6px; }
 
 .brand {
   display: flex;
   align-items: baseline;
   gap: 10px;
-  margin-bottom: 28px;
+  margin-bottom: 22px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--line);
 }
 .brand-mark { font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px; color: var(--accent); }
 .brand-sub { font-size: 13px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.brand-spacer { flex-grow: 1; }
 
 .card {
   background: var(--bg-card);
@@ -76,13 +83,6 @@ input, select {
 }
 input:focus, select:focus { outline: none; border-color: var(--accent); }
 
-.filters {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px;
-  margin-bottom: 14px;
-}
-
 button {
   font-family: inherit;
   font-size: 14px;
@@ -97,28 +97,64 @@ button {
 .btn-primary:hover { background: #8c3818; }
 .btn-secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
 .btn-secondary:hover { background: var(--accent-bg); }
-.btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 18px;
+  overflow-x: auto;
+  flex-wrap: wrap;
+}
+.tab {
+  padding: 10px 18px;
+  background: transparent;
+  color: var(--ink-soft);
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.tab:hover { color: var(--accent); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
 
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 14px;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 .stat {
   background: var(--bg-card);
   border: 1px solid var(--line);
-  padding: 16px 18px;
+  padding: 14px 18px;
   border-radius: 8px;
 }
-.stat-label { font-size: 12px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.stat-label { font-size: 11px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
 .stat-value {
   font-family: 'Fraunces', serif;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 600;
   color: var(--accent);
   margin-top: 4px;
+  line-height: 1.1;
 }
+.stat-sub { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
 
 table {
   width: 100%;
@@ -129,17 +165,22 @@ th, td {
   padding: 10px 12px;
   text-align: left;
   border-bottom: 1px solid var(--line-soft);
+  vertical-align: top;
 }
 th {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--ink-soft);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 tr.clickable { cursor: pointer; }
 tr.clickable:hover { background: var(--accent-bg); }
+.table-wrap { overflow-x: auto; max-height: 70vh; }
 
 .score-pill {
   display: inline-block;
@@ -148,10 +189,11 @@ tr.clickable:hover { background: var(--accent-bg); }
   font-size: 12px;
   font-weight: 600;
   font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
 }
-.score-pill.high { background: #e2efe5; color: var(--correct); }
-.score-pill.mid { background: #fef3c7; color: #92400e; }
-.score-pill.low { background: #f4e0e0; color: var(--wrong); }
+.score-pill.high { background: var(--correct-bg); color: var(--correct); }
+.score-pill.mid { background: var(--warn-bg); color: var(--warn); }
+.score-pill.low { background: var(--wrong-bg); color: var(--wrong); }
 .score-pill.na { background: var(--line-soft); color: var(--ink-muted); }
 
 .tag {
@@ -180,7 +222,7 @@ tr.clickable:hover { background: var(--accent-bg); }
 .modal {
   background: var(--bg);
   border-radius: 10px;
-  max-width: 760px;
+  max-width: 820px;
   width: 100%;
   padding: 28px;
   box-shadow: 0 24px 60px rgba(0,0,0,0.25);
@@ -189,23 +231,23 @@ tr.clickable:hover { background: var(--accent-bg); }
 .modal-close:hover { color: var(--accent); background: var(--accent-bg); }
 
 .detail-block {
-  margin-bottom: 16px;
-  padding: 14px 16px;
+  margin-bottom: 14px;
+  padding: 12px 14px;
   background: var(--bg-card);
   border: 1px solid var(--line-soft);
   border-radius: 6px;
 }
 .detail-block h4 {
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--ink-muted);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
 }
-.detail-block p { white-space: pre-wrap; line-height: 1.55; }
-.detail-block .markings { display: flex; flex-wrap: wrap; gap: 6px; }
+.detail-block p { white-space: pre-wrap; line-height: 1.55; font-size: 14px; }
+.detail-block .markings { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 .marking-chip {
   background: #fff3b0;
   color: var(--ink);
@@ -215,21 +257,17 @@ tr.clickable:hover { background: var(--accent-bg); }
 }
 
 .q-detail {
-  margin-bottom: 12px;
-  padding: 12px 14px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
   border-left: 3px solid var(--line);
   background: var(--bg-card);
   border-radius: 4px;
 }
 .q-detail.correct { border-left-color: var(--correct); }
 .q-detail.wrong { border-left-color: var(--wrong); }
-.q-detail .q-text { font-weight: 500; margin-bottom: 6px; }
-.q-detail .q-given, .q-detail .q-correct {
-  font-size: 13px;
-  color: var(--ink-soft);
-  font-family: 'JetBrains Mono', monospace;
-}
-.q-detail .q-given strong, .q-detail .q-correct strong { font-family: 'Inter', sans-serif; color: var(--ink-muted); font-weight: 500; }
+.q-detail .q-text { font-weight: 500; margin-bottom: 4px; font-size: 14px; }
+.q-detail .q-line { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+.q-detail .q-line strong { color: var(--ink-muted); font-weight: 500; }
 
 .empty {
   text-align: center;
@@ -237,11 +275,7 @@ tr.clickable:hover { background: var(--accent-bg); }
   color: var(--ink-muted);
 }
 
-.password-screen {
-  max-width: 420px;
-  margin: 80px auto 0;
-}
-
+.password-screen { max-width: 420px; margin: 80px auto 0; }
 .error { color: var(--wrong); font-size: 13px; margin-top: 6px; }
 
 .loading-bar {
@@ -256,10 +290,51 @@ tr.clickable:hover { background: var(--accent-bg); }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+.chart-card { padding: 18px 22px; }
+.chart-svg { width: 100%; height: auto; display: block; }
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 100px;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 13px;
+}
+.bar-row:last-child { border-bottom: none; }
+.bar-label { color: var(--ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar-track { height: 8px; background: var(--line-soft); border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--accent); border-radius: 4px; }
+.bar-fill.good { background: var(--correct); }
+.bar-fill.warn { background: var(--warn); }
+.bar-fill.bad { background: var(--wrong); }
+.bar-value { text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-soft); }
+
+.section-title {
+  margin-top: 22px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+}
+
+.help-text {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: 14px;
+  font-style: italic;
+}
+
 @media (max-width: 600px) {
-  table { font-size: 13px; }
-  th, td { padding: 8px; }
+  .bar-row { grid-template-columns: 110px 1fr 70px; font-size: 12px; }
+  table { font-size: 12px; }
+  th, td { padding: 7px; }
   .modal { padding: 18px; }
+  .stat-value { font-size: 22px; }
 }
 </style>
 </head>
@@ -270,9 +345,10 @@ tr.clickable:hover { background: var(--accent-bg); }
   <header class="brand">
     <div class="brand-mark">Skill Lab</div>
     <div class="brand-sub">Dozenten-Dashboard</div>
+    <div class="brand-spacer"></div>
+    <button class="btn-secondary" id="logout-btn" onclick="logout()" style="display:none;">Abmelden</button>
   </header>
 
-  <!-- PASSWORT-SCHUTZ -->
   <section id="screen-pw">
     <div class="card password-screen">
       <h1>Anmeldung</h1>
@@ -286,51 +362,98 @@ tr.clickable:hover { background: var(--accent-bg); }
     </div>
   </section>
 
-  <!-- DASHBOARD -->
   <section id="screen-main" style="display:none;">
+    
     <div class="card">
-      <h2>Filter</h2>
       <div class="filters">
         <div>
           <label for="f-class">Klasse</label>
-          <select id="f-class" onchange="applyFilters()"><option value="">Alle</option></select>
+          <select id="f-class" onchange="onGlobalFilter()"><option value="">Alle Klassen</option></select>
         </div>
         <div>
           <label for="f-date-from">Datum von</label>
-          <input type="date" id="f-date-from" onchange="applyFilters()">
+          <input type="date" id="f-date-from" onchange="onGlobalFilter()">
         </div>
         <div>
           <label for="f-date-to">Datum bis</label>
-          <input type="date" id="f-date-to" onchange="applyFilters()">
+          <input type="date" id="f-date-to" onchange="onGlobalFilter()">
         </div>
         <div>
           <label for="f-unit">Lerneinheit</label>
-          <select id="f-unit" onchange="applyFilters()"><option value="">Alle</option></select>
-        </div>
-        <div>
-          <label for="f-search">Schülername</label>
-          <input type="text" id="f-search" placeholder="Filter…" oninput="applyFilters()">
+          <select id="f-unit" onchange="onGlobalFilter()"><option value="">Alle Einheiten</option></select>
         </div>
       </div>
       <div class="btn-row">
-        <button class="btn-secondary" onclick="loadData()">Aktualisieren</button>
-        <button class="btn-secondary" onclick="exportCsv()">CSV exportieren</button>
-        <button class="btn-secondary" onclick="logout()" style="margin-left:auto;">Abmelden</button>
+        <button class="btn-secondary" onclick="loadData()">Daten aktualisieren</button>
+        <button class="btn-secondary" onclick="exportCsv()">CSV-Export (gefiltert)</button>
       </div>
     </div>
 
-    <div class="stats" id="stats"></div>
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-tab="einsendungen" onclick="switchTab(event, 'einsendungen')">Einsendungen</button>
+      <button class="tab" data-tab="schueler" onclick="switchTab(event, 'schueler')">Schüler-Verlauf</button>
+      <button class="tab" data-tab="klasse" onclick="switchTab(event, 'klasse')">Klassen-Verlauf</button>
+      <button class="tab" data-tab="schwachstellen" onclick="switchTab(event, 'schwachstellen')">Schwachstellen</button>
+      <button class="tab" data-tab="reasoning" onclick="switchTab(event, 'reasoning')">Reasoning-Übersicht</button>
+    </div>
 
-    <div class="card">
-      <h2 style="margin-bottom:14px;">Einsendungen</h2>
-      <div id="table-wrap">
-        <div class="empty"><span class="loading-bar"></span> Lade Daten…</div>
+    <div id="pane-einsendungen" class="tab-pane active">
+      <div class="stats" id="stats-einsendungen"></div>
+      <div class="card">
+        <h2>Einsendungen</h2>
+        <p class="help-text">Klick auf eine Zeile zeigt die kompletten Antworten der Einsendung.</p>
+        <div style="margin-bottom:12px;">
+          <input type="text" id="f-search" placeholder="Schülername filtern…" oninput="renderEinsendungen()">
+        </div>
+        <div id="table-einsendungen" class="table-wrap"><div class="empty"><span class="loading-bar"></span> Lade Daten…</div></div>
       </div>
     </div>
+
+    <div id="pane-schueler" class="tab-pane">
+      <div class="card">
+        <h2>Schüler-Verlauf</h2>
+        <p class="help-text">Wähle einen Schüler, um seine komplette Lernentwicklung zu sehen — chronologisch, mit Quiz-Quote, Fall-Bearbeitungen und allen abgegebenen Antworten.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+          <div>
+            <label for="sel-student">Schüler</label>
+            <select id="sel-student" onchange="renderSchueler()"><option value="">Bitte wählen…</option></select>
+          </div>
+        </div>
+        <div id="schueler-content"></div>
+      </div>
+    </div>
+
+    <div id="pane-klasse" class="tab-pane">
+      <div class="card">
+        <h2>Klassen-Verlauf</h2>
+        <p class="help-text">Wie entwickelt sich die Klasse über das Semester? Quiz-Quoten pro Lerneinheit, Trend, Vergleich der Schüler untereinander.</p>
+        <div id="klasse-content"></div>
+      </div>
+    </div>
+
+    <div id="pane-schwachstellen" class="tab-pane">
+      <div class="card">
+        <h2>Schwachstellen-Analyse</h2>
+        <p class="help-text">Welche Quiz-Fragen wurden am häufigsten falsch beantwortet? Welche Fehlantworten kommen oft? Hilft beim Identifizieren von Themen, die mehr Unterrichtszeit brauchen.</p>
+        <div id="schwachstellen-content"></div>
+      </div>
+    </div>
+
+    <div id="pane-reasoning" class="tab-pane">
+      <div class="card">
+        <h2>Reasoning-Übersicht</h2>
+        <p class="help-text">Auswertung der Clinical-Reasoning-Fälle: Triage-Verteilung, häufigste Hypothesen, Schlüsselwort-Markierungen.</p>
+        <div style="margin-bottom:14px;">
+          <label for="sel-reasoning-unit">Lerneinheit</label>
+          <select id="sel-reasoning-unit" onchange="renderReasoning()"><option value="">Bitte wählen…</option></select>
+        </div>
+        <div id="reasoning-content"></div>
+      </div>
+    </div>
+
   </section>
 </div>
 
-<!-- DETAIL-MODAL -->
 <div id="modal" class="modal-bg" onclick="if(event.target===this)closeModal()">
   <div class="modal" id="modal-body"></div>
 </div>
@@ -338,18 +461,16 @@ tr.clickable:hover { background: var(--accent-bg); }
 <script>
 const SUPABASE_URL = 'https://oosqtqanwsijbmkxgyao.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9vc3F0cWFud3NpamJta3hneWFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyODI4NTYsImV4cCI6MjA5Mzg1ODg1Nn0.zSJsXeYRb8y5_XTN0-K9fdB2k1TnGMEK6imlIcqznTs';
-
-// ⚠️ Passwort-Hash. Wechsel bei Bedarf — Anleitung am Ende der Datei.
-// Entspricht dem Passwort: "aendern-bitte"
+const DOZENT_TOKEN = 'IxK7-pZq3-nVwR-9oLm-2bTfYj';
 const DOCENT_PW_HASH = '29e1734b0012a37b6288b400bae9efc60168740ef3e3e7e13dee3eb75c2460cd';
 
 let allRows = [];
 let unitsIndex = [];
+let unitsCache = {};
+let currentTab = 'einsendungen';
 
 window.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem('docent_ok') === '1') {
-    showMain();
-  }
+  if (sessionStorage.getItem('docent_ok') === '1') showMain();
 });
 
 async function checkPw() {
@@ -370,13 +491,14 @@ function logout() {
 
 async function sha256(text) {
   const buf = new TextEncoder().encode(text);
-  const hash = await crypto.subtle.digest('SHA-256', buf);
-  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+  const h = await crypto.subtle.digest('SHA-256', buf);
+  return Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 async function showMain() {
   document.getElementById('screen-pw').style.display = 'none';
   document.getElementById('screen-main').style.display = 'block';
+  document.getElementById('logout-btn').style.display = 'inline-block';
   await loadUnitsIndex();
   await loadData();
 }
@@ -388,132 +510,486 @@ async function loadUnitsIndex() {
   } catch (e) { unitsIndex = []; }
 }
 
-async function loadData() {
-  document.getElementById('table-wrap').innerHTML = '<div class="empty"><span class="loading-bar"></span> Lade Daten…</div>';
+async function getUnit(unitId) {
+  if (unitsCache[unitId]) return unitsCache[unitId];
+  const idx = unitsIndex.find(u => u.id === unitId);
+  if (!idx) return null;
   try {
-    const res = await fetch(SUPABASE_URL + '/rest/v1/submissions?select=*&order=created_at.desc&limit=2000', {
-      headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
+    const res = await fetch('einheiten/' + idx.file + '?t=' + Date.now());
+    if (!res.ok) return null;
+    const data = await res.json();
+    unitsCache[unitId] = data;
+    return data;
+  } catch (e) { return null; }
+}
+
+async function loadData() {
+  document.getElementById('table-einsendungen').innerHTML = '<div class="empty"><span class="loading-bar"></span> Lade Daten…</div>';
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/submissions?select=*&order=created_at.desc&limit=5000', {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'x-dozent-zugang': DOZENT_TOKEN
+      }
     });
     if (!res.ok) {
       const txt = await res.text();
-      throw new Error(txt);
+      throw new Error('HTTP ' + res.status + ': ' + txt);
     }
     allRows = await res.json();
-    populateFilters();
-    applyFilters();
+    populateGlobalFilters();
+    onGlobalFilter();
   } catch (err) {
-    document.getElementById('table-wrap').innerHTML = `<div class="empty" style="color:var(--wrong);">
+    document.getElementById('table-einsendungen').innerHTML = `<div class="empty" style="color:var(--wrong);">
       <strong>Daten konnten nicht geladen werden.</strong><br>
       ${escapeHtml(err.message)}<br><br>
-      <small>Hinweis: Falls dies ein Berechtigungsfehler ist, musst du in Supabase eine SELECT-Policy für authentifizierte Nutzer einrichten oder das Dashboard direkt im Supabase-Editor verwenden.</small>
+      <small>Stelle sicher, dass die Lese-Policy mit dem Header-Token in Supabase eingerichtet ist.</small>
     </div>`;
   }
 }
 
-function populateFilters() {
+function populateGlobalFilters() {
   const classes = [...new Set(allRows.map(r => r.class_name))].sort();
-  const units = [...new Set(allRows.map(r => r.unit_id))].sort();
+  const units = [...new Set(allRows.map(r => r.unit_id))]
+    .map(id => ({ id, title: (allRows.find(r => r.unit_id === id) || {}).unit_title || id }))
+    .sort((a, b) => a.title.localeCompare(b.title));
+  
   const fc = document.getElementById('f-class');
   const fu = document.getElementById('f-unit');
-  fc.innerHTML = '<option value="">Alle</option>' + classes.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
-  fu.innerHTML = '<option value="">Alle</option>' + units.map(u => `<option value="${escapeHtml(u)}">${escapeHtml(u)}</option>`).join('');
+  fc.innerHTML = '<option value="">Alle Klassen</option>' + classes.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+  fu.innerHTML = '<option value="">Alle Einheiten</option>' + units.map(u => `<option value="${escapeHtml(u.id)}">${escapeHtml(u.title)}</option>`).join('');
+  
+  const reasoningUnits = [...new Set(allRows.filter(r => r.content_type === 'reasoning_case').map(r => r.unit_id))]
+    .map(id => ({ id, title: (allRows.find(r => r.unit_id === id) || {}).unit_title || id }));
+  const sru = document.getElementById('sel-reasoning-unit');
+  sru.innerHTML = '<option value="">Bitte wählen…</option>' + reasoningUnits.map(u => `<option value="${escapeHtml(u.id)}">${escapeHtml(u.title)}</option>`).join('');
 }
 
-function applyFilters() {
+function getFilteredRows() {
   const fc = document.getElementById('f-class').value;
   const ff = document.getElementById('f-date-from').value;
   const ft = document.getElementById('f-date-to').value;
   const fu = document.getElementById('f-unit').value;
-  const fs = document.getElementById('f-search').value.toLowerCase().trim();
-
-  const rows = allRows.filter(r => {
+  return allRows.filter(r => {
     if (fc && r.class_name !== fc) return false;
     if (fu && r.unit_id !== fu) return false;
     if (ff && r.session_date < ff) return false;
     if (ft && r.session_date > ft) return false;
-    if (fs && !r.student_name.toLowerCase().includes(fs)) return false;
     return true;
   });
-
-  renderStats(rows);
-  renderTable(rows);
 }
 
-function renderStats(rows) {
+function onGlobalFilter() {
+  const rows = getFilteredRows();
+  const students = [...new Set(rows.map(r => r.student_name + '|' + r.class_name))].sort();
+  const ss = document.getElementById('sel-student');
+  const prev = ss.value;
+  ss.innerHTML = '<option value="">Bitte wählen…</option>' + students.map(s => {
+    const [name, klasse] = s.split('|');
+    return `<option value="${escapeHtml(s)}">${escapeHtml(name)} (${escapeHtml(klasse)})</option>`;
+  }).join('');
+  if (prev && students.includes(prev)) ss.value = prev;
+  renderActiveTab();
+}
+
+function switchTab(ev, name) {
+  currentTab = name;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  ev.target.classList.add('active');
+  document.getElementById('pane-' + name).classList.add('active');
+  renderActiveTab();
+}
+
+function renderActiveTab() {
+  if (currentTab === 'einsendungen') renderEinsendungen();
+  else if (currentTab === 'schueler') renderSchueler();
+  else if (currentTab === 'klasse') renderKlasse();
+  else if (currentTab === 'schwachstellen') renderSchwachstellen();
+  else if (currentTab === 'reasoning') renderReasoning();
+}
+
+function renderEinsendungen() {
+  const fs = (document.getElementById('f-search').value || '').toLowerCase().trim();
+  let rows = getFilteredRows();
+  if (fs) rows = rows.filter(r => r.student_name.toLowerCase().includes(fs));
+  
   const total = rows.length;
-  const students = new Set(rows.map(r => r.student_name + '|' + r.class_name)).size;
+  const studentsCount = new Set(rows.map(r => r.student_name + '|' + r.class_name)).size;
   const scored = rows.filter(r => r.score_total != null && r.score_total > 0);
   const avgPct = scored.length ?
-    Math.round(scored.reduce((s, r) => s + (r.score_correct / r.score_total) * 100, 0) / scored.length) :
-    null;
+    Math.round(scored.reduce((s, r) => s + (r.score_correct / r.score_total) * 100, 0) / scored.length) : null;
   const reasoningCount = rows.filter(r => r.content_type === 'reasoning_case').length;
-
-  document.getElementById('stats').innerHTML = `
+  
+  document.getElementById('stats-einsendungen').innerHTML = `
     <div class="stat"><div class="stat-label">Einsendungen</div><div class="stat-value">${total}</div></div>
-    <div class="stat"><div class="stat-label">Schüler</div><div class="stat-value">${students}</div></div>
+    <div class="stat"><div class="stat-label">Schüler</div><div class="stat-value">${studentsCount}</div></div>
     <div class="stat"><div class="stat-label">Ø Quiz-Quote</div><div class="stat-value">${avgPct !== null ? avgPct + '%' : '—'}</div></div>
     <div class="stat"><div class="stat-label">Reasoning-Fälle</div><div class="stat-value">${reasoningCount}</div></div>
   `;
-}
-
-function renderTable(rows) {
+  
   if (!rows.length) {
-    document.getElementById('table-wrap').innerHTML = '<div class="empty">Keine Einsendungen für diese Filter.</div>';
+    document.getElementById('table-einsendungen').innerHTML = '<div class="empty">Keine Einsendungen für diese Filter.</div>';
     return;
   }
-  let html = `<div style="overflow-x:auto;"><table>
+  let html = `<table>
     <thead><tr>
       <th>Datum</th><th>Klasse</th><th>Name</th><th>Lerneinheit</th><th>Typ</th><th>Score</th><th>Eingegangen</th>
     </tr></thead><tbody>`;
-  rows.forEach((r, idx) => {
-    const score = formatScore(r);
-    const typeLabel = r.content_type === 'quiz' ? 'Quiz' : (r.content_type === 'short_case' ? 'Kurzfall' : 'Reasoning');
+  rows.forEach(r => {
     const created = new Date(r.created_at).toLocaleString('de-DE', { dateStyle: 'short', timeStyle: 'short' });
     html += `<tr class="clickable" onclick="showDetail('${r.id}')">
       <td>${escapeHtml(r.session_date)}</td>
       <td>${escapeHtml(r.class_name)}</td>
       <td>${escapeHtml(r.student_name)}</td>
       <td>${escapeHtml(r.unit_title)}</td>
-      <td><span class="tag">${typeLabel}</span></td>
-      <td>${score}</td>
+      <td><span class="tag">${typeLabelFor(r.content_type)}</span></td>
+      <td>${formatScore(r)}</td>
       <td style="color:var(--ink-muted);font-size:12px;">${created}</td>
     </tr>`;
   });
-  html += '</tbody></table></div>';
-  document.getElementById('table-wrap').innerHTML = html;
+  html += '</tbody></table>';
+  document.getElementById('table-einsendungen').innerHTML = html;
 }
 
-function formatScore(r) {
-  if (r.score_total == null || r.score_total === 0) return '<span class="score-pill na">—</span>';
-  const pct = (r.score_correct / r.score_total) * 100;
-  const cls = pct >= 75 ? 'high' : (pct >= 50 ? 'mid' : 'low');
-  return `<span class="score-pill ${cls}">${r.score_correct}/${r.score_total} · ${Math.round(pct)}%</span>`;
+function renderSchueler() {
+  const sel = document.getElementById('sel-student').value;
+  const wrap = document.getElementById('schueler-content');
+  if (!sel) { wrap.innerHTML = ''; return; }
+  
+  const [name, klasse] = sel.split('|');
+  let rows = getFilteredRows().filter(r => r.student_name === name && r.class_name === klasse);
+  rows.sort((a, b) => a.created_at.localeCompare(b.created_at));
+  
+  if (!rows.length) { wrap.innerHTML = '<div class="empty">Keine Einsendungen.</div>'; return; }
+  
+  const scored = rows.filter(r => r.score_total != null && r.score_total > 0);
+  const avgPct = scored.length ? Math.round(scored.reduce((s, r) => s + (r.score_correct / r.score_total) * 100, 0) / scored.length) : null;
+  const reasoningCount = rows.filter(r => r.content_type === 'reasoning_case').length;
+  const firstDate = rows[0].session_date;
+  const lastDate = rows[rows.length - 1].session_date;
+  
+  let html = `
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Einsendungen</div><div class="stat-value">${rows.length}</div></div>
+      <div class="stat"><div class="stat-label">Ø Quiz-Quote</div><div class="stat-value">${avgPct !== null ? avgPct + '%' : '—'}</div></div>
+      <div class="stat"><div class="stat-label">Reasoning-Fälle</div><div class="stat-value">${reasoningCount}</div></div>
+      <div class="stat"><div class="stat-label">Zeitraum</div><div class="stat-value" style="font-size:18px;">${firstDate}</div><div class="stat-sub">bis ${lastDate}</div></div>
+    </div>
+  `;
+  
+  if (scored.length >= 2) {
+    html += `<div class="section-title">Verlauf der Quiz-Quoten</div>`;
+    html += renderLineChart(scored.map(r => ({
+      label: r.session_date,
+      value: Math.round((r.score_correct / r.score_total) * 100)
+    })), '%');
+  }
+  
+  html += `<div class="section-title">Alle Einsendungen (chronologisch)</div>`;
+  html += `<table><thead><tr><th>Datum</th><th>Lerneinheit</th><th>Typ</th><th>Score</th><th></th></tr></thead><tbody>`;
+  rows.forEach(r => {
+    html += `<tr class="clickable" onclick="showDetail('${r.id}')">
+      <td>${escapeHtml(r.session_date)}</td>
+      <td>${escapeHtml(r.unit_title)}</td>
+      <td><span class="tag">${typeLabelFor(r.content_type)}</span></td>
+      <td>${formatScore(r)}</td>
+      <td style="color:var(--accent);font-size:12px;">Details →</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  
+  wrap.innerHTML = html;
+}
+
+function renderKlasse() {
+  const wrap = document.getElementById('klasse-content');
+  const rows = getFilteredRows();
+  if (!rows.length) { wrap.innerHTML = '<div class="empty">Keine Daten für diese Filter.</div>'; return; }
+  
+  const byUnit = {};
+  rows.filter(r => r.score_total > 0).forEach(r => {
+    if (!byUnit[r.unit_id]) byUnit[r.unit_id] = { title: r.unit_title, sumPct: 0, count: 0 };
+    byUnit[r.unit_id].sumPct += (r.score_correct / r.score_total) * 100;
+    byUnit[r.unit_id].count++;
+  });
+  const unitStats = Object.values(byUnit).map(u => ({
+    title: u.title, avg: u.sumPct / u.count, n: u.count
+  })).sort((a, b) => b.avg - a.avg);
+  
+  const byStudent = {};
+  rows.filter(r => r.score_total > 0).forEach(r => {
+    const key = r.student_name + '|' + r.class_name;
+    if (!byStudent[key]) byStudent[key] = { name: r.student_name, klasse: r.class_name, sumPct: 0, count: 0 };
+    byStudent[key].sumPct += (r.score_correct / r.score_total) * 100;
+    byStudent[key].count++;
+  });
+  const studentStats = Object.values(byStudent).map(s => ({
+    name: s.name, klasse: s.klasse, avg: s.sumPct / s.count, n: s.count
+  })).sort((a, b) => b.avg - a.avg);
+  
+  const byDate = {};
+  rows.filter(r => r.score_total > 0).forEach(r => {
+    if (!byDate[r.session_date]) byDate[r.session_date] = { sumPct: 0, count: 0 };
+    byDate[r.session_date].sumPct += (r.score_correct / r.score_total) * 100;
+    byDate[r.session_date].count++;
+  });
+  const dateStats = Object.entries(byDate).map(([d, v]) => ({
+    label: d, value: Math.round(v.sumPct / v.count)
+  })).sort((a, b) => a.label.localeCompare(b.label));
+  
+  let html = `
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Einsendungen</div><div class="stat-value">${rows.length}</div></div>
+      <div class="stat"><div class="stat-label">Schüler</div><div class="stat-value">${studentStats.length}</div></div>
+      <div class="stat"><div class="stat-label">Lerneinheiten</div><div class="stat-value">${unitStats.length}</div></div>
+      <div class="stat"><div class="stat-label">Ø Klassen-Quote</div><div class="stat-value">${unitStats.length ? Math.round(unitStats.reduce((s, u) => s + u.avg, 0) / unitStats.length) + '%' : '—'}</div></div>
+    </div>
+  `;
+  
+  if (dateStats.length >= 2) {
+    html += `<div class="section-title">Klassen-Quote im Zeitverlauf (Ø pro Termin)</div>`;
+    html += renderLineChart(dateStats, '%');
+  }
+  
+  if (unitStats.length) {
+    html += `<div class="section-title">Lerneinheiten — sortiert nach Ø-Quote (höchste zuerst)</div>`;
+    unitStats.forEach(u => {
+      const pct = Math.round(u.avg);
+      const cls = pct >= 75 ? 'good' : (pct >= 50 ? 'warn' : 'bad');
+      html += `<div class="bar-row">
+        <div class="bar-label" title="${escapeHtml(u.title)}">${escapeHtml(u.title)}</div>
+        <div class="bar-track"><div class="bar-fill ${cls}" style="width:${pct}%;"></div></div>
+        <div class="bar-value">${pct}% (n=${u.n})</div>
+      </div>`;
+    });
+  }
+  
+  if (studentStats.length) {
+    html += `<div class="section-title">Schüler-Ranking — Ø-Quote über alle gefilterten Einheiten</div>`;
+    studentStats.forEach(s => {
+      const pct = Math.round(s.avg);
+      const cls = pct >= 75 ? 'good' : (pct >= 50 ? 'warn' : 'bad');
+      html += `<div class="bar-row">
+        <div class="bar-label">${escapeHtml(s.name)} <span style="color:var(--ink-muted);">· ${escapeHtml(s.klasse)}</span></div>
+        <div class="bar-track"><div class="bar-fill ${cls}" style="width:${pct}%;"></div></div>
+        <div class="bar-value">${pct}% (n=${s.n})</div>
+      </div>`;
+    });
+  }
+  
+  wrap.innerHTML = html;
+}
+
+async function renderSchwachstellen() {
+  const wrap = document.getElementById('schwachstellen-content');
+  const rows = getFilteredRows().filter(r => r.content_type === 'quiz' || r.content_type === 'short_case');
+  if (!rows.length) { wrap.innerHTML = '<div class="empty">Keine Quiz-/Kurzfall-Daten für diese Filter.</div>'; return; }
+  
+  wrap.innerHTML = '<div class="empty"><span class="loading-bar"></span> Werte Fragen aus…</div>';
+  
+  const byUnit = {};
+  rows.forEach(r => {
+    if (!byUnit[r.unit_id]) byUnit[r.unit_id] = { title: r.unit_title, submissions: [] };
+    byUnit[r.unit_id].submissions.push(r);
+  });
+  
+  let html = '';
+  
+  for (const unitId of Object.keys(byUnit)) {
+    const u = byUnit[unitId];
+    const unit = await getUnit(unitId);
+    if (!unit || !unit.questions) continue;
+    
+    const qStats = unit.questions.map((q, qIdx) => {
+      let total = 0, correct = 0;
+      const wrongAnswers = {};
+      u.submissions.forEach(sub => {
+        const ans = sub.answers && sub.answers.questions ? sub.answers.questions[qIdx] : null;
+        if (ans == null) return;
+        total++;
+        if (isAnswerCorrect(q, ans)) {
+          correct++;
+        } else {
+          const arr = Array.isArray(ans) ? ans : [ans];
+          arr.forEach(oi => {
+            const isCorrectOpt = q.multi ? q.correct.includes(oi) : q.correct === oi;
+            if (!isCorrectOpt) wrongAnswers[oi] = (wrongAnswers[oi] || 0) + 1;
+          });
+        }
+      });
+      return { q, qIdx, total, correct, wrongAnswers };
+    }).filter(s => s.total > 0);
+    
+    if (!qStats.length) continue;
+    qStats.sort((a, b) => (a.correct / a.total) - (b.correct / b.total));
+    
+    html += `<div class="section-title">${escapeHtml(u.title)}</div>`;
+    
+    qStats.forEach(s => {
+      const pct = Math.round((s.correct / s.total) * 100);
+      const cls = pct >= 75 ? 'good' : (pct >= 50 ? 'warn' : 'bad');
+      const pillCls = pct >= 75 ? 'high' : (pct >= 50 ? 'mid' : 'low');
+      html += `<div style="margin-bottom:14px;padding:14px 16px;background:var(--bg-card);border:1px solid var(--line-soft);border-radius:6px;">`;
+      html += `<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:8px;">`;
+      html += `<div style="font-weight:500;">Frage ${s.qIdx + 1}: ${escapeHtml(s.q.text)}</div>`;
+      html += `<span class="score-pill ${pillCls}">${pct}% richtig</span>`;
+      html += `</div>`;
+      html += `<div class="bar-row" style="grid-template-columns:110px 1fr 80px;border:none;padding:4px 0;">
+        <div class="bar-label">Trefferquote</div>
+        <div class="bar-track"><div class="bar-fill ${cls}" style="width:${pct}%;"></div></div>
+        <div class="bar-value">${s.correct}/${s.total}</div>
+      </div>`;
+      
+      const wrongList = Object.entries(s.wrongAnswers).sort((a, b) => b[1] - a[1]);
+      if (wrongList.length) {
+        html += `<div style="margin-top:8px;font-size:13px;color:var(--ink-soft);"><strong style="font-weight:600;">Häufigste Fehlantworten:</strong></div>`;
+        wrongList.forEach(([oi, count]) => {
+          const optText = s.q.options[oi] || '?';
+          html += `<div style="margin-left:14px;font-size:13px;color:var(--ink-soft);margin-top:3px;">
+            <span style="color:var(--wrong);">✗</span> "${escapeHtml(optText)}" — ${count}×
+          </div>`;
+        });
+      }
+      html += `</div>`;
+    });
+  }
+  
+  if (!html) html = '<div class="empty">Keine auswertbaren Quiz-Daten gefunden.</div>';
+  wrap.innerHTML = html;
+}
+
+function renderReasoning() {
+  const wrap = document.getElementById('reasoning-content');
+  const unitId = document.getElementById('sel-reasoning-unit').value;
+  if (!unitId) { wrap.innerHTML = '<div class="empty">Bitte oben eine Reasoning-Lerneinheit wählen.</div>'; return; }
+  
+  let rows = getFilteredRows().filter(r => r.unit_id === unitId);
+  if (!rows.length) { wrap.innerHTML = '<div class="empty">Keine Einsendungen für diese Lerneinheit.</div>'; return; }
+  
+  const triage = {};
+  const allMarkings = [];
+  const mainHyps = [];
+  const redFlags = [];
+  
+  rows.forEach(r => {
+    const re = r.answers && r.answers.reasoning ? r.answers.reasoning : null;
+    if (re) {
+      const t = re.triage || '— leer —';
+      triage[t] = (triage[t] || 0) + 1;
+      if (re.main_hypothesis) mainHyps.push({ student: r.student_name, klasse: r.class_name, text: re.main_hypothesis });
+      if (re.redflag_hypothesis) redFlags.push({ student: r.student_name, klasse: r.class_name, text: re.redflag_hypothesis });
+    }
+    if (r.answers && Array.isArray(r.answers.markings)) r.answers.markings.forEach(m => allMarkings.push(m));
+  });
+  
+  const markCounts = {};
+  allMarkings.forEach(m => { markCounts[m] = (markCounts[m] || 0) + 1; });
+  const topMarks = Object.entries(markCounts).sort((a, b) => b[1] - a[1]).slice(0, 25);
+  
+  let html = `
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Einsendungen</div><div class="stat-value">${rows.length}</div></div>
+      <div class="stat"><div class="stat-label">Markierte Wörter</div><div class="stat-value">${allMarkings.length}</div></div>
+      <div class="stat"><div class="stat-label">Eindeutige Marken</div><div class="stat-value">${Object.keys(markCounts).length}</div></div>
+      <div class="stat"><div class="stat-label">Triage-Antworten</div><div class="stat-value">${Object.values(triage).reduce((a,b)=>a+b,0)}</div></div>
+    </div>
+  `;
+  
+  html += `<div class="section-title">Triage-Verteilung</div>`;
+  const triageTotal = Object.values(triage).reduce((a, b) => a + b, 0) || 1;
+  Object.entries(triage).sort((a, b) => b[1] - a[1]).forEach(([t, c]) => {
+    const pct = Math.round((c / triageTotal) * 100);
+    html += `<div class="bar-row">
+      <div class="bar-label">${escapeHtml(t)}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;"></div></div>
+      <div class="bar-value">${c}× (${pct}%)</div>
+    </div>`;
+  });
+  
+  if (topMarks.length) {
+    html += `<div class="section-title">Häufigste Schlüsselwort-Markierungen (Top 25)</div>`;
+    html += `<div style="display:flex;flex-wrap:wrap;gap:6px;">`;
+    const maxCount = topMarks[0][1];
+    topMarks.forEach(([w, c]) => {
+      const size = 12 + Math.round((c / maxCount) * 8);
+      html += `<span class="marking-chip" style="font-size:${size}px;" title="${c}×">${escapeHtml(w)} <span style="color:var(--ink-muted);font-size:11px;">${c}</span></span>`;
+    });
+    html += `</div>`;
+  }
+  
+  if (mainHyps.length) {
+    html += `<div class="section-title">Haupthypothesen (alle Antworten)</div>`;
+    mainHyps.forEach(h => {
+      html += `<div class="detail-block"><h4>${escapeHtml(h.student)} · ${escapeHtml(h.klasse)}</h4><p>${escapeHtml(h.text)}</p></div>`;
+    });
+  }
+  if (redFlags.length) {
+    html += `<div class="section-title">Red-Flag-Hypothesen (alle Antworten)</div>`;
+    redFlags.forEach(h => {
+      html += `<div class="detail-block"><h4>${escapeHtml(h.student)} · ${escapeHtml(h.klasse)}</h4><p>${escapeHtml(h.text)}</p></div>`;
+    });
+  }
+  
+  wrap.innerHTML = html;
+}
+
+function renderLineChart(data, unit) {
+  if (!data.length) return '<div class="empty">Nicht genug Daten.</div>';
+  const w = 700, h = 220, pad = 36;
+  const innerW = w - pad * 2, innerH = h - pad * 2;
+  const xs = data.map((_, i) => pad + (data.length === 1 ? innerW / 2 : (i / (data.length - 1)) * innerW));
+  const ys = data.map(d => pad + innerH - (d.value / 100) * innerH);
+  
+  let path = '';
+  xs.forEach((x, i) => { path += (i === 0 ? 'M' : 'L') + x + ',' + ys[i] + ' '; });
+  
+  let dots = '';
+  xs.forEach((x, i) => {
+    dots += `<circle cx="${x}" cy="${ys[i]}" r="4" fill="var(--accent)" />`;
+    dots += `<text x="${x}" y="${ys[i] - 10}" text-anchor="middle" font-size="11" fill="var(--ink-soft)" font-family="JetBrains Mono, monospace">${data[i].value}${unit}</text>`;
+  });
+  
+  let axes = `<line x1="${pad}" y1="${pad+innerH}" x2="${pad+innerW}" y2="${pad+innerH}" stroke="var(--line)" stroke-width="1"/>`;
+  axes += `<line x1="${pad}" y1="${pad}" x2="${pad}" y2="${pad+innerH}" stroke="var(--line)" stroke-width="1"/>`;
+  [25, 50, 75].forEach(v => {
+    const y = pad + innerH - (v / 100) * innerH;
+    axes += `<line x1="${pad}" y1="${y}" x2="${pad+innerW}" y2="${y}" stroke="var(--line-soft)" stroke-width="1" stroke-dasharray="3,3"/>`;
+    axes += `<text x="${pad-6}" y="${y+4}" text-anchor="end" font-size="10" fill="var(--ink-muted)">${v}${unit}</text>`;
+  });
+  
+  const showLabels = data.length <= 8 ? data.map((_, i) => i) :
+    [0, Math.floor(data.length / 2), data.length - 1];
+  let xLabels = '';
+  showLabels.forEach(i => {
+    const lbl = data[i].label.length > 18 ? data[i].label.slice(0, 16) + '…' : data[i].label;
+    xLabels += `<text x="${xs[i]}" y="${h - 6}" text-anchor="middle" font-size="10" fill="var(--ink-muted)">${escapeHtml(lbl)}</text>`;
+  });
+  
+  return `<div class="chart-card card">
+    <svg class="chart-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">
+      ${axes}
+      <path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      ${dots}
+      ${xLabels}
+    </svg>
+  </div>`;
 }
 
 async function showDetail(id) {
   const r = allRows.find(x => x.id === id);
   if (!r) return;
-
-  // Versuche, zugehörige Lerneinheit zu laden, um Fragen-Texte anzeigen zu können
-  let unit = null;
-  const idx = unitsIndex.find(u => u.id === r.unit_id);
-  if (idx) {
-    try {
-      const res = await fetch('einheiten/' + idx.file + '?t=' + Date.now());
-      if (res.ok) unit = await res.json();
-    } catch (e) { /* ohne Unit-Daten weiter */ }
-  }
-
+  const unit = await getUnit(r.unit_id);
+  
   let html = `
     <button class="modal-close" onclick="closeModal()">Schließen</button>
     <h2>${escapeHtml(r.student_name)}</h2>
     <p style="color:var(--ink-soft);margin-bottom:18px;">
-      ${escapeHtml(r.class_name)} · ${escapeHtml(r.session_date)} · ${escapeHtml(r.unit_title)} · 
-      ${formatScore(r)}
+      ${escapeHtml(r.class_name)} · ${escapeHtml(r.session_date)} · ${escapeHtml(r.unit_title)} · ${formatScore(r)}
     </p>
   `;
-
-  // Quiz/Kurzfall-Antworten
+  
   if ((r.content_type === 'quiz' || r.content_type === 'short_case') && r.answers && r.answers.questions) {
     html += '<h3>Antworten</h3>';
     Object.entries(r.answers.questions).forEach(([qIdx, ans]) => {
@@ -523,20 +999,17 @@ async function showDetail(id) {
       html += `<div class="q-detail ${cls}">`;
       if (q) {
         html += `<div class="q-text">${escapeHtml(q.text)}</div>`;
-        const givenText = formatAnswerText(q, ans);
-        const correctText = formatAnswerText(q, q.correct);
-        html += `<div class="q-given"><strong>Gegeben:</strong> ${escapeHtml(givenText)}</div>`;
-        html += `<div class="q-correct"><strong>Richtig:</strong> ${escapeHtml(correctText)}</div>`;
+        html += `<div class="q-line"><strong>Gegeben:</strong> ${escapeHtml(formatAnswerText(q, ans))}</div>`;
+        html += `<div class="q-line"><strong>Richtig:</strong> ${escapeHtml(formatAnswerText(q, q.correct))}</div>`;
+        if (q.explanation) html += `<div class="q-line" style="margin-top:6px;color:var(--ink);"><strong>Erläuterung:</strong> ${escapeHtml(q.explanation)}</div>`;
       } else {
         html += `<div class="q-text">Frage ${parseInt(qIdx) + 1}</div>`;
-        html += `<div class="q-given"><strong>Gegeben:</strong> ${escapeHtml(JSON.stringify(ans))}</div>`;
-        html += `<div style="color:var(--ink-muted);font-size:12px;margin-top:4px;">Originalfrage nicht mehr verfügbar (Lerneinheit geändert/gelöscht).</div>`;
+        html += `<div class="q-line"><strong>Gegeben:</strong> ${escapeHtml(JSON.stringify(ans))}</div>`;
       }
       html += '</div>';
     });
   }
-
-  // Reasoning-Antworten
+  
   if (r.content_type === 'reasoning_case' && r.answers && r.answers.reasoning) {
     const re = r.answers.reasoning;
     html += '<h3>Clinical Reasoning</h3>';
@@ -549,17 +1022,14 @@ async function showDetail(id) {
     html += renderDetailBlock('Begründung Red Flag', re.redflag_reason);
     html += renderDetailBlock('Weitere Therapieplanung', re.further_plan);
   }
-
-  // Markierte Wörter
+  
   if (r.answers && Array.isArray(r.answers.markings) && r.answers.markings.length) {
     html += '<h3>Markierte Hinweise im Vignettentext</h3>';
     html += '<div class="detail-block"><div class="markings">';
-    r.answers.markings.forEach(w => {
-      html += `<span class="marking-chip">${escapeHtml(w)}</span>`;
-    });
+    r.answers.markings.forEach(w => { html += `<span class="marking-chip">${escapeHtml(w)}</span>`; });
     html += '</div></div>';
   }
-
+  
   document.getElementById('modal-body').innerHTML = html;
   document.getElementById('modal').classList.add('active');
 }
@@ -571,11 +1041,46 @@ function renderDetailBlock(title, text) {
   return `<div class="detail-block"><h4>${title}</h4><p>${escapeHtml(text)}</p></div>`;
 }
 
+function closeModal() { document.getElementById('modal').classList.remove('active'); }
+
+function exportCsv() {
+  const rows = getFilteredRows();
+  const header = ['Datum', 'Klasse', 'Name', 'Lerneinheit', 'Typ', 'Score-Richtig', 'Score-Total', 'Score-Prozent', 'Eingegangen', 'Antworten-JSON'];
+  const lines = [header.join(';')];
+  rows.forEach(r => {
+    const pct = (r.score_total && r.score_total > 0) ? Math.round((r.score_correct / r.score_total) * 100) : '';
+    const line = [
+      r.session_date, r.class_name, r.student_name, r.unit_title, r.content_type,
+      r.score_correct ?? '', r.score_total ?? '', pct,
+      new Date(r.created_at).toLocaleString('de-DE'),
+      JSON.stringify(r.answers)
+    ].map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(';');
+    lines.push(line);
+  });
+  const csv = '\uFEFF' + lines.join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `physio-tool-export-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function formatScore(r) {
+  if (r.score_total == null || r.score_total === 0) return '<span class="score-pill na">—</span>';
+  const pct = (r.score_correct / r.score_total) * 100;
+  const cls = pct >= 75 ? 'high' : (pct >= 50 ? 'mid' : 'low');
+  return `<span class="score-pill ${cls}">${r.score_correct}/${r.score_total} · ${Math.round(pct)}%</span>`;
+}
+
+function typeLabelFor(t) {
+  return t === 'quiz' ? 'Quiz' : (t === 'short_case' ? 'Kurzfall' : 'Reasoning');
+}
+
 function formatAnswerText(q, ans) {
   if (ans == null) return '— keine Antwort —';
-  if (Array.isArray(ans)) {
-    return ans.map(i => q.options[i] || ('?' + i)).join(' | ');
-  }
+  if (Array.isArray(ans)) return ans.map(i => q.options[i] || ('?' + i)).join(' | ');
   return q.options[ans] || ('?' + ans);
 }
 
@@ -589,48 +1094,6 @@ function isAnswerCorrect(q, ans) {
     return s1.every((v, i) => v === s2[i]);
   }
   return ans === q.correct;
-}
-
-function closeModal() {
-  document.getElementById('modal').classList.remove('active');
-}
-
-function exportCsv() {
-  const fc = document.getElementById('f-class').value;
-  const ff = document.getElementById('f-date-from').value;
-  const ft = document.getElementById('f-date-to').value;
-  const fu = document.getElementById('f-unit').value;
-  const fs = document.getElementById('f-search').value.toLowerCase().trim();
-
-  const rows = allRows.filter(r => {
-    if (fc && r.class_name !== fc) return false;
-    if (fu && r.unit_id !== fu) return false;
-    if (ff && r.session_date < ff) return false;
-    if (ft && r.session_date > ft) return false;
-    if (fs && !r.student_name.toLowerCase().includes(fs)) return false;
-    return true;
-  });
-
-  const header = ['Datum', 'Klasse', 'Name', 'Lerneinheit', 'Typ', 'Score-Richtig', 'Score-Total', 'Score-Prozent', 'Eingegangen', 'Antworten-JSON'];
-  const lines = [header.join(';')];
-  rows.forEach(r => {
-    const pct = (r.score_total && r.score_total > 0) ? Math.round((r.score_correct / r.score_total) * 100) : '';
-    const line = [
-      r.session_date, r.class_name, r.student_name, r.unit_title,
-      r.content_type, r.score_correct ?? '', r.score_total ?? '', pct,
-      new Date(r.created_at).toLocaleString('de-DE'),
-      JSON.stringify(r.answers).replace(/"/g, '""')
-    ].map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(';');
-    lines.push(line);
-  });
-  const csv = '\uFEFF' + lines.join('\n');
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `physio-tool-export-${new Date().toISOString().slice(0,10)}.csv`;
-  a.click();
-  URL.revokeObjectURL(url);
 }
 
 function escapeHtml(s) {
