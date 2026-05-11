@@ -9,21 +9,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f5f1ea;
-  --bg-card: #fffcf6;
+  --bg: #fbf8f3;
+  --bg-card: #ffffff;
   --ink: #1c1a17;
   --ink-soft: #4a463f;
   --ink-muted: #8a857a;
   --accent: #a8431e;
   --accent-soft: #d4a08a;
   --accent-bg: #f4e3d7;
-  --line: #d8d2c4;
-  --line-soft: #e8e2d4;
+  --line: #e0dccf;
+  --line-soft: #ece8da;
   --highlight: #fff3b0;
   --correct: #2d6a3e;
   --correct-bg: #e2efe5;
   --wrong: #a83232;
   --wrong-bg: #f4e0e0;
+  --type-quiz: #4a6b8a;
+  --type-quiz-bg: #e3ebf3;
+  --type-short: #b06a2c;
+  --type-short-bg: #f7e6d4;
+  --type-reasoning: #2d5f5d;
+  --type-reasoning-bg: #d9e6e5;
   --shadow: 0 1px 2px rgba(28,26,23,0.04), 0 4px 12px rgba(28,26,23,0.06);
   --shadow-lift: 0 2px 4px rgba(28,26,23,0.06), 0 8px 24px rgba(28,26,23,0.08);
 }
@@ -97,6 +103,25 @@ h3 { font-size: 18px; margin-bottom: 8px; }
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
+.brand-spacer { flex-grow: 1; }
+.brand-author {
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+@media (max-width: 480px) {
+  .brand-sub { display: none; }
+  .brand-author { font-size: 12px; }
+}
+
+/* Typ-spezifische Farb-Tags */
+.unit-tag.type-quiz { background: var(--type-quiz-bg); color: var(--type-quiz); }
+.unit-tag.type-short_case { background: var(--type-short-bg); color: var(--type-short); }
+.unit-tag.type-reasoning_case { background: var(--type-reasoning-bg); color: var(--type-reasoning); }
+.unit-item.type-quiz { border-left: 3px solid var(--type-quiz); }
+.unit-item.type-short_case { border-left: 3px solid var(--type-short); }
+.unit-item.type-reasoning_case { border-left: 3px solid var(--type-reasoning); }
 
 label {
   display: block;
@@ -436,6 +461,8 @@ button {
   <header class="brand">
     <div class="brand-mark">Skill Lab</div>
     <div class="brand-sub">Physiotherapie · Lernwerkstatt</div>
+    <div class="brand-spacer"></div>
+    <div class="brand-author">Philipp Läufer</div>
   </header>
 
   <!-- SCHRITT 1: Anmeldung -->
@@ -602,7 +629,7 @@ function renderUnitList() {
   list.innerHTML = '';
   availableUnits.forEach(u => {
     const div = document.createElement('div');
-    div.className = 'unit-item';
+    div.className = 'unit-item type-' + u.type;
     div.onclick = () => selectUnit(u.file);
     const typeLabel = u.type === 'quiz' ? 'Quiz' : (u.type === 'short_case' ? 'Kurzfall' : 'Reasoning-Fall');
     div.innerHTML = `
@@ -610,7 +637,7 @@ function renderUnitList() {
         <div class="unit-title">${escapeHtml(u.title)}</div>
         <div class="unit-meta">${escapeHtml(u.description || '')}</div>
       </div>
-      <div class="unit-tag">${typeLabel}</div>
+      <div class="unit-tag type-${u.type}">${typeLabel}</div>
     `;
     list.appendChild(div);
   });
