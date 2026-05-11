@@ -9,22 +9,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f5f1ea;
-  --bg-card: #fffcf6;
+  --bg: #fbf8f3;
+  --bg-card: #ffffff;
   --ink: #1c1a17;
   --ink-soft: #4a463f;
   --ink-muted: #8a857a;
   --accent: #a8431e;
   --accent-bg: #f4e3d7;
   --accent-soft: #d4a08a;
-  --line: #d8d2c4;
-  --line-soft: #e8e2d4;
+  --line: #e0dccf;
+  --line-soft: #ece8da;
   --correct: #2d6a3e;
   --correct-bg: #e2efe5;
   --warn: #92400e;
   --warn-bg: #fef3c7;
   --wrong: #a83232;
   --wrong-bg: #f4e0e0;
+  --type-quiz: #4a6b8a;
+  --type-quiz-bg: #e3ebf3;
+  --type-short: #b06a2c;
+  --type-short-bg: #f7e6d4;
+  --type-reasoning: #2d5f5d;
+  --type-reasoning-bg: #d9e6e5;
   --shadow: 0 1px 2px rgba(28,26,23,0.04), 0 4px 12px rgba(28,26,23,0.06);
 }
 
@@ -207,6 +213,35 @@ tr.clickable:hover { background: var(--accent-bg); }
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
+.tag.type-quiz { background: var(--type-quiz-bg); color: var(--type-quiz); }
+.tag.type-short_case { background: var(--type-short-bg); color: var(--type-short); }
+.tag.type-reasoning_case { background: var(--type-reasoning-bg); color: var(--type-reasoning); }
+
+tr.row-quiz td:first-child { box-shadow: inset 3px 0 0 var(--type-quiz); }
+tr.row-short_case td:first-child { box-shadow: inset 3px 0 0 var(--type-short); }
+tr.row-reasoning_case td:first-child { box-shadow: inset 3px 0 0 var(--type-reasoning); }
+
+.btn-danger { background: var(--wrong); color: white; }
+.btn-danger:hover { background: #8a2828; }
+.btn-danger-outline { background: transparent; color: var(--wrong); border: 1px solid var(--wrong); }
+.btn-danger-outline:hover { background: var(--wrong-bg); }
+
+.row-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+}
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-muted);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+.icon-btn:hover { background: var(--wrong-bg); color: var(--wrong); }
 
 .modal-bg {
   position: fixed; inset: 0;
@@ -635,18 +670,19 @@ function renderEinsendungen() {
   }
   let html = `<table>
     <thead><tr>
-      <th>Datum</th><th>Klasse</th><th>Name</th><th>Lerneinheit</th><th>Typ</th><th>Score</th><th>Eingegangen</th>
+      <th>Datum</th><th>Klasse</th><th>Name</th><th>Lerneinheit</th><th>Typ</th><th>Score</th><th>Eingegangen</th><th></th>
     </tr></thead><tbody>`;
   rows.forEach(r => {
     const created = new Date(r.created_at).toLocaleString('de-DE', { dateStyle: 'short', timeStyle: 'short' });
-    html += `<tr class="clickable" onclick="showDetail('${r.id}')">
+    html += `<tr class="clickable row-${r.content_type}" onclick="showDetail('${r.id}')">
       <td>${escapeHtml(r.session_date)}</td>
       <td>${escapeHtml(r.class_name)}</td>
       <td>${escapeHtml(r.student_name)}</td>
       <td>${escapeHtml(r.unit_title)}</td>
-      <td><span class="tag">${typeLabelFor(r.content_type)}</span></td>
+      <td><span class="tag type-${r.content_type}">${typeLabelFor(r.content_type)}</span></td>
       <td>${formatScore(r)}</td>
       <td style="color:var(--ink-muted);font-size:12px;">${created}</td>
+      <td><button class="icon-btn" onclick="event.stopPropagation(); deleteSubmission('${r.id}')" title="Einsendung löschen">🗑</button></td>
     </tr>`;
   });
   html += '</tbody></table>';
@@ -690,10 +726,10 @@ function renderSchueler() {
   html += `<div class="section-title">Alle Einsendungen (chronologisch)</div>`;
   html += `<table><thead><tr><th>Datum</th><th>Lerneinheit</th><th>Typ</th><th>Score</th><th></th></tr></thead><tbody>`;
   rows.forEach(r => {
-    html += `<tr class="clickable" onclick="showDetail('${r.id}')">
+    html += `<tr class="clickable row-${r.content_type}" onclick="showDetail('${r.id}')">
       <td>${escapeHtml(r.session_date)}</td>
       <td>${escapeHtml(r.unit_title)}</td>
-      <td><span class="tag">${typeLabelFor(r.content_type)}</span></td>
+      <td><span class="tag type-${r.content_type}">${typeLabelFor(r.content_type)}</span></td>
       <td>${formatScore(r)}</td>
       <td style="color:var(--accent);font-size:12px;">Details →</td>
     </tr>`;
@@ -1030,6 +1066,11 @@ async function showDetail(id) {
     html += '</div></div>';
   }
   
+  html += `<div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
+    <button class="btn-danger-outline" onclick="deleteSubmission('${r.id}', true)">Diese Einsendung löschen</button>
+    <button class="btn-secondary" onclick="closeModal()">Schließen</button>
+  </div>`;
+  
   document.getElementById('modal-body').innerHTML = html;
   document.getElementById('modal').classList.add('active');
 }
@@ -1042,6 +1083,35 @@ function renderDetailBlock(title, text) {
 }
 
 function closeModal() { document.getElementById('modal').classList.remove('active'); }
+
+async function deleteSubmission(id, fromModal) {
+  const r = allRows.find(x => x.id === id);
+  if (!r) return;
+  const confirmText = `Diese Einsendung wirklich löschen?\n\nSchüler: ${r.student_name}\nKlasse: ${r.class_name}\nDatum: ${r.session_date}\nLerneinheit: ${r.unit_title}\n\nDieser Vorgang kann nicht rückgängig gemacht werden.`;
+  if (!confirm(confirmText)) return;
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/submissions?id=eq.' + encodeURIComponent(id), {
+      method: 'DELETE',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'x-dozent-zugang': DOZENT_TOKEN,
+        'Prefer': 'return=minimal'
+      }
+    });
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error('HTTP ' + res.status + ': ' + txt);
+    }
+    // Lokal aus Array entfernen, neu rendern
+    allRows = allRows.filter(x => x.id !== id);
+    if (fromModal) closeModal();
+    populateGlobalFilters();
+    renderActiveTab();
+  } catch (err) {
+    alert('Löschen fehlgeschlagen: ' + err.message + '\n\nMöglicherweise fehlt die Lösch-Policy in Supabase.');
+  }
+}
 
 function exportCsv() {
   const rows = getFilteredRows();
