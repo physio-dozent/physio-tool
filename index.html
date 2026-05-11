@@ -123,6 +123,11 @@ h3 { font-size: 18px; margin-bottom: 8px; }
 .unit-item.type-short_case { border-left: 3px solid var(--type-short); }
 .unit-item.type-reasoning_case { border-left: 3px solid var(--type-reasoning); }
 
+/* Typ-spezifische Hover-Effekte */
+.unit-item.type-quiz:hover { border-color: var(--type-quiz); background: var(--type-quiz-bg); }
+.unit-item.type-short_case:hover { border-color: var(--type-short); background: var(--type-short-bg); }
+.unit-item.type-reasoning_case:hover { border-color: var(--type-reasoning); background: var(--type-reasoning-bg); }
+
 label {
   display: block;
   font-size: 13px;
@@ -214,7 +219,10 @@ button {
   cursor: pointer;
   transition: all 0.15s;
 }
-.unit-item:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: var(--shadow-lift); }
+.unit-item:hover { transform: translateY(-1px); box-shadow: var(--shadow-lift); }
+.unit-item.type-quiz:hover { border-color: var(--type-quiz); background: var(--type-quiz-bg); }
+.unit-item.type-short_case:hover { border-color: var(--type-short); background: var(--type-short-bg); }
+.unit-item.type-reasoning_case:hover { border-color: var(--type-reasoning); background: var(--type-reasoning-bg); }
 .unit-title { font-weight: 500; color: var(--ink); }
 .unit-meta { font-size: 13px; color: var(--ink-muted); margin-top: 2px; }
 .unit-tag {
