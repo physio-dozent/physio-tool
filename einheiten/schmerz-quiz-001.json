@@ -1,0 +1,344 @@
+{
+  "id": "schmerz-quiz-001",
+  "type": "quiz",
+  "title": "Schmerzverständnis 2.0 — Grundlagen-Quiz",
+  "intro": "Aus dem Fragen-Pool werden bei jedem Durchlauf zehn Fragen zufällig ausgewählt und gemischt. Die Themen reichen von der IASP-Definition über Schmerzmechanismen und Anamnese bis zum multidimensionalen Treibermodell.",
+  "questions": [
+    {
+      "text": "Wie lautet die offizielle Schmerzdefinition der International Association for the Study of Pain (IASP) aus dem Jahr 2020?",
+      "multi": false,
+      "options": [
+        "Schmerz ist eine unangenehme sensorische und emotionale Erfahrung, die mit einer tatsächlichen oder potenziellen Gewebeschädigung verknüpft ist oder einer solchen ähnelt.",
+        "Schmerz ist ein körperliches Warnsignal, das immer auf einen Gewebeschaden hinweist.",
+        "Schmerz ist ein elektrochemisches Signal, das von Nozizeptoren erzeugt und im Gehirn empfangen wird.",
+        "Schmerz ist die Wahrnehmung einer Gefahr, die im Rückenmark verarbeitet wird."
+      ],
+      "correct": 0,
+      "explanation": "Die IASP betont 2020 sowohl die sensorische als auch die emotionale Komponente und löst Schmerz damit ausdrücklich von der Annahme, ein reines Eingangssignal aus dem Gewebe zu sein."
+    },
+    {
+      "text": "Welche Funktion erfüllen Schmerzen aus evolutionärer Sicht?",
+      "multi": false,
+      "options": [
+        "Sie sind ein präzises Maß für das Ausmaß einer Gewebeschädigung.",
+        "Sie sind ein Werkzeug des Nervensystems, das eine Verhaltensänderung provoziert, wenn das zentrale Nervensystem einen Körperteil in Gefahr glaubt.",
+        "Sie sind eine bewusste Entscheidung des Großhirns, Aufmerksamkeit auf eine Körperregion zu lenken.",
+        "Sie entstehen ausschließlich, wenn Nozizeptoren chemische Signale an die Synapsen senden."
+      ],
+      "correct": 1,
+      "explanation": "Schmerz dient als eines der effizientesten Werkzeuge des Körpers, um eine Verhaltensänderung auszulösen, sobald das ZNS Gefahr für ein Körperteil annimmt. Andere Schutzmechanismen mit ähnlicher Funktion sind Krämpfe, eingeschränktes Bewegungsausmaß oder reduzierte muskuläre Ausgangsleistung."
+    },
+    {
+      "text": "Welche Aussage zum Entstehungsort von Schmerz entspricht dem aktuellen wissenschaftlichen Verständnis?",
+      "multi": false,
+      "options": [
+        "Schmerz wird im verletzten Gewebe erzeugt und vom Gehirn nur passiv empfangen.",
+        "Schmerz entsteht an der Synapse im Rückenmark, sobald ein Schwellenwert überschritten wird.",
+        "Die Schmerzwahrnehmung wird im Gehirn generiert, nachdem Gefahrensignale aus der Peripherie zusammen mit Emotionen, Erinnerungen und Kontext interpretiert wurden — Schmerz ist ein Ausgangssignal des Gehirns.",
+        "Schmerz wird vom autonomen Nervensystem erzeugt, unabhängig vom zentralen Nervensystem."
+      ],
+      "correct": 2,
+      "explanation": "Nozizeptoren senden Warnsignale, doch ob daraus Schmerz wird, entscheidet das Gehirn — basierend auf Emotion, Erinnerung, Planung und Kontext. Schmerz ist damit kein Eingangs-, sondern ein Ausgangssignal des zentralen Nervensystems (vgl. Preilowski; Moseley)."
+    },
+    {
+      "text": "Lorimer Moseley fasst das aktuelle Schmerzverständnis im Satz „Pain depends on how much danger your brain thinks you are in, not how much danger you are really in.“ zusammen. Welche praktische Konsequenz folgt daraus?",
+      "multi": false,
+      "options": [
+        "Bei identischer peripherer Reizstärke kann ein und dasselbe Warnsignal je nach Bedeutung des Körperteils, Emotion und Erfahrung sehr unterschiedlich stark als Schmerz wahrgenommen werden.",
+        "Schmerz ist immer ein zuverlässiger Indikator für eine Gewebeschädigung.",
+        "Wenn keine Verletzung vorliegt, können keine Schmerzen empfunden werden.",
+        "Schmerz wird ausschließlich durch das objektive Gefahrenniveau in der Umgebung bestimmt."
+      ],
+      "correct": 0,
+      "explanation": "Bei identischer Signalstärke aus dem Handgelenk wird das Gehirn eines professionellen Klavierspielers ein anderes Schmerzniveau erzeugen als das eines Fußballers, weil die Bedeutung des Körperteils und die antizipierten Konsequenzen unterschiedlich sind."
+    },
+    {
+      "text": "Welche Aussage zur Beziehung von Nozizeption, Schmerz und Gewebeschaden ist korrekt?",
+      "multi": false,
+      "options": [
+        "Nozizeption führt zwangsläufig zu Schmerz, sobald das Reizniveau einen Schwellenwert überschreitet.",
+        "Nozizeption, Schmerz und Gewebeschaden sind drei voneinander entkoppelbare Phänomene.",
+        "Schmerz und Gewebeschaden sind synonym und stehen in direkter Korrelation zueinander.",
+        "Nozizeptoren sind Schmerzsensoren, die ausschließlich bei strukturellen Schäden aktiviert werden."
+      ],
+      "correct": 1,
+      "explanation": "Nozizeptoren senden Gefahrensignale, die erst auf mehreren Ebenen interpretiert werden müssen, damit Schmerz entsteht. Daher gilt: Nozizeption ≠ Schaden, Nozizeption ≠ Schmerz, Schmerz ≠ Schaden. Die Begriffe „Schmerzsensor“ oder „Schmerznerv“ sind neurobiologisch falsch, weil Nozizeptoren keinen Schmerz melden können."
+    },
+    {
+      "text": "Bei beschwerdefreien Personen lassen sich in bildgebenden Untersuchungen Bandscheibenvorfälle, Knorpelschäden, Meniskusrisse oder Rotatorenmanschettenrupturen nachweisen. Welche Schlussfolgerung zieht die aktuelle Schmerzforschung daraus?",
+      "multi": false,
+      "options": [
+        "Strukturelle Veränderungen lassen sich diagnostisch nicht reliabel nachweisen.",
+        "Diese Personen werden mit hoher Wahrscheinlichkeit innerhalb weniger Wochen symptomatisch.",
+        "Bildgebende Verfahren überschätzen das Ausmaß struktureller Schäden systematisch.",
+        "Strukturelle Veränderungen können vorhanden sein, ohne dass daraus Schmerzen resultieren — Struktur und Schmerz sind entkoppelbar."
+      ],
+      "correct": 3,
+      "explanation": "Untersuchungen an asymptomatischen Personen mit Rücken, Hüfte, Knie und Rotatorenmanschette belegen, dass strukturelle Abnormalitäten ohne Beschwerden auftreten. Schmerz und struktureller Schaden sind also keine zwingend gekoppelten Phänomene."
+    },
+    {
+      "text": "Welche Funktion erfüllen die absteigenden Bahnen im Nervensystem in Bezug auf nozizeptive Signale?",
+      "multi": false,
+      "options": [
+        "Sie leiten Gefahrensignale von den Nozizeptoren in der Peripherie zum Rückenmark.",
+        "Sie modulieren die Weiterleitung von Gefahrensignalen an der synaptischen Schaltstelle — sie können Signale verstärken oder abschwächen und wirken damit wie ein Lautstärkeregler.",
+        "Sie schalten nozizeptive Information vom Thalamus auf den somatosensorischen Kortex um.",
+        "Sie erzeugen periphere Sensibilisierung an den Nozizeptoren selbst."
+      ],
+      "correct": 1,
+      "explanation": "Die absteigenden Bahnen wirken über hemmende und verstärkende Stoffe an der synaptischen Schaltstelle wie ein Lautstärkeregler. Sie können einkommende Gefahrensignale entweder gedämpft oder verstärkt weiterleiten lassen."
+    },
+    {
+      "text": "Was bezeichnet der Begriff „körpereigene Apotheke“ im Kontext der Schmerzphysiologie?",
+      "multi": false,
+      "options": [
+        "Den Vorrat an Schmerzmedikamenten, den der Körper aus der Nahrung aufbaut.",
+        "Die Nozizeptoren in der Peripherie, die Schmerzsignale neutralisieren können.",
+        "Die Synapsen im Rückenmark, die Reize nur durchlassen, wenn ein zentraler Schwellenwert erreicht ist.",
+        "Die endogen produzierten hemmenden Stoffe, die über die absteigenden Bahnen an der synaptischen Schaltstelle die Weiterleitung von Gefahrensignalen abschwächen können."
+      ],
+      "correct": 3,
+      "explanation": "Mit „körpereigener Apotheke“ ist die endogene Schmerzmodulation gemeint. Beim Soldaten in Lebensgefahr oder bei der Surferin Bethany Hamilton nach dem Haiangriff wird die Weiterleitung der Gefahrensignale durch körpereigene Stoffe massiv abgeschwächt — ähnlich der Wirkung von Ibuprofen oder Paracetamol."
+    },
+    {
+      "text": "Welche drei Schmerzmechanismen werden aktuell voneinander abgegrenzt?",
+      "multi": false,
+      "options": [
+        "Nozizeptiv, peripher neuropathisch und periphere bzw. zentrale Sensibilisierung (auch noziplastisch genannt).",
+        "Akut, subakut und chronisch.",
+        "Mechanisch, thermisch und chemisch.",
+        "Strukturell, funktionell und psychosomatisch."
+      ],
+      "correct": 0,
+      "explanation": "Aktuell werden drei Schmerzmechanismen unterschieden: nozizeptiv (mechanisch oder entzündlich, häufig akut), peripher neuropathisch (an Nerven oder Nervensystem) und periphere bzw. zentrale Sensibilisierung (auch noziplastisch, häufig im chronischen Verlauf). Schmerz kann sich gleich anfühlen, die zugrunde liegenden Mechanismen sind aber unterschiedlich."
+    },
+    {
+      "text": "Eine Patientin berichtet über Dauerschmerz, der nachts deutlich zunimmt und auch in Ruhe nicht abklingt. Welcher nozizeptive Untertyp passt am ehesten zu dieser Symptomatik?",
+      "multi": false,
+      "options": [
+        "Nozizeptiv-mechanisch",
+        "Nozizeptiv-chemisch/-ischämisch — häufig in akutem oder entzündlichem Stadium, mit hoher Irritierbarkeit.",
+        "Nozizeptiv-thermisch",
+        "Peripher neuropathisch"
+      ],
+      "correct": 1,
+      "explanation": "Dauer-, Ruhe- und Nachtschmerz mit hoher Irritierbarkeit ist typisch für nozizeptiv-chemische oder -ischämische Mechanismen, die häufig in akuten oder entzündlichen Stadien dominieren. Nozizeptiv-mechanische Schmerzen wären intermittierend und bewegungs- oder belastungsabhängig."
+    },
+    {
+      "text": "Welche Veränderungen beschreibt die periphere Sensibilisierung?",
+      "multi": false,
+      "options": [
+        "Eine Verstärkung neuronaler Signale im Rückenmark und Gehirn durch zentrale neuronale Plastizität.",
+        "Eine Reduktion der Anzahl funktionsfähiger Nozizeptoren in der Peripherie.",
+        "Veränderungen an den Nozizeptoren selbst — Ionenkanäle bleiben länger geöffnet, und die Anzahl der Rezeptoren nimmt zu (mehr „Mikrophone“, länger „empfangsbereit“).",
+        "Eine Verschiebung von hemmenden zu verstärkenden Stoffen über die absteigenden Bahnen."
+      ],
+      "correct": 2,
+      "explanation": "Bei der peripheren Sensibilisierung verändern sich die Nozizeptoren — Ionenkanäle sind länger geöffnet, und die Rezeptorenzahl steigt. Das Duschen mit Sonnenbrand ist das klassische Erklärungsbeispiel: ein eigentlich angenehmer Reiz wird plötzlich als schmerzhaft erlebt."
+    },
+    {
+      "text": "Wie wird zentrale Sensibilisierung physiologisch definiert?",
+      "multi": false,
+      "options": [
+        "Als Diagnose-Code, der ab einer Schmerzdauer von mehr als drei Monaten vergeben wird.",
+        "Als rein psychisches Phänomen, das nicht neuroanatomisch fundiert ist.",
+        "Als physiologisches Konzept einer Verstärkung neuronaler Signale innerhalb des zentralen Nervensystems durch zentrale neuronale Plastizität, das eine verstärkte Schmerzerfahrung bewirkt (nach Nijs et al., 2021).",
+        "Als ausschließlich auf das Rückenmark begrenzte Veränderung der Reizweiterleitung."
+      ],
+      "correct": 2,
+      "explanation": "Nach Nijs et al. (2021) ist die zentrale Sensibilisierung ein physiologisches Konzept: eine Verstärkung neuronaler Signale im ZNS durch zentrale neuronale Plastizität, die eine verstärkte Schmerzerfahrung auslöst. Wichtig: Noziplastische Schmerzen sind keine Diagnose, sondern eine Mechanismus-Beschreibung."
+    },
+    {
+      "text": "Welcher Begriff beschreibt das Auftreten von Schmerzen bei einem Reiz, der für sich genommen normalerweise nicht schmerzhaft wäre (z. B. leichte Berührung der Haut)?",
+      "multi": false,
+      "options": [
+        "Hyperalgesie",
+        "Allodynie",
+        "Parästhesie",
+        "Hypästhesie"
+      ],
+      "correct": 1,
+      "explanation": "Allodynie bezeichnet Schmerzen bei eigentlich nicht-schmerzhaften Reizen. Hyperalgesie hingegen ist eine gesteigerte Schmerzantwort auf einen Reiz, der ohnehin schon schmerzhaft wäre. Beide gehören zu den Anzeichen einer zentralen Sensibilisierung."
+    },
+    {
+      "text": "Welche zeitliche Einteilung von Beschwerden hat sich in der Literatur etabliert?",
+      "multi": false,
+      "options": [
+        "Akut <1 Tag, subakut 1–7 Tage, chronisch >7 Tage.",
+        "Akut 0.–4. Woche, subakut 4.–12. Woche, „chronisch“ ab >12. Woche.",
+        "Akut <2 Wochen, subakut 2–6 Wochen, chronisch >6 Wochen.",
+        "Akut 0.–6. Monat, chronisch >6. Monat — keine separate subakute Phase."
+      ],
+      "correct": 1,
+      "explanation": "Etabliert hat sich die Einteilung 0–4 Wochen = akut, 4–12 Wochen = subakut, ab 12 Wochen = „chronisch“. Wichtig dabei: Eine direkte 1:1-Zuordnung von Zeit zu Schmerzsubgruppe ist nicht sinnvoll — auch akute Patientinnen und Patienten können bereits zentral-maladaptive Verarbeitungsmuster und Verhaltensweisen aufweisen."
+    },
+    {
+      "text": "Eine Patientin berichtet, dass ihre Rückenschmerzen seit Monaten „irgendwie immer da“ sind, dass aber immer mal wieder Tage mit deutlich weniger oder gar keinen Schmerzen dazwischen liegen. Wie wird dieser Verlauf bezeichnet, und welche klinische Bedeutung hat er?",
+      "multi": false,
+      "options": [
+        "Intermittierend — typisch für ein rein mechanisches Muster mit eindeutig reproduzierbaren Provokationen.",
+        "Konstant — typisch für einen rein chemisch-entzündlichen Prozess.",
+        "Episodisch — eine Mischung aus schmerzarmen oder schmerzfreien Intervallen mit konstanten Beschwerden, in der Regel mit einem chronischen Verlauf assoziiert.",
+        "Zentral-maladaptiv — ein eindeutiges Zeichen für Allodynie."
+      ],
+      "correct": 2,
+      "explanation": "Der beschriebene Verlauf ist episodisch — schmerzarme oder schmerzfreie Phasen wechseln sich mit konstanten Beschwerden ab. Das ist typisch für chronische Verläufe, etwa beim chronischen Rückenschmerzpatienten. Konstante Symptome ohne Pause sprechen eher für chemisch-entzündliche oder zentral-maladaptive Prozesse."
+    },
+    {
+      "text": "Welche der folgenden Fragen gehören zu den Basis-Anamnesefragen, die in jeder physiotherapeutischen Anamnese vorkommen sollten?",
+      "multi": true,
+      "options": [
+        "„Seit wann bestehen Ihre Beschwerden?“",
+        "„Sind Ihre Beschwerden konstant oder intermittierend?“",
+        "„Was verbessert oder verschlechtert Ihre Beschwerden?“",
+        "„Haben Sie das Gefühl, die Kontrolle über Ihre Beschwerden zu haben?“"
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Die ersten drei Fragen sind klassische Basis-Anamnesefragen — sie klären zeitlichen Verlauf, Konstanz und modifizierende Faktoren. Die Frage nach dem Kontroll-Erleben ist dagegen eine Profi-Frage, die auf Selbstwirksamkeit und Coping-Strategien zielt."
+    },
+    {
+      "text": "Welche der folgenden Patientenbeschreibungen sind klassische „Plus-Symptome“ einer peripheren neuropathischen Komponente?",
+      "multi": true,
+      "options": [
+        "„Es kribbelt und brennt wie elektrische Schläge.“",
+        "„Es fühlt sich an wie Ameisenlaufen unter der Haut.“",
+        "„Es fühlt sich pelzig an wie in Watte.“",
+        "„Es juckt und prickelt.“"
+      ],
+      "correct": [0, 1, 3],
+      "explanation": "Plus-Symptome bei Parästhesien umfassen Kribbeln, Brennen, elektrisierende Empfindungen, „Ameisenlaufen“ und Jucken. Minus-Symptome wären dagegen Taubheit, Pelzigkeit oder das Gefühl „wie in Watte“ — also ein Sensibilitätsverlust."
+    },
+    {
+      "text": "Was beschreibt der Begriff „Neurotag“ im Kontext der modernen Schmerzforschung?",
+      "multi": false,
+      "options": [
+        "Eine elektrische Markierung einzelner Schmerzfasern im Rückenmark.",
+        "Ein Netzwerk von Neuronen, das bei einer bestimmten Wahrnehmung, Bewegung oder Emotion gemeinsam aktiviert („feuert“) wird und durch Neuroplastizität veränderbar ist.",
+        "Eine spezifische Hirnregion, in der ausschließlich Schmerzsignale verarbeitet werden.",
+        "Eine biochemische Markierung, mit der Nozizeptoren ihre Position im Gewebe codieren."
+      ],
+      "correct": 1,
+      "explanation": "Ein Neurotag ist ein Neuronen-Netzwerk, das bei einer Wahrnehmung, Bewegung oder Emotion gemeinsam aktiviert wird. Diese Tags sind nicht festverdrahtet — sie können sich ein Leben lang verändern (Neuroplastizität). Auch das Schmerzempfinden ist als spezifischer Neurotag zu verstehen."
+    },
+    {
+      "text": "Was bedeutet das Prinzip „What fires together, wires together“ im Kontext der Neurotag-Theorie?",
+      "multi": false,
+      "options": [
+        "Mehrere Nozizeptoren in einer Region müssen gleichzeitig feuern, damit Schmerz entstehen kann.",
+        "Schmerz- und Tastfasern verschalten sich im Rückenmark, sodass sich Schmerz wie Berührung anfühlen kann.",
+        "Wiederholte gemeinsame Aktivierung mehrerer Neurotags (z. B. Motor-, Kognition- und Nozizeption-Tag) führt zu deren Kopplung — später genügt ein einzelner Tag, um die anderen mit auszulösen.",
+        "Die Gate-Control-Theorie nach Melzack und Wall beschreibt damit, wie das Rückenmark Reize blockiert oder durchlässt."
+      ],
+      "correct": 2,
+      "explanation": "Wenn Motor-, Kognition- und Nozizeption-Tag wiederholt gleichzeitig feuern — etwa beim Anheben eines Gegenstands mit dem festen Glauben „runder Rücken = ungesund“ — koppeln sie sich nach dem Prinzip der klassischen Konditionierung. Schließlich genügt ein einzelner Trigger (z. B. der bloße Anblick eines runden Rückens), um Schmerz auszulösen, auch ohne aktuelles Gefahrensignal aus der Peripherie."
+    },
+    {
+      "text": "Was beschreibt das multidimensionale Treibermodell nach Autoren wie Lin et al. (2019), Lewis et al. (2018) und Decary et al. (2020)?",
+      "multi": false,
+      "options": [
+        "Eine eindimensionale Klassifikation von Schmerzen nach Dauer (akut/subakut/chronisch).",
+        "Einen patientenzentrierten, ICF-orientierten Ansatz, der die individuell wahrscheinlichen Treiber von Schmerz und Funktionsverlust auf mehreren Dimensionen erfasst und Möglichkeiten zur interdisziplinären Zusammenarbeit schafft.",
+        "Ein rein mechanisches Modell, das Schmerzen ausschließlich auf strukturelle Gewebeveränderungen zurückführt.",
+        "Eine reine Psychologisierung von Schmerz, bei der biologische Faktoren ausgeklammert werden."
+      ],
+      "correct": 1,
+      "explanation": "Das multidimensionale Treibermodell nimmt das ICF-Modell ernst und identifiziert auf individualisierter, patientenzentrierter Basis die wahrscheinlichen Treiber von Schmerz und Funktionsverlust. Es schafft damit auch die Voraussetzung für eine interdisziplinäre Zusammenarbeit. Eine klare Überlegenheit eines rein mechanischen Konzepts ist bislang nicht belegt."
+    },
+    {
+      "text": "Welche fünf Treiber-Kategorien unterscheidet das multidimensionale Treibermodell?",
+      "multi": false,
+      "options": [
+        "Nozizeptive, neurale, Komorbidität-, kognitiv-emotionale und Kontext-Treiber.",
+        "Mechanische, thermische, chemische, neurale und vegetative Treiber.",
+        "Akute, subakute, chronische, neuropathische und sozioökonomische Treiber.",
+        "Biomechanische, neurologische, kardiovaskuläre, metabolische und psychiatrische Treiber."
+      ],
+      "correct": 0,
+      "explanation": "Im multidimensionalen Treibermodell werden fünf Treiber-Kategorien unterschieden: nozizeptive, neurale (neuropathisch und sensibilisiert), Komorbidität-, kognitiv-emotionale und Kontext-Treiber. Innerhalb jeder Kategorie wird zwischen Ebene 1 (häufig, modifizierbar) und Ebene 2 (komplex, schwer modifizierbar) unterschieden."
+    },
+    {
+      "text": "Welche der folgenden Faktoren gelten als kognitiv-emotionale Treiber auf Ebene 1 (häufig und modifizierbar) im multidimensionalen Treibermodell?",
+      "multi": true,
+      "options": [
+        "Schmerzkatastrophisierung („Der Schmerz ist ein Zeichen, dass es schlimm ist!“)",
+        "Kinesiophobie / Bewegungsangst („Ich versuche keine falschen Bewegungen zu machen.“)",
+        "Schmerzbedingtes Angst-Vermeidungsverhalten („Ich traue mich nicht, mein Knie zu belasten.“)",
+        "Eine diagnostizierte schwere depressive Episode mit Suizidalität."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Schmerzkatastrophisierung, Kinesiophobie und schmerzbedingtes Angst-Vermeidungsverhalten gehören zu den häufigen, modifizierbaren kognitiv-emotionalen Treibern auf Ebene 1. Eine schwere psychiatrische Erkrankung wäre dagegen Ebene 2 zuzuordnen — komplex und schwer modifizierbar."
+    },
+    {
+      "text": "Welche der folgenden Befunde gehören bei den nozizeptiven Treibern zur Ebene 2 (komplex, schwer modifizierbar)?",
+      "multi": true,
+      "options": [
+        "Schmerzintensität (Durchschnitt) NRS ≥ 7/10 in mindestens einem Funktionsbereich.",
+        "Schmerzen mit erkennbaren strukturellen Stabilitätsdefiziten, z. B. nach Operationen.",
+        "Aktive Entzündungszeichen bei einem akuten Trauma (Wärme, Schwellung, Morgensteifigkeit).",
+        "Anhaltende Entzündungszeichen trotz adäquater Behandlung."
+      ],
+      "correct": [0, 1, 3],
+      "explanation": "Komplex und schwer modifizierbar (Ebene 2) sind Schmerzen mit NRS ≥ 7/10 im Mittel, post-operative oder anders bedingte strukturelle Stabilitätsdefizite und anhaltende Entzündungszeichen trotz Behandlung. Akute Entzündungszeichen im Erstkontakt sind dagegen Ebene-1-Treiber — häufig und modifizierbar."
+    },
+    {
+      "text": "Welche der folgenden Komorbiditäten zählt zu den schwer modifizierbaren Treibern (Ebene 2)?",
+      "multi": false,
+      "options": [
+        "Eine subklinische, nicht diagnostizierte leichte depressive Verstimmung.",
+        "Eine bekannte arterielle Hypertonie ohne weitere kardiovaskuläre Komplikationen.",
+        "Schlafstörungen mit Einschlafproblemen und morgendlicher Unerholtheit.",
+        "Eine diagnostizierte Fibromyalgie als eigenständige Schmerzsensibilisierungs-Störung."
+      ],
+      "correct": 3,
+      "explanation": "Eigenständige Störungen mit Schmerzsensibilisierung — wie Fibromyalgie, Migräne, chronische Müdigkeit oder Reizdarm — gehören zu den komplexen Komorbiditäts-Treibern (Ebene 2). Subklinische depressive Verstimmung, internistische Komorbiditäten ohne weitere Probleme und Schlafstörungen sind dagegen Ebene-1-Treiber."
+    },
+    {
+      "text": "Welche Aussage zu den Kontext-Treibern im multidimensionalen Treibermodell trifft zu?",
+      "multi": false,
+      "options": [
+        "Kontext-Treiber sind ausschließlich umweltbezogene Faktoren wie Lärm oder Klima.",
+        "Kontext-Treiber spielen nur bei Berufstätigen eine Rolle, nicht bei Rentnerinnen oder Studierenden.",
+        "Kontext-Treiber umfassen berufs-, umweltbezogene und soziale Faktoren — etwa niedrige Erwartungen an die Arbeits-Rückkehr, geringe Arbeitszufriedenheit oder ungünstige Botschaften von Ärztinnen und Therapeuten.",
+        "Kontext-Treiber sind im physiotherapeutischen Setting prinzipiell nicht modifizierbar."
+      ],
+      "correct": 2,
+      "explanation": "Kontext-Treiber decken berufs-, umweltbezogene und soziale Faktoren ab. Ebene 1 sind häufige, modifizierbare Treiber (niedrige Erwartungen an die Arbeits-Rückkehr, geringe Arbeitszufriedenheit, hohe Arbeitsbelastung); Ebene 2 die schwer modifizierbaren (geringe Arbeitsflexibilität, mangelnde soziale Unterstützung, ungünstige Botschaften aus dem Versorgungssystem)."
+    },
+    {
+      "text": "Welche zwei Hebel beschreibt Greg Lehman im Modell der Schmerz-Tasse für die therapeutische Praxis?",
+      "multi": false,
+      "options": [
+        "Den Inhalt der Tasse reduzieren (DIMs wie schlechter Schlaf, Stress, ungünstige Überzeugungen „rausnehmen“) und die Tassengröße vergrößern (SIMs und Belastungskapazität ausbauen).",
+        "Die Schmerzmedikation komplett einstellen und ausschließlich passive Maßnahmen anwenden.",
+        "Eine lange Ruhephase einhalten und danach sofort wieder volle Belastung aufnehmen.",
+        "Die Tasse leeren, indem ausschließlich an der nozizeptiven Quelle gearbeitet wird."
+      ],
+      "correct": 0,
+      "explanation": "Greg Lehman beschreibt zwei Hebel: DIMs (Danger in Me) aus der Tasse „rausnehmen“ und die Tassengröße bzw. Belastungskapazität durch SIMs (Safety in Me) erweitern. Adam Meakins (2019) führt das im Modell „Belastungsmanagement und Kapazitätsaufbau“ mit der Idee einer „robusten Reserve“ weiter."
+    },
+    {
+      "text": "Welche Eigenschaften charakterisieren den „Durchhalter“ im Vermeidungs-Durchhalte-Modell nach Hasenbring (2010, 2012)?",
+      "multi": true,
+      "options": [
+        "Er ignoriert Schmerzen und strengt sich vermehrt an.",
+        "Er kann schlecht „Nein“ sagen.",
+        "Er gönnt sich keine Pausen und kennt keine Grenzen.",
+        "Er pendelt zwischen totaler Inaktivität und plötzlich hoher Belastung in unregelmäßigen Abständen."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Charakteristisch für den Durchhalter sind das Ignorieren von Schmerzen, vermehrtes Anstrengen, fehlende Pausen und Schwierigkeiten beim „Nein-Sagen“. Im Alltag kommen Durchhalter oft besser zurecht als Vermeider, geraten dafür aber in Überlastung. Das Pendel-Verhalten zwischen Inaktivität und plötzlicher Hochbelastung ist nicht typisch."
+    },
+    {
+      "text": "Welcher therapeutische Ansatz ist beim klassischen „Vermeider“ (Angst-Vermeidungs-Typ) angezeigt?",
+      "multi": false,
+      "options": [
+        "Strukturierte, graduierte Steigerung der Belastung unter Berücksichtigung dominanter psychosozialer Einflussfaktoren.",
+        "Strukturierter Wechsel zwischen Be- und Entlastung mit gezielten Minipausen und Entspannung.",
+        "Komplette Ruhigstellung, bis die Bewegungsangst spontan abklingt.",
+        "Möglichst hohe Belastungssteigerung in kurzer Zeit, um die Angst zu desensibilisieren."
+      ],
+      "correct": 0,
+      "explanation": "Beim Vermeider, der durch Schon- und Vermeidungsverhalten Funktionskapazität verliert, ist eine strukturierte, graduierte Belastungssteigerung unter Berücksichtigung psychosozialer Faktoren angezeigt. Der strukturierte Wechsel zwischen Be- und Entlastung mit Minipausen ist dagegen die Strategie für den Durchhalter (Hasenbring; Vlaeyen & Linton, 2000)."
+    }
+  ]
+}
