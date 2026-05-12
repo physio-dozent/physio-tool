@@ -4,76 +4,98 @@
     "file": "schmerz-quiz-001.json",
     "title": "Schmerzverständnis 2.0 — Grundlagen-Quiz",
     "description": "Fragen-Pool aus 28 Fragen. Pro Durchlauf werden 10 zufällig gezogen und gemischt.",
-    "type": "quiz"
+    "type": "quiz",
+    "topic": "schmerz",
+    "topic_title": "Schmerzverständnis 2.0"
   },
   {
     "id": "schmerz-shortcase-001",
     "file": "schmerz-shortcase-001.json",
     "title": "Kurzfall: Markus, 42 — wiederkehrender Rückenschmerz",
     "description": "Chronischer unspezifischer Rückenschmerz, Durchhalter-Profil. Drei Fragen zu Einflussfaktoren, Schmerzmechanismus und Calm/Build-Therapieansatz.",
-    "type": "short_case"
+    "type": "short_case",
+    "topic": "schmerz",
+    "topic_title": "Schmerzverständnis 2.0"
   },
   {
     "id": "schmerz-shortcase-002",
     "file": "schmerz-shortcase-002.json",
     "title": "Kurzfall: Frau Müller, 45 — anhaltender Knieschmerz nach Bagatelltrauma",
     "description": "Vermeider-Profil mit Kinesiophobie und Fear-Avoidance. Drei Fragen zu dominanten Treibern, Therapie für Vermeider und Kontext-Treibern aus der Versorgungs-Vorgeschichte.",
-    "type": "short_case"
+    "type": "short_case",
+    "topic": "schmerz",
+    "topic_title": "Schmerzverständnis 2.0"
   },
   {
     "id": "schmerz-shortcase-003",
     "file": "schmerz-shortcase-003.json",
     "title": "Kurzfall: Tom, 22 — akute Schulterschmerzen mit Chronifizierungs-Risiko",
     "description": "Akute Beschwerden mit deutlichen Risikomarkern für Chronifizierung. Drei Fragen zu Risikomarkern, Profi-Anamnesefragen und Therapie mit Schwerpunkt Patientenedukation.",
-    "type": "short_case"
+    "type": "short_case",
+    "topic": "schmerz",
+    "topic_title": "Schmerzverständnis 2.0"
   },
   {
     "id": "knie-quiz-001",
     "file": "knie-quiz-001.json",
     "title": "Untere Extremität — Knie · Grundlagen-Quiz",
     "description": "Fragen-Pool aus 40 Fragen über Anatomie, VKB-Ruptur, Meniskuspathologie, Kollateralbandruptur, Gonarthrose, Knie-TEP und Reha-Prinzipien. Pro Durchlauf werden 10 zufällig gezogen und gemischt.",
-    "type": "quiz"
+    "type": "quiz",
+    "topic": "knie",
+    "topic_title": "Untere Extremität — Knie"
   },
   {
     "id": "knie-shortcase-001",
     "file": "knie-shortcase-001.json",
     "title": "Kurzfall: Lena, 19 — frische VKB-Ruptur beim Handballspiel",
     "description": "Klassischer Nicht-Kontakt-Mechanismus, frische Akutphase. Drei Fragen zu Mechanismus, Test-Strategie und evidenzbasierter Aufklärung zu OP versus konservativ.",
-    "type": "short_case"
+    "type": "short_case",
+    "topic": "knie",
+    "topic_title": "Untere Extremität — Knie"
   },
   {
     "id": "knie-shortcase-002",
     "file": "knie-shortcase-002.json",
     "title": "Kurzfall: Herr Schreiner, 57 — degenerative Meniskopathie mit MRT-Befund",
     "description": "Schleichende Beschwerden, MRT-Befund mit Riss und beginnenden Knorpelveränderungen. Drei Fragen zur Einordnung, zur OP-Diskussion und zum konservativen Therapierahmen.",
-    "type": "short_case"
+    "type": "short_case",
+    "topic": "knie",
+    "topic_title": "Untere Extremität — Knie"
   },
   {
     "id": "knie-shortcase-003",
     "file": "knie-shortcase-003.json",
     "title": "Kurzfall: Frau Hoffmann, 62 — Gonarthrose mit Bewegungsangst und Nocebo",
     "description": "Gonarthrose Grad 2, Bewegungsangst durch eine ungünstige Bekannten-Botschaft, deutliche Dekonditionierung. Drei Fragen zu Treibern, Edukations-Botschaft und initialer Therapie nach Leitlinien.",
-    "type": "short_case"
+    "type": "short_case",
+    "topic": "knie",
+    "topic_title": "Untere Extremität — Knie"
   },
   {
     "id": "demo-quiz-001",
     "file": "demo-quiz.json",
     "title": "Demo: Allgemeines Quiz",
     "description": "Beispiel-Quizfragen zum Testen des Tools",
-    "type": "quiz"
+    "type": "quiz",
+    "topic": "demo",
+    "topic_title": "Demo / Beispiele"
   },
   {
     "id": "demo-shortcase-001",
     "file": "demo-shortcase.json",
     "title": "Demo: Kurzfall Knie",
     "description": "Beispiel-Kurzfall mit Symptomerkennung",
-    "type": "short_case"
+    "type": "short_case",
+    "topic": "demo",
+    "topic_title": "Demo / Beispiele"
   },
   {
     "id": "demo-reasoning-001",
     "file": "demo-reasoning.json",
     "title": "Demo: Reasoning-Fall LWS",
     "description": "Beispiel für einen langen Clinical-Reasoning-Fall",
-    "type": "reasoning_case"
+    "type": "reasoning_case",
+    "topic": "demo",
+    "topic_title": "Demo / Beispiele"
   }
 ]
