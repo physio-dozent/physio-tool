@@ -712,14 +712,16 @@ async function loadIndex() {
 function renderTopicsList() {
   const list = document.getElementById('topic-list');
   if (!list) return;
-  if (!availableUnits.length) {
+  // Schüler sehen nur sichtbare Einheiten — verborgene (z. B. Demo) werden ausgefiltert.
+  const visibleUnits = availableUnits.filter(u => !u.hidden);
+  if (!visibleUnits.length) {
     list.innerHTML = '<div class="empty-state">Aktuell sind keine Themen verfügbar.</div>';
     return;
   }
-  // Eindeutige Themen aus availableUnits ziehen, Reihenfolge der ersten Begegnung beibehalten.
+  // Eindeutige Themen aus den sichtbaren Einheiten ziehen, Reihenfolge der ersten Begegnung beibehalten.
   const seen = new Set();
   const topics = [];
-  availableUnits.forEach(u => {
+  visibleUnits.forEach(u => {
     const tid = u.topic || 'sonstige';
     if (seen.has(tid)) return;
     seen.add(tid);
@@ -729,9 +731,9 @@ function renderTopicsList() {
       count: 0
     });
   });
-  // Zählungen pro Thema
+  // Zählungen pro Thema (nur sichtbare Einheiten zählen)
   topics.forEach(t => {
-    t.count = availableUnits.filter(u => (u.topic || 'sonstige') === t.id).length;
+    t.count = visibleUnits.filter(u => (u.topic || 'sonstige') === t.id).length;
   });
   list.innerHTML = '';
   topics.forEach(t => {
@@ -763,8 +765,10 @@ function selectTopic(topicId, topicTitle) {
 function renderUnitList() {
   const list = document.getElementById('unit-list');
   if (!list) return;
-  // Nur Einheiten des gewählten Themas
-  const filtered = availableUnits.filter(u => (u.topic || 'sonstige') === session.topic);
+  // Nur sichtbare Einheiten des gewählten Themas (verborgene werden für Schüler ausgeblendet)
+  const filtered = availableUnits.filter(u =>
+    (u.topic || 'sonstige') === session.topic && !u.hidden
+  );
   if (!filtered.length) {
     list.innerHTML = '<div class="empty-state">Für dieses Thema sind aktuell keine Einheiten verfügbar.</div>';
     return;
