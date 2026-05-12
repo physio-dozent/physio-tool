@@ -28,6 +28,34 @@
     "type": "short_case"
   },
   {
+    "id": "knie-quiz-001",
+    "file": "knie-quiz-001.json",
+    "title": "Untere Extremität — Knie · Grundlagen-Quiz",
+    "description": "Fragen-Pool aus 40 Fragen über Anatomie, VKB-Ruptur, Meniskuspathologie, Kollateralbandruptur, Gonarthrose, Knie-TEP und Reha-Prinzipien. Pro Durchlauf werden 10 zufällig gezogen und gemischt.",
+    "type": "quiz"
+  },
+  {
+    "id": "knie-shortcase-001",
+    "file": "knie-shortcase-001.json",
+    "title": "Kurzfall: Lena, 19 — frische VKB-Ruptur beim Handballspiel",
+    "description": "Klassischer Nicht-Kontakt-Mechanismus, frische Akutphase. Drei Fragen zu Mechanismus, Test-Strategie und evidenzbasierter Aufklärung zu OP versus konservativ.",
+    "type": "short_case"
+  },
+  {
+    "id": "knie-shortcase-002",
+    "file": "knie-shortcase-002.json",
+    "title": "Kurzfall: Herr Schreiner, 57 — degenerative Meniskopathie mit MRT-Befund",
+    "description": "Schleichende Beschwerden, MRT-Befund mit Riss und beginnenden Knorpelveränderungen. Drei Fragen zur Einordnung, zur OP-Diskussion und zum konservativen Therapierahmen.",
+    "type": "short_case"
+  },
+  {
+    "id": "knie-shortcase-003",
+    "file": "knie-shortcase-003.json",
+    "title": "Kurzfall: Frau Hoffmann, 62 — Gonarthrose mit Bewegungsangst und Nocebo",
+    "description": "Gonarthrose Grad 2, Bewegungsangst durch eine ungünstige Bekannten-Botschaft, deutliche Dekonditionierung. Drei Fragen zu Treibern, Edukations-Botschaft und initialer Therapie nach Leitlinien.",
+    "type": "short_case"
+  },
+  {
     "id": "demo-quiz-001",
     "file": "demo-quiz.json",
     "title": "Demo: Allgemeines Quiz",
