@@ -1,0 +1,45 @@
+{
+  "id": "schmerz-shortcase-003",
+  "type": "short_case",
+  "title": "Kurzfall: Tom, 22 — akute Schulterschmerzen mit Chronifizierungs-Risiko",
+  "intro": "Junger Hobbysportler, drei Wochen Schulterschmerz nach Trainingssteigerung. Akut in der Zeit, aber bereits mit deutlichen Risikomarkern für eine Chronifizierung. Drei Fragen zur Risikoerkennung, zur Anamnese-Vertiefung und zum Therapieansatz.",
+  "vignette": "Tom, 22, Wirtschaftsstudent, kommt mit Schulterschmerzen rechts in die Praxis. Seit etwa drei Wochen merke er die Schulter beim Krafttraining — er hatte vor knapp einem Monat einen neuen Trainingsplan begonnen und das Volumen am Bankdrücken deutlich erhöht. Anfangs nur ein Ziehen, mittlerweile auch in Ruhe spürbar, vor allem abends im Bett. „Ich hab natürlich schon recherchiert — ich glaub, die Supraspinatussehne ist hin, das hat alles auf YouTube gepasst. Wenn die jetzt komplett reißt, dann war's das mit dem Sport.“ Er habe das Krafttraining sofort komplett eingestellt, traue sich auch keine Liegestütze mehr und meide den Schwimmverein, in dem er sonst zweimal die Woche ist. Sein Schlaf hat sich seit Beginn der Beschwerden spürbar verschlechtert: er liege oft wach und überlege, was er machen soll, wenn das jetzt „ein chronisches Ding“ wird. Auf die Frage, was die Beschwerden verbessere, sagt er: „Hauptsächlich nichts machen.“ Auf die Frage, ob ein Auslöser klar erkennbar sei: „Naja, der neue Trainingsplan halt — vielleicht hätte ich nicht so schnell steigern sollen.“ Klinisch ist die Schulter aktiv und passiv unauffällig in der Bewegung, keine eindeutigen Provokationstests positiv, keine neurologischen Auffälligkeiten, keine systemischen Warnzeichen, kein Trauma in der Vorgeschichte.",
+  "questions": [
+    {
+      "text": "Tom ist mit drei Wochen Beschwerdedauer formal noch in der akuten Phase. Welche der folgenden Beobachtungen sind dennoch Risikomarker für eine Chronifizierung, die in der Anamnese aufmerksam machen sollten?",
+      "multi": true,
+      "options": [
+        "Ausgeprägte Schmerzkatastrophisierung („wenn die jetzt komplett reißt, war's das mit dem Sport“) mit Laientheorie aus dem Internet.",
+        "Komplette Vermeidung von Belastung — auch in eigentlich unkritischen Aktivitäten wie Schwimmen.",
+        "Schlafstörungen, die kognitiv-emotional unterhalten werden (gedanklich kreist er um die Beschwerden).",
+        "Eine eindeutige positive radiologische Bildgebung mit nachgewiesener Komplettruptur."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Auch akute Patientinnen und Patienten können bereits zentral-maladaptive Verarbeitungsmuster zeigen. Bei Tom sind das die Schmerzkatastrophisierung samt Laientheorie, das ausgeprägte Vermeidungsverhalten (Schwimmen ausgesetzt, Liegestütze gemieden) und die kognitiv-emotional unterhaltenen Schlafstörungen. Eine radiologisch nachgewiesene Komplettruptur wäre dagegen kein psychosozialer Risikomarker, sondern ein struktureller Befund — und liegt hier gar nicht vor."
+    },
+    {
+      "text": "Welche Profi-Anamnesefragen helfen Tom, das psychosoziale Bild zu schärfen und einen Anker für die anschließende Patientenedukation zu setzen?",
+      "multi": true,
+      "options": [
+        "„Was denken Sie, hat Ihre Beschwerden verursacht?“ — zielt auf das individuelle Schmerzverständnis.",
+        "„Sind Sie besorgt aufgrund Ihrer Beschwerden?“ — adressiert Sorgen und Ängste.",
+        "„Wie lange denken Sie, werden Ihre Beschwerden anhalten?“ — fängt seine persönliche Prognose-Erwartung ein.",
+        "„Wie hoch ist Ihr Ruhepuls heute Morgen gewesen?“ — Standard-Vitalwert in der Anamnese."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Die drei genannten Profi-Anamnesefragen zielen direkt auf Schmerzverständnis, Sorgen und persönliche Prognose-Erwartung — genau die kognitiv-emotionalen Treiber, die bei Tom dominant sind. Sie schaffen den Anker, um seine Laientheorie („Supraspinatus ist hin“) und seine Prognose-Angst gezielt zu adressieren. Eine Ruhepuls-Frage ist in dieser Konstellation nicht zielführend und gehört nicht zum Profi-Fragenkatalog der Schmerzanamnese."
+    },
+    {
+      "text": "Welcher initiale Therapieansatz erscheint bei Tom am sinnvollsten?",
+      "multi": false,
+      "options": [
+        "Sofortige MRT-Verordnung und vollständige Sportkarenz, bis ein bildgebender Befund vorliegt.",
+        "Gezielte Patientenedukation zum aktuellen Schmerzverständnis (Schmerz ≠ Schaden, asymptomatische Strukturveränderungen, Bedeutung des Kontextes), Korrektur der Laientheorie zur Supraspinatussehne und schrittweise Wiederaufnahme schmerzarmer Belastungen — insbesondere Schwimmen — bei klinisch unauffälligem Untersuchungsbefund.",
+        "Maximale Belastungssteigerung am Bankdrücken in der ersten Therapie-Einheit, um die Angst zu desensibilisieren.",
+        "Ausschließlich passive Maßnahmen (Massage, Wärme, Ultraschall) und Verschreibung von Schmerzmedikation, ohne Gespräch über die Sorgen."
+      ],
+      "correct": 1,
+      "explanation": "Bei klinisch unauffälligem Untersuchungsbefund ohne neurologische oder systemische Warnzeichen ist eine reflexhafte MRT-Verordnung nicht sinnvoll — sie würde die Katastrophisierung eher noch zementieren. Stattdessen: aktive Patientenedukation zum aktuellen Schmerzverständnis, gezielte Korrektur der Laientheorie und schrittweise Wiederaufnahme schmerzarmer Belastungen. Schwimmen ist ein guter Wiedereinstieg, weil es ihm vertraut ist und sportliche Identität stärkt. Maximale Belastung wäre kontraproduktiv, rein passive Maßnahmen würden die psychosozialen Treiber ignorieren."
+    }
+  ]
+}

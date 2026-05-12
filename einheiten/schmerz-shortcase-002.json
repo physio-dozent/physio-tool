@@ -1,0 +1,45 @@
+{
+  "id": "schmerz-shortcase-002",
+  "type": "short_case",
+  "title": "Kurzfall: Frau Müller, 45 — anhaltender Knieschmerz nach Bagatelltrauma",
+  "intro": "Vermeider-Profil mit ausgeprägter Bewegungsangst. Drei Fragen zur Treiber-Identifikation, zur Therapie-Strategie für Vermeider und zur Bewertung einer Botschaft aus der Vorgeschichte.",
+  "vignette": "Frau Müller, 45 Jahre, Bürokauffrau, kommt mit anhaltenden Beschwerden im rechten Knie zur Erstaufnahme. Vor etwa sechs Monaten ist sie zu Hause auf der Treppe gestolpert, hat sich am Geländer aufgefangen, das Knie kurz „verdreht“ und ein leichtes Ziehen verspürt. „Eigentlich war's nicht wirklich schlimm — aber seitdem hab ich das Gefühl, ich darf da nicht mehr richtig drauftreten.“ Sie sei damals zum Hausarzt gegangen, der habe gesagt: „Da ist offenbar etwas verdreht, schonen Sie das mal eine Weile, sonst macht es Probleme.“ Seitdem geht sie Treppen nur noch mit Geländer und nimmt im Bus den Sitz neben der Tür. Joggen, das sie zuvor zweimal die Woche gemacht hat, hat sie komplett aufgegeben. Sie habe gehört, dass „mit so einem Knie nicht zu spaßen ist“, und befürchte, sie habe „den Knorpel überlastet“. Sie schläft eher unruhig, weil sie sich Sorgen mache, dass das Knie immer schlimmer werde, wenn sie es belaste. Auf die Frage nach dem Schmerzcharakter zuckt sie mit den Schultern: „Manchmal sticht es leicht, manchmal ist es nur ein dumpfes Gefühl. Aber ich versuche eben, es zu vermeiden.“ Auf die Bitte, ihr Knie kurz aktiv bis zur ersten Spür-Grenze zu beugen, hält sie deutlich vor dem normalen Bewegungsausmaß inne und sagt: „Weiter trau ich mich nicht — wer weiß, was da passieren kann.“",
+  "questions": [
+    {
+      "text": "Welche der folgenden Treiber sind bei Frau Müller am ehesten dominant und sollten in der weiteren Behandlung im Vordergrund stehen?",
+      "multi": true,
+      "options": [
+        "Kinesiophobie und schmerzbedingtes Angst-Vermeidungsverhalten (Fear-Avoidance).",
+        "Schmerzkatastrophisierung („mit so einem Knie ist nicht zu spaßen“, „Knorpel überlastet“).",
+        "Periphere neuropathische Symptomatik mit eindeutigen Plus-Symptomen wie Brennen oder Elektrisieren.",
+        "Schlafstörungen mit Verstärkung durch sorgenvolle Gedanken."
+      ],
+      "correct": [0, 1, 3],
+      "explanation": "Frau Müller zeigt das klassische Vermeider-Profil: ausgeprägte Bewegungsangst und Fear-Avoidance-Verhalten (Treppen nur mit Geländer, Joggen aufgegeben), Schmerzkatastrophisierung mit Laientheorie zum „überlasteten Knorpel“ und kognitiv-emotional getriebene Schlafstörungen. Für eine peripher neuropathische Komponente fehlen die typischen Plus-Symptome (Kribbeln, Brennen, „Ameisenlaufen“) — sie beschreibt ein dumpfes oder leicht stechendes Gefühl, was eher gegen eine neuropathische Beteiligung spricht."
+    },
+    {
+      "text": "Welcher therapeutische Ansatz ist bei Frau Müller mit ihrem Vermeider-Profil initial am sinnvollsten?",
+      "multi": false,
+      "options": [
+        "Komplette Ruhigstellung des Knies in einer Schiene, bis die Bewegungsangst spontan abklingt.",
+        "Strukturierte, graduierte Belastungssteigerung in vertrauten Aktivitäten (z. B. wieder Treppensteigen, kurze Joggingrunden), kombiniert mit aktiver Aufklärung zu Schmerz ≠ Schaden und gezielter Adressierung der Laientheorie.",
+        "Sofortige Verordnung umfangreicher passiver Maßnahmen (Massage, Wärme, Elektrotherapie), bis sich das Knie „beruhigt“ hat.",
+        "Möglichst hohe Belastungssteigerung in kurzer Zeit, um die Angst durch Konfrontation zu desensibilisieren."
+      ],
+      "correct": 1,
+      "explanation": "Beim Vermeider — der durch Schon- und Vermeidungsverhalten Funktionskapazität verloren hat — ist eine strukturierte, graduierte Belastungssteigerung unter Berücksichtigung dominanter psychosozialer Faktoren angezeigt. Dazu gehören aktive Aufklärung zum aktuellen Schmerzverständnis und das gezielte Adressieren der Laientheorie zum „überlasteten Knorpel“. Ruhigstellung würde das Vermeidungsverhalten verstärken; sehr abrupte Hochbelastung würde Vertrauen und Adhärenz untergraben."
+    },
+    {
+      "text": "Wie ist die Botschaft des damaligen Hausarztes („Schonen Sie das mal eine Weile, sonst macht es Probleme.“) im Sinne des multidimensionalen Treibermodells einzuordnen?",
+      "multi": false,
+      "options": [
+        "Als evidenzbasierte und unproblematische Empfehlung, weil Schonung bei jeder Form von Bagatelltrauma die Standardtherapie ist.",
+        "Als ungünstige Botschaft aus dem Versorgungssystem, die als Kontext-Treiber wirkt und Kinesiophobie und Fear-Avoidance-Verhalten begünstigt — sie hat aktiv zur aktuellen Vermeider-Dynamik beigetragen.",
+        "Als rein nozizeptiver Treiber, weil sie auf eine reale strukturelle Schädigung im Knie hindeutet.",
+        "Als irrelevant für die heutige Situation, weil die Aussage sechs Monate zurückliegt."
+      ],
+      "correct": 1,
+      "explanation": "Im multidimensionalen Treibermodell zählen ungünstige Botschaften von Ärztinnen und Therapeuten zu den Kontext-Treibern. Eine pauschale Schon-Empfehlung bei einem Bagatelltrauma kann Bewegungsangst und Fear-Avoidance-Verhalten verstärken — bei Frau Müller hat sie die heutige Dynamik mit angestoßen. Solche Botschaften wirken oft über Jahre, weil Patientinnen und Patienten sie als „medizinisch autoritativ“ verinnerlichen."
+    }
+  ]
+}
