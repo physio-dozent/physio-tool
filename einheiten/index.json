@@ -78,7 +78,8 @@
     "description": "Beispiel-Quizfragen zum Testen des Tools",
     "type": "quiz",
     "topic": "demo",
-    "topic_title": "Demo / Beispiele"
+    "topic_title": "Demo / Beispiele",
+    "hidden": true
   },
   {
     "id": "demo-shortcase-001",
@@ -87,7 +88,8 @@
     "description": "Beispiel-Kurzfall mit Symptomerkennung",
     "type": "short_case",
     "topic": "demo",
-    "topic_title": "Demo / Beispiele"
+    "topic_title": "Demo / Beispiele",
+    "hidden": true
   },
   {
     "id": "demo-reasoning-001",
@@ -96,6 +98,7 @@
     "description": "Beispiel für einen langen Clinical-Reasoning-Fall",
     "type": "reasoning_case",
     "topic": "demo",
-    "topic_title": "Demo / Beispiele"
+    "topic_title": "Demo / Beispiele",
+    "hidden": true
   }
 ]
