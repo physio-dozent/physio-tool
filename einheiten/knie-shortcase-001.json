@@ -1,0 +1,45 @@
+{
+  "id": "knie-shortcase-001",
+  "type": "short_case",
+  "title": "Kurzfall: Lena, 19 — frische VKB-Ruptur beim Handballspiel",
+  "intro": "Junge Sportlerin mit klassischem Nicht-Kontakt-Mechanismus und großer Unsicherheit zur Frage „OP oder nicht“. Drei Fragen zu Mechanismus, Test-Strategie und Aufklärung zur Therapie-Entscheidung.",
+  "vignette": "Lena, 19 Jahre, A-Jugend-Bundesliga-Handballerin, kommt am Tag nach einem Spiel in die Praxis. Sie schildert: „Ich hab nach rechts angetäuscht, dann hart mit dem linken Bein abgestoppt — mein Knie ist irgendwie nach innen weggeknickt, ich hab ein lautes Knacken gehört, dann ging's nicht mehr weiter.“ Innerhalb der ersten Stunde sei das Knie deutlich angeschwollen, jetzt fühle es sich „prall“ an, lokal etwas wärmer. Sie kann das Knie nicht voll strecken; beim Versuch, ein paar Schritte zu machen, hat sie zweimal das Gefühl, das Knie „rutscht weg“. Auf die Frage, was sie über die Verletzung denkt: „Mein Trainer hat gesagt, das ist bestimmt das Kreuzband. Ich hab gegoogelt — alle sagen, ich muss sofort operiert werden, sonst kann ich Handball vergessen.“ Sie ist sichtbar aufgeregt und kämpft mit den Tränen. Ein MRT-Termin ist für übermorgen organisiert.",
+  "questions": [
+    {
+      "text": "Welcher Verletzungsmechanismus passt am besten zur Schilderung von Lena?",
+      "multi": false,
+      "options": [
+        "Direkte Kontaktverletzung mit Krafteinwirkung von medial gegen das Kniegelenk.",
+        "Hyperextension des Kniegelenks beim Landen nach einem Sprung.",
+        "Nicht-Kontakt-Mechanismus mit Abstoppmanöver, Beinachsenkollaps (Valgus durch Hüft-Adduktion und -Innenrotation) und Tibia-Rotation — der klassische Mechanismus einer VKB-Ruptur nach Quatman et al. (2009).",
+        "Reine Außenrotation der Tibia bei feststehendem Fuß ohne Beinachsenkollaps."
+      ],
+      "correct": 2,
+      "explanation": "Lenas Schilderung („abgestoppt, Knie nach innen geknickt, lautes Knacken“) entspricht dem klassischen Nicht-Kontakt-Mechanismus nach Quatman et al. (2009): Abstoppmanöver kombiniert mit Valgus-Kollaps (Hüft-Adduktion und -Innenrotation) und Tibia-Rotation, mit Verletzung binnen 30–50 ms nach Bodenkontakt. Dieser Mechanismus erklärt 70–85 % aller VKB-Verletzungen. Hyperextension beim Landen ist explizit untypisch."
+    },
+    {
+      "text": "Welche der folgenden Schritte und Tests sind in dieser Situation klinisch sinnvoll, um die Arbeitshypothese „VKB-Ruptur“ zu prüfen?",
+      "multi": true,
+      "options": [
+        "Lachmann-Test (Sensitivität 85 %, Spezifität 94 % nach Benjaminse et al., 2006).",
+        "Anterior Drawer Test (vordere Schublade) in 90° Knie-Flexion.",
+        "Lever Sign (Lelli-Test) — Faust unter den proximalen Unterschenkel, ventraler Druck auf den Oberschenkel.",
+        "Apley-Test als Hauptdiagnostik für die VKB-Ruptur."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Die klassische Test-Trias zur klinischen VKB-Hypothese sind Lachmann (am sensitivsten, hoher Einschlusswert), Anterior Drawer und Lever Sign (Lelli) mit guten Werten (Hesmerg et al., 2024). Sie ergänzen die problematische Handlung, Inspektion, ROM-Prüfung und Krafttest. Der Apley-Test ist ein Meniskus-Test mit niedriger Sensitivität (ca. 5/10 nach Blyth 2015) — er ist hier nicht der Hauptdiagnostiker, kann aber zur Differenzierung einer Begleitverletzung beitragen."
+    },
+    {
+      "text": "Lena fragt unter Tränen, ob sie wirklich sofort operiert werden muss. Wie ordnest du ihr die Entscheidung „OP vs. konservativ“ evidenzbasiert ein?",
+      "multi": false,
+      "options": [
+        "Eine sofortige Operation ist alternativlos — ohne OP ist Rückkehr in den Hochleistungs-Handball ausgeschlossen.",
+        "Bei isolierter VKB-Ruptur zeigen aktuelle Vergleichsstudien keine grundlegenden Unterschiede zwischen konservativ und operativ in Schmerz, Funktion und Arthrose-Auftreten (Diemer, Zebisch, Saueressig 2021). Die Entscheidung sollte individuell auf Faktoren wie Begleitverletzungen, Risiko-Sportartanspruch (Handball mit Pivotbelastung), wiederkehrende Giving-Way-Episoden und Patienten-Einstellung gestützt werden — und sie kann jetzt noch reifen, nachdem MRT-Befund und erste Reha-Phase abgewartet sind.",
+        "Eine konservative Therapie ist bei Sportlern grundsätzlich kontraindiziert.",
+        "Die Operation muss innerhalb von 48 Stunden erfolgen, sonst heilt das VKB nie wieder."
+      ],
+      "correct": 1,
+      "explanation": "Aktuelle Studien zeigen keine grundlegenden Unterschiede zwischen konservativ und operativ in Schmerz, Funktion und Arthrose-Auftreten (Diemer, Zebisch, Saueressig 2021). Die Entscheidung hängt von Faktoren wie Begleitverletzungen (Frobell 2013), Pivot-Sportart-Anspruch (Grindem 2012, Diermeier 2021), Giving-Way-Episoden (Filbay 2019), Tibia-Slope (Bayer 2020, Salmon 2018) und psychischer Resilienz (Nedder 2024) ab. Auch die intrinsische VKB-Heilungsfähigkeit ist relevant — in der KANON-Studie hatten 56 % der nicht operierten Patienten nach 2 Jahren und 58 % nach 5 Jahren ein geheiltes VKB (Filbay 2022). Eine sofortige Notwendigkeit zur OP innerhalb von 48 Stunden besteht nicht."
+    }
+  ]
+}

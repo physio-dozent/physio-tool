@@ -1,0 +1,45 @@
+{
+  "id": "knie-shortcase-003",
+  "type": "short_case",
+  "title": "Kurzfall: Frau Hoffmann, 62 — Gonarthrose mit Bewegungsangst und Nocebo",
+  "intro": "Beidseitige Gonarthrose Grad 2, ausgeprägte Bewegungsangst durch eine ungünstige Bekannten-Botschaft, deutliche Dekonditionierung. Drei Fragen zu Treibern, Edukations-Botschaft und initialer Therapie nach Leitlinien.",
+  "vignette": "Frau Hoffmann, 62 Jahre, ehemalige Erzieherin, jetzt in Rente, kommt mit beidseitigen Knieschmerzen — rechts deutlich stärker als links. Beschwerden bestehen seit etwa zwei Jahren mit langsam zunehmender Tendenz. Sie habe das Wandern, das ihr früher viel Freude gemacht hat, vor einem Jahr aufgegeben — „meine Freundin hat gesagt, ich würde mir sonst meinen Knorpel ganz abnutzen und brauche dann sofort ein neues Knie“. Seitdem geht sie im Alltag fast nur noch zum Bäcker und zur Apotheke. Schmerzen vor allem morgens beim Aufstehen und nach längerem Sitzen — „die ersten zehn Schritte sind richtig steif, dann läuft's wieder“. Beim Treppensteigen aufwärts ziehende Schmerzen vorne am Knie. Manchmal knackt das Knie hörbar beim Hinsetzen. Sie hat in den letzten zwei Jahren etwa 8 kg zugenommen (aktueller BMI 31), schläft schlecht (zwei- bis dreimal pro Nacht wach), grübelt nach eigener Aussage viel über die Zukunft. Röntgen vor sechs Monaten: Gonarthrose Grad 2 nach Kellgren-Lawrence. Klinisch: leicht reduzierte aktive ROM in Flexion, deutliche Krepitation bei Bewegung, Quadricepsschwäche beidseits, keine relevanten internistischen Komorbiditäten.",
+  "questions": [
+    {
+      "text": "Welche der folgenden Treiber-Kategorien sind bei Frau Hoffmann aktuell dominant und sollten im Therapieplan adressiert werden?",
+      "multi": true,
+      "options": [
+        "Nozizeptive Treiber (mechanisch bedingte Schmerzen bei Treppensteigen, morgendliche Steifigkeit, Krepitation).",
+        "Kognitiv-emotionale Treiber (Bewegungsangst durch Nocebo-Botschaft, Grübeln, „muss bald ein neues Knie haben“-Überzeugung).",
+        "Komorbidität-Treiber (Schlafstörungen, Gewichtszunahme, Dekonditionierung).",
+        "Peripher neuropathische Treiber mit eindeutigen radikulären Plus-Symptomen."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Dominant sind nozizeptive Treiber (mechanische Schmerzauslöser, Krepitation, Anlaufschmerz), kognitiv-emotionale Treiber (Bewegungsangst und Nocebo durch die Aussage der Bekannten) und Komorbidität-Treiber (Schlafstörungen, Gewichtszunahme von 8 kg, Dekonditionierung durch Inaktivität). Für eine periphere neuropathische Komponente gibt es klinisch keinen Anhalt — keine radikulären Plus-Symptome (Kribbeln, Brennen, „Ameisenlaufen“) im Versorgungsgebiet eines Nervs."
+    },
+    {
+      "text": "Welche zentrale Edukations-Botschaft adressiert bei Frau Hoffmann den ungünstigen Nocebo am direktesten?",
+      "multi": false,
+      "options": [
+        "„Ihre Bekannte hat recht — wenn der Knorpel einmal weg ist, ist er weg. Sie müssen sich schonen.“",
+        "„Bewegung schützt Ihr Knie. Sport kann die Entstehung und das Fortschreiten der Arthrose verhindern — die aktuelle Studienlage zeigt, dass strukturierte Bewegungstherapie die Schmerzen deutlich reduzieren kann (Skou & Roos, 2017: ca. 25 % Schmerzreduktion). Gleichzeitig ist Schmerz ≠ Schaden — Krepitieren ist typisch und unbedenklich.“",
+        "„Eine Knie-TEP wird in Ihrem Fall unvermeidbar sein, also schonen Sie sich, bis es soweit ist.“",
+        "„Wandern war schon immer schädlich für Kniegelenke, Ihre Freundin hat das richtig erkannt.“"
+      ],
+      "correct": 1,
+      "explanation": "Die zentrale Botschaft adressiert direkt die Nocebo-Aussage: Bewegung schützt, Schmerz ist nicht gleich Schaden, Krepitieren ist unbedenklich, und strukturierte Bewegungstherapie reduziert nachweislich Schmerzen (Skou & Roos, 2017: 25 % Schmerzreduktion bei über 10.000 Teilnehmenden, vergleichbar mit NSAR und doppelt so stark wie Paracetamol). Eine Schon-Empfehlung würde die Inaktivität, Dekonditionierung und Bewegungsangst verstärken — der schlechteste Weg in dieser Konstellation."
+    },
+    {
+      "text": "Welcher Therapierahmen entspricht bei Frau Hoffmann am ehesten der aktuellen Leitlinien-Empfehlung (Katz et al., 2021; Bowden et al., 2020; Kemper, 2019)?",
+      "multi": false,
+      "options": [
+        "Reine passive Maßnahmen (Massage, Wärme, Ultraschall), bis sich der Schmerz spontan reduziert.",
+        "Sofortige Indikationsstellung zur Knie-TEP wegen Grad 2 nach Kellgren-Lawrence.",
+        "Bewegungs- und Übungstherapie 2–3 Mal pro Woche für 20–60 Minuten unter Supervision, kombiniert mit Patientenedukation und Selbstmanagement-Strategien (Gewichtsreduktion, Schmerzmonitoring) — entweder klassisch als individualisiertes Programm oder als strukturiertes Gruppenangebot wie GLAD:D (Edukation + NEMEX).",
+        "Strikte Schon-Empfehlung mit Spazierstock und Aussetzen aller körperlichen Aktivitäten."
+      ],
+      "correct": 2,
+      "explanation": "Die internationalen Leitlinien empfehlen als Basistherapie für alle Patientinnen und Patienten Bewegungs- und Übungstherapie (2–3x/Woche, 20–60 Min), Edukation und Selbstmanagement. Das GLAD:D-Programm (Skou & Roos 2017) mit 2 Edukations- und 12 NEMEX-Einheiten ist ein evidenzbasiertes Beispiel — sogar bei hochgradiger Arthrose entschieden sich 75 % der Teilnehmenden, eine geplante OP zu verschieben (Skou 2015). Eine TEP ist bei Grad 2 nicht indiziert (Indikation ab Grad 3). Strikte Schon-Empfehlung und rein passive Maßnahmen verstärken Dekonditionierung und Fear-Avoidance."
+    }
+  ]
+}

@@ -1,0 +1,488 @@
+{
+  "id": "knie-quiz-001",
+  "type": "quiz",
+  "title": "Untere Extremität — Knie · Grundlagen-Quiz",
+  "intro": "Fragen-Pool aus 40 Fragen über Anatomie, VKB-Ruptur, Meniskuspathologie, Kollateralbandruptur, Gonarthrose, Knie-TEP und Reha-Prinzipien. Pro Durchlauf werden 10 zufällig gezogen und gemischt.",
+  "questions": [
+    {
+      "text": "Wie lauten die ungefähren Norm-Bewegungsausmaße des Kniegelenks für Flexion–Extension nach der Neutral-Null-Methode?",
+      "multi": false,
+      "options": [
+        "90/0/0",
+        "120/0/0",
+        "140/0/5–10",
+        "180/0/30"
+      ],
+      "correct": 2,
+      "explanation": "Die in der orthopädischen Praxis verwendeten Norm-Werte sind 140/0/5–10 für Flexion–Extension (Hyperextension bis 5–10°) und 20–30/0/10 für Außen- versus Innenrotation bei 90° Knie-Flexion."
+    },
+    {
+      "text": "Welche Hauptfunktion erfüllt das vordere Kreuzband (VKB) biomechanisch?",
+      "multi": false,
+      "options": [
+        "Es limitiert die Beugung und das Dorsalgleiten der Tibia.",
+        "Es ist primärer Stabilisator gegen die anteriore Translation und die Rotation der Tibia (insbesondere Innenrotation gegenüber Außenrotation).",
+        "Es stabilisiert das Knie primär gegen Varusbelastungen.",
+        "Es führt die Menisci dynamisch und verbindet sie nach ventral."
+      ],
+      "correct": 1,
+      "explanation": "Das VKB entspringt am lateralen Femurkondylus und inseriert an der medialen Tibia-Eminenz (Duthon et al., 2006). Es limitiert die Extension, das Ventralgleiten der Tibia und sichert die Rotationsstabilität — vor allem gegen Innenrotation."
+    },
+    {
+      "text": "Welche der folgenden Funktionen erfüllen die Menisci im Kniegelenk?",
+      "multi": true,
+      "options": [
+        "Sie vergrößern die Druckabsorptionsfläche zwischen Femur und Tibia.",
+        "Sie limitieren Gleitbewegungen im Kniegelenk.",
+        "Sie sind die primären Stabilisatoren gegen Valgus- bzw. Varusbelastungen.",
+        "Sie sind die primären Antagonisten zum vorderen Kreuzband."
+      ],
+      "correct": [0, 1],
+      "explanation": "Die Menisci vergrößern die Druckabsorptionsfläche und limitieren Gleitbewegungen. Valgus- bzw. Varus-Stabilität wird primär durch die Kollateralbänder vermittelt; das VKB ist Stabilisator gegen anteriore Translation und Rotation."
+    },
+    {
+      "text": "Welche Hauptfunktion erfüllt das Lig. collaterale mediale?",
+      "multi": false,
+      "options": [
+        "Stabilisator gegen Varusbelastung.",
+        "Stabilisator gegen Valgusbelastung, sekundär gegen Außen- und Innenrotation.",
+        "Limitiert die Beugung des Kniegelenks bei dynamischer Belastung.",
+        "Verbindet die Hinterhörner der Menisci und stabilisiert sie nach dorsal."
+      ],
+      "correct": 1,
+      "explanation": "Das Lig. collaterale mediale ist primärer Stabilisator gegen Valgusbelastung und sekundär gegen Außen- und Innenrotation. Das Lig. collaterale laterale ist umgekehrt primärer Varus-Stabilisator und sekundär gegen Außenrotation."
+    },
+    {
+      "text": "Welcher Aussage zur sensiblen Innervation des Kniegelenks ist korrekt?",
+      "multi": false,
+      "options": [
+        "Periost L3–S1, Kapsel L3–S2, Muskulatur L2–S2 — peripher beteiligt sind u. a. N. femoralis, N. tibialis und N. obturatorius.",
+        "Die gesamte sensible Versorgung des Kniegelenks erfolgt ausschließlich über den N. femoralis aus L1–L4.",
+        "Die Kapsel des Kniegelenks wird ausschließlich aus segmentaler Höhe L5 versorgt.",
+        "Die vegetative Versorgung des Kniegelenks erfolgt aus L5–S3."
+      ],
+      "correct": 0,
+      "explanation": "Periost, Kapsel und Muskulatur des Kniegelenks haben überlappende segmentale Innervation (Periost L3–S1, Kapsel L3–S2, Muskulatur L2–S2). Peripher beteiligt sind N. femoralis (L1–L4), N. obturatorius (L2–L4), N. tibialis (L4–S3), N. gluteus superior (L4–S1) und N. peronaeus/fibularis communis (L4–S2). Die vegetative Versorgung kommt aus Th9–L2."
+    },
+    {
+      "text": "Welcher Verletzungsmechanismus ist typisch für die nicht-traumatische (Nicht-Kontakt-)VKB-Ruptur?",
+      "multi": false,
+      "options": [
+        "Hyperextension des Knies beim Landen.",
+        "Direkte Krafteinwirkung von medial auf das Kniegelenk.",
+        "Abstoppmanöver in Kombination mit Valgus (Hüft-Adduktion und -Innenrotation) und Rotation der Tibia.",
+        "Reine Außenrotation der Tibia bei feststehendem Fuß ohne Beinachsenkollaps."
+      ],
+      "correct": 2,
+      "explanation": "Der typische Nicht-Kontakt-Mechanismus ist ein Abstoppmanöver mit Beinachsen-Kollaps (Valgus durch Hüft-Adduktion und -Innenrotation) und Tibia-Rotation. Die Verletzung passiert binnen 30–50 ms nach dem Bodenkontakt (Quatman et al., 2009). Hyperextension beim Landen ist explizit untypisch."
+    },
+    {
+      "text": "Welcher Anteil aller VKB-Verletzungen passiert als Nicht-Kontakt-Verletzung?",
+      "multi": false,
+      "options": [
+        "ca. 20–30 %",
+        "ca. 40–50 %",
+        "ca. 70–85 %",
+        "ca. 95 %"
+      ],
+      "correct": 2,
+      "explanation": "Etwa 70–85 % aller VKB-Verletzungen sind Nicht-Kontakt-Verletzungen (Quatman et al., 2009). Frauen sind 2–8-fach häufiger betroffen als Männer."
+    },
+    {
+      "text": "Welche der folgenden Symptome sind typisch für eine akute VKB-Ruptur?",
+      "multi": true,
+      "options": [
+        "Traumatischer Auslöser, häufig mit „Popp“-Geräusch.",
+        "Akuter Gelenkerguss mit Einblutung und lokaler Temperaturerhöhung.",
+        "Instabilitätsgefühl und „Giving-Way“.",
+        "Schleichender Beschwerdebeginn ohne erkennbaren Auslöser über Monate."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Klassische Symptome sind traumatischer Auslöser oft mit „Popp“, akuter Hämarthros mit Wärme, Instabilitätsgefühl mit Giving-Way und Bewegungseinschränkung (besonders Streckhemmung). Ein schleichender Verlauf ohne Auslöser passt nicht zur akuten VKB-Ruptur, sondern eher zu degenerativen oder zentral-maladaptiven Bildern."
+    },
+    {
+      "text": "Wie wird der Anterior-Drawer-Test (vordere Schublade) zur VKB-Diagnostik korrekt durchgeführt?",
+      "multi": false,
+      "options": [
+        "Knie in 30° Flexion, Femur fixieren, Tibia in leichte Außenrotation und nach ventral ziehen.",
+        "Knie in 90° Flexion, Unterschenkel nach ventral ziehen — bewertet wird der Translationsweg.",
+        "Faust unter den proximalen Unterschenkel positionieren, ventralen Druck auf den Oberschenkel ausüben.",
+        "Knie in Streckstellung, medialen bzw. lateralen Gelenkspalt belasten und Aufklappen prüfen."
+      ],
+      "correct": 1,
+      "explanation": "Der Anterior-Drawer-Test wird bei 90° Knie-Flexion durchgeführt. Der Unterschenkel wird nach ventral gezogen und die Translation in vier Grade eingeteilt: 0–3 mm normal, 3–5 mm fast normal, 5–10 mm abnormal, >10 mm extrem abnormal. Grad 2/3 ist ein starker Einschluss-Hinweis. Die übrigen Beschreibungen passen zu Lachmann (1.), Lever Sign nach Lelli (3.) und Gapping (4.)."
+    },
+    {
+      "text": "Welche Sensitivität und Spezifität hat der Lachmann-Test für die VKB-Ruptur nach Benjaminse et al. (2006)?",
+      "multi": false,
+      "options": [
+        "Sensitivität 50 %, Spezifität 70 %.",
+        "Sensitivität 85 %, Spezifität 94 %.",
+        "Sensitivität 99 %, Spezifität 60 %.",
+        "Sensitivität 30 %, Spezifität 50 %."
+      ],
+      "correct": 1,
+      "explanation": "Der Lachmann-Test hat nach Benjaminse et al. (2006) eine Sensitivität von 85 % und eine Spezifität von 94 %. Die hohe Spezifität macht ihn besonders wertvoll für den Einschluss einer VKB-Ruptur, wenn er positiv ist."
+    },
+    {
+      "text": "Was bedeutet eine hohe Sensitivität eines klinischen Tests für die Praxis?",
+      "multi": false,
+      "options": [
+        "Ein positives Testresultat schließt die Pathologie zuverlässig ein.",
+        "Ein negatives Testresultat schließt die Pathologie zuverlässig aus.",
+        "Der Test ist unabhängig vom Patienten immer korrekt.",
+        "Der Test ist ausschließlich bei chronischen Verläufen einsetzbar."
+      ],
+      "correct": 1,
+      "explanation": "Eine hohe Sensitivität bedeutet: Bei einem Patienten mit der Pathologie ist der Test mit hoher Wahrscheinlichkeit positiv — ein negatives Testresultat ist also ein guter Ausschluss. Spezifität wirkt umgekehrt: hoher Wert bedeutet, dass ein positives Resultat ein guter Einschluss ist."
+    },
+    {
+      "text": "Welche der folgenden Faktoren sprechen bei einer VKB-Ruptur für eine operative Versorgung?",
+      "multi": true,
+      "options": [
+        "Wiederkehrende Episoden von Giving-Way trotz konservativer Reha (Filbay et al., 2019).",
+        "Pläne zur Rückkehr in risikoreiche Pivot-Sportarten (Grindem et al., 2012; Diermeier et al., 2021).",
+        "Relevante Begleitverletzungen wie eine reparable Meniskusverletzung (Frobell et al., 2013).",
+        "Eine isolierte VKB-Ruptur bei einem rein freizeit-sportlich aktiven Erwachsenen ohne Instabilität."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Wiederkehrende Instabilitätsepisoden, hoher Anspruch in Pivot-Sportarten und reparable Begleitverletzungen sprechen für eine OP. Weitere Entscheidungsfaktoren sind die Tibia-Slope-Neigung (Bayer 2020, Salmon 2018), Einstellung zur Therapie und psychische Resilienz (Nedder 2024). Eine isolierte VKB-Ruptur bei niedrigem sportlichen Anspruch und ohne Instabilität rechtfertigt eher den konservativen Weg, zumal die Evidenz keine grundsätzlichen Unterschiede in Schmerz, Funktion und Arthrose-Auftreten zeigt (Diemer, Zebisch, Saueressig 2021)."
+    },
+    {
+      "text": "Welche Aussage zur intrinsischen Heilungsfähigkeit des vorderen Kreuzbands ist nach aktueller Studienlage korrekt?",
+      "multi": false,
+      "options": [
+        "Ein gerissenes VKB heilt unter keinen Umständen ohne Operation.",
+        "In der KANON-Studie (Filbay et al., 2022) zeigte sich in der nicht operierten Gruppe nach zwei Jahren bei 56 % und nach fünf Jahren bei 58 % der Teilnehmenden ein geheiltes VKB.",
+        "Die Heilungswahrscheinlichkeit ist bei distalen Rupturen deutlich höher als bei proximalen.",
+        "Eine intrinsische Heilung tritt erst nach mehreren Jahren ein, wenn überhaupt."
+      ],
+      "correct": 1,
+      "explanation": "Die KANON-Studie (Filbay et al., 2022) zeigte in der nicht operierten Gruppe nach zwei Jahren bei 56 % und nach fünf Jahren bei 58 % ein geheiltes VKB. Eine Übersichtsarbeit von Pitsillides et al. (2021) deutet auf ein höheres Heilungspotenzial bei proximalen Rupturen hin; Ihara et al. (2017) fanden bei 82 % der Patienten nach neun Monaten eine MRT-Heilung. Voraussetzung ist eine frühzeitige, abgestufte Rehabilitation und Vermeidung erneuter Überlastungen."
+    },
+    {
+      "text": "Welche Aussage zur Quadricepskraft im Rahmen der VKB-Reha ist korrekt?",
+      "multi": false,
+      "options": [
+        "Quadricepskraft spielt für die VKB-Reha eine untergeordnete Rolle, weil Hop-Tests das wichtigere Kriterium sind.",
+        "Reduzierte Quadricepskraft ist ein dokumentierter Risikofaktor für eine zweite VKB-Ruptur (Grindem 2016, Kyritsis 2016) sowie für eingeschränkte Kniefunktion und spätere Kniearthrose.",
+        "Die Quadricepskraft erholt sich nach VKB-Rekonstruktion in der Regel von selbst und braucht keine gezielte Reha.",
+        "Eine Quadriceps-Asymmetrie ist nur dann relevant, wenn sie auch im Hop-Test sichtbar wird."
+      ],
+      "correct": 1,
+      "explanation": "Eine reduzierte Quadricepskraft ist ein etablierter Risikofaktor für eine zweite VKB-Ruptur (Grindem 2016, Kyritsis 2016), für eingeschränkte selbst eingeschätzte Kniefunktion (Kuenze 2015, Pietrosimone 2016, Ithurburn 2018) und für die Entwicklung einer Kniearthrose (Øiestad 2021). Wichtig: Hop-Tests können bestanden werden, während die Quadricepskraft noch deutlich asymmetrisch ist (Herrington, Barfod, Nagai)."
+    },
+    {
+      "text": "Welche Konsequenz hat ein verfrühter Return-to-Sport vor neun Monaten nach VKB-Rekonstruktion laut Beischer et al. (2020)?",
+      "multi": false,
+      "options": [
+        "Das Wiederverletzungsrisiko ist etwa siebenfach erhöht im Vergleich zur Rückkehr nach mindestens neun Monaten.",
+        "Es gibt keinen Zusammenhang zwischen Reha-Dauer und Wiederverletzungsrisiko, solange die Hop-Tests bestanden sind.",
+        "Das Wiederverletzungsrisiko ist nur dann erhöht, wenn die Rückkehr bereits vor drei Monaten erfolgt.",
+        "Eine frühere Rückkehr verbessert die Funktion durch frühzeitige Belastung des Transplantats."
+      ],
+      "correct": 0,
+      "explanation": "Nach Beischer et al. (2020) ist das Wiederverletzungsrisiko bei einer Rückkehr in den Sport vor neun Monaten etwa siebenfach erhöht. Daraus folgt der Grundsatz einer kriterienbasierten — nicht rein zeitbasierten — Reha, die mindestens diesen Zeitraum nicht unterschreiten sollte."
+    },
+    {
+      "text": "Welche Aussage zur Unterscheidung akuter vs. degenerativer Meniskuspathologien ist korrekt?",
+      "multi": false,
+      "options": [
+        "Akute Meniskuspathologien entstehen meist im Rahmen der allgemeinen Gelenkdegeneration ohne klaren Auslöser.",
+        "Degenerative Meniskopathien treten typischerweise nach einem Trauma mit schneller Drehbewegung unter Gewichtsbelastung auf.",
+        "Akut traumatische Meniskuspathologien entstehen häufig durch schnelle Richtungswechsel und Drehbewegungen unter Gewichtsbelastung; degenerative entwickeln sich im Rahmen der allgemeinen Kniegelenksdegeneration (60–70 % der Meniskopathien).",
+        "Die beiden Formen lassen sich klinisch durch manuelle Tests zuverlässig voneinander unterscheiden."
+      ],
+      "correct": 2,
+      "explanation": "Akut-traumatische Meniskuspathologien entstehen häufig durch schnelle Richtungswechsel und Drehbewegungen unter Gewichtsbelastung. Degenerative Pathologien (60–70 % der Fälle) entwickeln sich im Rahmen der allgemeinen Kniegelenksdegeneration (Thorlund et al., 2018). Eine zuverlässige klinische Unterscheidung allein durch manuelle Tests ist nicht möglich — Bildgebung ist Goldstandard."
+    },
+    {
+      "text": "Welche der folgenden Faktoren gelten als Risikofaktoren für eine Meniskuspathologie?",
+      "multi": true,
+      "options": [
+        "Übergewicht.",
+        "Generalisierte Gelenkhypermobilität.",
+        "Sportliche Partizipation (besonders bei drehbewegungs-intensiven Sportarten).",
+        "Schmerzkatastrophisierung und Kinesiophobie."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Risikofaktoren für eine Meniskuspathologie sind nach Thorlund et al. (2018) u. a. Übergewicht, generalisierte Gelenkhypermobilität, sportliche und berufliche Belastung, Alter, männliches Geschlecht und die Art des Traumas. Schmerzkatastrophisierung und Kinesiophobie sind kognitiv-emotionale Treiber des Schmerzes, aber keine strukturellen Risikofaktoren für die Pathologie selbst."
+    },
+    {
+      "text": "Welche Symptome sind typisch für eine Meniskuspathologie?",
+      "multi": false,
+      "options": [
+        "Schleichender, generalisierter Knieschmerz ohne mechanische Komponente und ohne Funktionseinschränkungen bei Drehbewegungen.",
+        "Häufig lokaler Knieschmerz (medial oder lateral), gelegentlich mechanische Symptome wie Schnappen oder Blockaden, Hypomobilität in Flexion und Extension, Funktionseinschränkung besonders bei Drehbewegungen.",
+        "Ausschließlich neuropathische Plus-Symptome im Versorgungsgebiet des N. peronaeus.",
+        "Akute Streckhemmung mit Erguss und Giving-Way — pathognomonisch und nur bei Meniskusverletzung."
+      ],
+      "correct": 1,
+      "explanation": "Typisch sind lokaler Schmerz (medial oder lateral), gelegentlich mechanische Symptome (Schnappen, Blockaden), Hypomobilität in Flexion und Extension sowie Funktionseinschränkungen bei Drehbewegungen (Decary et al., 2018; Wagemakers et al., 2008). Streckhemmung mit Erguss und Giving-Way ist nicht meniskus-spezifisch — das ist eher das Bild einer akuten VKB-Ruptur."
+    },
+    {
+      "text": "Welche Sensitivität wird in der Literatur für den McMurray-Test zur Meniskusdiagnostik angegeben?",
+      "multi": false,
+      "options": [
+        "Über 90 % — der Test ist daher ein zuverlässiger Ausschluss.",
+        "Etwa 4–6 von 10 (Blyth et al., 2015) — der Test ist zu unsicher, um eine Meniskusverletzung sicher ein- oder auszuschließen.",
+        "Etwa 95 % — vergleichbar mit der MRT.",
+        "Der Test wird nicht mehr verwendet, weil er prinzipiell keine Aussagekraft hat."
+      ],
+      "correct": 1,
+      "explanation": "Der McMurray-Test hat nach Blyth et al. (2015) eine Sensitivität von etwa 4–6 von 10 — er erkennt also nur einen Teil der tatsächlichen Meniskuspathologien. Auch Apley (Sensitivität ca. 5/10) und Thessaly (4–7/10, Goossens et al., 2015) sind unsicher. Daraus folgt: weder ein positives noch ein negatives Testergebnis erlaubt eine zuverlässige Aussage (Smith et al., 2015). Bildgebung bleibt Goldstandard."
+    },
+    {
+      "text": "Welche Rolle spielt der Joint-Line-Tenderness (Palpation des Gelenkspalts bei rotiertem Knie) in der Meniskus-Diagnostik?",
+      "multi": false,
+      "options": [
+        "Er ist als isolierter Test hoch spezifisch und reicht zur Diagnose-Stellung aus.",
+        "Er gilt im Vergleich zu McMurray, Apley und Thessaly als der klinisch aussagekräftigste Test und wird in der Kombination Bildgebung + Anamnese + klinische Tests empfohlen.",
+        "Er ist obsolet und sollte nicht mehr verwendet werden.",
+        "Er ist nur bei akuten traumatischen Meniskuspathologien sinnvoll, nicht bei degenerativen."
+      ],
+      "correct": 1,
+      "explanation": "Im Vergleich zu McMurray, Apley und Thessaly gilt die Palpation des Gelenkspalts (Joint Line Tenderness) bei rotiertem Knie als der klinisch aussagekräftigste der vier Tests. Empfohlen wird die Kombination aus Bildgebung, Anamnese und klinischen Tests — kein Einzelfaktor reicht aus."
+    },
+    {
+      "text": "Welche Aussage zur Wirksamkeit einer Meniskusteilresektion nach aktueller Evidenz ist korrekt?",
+      "multi": false,
+      "options": [
+        "Eine Meniskusteilresektion ist klar überlegen gegenüber konservativer Therapie und sollte bei jeder Meniskusverletzung erfolgen.",
+        "Die Meniskusteilresektion ist auch nach gescheiterter konservativer Behandlung nicht besser als eine Placebo-OP — selbst bei gelegentlichen Einklemmungsphänomenen (Abram 2020, Li 2020, Pan 2020; Siemieniuk et al., 2018).",
+        "Die Meniskusteilresektion verhindert zuverlässig die Entstehung einer späteren Gonarthrose.",
+        "Die Meniskusteilresektion ist bei jüngeren Patienten kontraindiziert und nur ab 60 Jahren sinnvoll."
+      ],
+      "correct": 1,
+      "explanation": "Die Meniskusteilresektion ist nach aktueller Evidenz auch nach gescheiterter konservativer Behandlung nicht besser als eine Placebo-OP (Abram 2020, Li 2020, Pan 2020; Siemieniuk et al., 2018). Auch gelegentliche Einklemmungsphänomene allein rechtfertigen den Eingriff nicht. Diagnostiziert zu werden kann zudem Angst-Vermeidungsverhalten begünstigen, ohne dass ein Reha-Mehrwert besteht."
+    },
+    {
+      "text": "Welche aktuelle Sichtweise hat sich für degenerative Meniskopathien etabliert?",
+      "multi": false,
+      "options": [
+        "Sie sind ein eigenständiges, vom Kniegelenk unabhängiges Krankheitsbild.",
+        "Sie sind ein frühes Zeichen einer Kniegelenksarthrose und nicht als grundlegendes, unabhängiges Krankheitsbild zu verstehen (Sihvonen et al., 2017).",
+        "Sie korrelieren eindeutig mit der Schmerzintensität und der Kniefunktion.",
+        "Sie sind im MRT-Befund nur bei symptomatischen Patienten nachweisbar."
+      ],
+      "correct": 1,
+      "explanation": "Nach Sihvonen et al. (2017) sind degenerative Meniskopathien eher als frühes Zeichen einer Kniegelenksarthrose zu verstehen und nicht als eigenständiges Krankheitsbild. Auch Rissmuster, Rissgröße und Risslokalisation korrelieren nicht mit Schmerzintensität oder Kniefunktion (Tornbjerg et al., 2016)."
+    },
+    {
+      "text": "Welche Aussage zum Zusammenhang zwischen Rissmustern (Längs-, Radiär-, Korbhenkel-, Komplexriss) und klinischer Symptomatik ist nach Tornbjerg et al. (2016) korrekt?",
+      "multi": false,
+      "options": [
+        "Rissmuster, Rissgröße und Risslokalisation stehen in keinem klaren Zusammenhang mit Schmerzintensität und Kniefunktion.",
+        "Ein Korbhenkelriss verursacht immer deutlich stärkere Schmerzen als ein Längsriss.",
+        "Je größer der Riss, desto schlechter ist die Kniefunktion linear messbar.",
+        "Radiärrisse sind das einzige Rissmuster, das therapierelevant ist."
+      ],
+      "correct": 0,
+      "explanation": "Nach Tornbjerg et al. (2016) stehen Rissmuster, Rissgröße und Risslokalisation nicht in einem klaren Zusammenhang mit Schmerzintensität und Kniefunktion. Das stützt die Empfehlung, die Reha primär an klinischen Symptomen und nicht am Rissmuster auszurichten."
+    },
+    {
+      "text": "Welche der folgenden Aussagen zum Verhältnis medialer und lateraler Kollateralbandverletzungen ist korrekt?",
+      "multi": false,
+      "options": [
+        "Verletzungen des lateralen Kollateralbandes treten deutlich häufiger auf als des medialen.",
+        "Verletzungen des medialen Kollateralbandes sind deutlich häufiger als die des lateralen (Diemer, 2017).",
+        "Beide Bänder werden gleich häufig verletzt.",
+        "Verletzungen der Kollateralbänder kommen praktisch nicht isoliert vor — sie treten immer in Kombination mit einer VKB-Ruptur auf."
+      ],
+      "correct": 1,
+      "explanation": "Verletzungen des medialen Kollateralbandes sind deutlich häufiger als die des lateralen (Diemer, 2017). Häufige Läsionskombinationen sind außerdem Lig. coll. lat. + posterolaterale Kapsel sowie Lig. coll. med. + VKB-Ruptur."
+    },
+    {
+      "text": "Wie entsteht typischerweise eine Ruptur des Lig. collaterale mediale durch Nicht-Kontakt-Mechanismus?",
+      "multi": false,
+      "options": [
+        "Durch eine Hyperextension des Knies mit feststehendem Fuß.",
+        "Durch eine schnelle Drehbewegung bzw. Richtungsänderung in Kombination mit medialem Beinachsenkollaps (Valgus).",
+        "Durch direkte Krafteinwirkung von medial auf das Kniegelenk.",
+        "Durch eine exzessive Innenrotation der Tibia bei freistehendem Fuß."
+      ],
+      "correct": 1,
+      "explanation": "Nicht-Kontakt-Verletzungen des Lig. collaterale mediale entstehen typischerweise durch schnelle Drehbewegungen oder Richtungsänderungen mit medialem Beinachsenkollaps (Valgus). Kontaktverletzungen durch Krafteinwirkung von außen (Valgusmoment) sind die andere Hauptursache. Verletzungen des Lig. collaterale laterale entstehen analog durch Varusmechanismen."
+    },
+    {
+      "text": "Welche Charakteristik hat das mediale bzw. laterale Gapping (Aufklappen) zur Diagnostik einer Kollateralbandverletzung?",
+      "multi": false,
+      "options": [
+        "Sensitivität 91 %, Spezifität 49 % nach Kastelein et al. (2008) — ein negatives Resultat ist ein guter Ausschluss, ein positives ist diagnostisch weniger spezifisch.",
+        "Sensitivität 50 %, Spezifität 95 % — der Test eignet sich besonders zum Einschluss.",
+        "Sensitivität und Spezifität jeweils >95 % — der Test ersetzt die Bildgebung.",
+        "Sensitivität <30 % — der Test wird in der modernen Literatur nicht mehr empfohlen."
+      ],
+      "correct": 0,
+      "explanation": "Das Gapping hat nach Kastelein et al. (2008) eine Sensitivität von 91 % und eine Spezifität von 49 %. Ein negatives Resultat ist also ein guter Ausschluss, ein positives muss durch weitere Tests (Wiederholung in 20–30° Flexion, Bildgebung) gesichert werden. Geringeres Aufklappen in Flexion gegenüber Streckung spricht für eine intakte posteromediale bzw. posterolaterale Kapsel."
+    },
+    {
+      "text": "Welche Verletzungskombination ist klinisch besonders häufig zu erwarten?",
+      "multi": false,
+      "options": [
+        "Lig. collaterale med. + Ruptur des vorderen Kreuzbands.",
+        "Lig. collaterale lat. + Ruptur des hinteren Kreuzbands.",
+        "Meniskusriss medial + Ruptur des Lig. transversum genus.",
+        "Lig. collaterale med. + Lig. collaterale lat. (isoliert ohne weitere Strukturen)."
+      ],
+      "correct": 0,
+      "explanation": "Eine klassische Läsionskombination ist Lig. collaterale med. plus Ruptur des vorderen Kreuzbands. Ebenfalls häufig: Lig. collaterale lat. zusammen mit der posterolateralen Kapsel. Auf solche Kombinationsverletzungen muss bei jedem isolierten Verdacht aktiv mit untersucht werden."
+    },
+    {
+      "text": "Welche Aussage zur Ätiologie der Gonarthrose ist korrekt?",
+      "multi": false,
+      "options": [
+        "Die primäre Gonarthrose hat eine eindeutig identifizierbare Ursache, die sekundäre Gonarthrose ist idiopathisch.",
+        "Die primäre Gonarthrose ist idiopathisch (Ursache unbekannt); die sekundäre Gonarthrose entwickelt sich als Folge von z. B. Vorverletzungen, Übergewicht, Achsenabweichungen, Über- bzw. Fehlbelastung und Komorbiditäten wie Diabetes oder Rheuma.",
+        "Gonarthrose entsteht immer als Folge einer einzelnen, akuten Verletzung.",
+        "Übergewicht ist kein anerkannter Risikofaktor für die Gonarthrose."
+      ],
+      "correct": 1,
+      "explanation": "Die primäre Gonarthrose ist idiopathisch — die Ursache ist unbekannt. Die sekundäre Gonarthrose ist Folge identifizierbarer Faktoren wie Vorverletzungen, Übergewicht/Fettleibigkeit, veränderter Knochenform, Über- bzw. Fehlbelastung durch Sport oder Beruf und Komorbiditäten (Diabetes mellitus, Rheuma, Herz-Kreislauf-Erkrankungen — Loughlin 2015, Wang 2015, Bruyeere 2015)."
+    },
+    {
+      "text": "Welche der folgenden Symptome sind typisch für eine Gonarthrose?",
+      "multi": true,
+      "options": [
+        "Anlaufschmerz nach längeren Ruhephasen.",
+        "Krepitation (Gelenkgeräusche) bei Bewegung.",
+        "Steifigkeit, vor allem morgens oder nach längerer Ruhephase.",
+        "Plötzliche, rein neuropathische Plus-Symptome wie Kribbeln und Brennen im gesamten Bein."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Typisch für die Gonarthrose sind Anlaufschmerz, Krepitation, Steifigkeit, langsam fortschreitender Beschwerdeverlauf, Kraftverlust besonders im Quadriceps, Achsenabweichungen und gelegentlich Schwellungen nach Belastung. Plötzlich auftretende neuropathische Plus-Symptome im gesamten Bein passen nicht zur Gonarthrose, sondern wären ein Hinweis auf eine neurale Komponente, die separat untersucht werden muss."
+    },
+    {
+      "text": "Was empfehlen die internationalen Leitlinien (Katz et al., 2021; Bowden et al., 2020; Kemper, 2019) als Basistherapie der Gonarthrose für alle Patientinnen und Patienten?",
+      "multi": false,
+      "options": [
+        "Primär passive Maßnahmen (Massage, Wärme, Ultraschall) bis zur OP-Indikation.",
+        "Bewegungs- und Übungstherapie, Edukation und Selbstmanagement — keine Trainingsart ist einer anderen für Funktion und Schmerz klar überlegen.",
+        "Sofortige Indikationsstellung für eine Knie-TEP bei jedem radiologischen Befund.",
+        "Strikte Schon-Empfehlung und Inaktivität, bis der Schmerz spontan abklingt."
+      ],
+      "correct": 1,
+      "explanation": "Internationale Leitlinien (Katz 2021, Bowden 2020, Kemper 2019; AAOS, ACR, EULAR, OARSI) empfehlen Bewegungs- und Übungstherapie, Edukation und Selbstmanagement als Basistherapie für alle. Keine Trainingsart ist einer anderen für Funktion und Schmerz klar überlegen. Passive Maßnahmen, manuelle Therapie oder NSAR sind ergänzend für einige, nicht Basisstandard."
+    },
+    {
+      "text": "Welche Trainingsdosis wird in den Leitlinien als wirksamer Bewegungs-/Übungstherapie-Standard bei Gonarthrose empfohlen?",
+      "multi": false,
+      "options": [
+        "Einmal pro Monat für 10 Minuten.",
+        "Mindestens 2–3 Mal pro Woche für 20–60 Minuten, anfangs idealerweise unter Supervision.",
+        "Täglich für mindestens 90 Minuten unter Hochintensität.",
+        "Ausschließlich ein- bis zweimal pro Jahr in einer Reha-Klinik."
+      ],
+      "correct": 1,
+      "explanation": "Empfohlen werden mindestens 2–3 Einheiten pro Woche à 20–60 Minuten, anfangs idealerweise unter Supervision (oft effektiver als unbeaufsichtigtes Heimtraining). Die Trainingsinhalte können breit gewählt werden — Kraft, Ausdauer, Koordination, je nach Phase und Patient."
+    },
+    {
+      "text": "Welche Effekte sind für das GLAD:D-Programm (Schmerzedukation + neuromuskuläres Training nach Skou & Roos 2017) bei Knie- und Hüftarthrose belegt?",
+      "multi": false,
+      "options": [
+        "Bei über 10.000 Teilnehmenden eine Schmerzreduktion von etwa 25 % nach zwei Trainingseinheiten pro Woche über sechs Wochen.",
+        "Eine Schmerzreduktion ist nur bei Patienten mit niedrigem Schweregrad belegt — nicht bei hochgradiger Arthrose.",
+        "Die Wirkung entspricht etwa der Hälfte des schmerzreduzierenden Effekts von Paracetamol.",
+        "Eine Operation kann durch das Programm bei keinem der Teilnehmer verschoben werden."
+      ],
+      "correct": 0,
+      "explanation": "Skou & Roos (2017) zeigten bei über 10.000 Teilnehmenden eine Schmerzreduktion von ca. 25 % nach 2 Trainings/Woche über 6 Wochen. Sogar bei hochgradiger Arthrose entschieden sich nach Skou (2015) 75 % der Teilnehmer auf der Warteliste für einen Gelenkersatz, die OP zu verschieben. Der schmerzreduzierende Effekt entspricht etwa dem von NSAR (Fransen 2015) bzw. der doppelten Wirkung von Paracetamol (McAlindon 2014)."
+    },
+    {
+      "text": "Welche der folgenden Edukations-Botschaften sind bei der Gonarthrose-Therapie sinnvoll?",
+      "multi": true,
+      "options": [
+        "„Schmerz ist nicht gleich Schaden — Gewebeveränderungen sind nicht gleich Schmerz.“",
+        "„Gelenkgeräusche wie Krepitieren sind typisch, aber unbedenklich.“",
+        "„Sport kann die Entstehung und das Fortschreiten der Arthrose verhindern.“",
+        "„Du musst dich schonen, sonst verschlimmert sich der Knorpel definitiv.“"
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Sinnvolle Edukations-Botschaften adressieren die Entkopplung von Schmerz und Schaden, normalisieren Krepitieren als unbedenklich und vermitteln, dass Bewegung die Arthrose-Entwicklung positiv beeinflussen kann. Eine pauschale Schon-Empfehlung dagegen begünstigt Fear-Avoidance und steht der evidenzbasierten Bewegungstherapie entgegen."
+    },
+    {
+      "text": "Welche Schmerz-Grenzwerte werden im NEMEX-Training bei Knie-/Hüftarthrose (begleitend zum GLAD:D-Programm) zur Steuerung der Belastung empfohlen?",
+      "multi": false,
+      "options": [
+        "Jeder Schmerz oberhalb 0 auf der VAS ist Grund, das Training sofort abzubrechen.",
+        "Schmerz bis VAS 2 ist sicher („safe“), bis VAS 5 akzeptabel, über VAS 5 als hohes Risiko zu werten; am Folgetag soll der Schmerz nicht stärker sein als vor dem Training.",
+        "Schmerz bis VAS 8 ist sicher, da das Knie sich an die Belastung anpassen muss.",
+        "Die VAS ist für Knie-/Hüftarthrose ungeeignet und wird nicht verwendet."
+      ],
+      "correct": 1,
+      "explanation": "Im NEMEX-Training gilt: VAS bis 2 sicher („safe“), bis 5 akzeptabel, über 5 hohes Risiko. Am Folgetag soll der Schmerz nicht stärker sein als vor dem Training, sondern auf Ausgangsniveau (Thomeé 1997; Skou & Roos 2017). Diese klare Skala erlaubt es Patientinnen und Patienten, Belastung eigenverantwortlich zu steuern."
+    },
+    {
+      "text": "Welche Indikation rechtfertigt einen Knie-TEP-Eingriff?",
+      "multi": false,
+      "options": [
+        "Eine erstmalige, milde Knieschmerz-Episode ohne radiologischen Befund.",
+        "Eine Gonarthrose ab Grad 3 (uni- oder bilateral), rheumatoide Arthritis oder die Nachsorge komplexer Frakturen mit Gelenkbeteiligung.",
+        "Jede Form von chronischem Knieschmerz ab dem 50. Lebensjahr unabhängig vom Grad.",
+        "Eine isolierte Meniskuspathologie ohne Gonarthrose."
+      ],
+      "correct": 1,
+      "explanation": "Indikationen für eine Knie-TEP sind eine Gonarthrose ab Grad 3 (uni- oder bilateral), eine rheumatoide Arthritis oder die Nachsorge komplexer Frakturen mit Gelenkbeteiligung (Diemer, 2017). Eine TEP ist kein Standard bei milden Beschwerden oder isolierten Meniskuspathologien."
+    },
+    {
+      "text": "Wie lange dauert in der Regel die Osteointegration einer unzementierten Knie-TEP, und welche Konsequenz hat das für die Reha?",
+      "multi": false,
+      "options": [
+        "Etwa 1–2 Wochen — die Belastung kann sofort voll aufgenommen werden.",
+        "Etwa 6–12 Wochen — Belastung wird in der Frühphase schmerzabhängig dosiert, manchmal ist eine kurze Teilbelastung notwendig.",
+        "Etwa 6 Monate — die Patienten dürfen in dieser Zeit das Bein gar nicht belasten.",
+        "Über ein Jahr — die TEP ist deshalb erst nach 12 Monaten alltagstauglich."
+      ],
+      "correct": 1,
+      "explanation": "Die Osteointegration einer unzementierten Knie-TEP dauert etwa 6–12 Wochen. In dieser Zeit erfolgt die Belastung schmerzabhängig; manchmal ist eine kurze Teilbelastung notwendig. Wichtig ist daneben der frühzeitige Aufbau der Extensionsfähigkeit, die Behandlung einer Quadriceps-Insuffizienz und die neuromuskuläre Kontrolle der Beinachse."
+    },
+    {
+      "text": "Welche der folgenden Maßnahmen gehören zur physiotherapeutischen Standard-Nachsorge einer Knie-TEP?",
+      "multi": true,
+      "options": [
+        "Schmerzabhängige passive und aktive Mobilisation.",
+        "Frühzeitiges Erreichen der vollständigen Extensionsfähigkeit.",
+        "Behandlung der Quadriceps-Insuffizienz und Aufbau der neuromuskulären Kontrolle der Beinachse.",
+        "Vermeidung jeglicher Rumpfkräftigung in den ersten sechs Monaten."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Standard nach Knie-TEP sind schmerzabhängige Mobilisation, frühzeitige Extensionsfähigkeit, Quadricepsaufbau, neuromuskuläre Kontrolle der Beinachse und ergänzend Rumpfkräftigung. Letztere ist Teil des Reha-Programms und wird nicht vermieden — im Gegenteil, sie unterstützt die Beinachsen-Kontrolle."
+    },
+    {
+      "text": "Welches Prinzip gilt nach Wright et al. (2014) für die VKB-Rehabilitation als Standard?",
+      "multi": false,
+      "options": [
+        "Ein streng zeitbasiertes Vorgehen mit festen Wochen für jede Phase, unabhängig von individuellen Befunden.",
+        "Ein kriterienbasiertes Vorgehen, das die Progression an objektivierbaren Kriterien (Schwellung, ROM, Kraft, Funktion) festmacht und individuelle Schwankungen erlaubt.",
+        "Eine ausschließlich operative Versorgung als Goldstandard.",
+        "Ein Vorgehen, das sich allein an der subjektiven Schmerzangabe orientiert."
+      ],
+      "correct": 1,
+      "explanation": "Nach Wright et al. (2014) und dem Melbourne ACL Rehabilitation Guide 2.0 ist eine kriterienbasierte — keine rein zeitbasierte — Reha Standard. Die Progression wird an objektivierbaren Kriterien wie Schwellung, ROM, Kraft und Funktion festgemacht. Zeitliche Einteilungen sind Orientierung, unterliegen aber großen individuellen Schwankungen."
+    },
+    {
+      "text": "Welche Funktionstests sind klassische Bestandteile der Phase-3-Rehabilitation (Laufen, Agilität, Landen) nach VKB-Rekonstruktion?",
+      "multi": false,
+      "options": [
+        "Ausschließlich isometrische Kraftmessungen ohne Sprungtests.",
+        "Single Hop Test, Triple Hop Test, Triple Cross Over Hop Test, 6-m Hop for Time, Side Hop Test und 5-0-5 Change-of-Direction-Test mit Zielwerten von ≥ 90 % im Seitenvergleich.",
+        "Nur statische Balance-Tests mit geschlossenen Augen.",
+        "Ausschließlich Selbstauskünfte der Patientin oder des Patienten ohne objektivierbare Tests."
+      ],
+      "correct": 1,
+      "explanation": "In Phase 3 werden funktionelle Sprungtests eingesetzt (Single Hop, Triple Hop, Triple Cross Over, 6-m Hop for Time, Side Hop) sowie der 5-0-5 Change-of-Direction-Test, jeweils mit Zielwerten von ≥ 90 % im Seitenvergleich. Ergänzt werden sie durch dynamische Balance- und Single-Leg-Squat-Tests."
+    },
+    {
+      "text": "Welche der folgenden Bestandteile sind in evidenzbasierten Knie-Präventionsprogrammen (FIFA 11+, Sportsmetrics, PEP, KNEE Program) zentral?",
+      "multi": true,
+      "options": [
+        "Plyometrie (55 % Reduktion vs. 26 % ohne — Rössler et al., 2014).",
+        "Agilität und Balance.",
+        "Dosierung mit mindestens 30 Minuten/Woche (68 % Reduktion vs. 34 % bei <15 Min/Woche — Marshall et al., 2016).",
+        "Lange passive Dehnphasen ohne aktive Komponenten."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Wirksame Knie-Präventionsprogramme basieren auf Plyometrie (55 % Reduktion mit vs. 26 % ohne — Rössler 2014), Agilität, Balance, Krafttraining und ausreichender Dosierung (>30 Min/Woche bringen nach Marshall 2016 deutlich mehr als <15 Min/Woche). Lange passive Dehnphasen ohne aktive Belastung gehören nicht dazu. Insgesamt lassen sich VKB-Verletzungen um 40–65 % und Knieverletzungen allgemein um ca. 50 % reduzieren."
+    }
+  ]
+}

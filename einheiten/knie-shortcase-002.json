@@ -1,0 +1,45 @@
+{
+  "id": "knie-shortcase-002",
+  "type": "short_case",
+  "title": "Kurzfall: Herr Schreiner, 57 — degenerative Meniskopathie mit MRT-Befund",
+  "intro": "Schleichende Beschwerden, MRT-Befund mit Riss und beginnenden Knorpelveränderungen, Patient drängt zur Arthroskopie. Drei Fragen zur Einordnung, zur OP-Diskussion und zum konservativen Therapierahmen.",
+  "vignette": "Herr Schreiner, 57 Jahre, selbstständiger Schreiner, kommt mit Beschwerden im rechten Knie zur Erstaufnahme. Sie haben sich seit etwa drei Monaten schleichend entwickelt, ein klares Trauma erinnert er nicht. Mal sei es besser, mal schlechter. Manchmal stechende Schmerzen beim Aufstehen aus tiefer Hocke, gelegentlich ein kurzes „Hängenbleiben“ beim Strecken, das sich aber nach ein paar Bewegungen löst. Sein Hausarzt überwies ihn zum MRT — Befund: „horizontaler Meniskusriss medial, beginnende femorotibiale Knorpelveränderungen“. Er ist verunsichert: „Ist das nicht ein Fall für die Arthroskopie? Mein Schwager hat das auch operieren lassen, ihm geht's seitdem super.“ Beruflich möchte er auf jeden Fall aktiv bleiben — als Schreiner steht und kniet er viel — gleichzeitig hat er Angst, sich „mit jeder weiteren Belastung den Meniskus noch mehr zu ruinieren“. Klinisch: Joint-Line-Tenderness medial, leichtgradige Hypomobilität in Flexion und Extension, kein Erguss, kein Giving-Way, ROM weitgehend frei. BMI 28, ansonsten gesund.",
+  "questions": [
+    {
+      "text": "Wie ist der MRT-Befund „horizontaler Meniskusriss medial + beginnende femorotibiale Knorpelveränderungen“ bei Herrn Schreiner pathogenetisch am besten einzuordnen?",
+      "multi": false,
+      "options": [
+        "Als eigenständige akute Meniskusverletzung, die unabhängig von der Knorpelveränderung zu sehen ist.",
+        "Als degenerative Meniskopathie, die nach aktueller Sichtweise als frühes Zeichen einer Kniegelenksarthrose und nicht als unabhängiges Krankheitsbild zu verstehen ist (Sihvonen et al., 2017).",
+        "Als pathognomonisches Zeichen für eine traumatische Vorgeschichte, die der Patient verschweigt.",
+        "Als Indikation für eine sofortige Arthroskopie, weil der Riss strukturell sichtbar ist."
+      ],
+      "correct": 1,
+      "explanation": "Der Befund passt zu einer degenerativen Meniskopathie — schleichender Beginn ohne Trauma, kombiniert mit Knorpelveränderungen. Nach Sihvonen et al. (2017) sind degenerative Meniskopathien als frühes Zeichen einer Kniegelenksarthrose zu verstehen, nicht als unabhängiges Krankheitsbild. Zudem korrelieren Rissmuster, Rissgröße und Risslokalisation nicht mit Schmerzintensität oder Funktion (Tornbjerg et al., 2016)."
+    },
+    {
+      "text": "Herr Schreiner fragt direkt nach der Arthroskopie. Welche Antwort entspricht der aktuellen Evidenzlage am besten?",
+      "multi": false,
+      "options": [
+        "„Bei dem MRT-Befund führt kein Weg an der Arthroskopie vorbei — je früher, desto besser.“",
+        "„Eine arthroskopische Meniskusteilresektion ist auch nach gescheiterter konservativer Behandlung nicht besser als eine Placebo-OP (Abram 2020, Li 2020, Pan 2020; Siemieniuk et al., 2018). Bei Ihrem Beschwerdebild, ohne Blockaden und ohne klare OP-Indikation nach dem Flowchart von Abram et al. (2019), empfehlen wir zunächst eine optimal aufgebaute konservative Therapie — Bewegung, Edukation, gegebenenfalls Belastungsanpassung und Schmerzmonitoring.“",
+        "„Eine arthroskopische OP wird die Knorpelveränderung sicher rückgängig machen und Ihr Knie wieder jung machen.“",
+        "„Bei Selbstständigen ist die Operation grundsätzlich die schnellere Lösung, weil sie sich kürzere Ausfallzeiten leisten können.“"
+      ],
+      "correct": 1,
+      "explanation": "Die Evidenz spricht klar gegen eine reflexhafte Arthroskopie: Eine Meniskusteilresektion ist selbst nach gescheiterter konservativer Therapie nicht besser als eine Placebo-OP (Abram 2020, Li 2020, Pan 2020; Siemieniuk et al., 2018). Der Flowchart von Abram et al. (2019) sieht bei Meniskusbeteiligung mit Symptomen unter 3 Monaten zunächst eine optimale konservative Therapie und Re-Assessment vor — operiert wird nur, wenn das Knie blockiert ist, eine akute Meniskuserhaltung möglich ist oder die konservative Therapie versagt. Eine OP macht Knorpelveränderungen nicht rückgängig."
+    },
+    {
+      "text": "Welche Bestandteile gehören in den initialen konservativen Behandlungsrahmen für Herrn Schreiner?",
+      "multi": true,
+      "options": [
+        "Aktive Bewegungs- und Übungstherapie 2–3 Mal pro Woche für 20–60 Minuten, anfangs unter Supervision.",
+        "Patientenedukation: Schmerz ≠ Schaden, asymptomatische Meniskusbefunde, Bewegung als Therapie und nicht als Bedrohung.",
+        "Strikte Schon-Empfehlung für die nächsten 6 Wochen, um den Meniskus „zu entlasten“.",
+        "Gewichtsreduktion und Schmerzmonitoring (z. B. mit VAS-Toleranzbereich: bis 2 sicher, bis 5 akzeptabel, >5 hohes Risiko)."
+      ],
+      "correct": [0, 1, 3],
+      "explanation": "Sinnvoll sind aktive Bewegungs- und Übungstherapie nach den Leitlinien-Standards (Katz 2021, Bowden 2020, Kemper 2019; 2–3x/Woche, 20–60 Min, Supervision anfangs), aktive Patientenedukation zu Schmerz, Schaden und der Bedeutung asymptomatischer Befunde sowie Gewichtsreduktion bei BMI 28 und Schmerzmonitoring nach NEMEX-Toleranzbereich (Thomeé 1997; Skou & Roos 2017). Eine strikte Schon-Empfehlung wirkt kontraproduktiv — sie verstärkt Fear-Avoidance-Verhalten und schwächt das Knie zusätzlich."
+    }
+  ]
+}
