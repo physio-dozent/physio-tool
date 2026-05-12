@@ -1,0 +1,45 @@
+{
+  "id": "schmerz-shortcase-001",
+  "type": "short_case",
+  "title": "Kurzfall: Markus, 42 — wiederkehrender Rückenschmerz",
+  "intro": "Lies die Vignette in Ruhe durch. Anschließend drei Fragen zur Einordnung — Einflussfaktoren erkennen, Schmerzmechanismus zuordnen, Therapieansatz wählen.",
+  "vignette": "Markus, 42 Jahre, Bauleiter im Hochbau, kommt zur Erstaufnahme. Seit etwa sieben Monaten plagen ihn wiederkehrende Schmerzen im unteren Rücken — mal rechts, mal links, manchmal beidseitig. „Eigentlich geht's schon, ich mach einfach weiter. Meine Frau sagt, ich soll mal eine Pause einlegen, aber wenn ich abends liegen bleibe, fängt's erst richtig an zu zwicken.“ Er ist auf der Baustelle zehn bis zwölf Stunden täglich unterwegs und sitzt abends oft noch am Schreibtisch, um Pläne durchzugehen. Seit Beginn der Beschwerden schläft er schlecht, wacht zwei- bis dreimal pro Nacht auf. Vor zwei Jahren hatte er wegen ähnlicher Schmerzen ein MRT machen lassen — Befund: „leichter Bandscheibenvorfall L4/L5“. Sein damaliger Hausarzt habe ihm geraten, schwere Lasten zu meiden, was im Job kaum gehe. Auf die Frage, ob ihm das MRT-Ergebnis Sorgen mache, sagt er: „Klar — ich denke ständig, dass jede falsche Bewegung den Vorfall verschlimmern könnte.“ Sein wöchentliches Wandern in der Pfalz, das ihm früher viel Spaß gemacht hat, hat er seit ein paar Monaten aufgegeben. Eine spezifische Verletzung gab es nicht. Die Schmerzen schwanken in der Intensität, sind aber nie ganz weg.",
+  "questions": [
+    {
+      "text": "Welche der folgenden Faktoren aus der Vignette wirken bei Markus am ehesten als DIMs ('Danger in Me') und füllen die Schmerz-Tasse?",
+      "multi": true,
+      "options": [
+        "Sein Glaube, jede falsche Bewegung könne den Bandscheibenvorfall verschlimmern.",
+        "Der schlechte Schlaf mit mehrfachem nächtlichen Erwachen seit Beschwerdebeginn.",
+        "Die hohe tägliche Arbeitsbelastung von zehn bis zwölf Stunden ohne Pausen.",
+        "Das Wandern in der Eifel, das ihm früher Spaß gemacht hat."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Schmerzbezogene Überzeugungen, Schlafprobleme und chronische Überlastung ohne Pausen wirken im Modell der Schmerz-Tasse von Greg Lehman als DIMs (Danger in Me) und füllen die Tasse. Das Wandern wäre dagegen ein SIM (Safety in Me) — eine bedeutungsvolle, schmerzfreie Aktivität, die zur Kapazität beitragen würde und idealerweise wieder aufgenommen wird („Build Shit Back Up“)."
+    },
+    {
+      "text": "Welcher Schmerzmechanismus passt am ehesten zu Markus' Beschwerdebild — wiederkehrende, schwankende Schmerzen seit sieben Monaten, ohne akute Verletzung, mit einem älteren MRT-Befund 'leichter Bandscheibenvorfall L4/L5'?",
+      "multi": false,
+      "options": [
+        "Rein nozizeptiver Schmerz im akut-entzündlichen Sinne.",
+        "Peripher neuropathischer Schmerz im Versorgungsgebiet eines Nervs.",
+        "Schmerz mit Anteilen einer veränderten nozizeptiven Funktion bzw. zentralen Sensibilisierung, eingebettet in psychosoziale Einflussfaktoren.",
+        "Schmerz, der ausschließlich durch den Bandscheibenvorfall L4/L5 erklärt wird."
+      ],
+      "correct": 2,
+      "explanation": "Bei einer Beschwerdedauer von etwa sieben Monaten ohne akute Verletzung, mit schwankendem Verlauf und vorhandenen Einflussfaktoren wie Stress, Schlafproblemen und schmerzbezogenen Sorgen passt am besten ein Mechanismus mit veränderter nozizeptiver Funktion bzw. zentraler Sensibilisierung, eingebettet in psychosoziale Einflussfaktoren und teilweise mechanischem Charakter. Ein peripher neuropathisches Bild zeigte sich klinisch typischerweise im Versorgungsgebiet eines Nervs, wofür die Vignette keine Hinweise liefert. Den MRT-Befund allein als Erklärung heranzuziehen, widerspricht den in Untersuchungen belegten Befunden zu asymptomatischen Bandscheibenvorfällen."
+    },
+    {
+      "text": "Welcher Behandlungsansatz erscheint bei Markus initial am sinnvollsten?",
+      "multi": false,
+      "options": [
+        "Sofortige OP-Empfehlung zur strukturellen Behandlung des Bandscheibenvorfalls.",
+        "Vollständige Ruhigstellung und strikte Schon-Empfehlung, bis die Schmerzen abklingen.",
+        "Eine Kombination aus 'Calm Shit Down' (Schlafhygiene, Stress-Management, Aufklärung zum MRT-Befund und zu Schmerz ≠ Schaden, sanfte schmerzfreie Bewegungen) und 'Build Shit Back Up' (Belastungsaufbau über vertraute Aktivitäten wie das Wandern, variierte Übungen mit angemessenen Pausen).",
+        "Ausschließlich passive Maßnahmen wie Massage und Wärmebehandlung, bis ein Kontroll-MRT vorliegt."
+      ],
+      "correct": 2,
+      "explanation": "Der Doppelansatz 'Calm Shit Down & Build Shit Back Up' nach Greg Lehman (2018) kann dir hier als Praxisrahmen helfen. Bei Markus heißt das konkret: einerseits DIMs in der Schmerz-Tasse reduzieren (Schlafhygiene, Stress-Management, Aufklärung zum MRT-Befund) und andererseits die Belastungskapazität wieder ausbauen über bekannte, vertraute Aktivitäten wie das Wandern, mit variierten Übungen und genügend Pausen. Strikte Schon-Empfehlung würde nach dem Angst-Vermeidungs-Modell (Vlaeyen & Linton 2000) eine weitere Schwächung der Strukturen begünstigen."
+    }
+  ]
+}
