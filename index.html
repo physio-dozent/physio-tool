@@ -549,47 +549,10 @@ let session = {
   session_date: '',
   unit: null,
   answers: {},
-  markings: {},
-  displayPlan: null
+  markings: {}
 };
 
 let availableUnits = [];
-
-// ============= HELPER: SHUFFLE & DISPLAY-PLAN =============
-// Fisher-Yates, gibt eine neue Liste zurück
-function shuffleArr(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-// Quiz: 10 Fragen zufällig ziehen, Reihenfolge mischen, Antwortoptionen pro Frage mischen.
-// Short_case: alle Fragen in Original-Reihenfolge, nur Antwortoptionen pro Frage mischen.
-// Reasoning_case: kein Plan nötig.
-// Der Plan speichert Original-Indizes — Antworten gehen mit Pool-Indizes an Supabase,
-// damit Dashboard und Schwachstellenanalyse konsistent bleiben.
-const QUIZ_QUESTIONS_PER_SESSION = 10;
-function buildDisplayPlan(unit) {
-  if (!unit || !unit.questions || !unit.questions.length) return null;
-  if (unit.type === 'reasoning_case') return null;
-  const allIndices = unit.questions.map((_, i) => i);
-  let questionIndices;
-  if (unit.type === 'quiz') {
-    const n = Math.min(QUIZ_QUESTIONS_PER_SESSION, allIndices.length);
-    questionIndices = shuffleArr(allIndices).slice(0, n);
-  } else {
-    // short_case: alle Fragen, Reihenfolge unverändert
-    questionIndices = allIndices;
-  }
-  return questionIndices.map(qIdx => {
-    const q = unit.questions[qIdx];
-    const optIndices = q && Array.isArray(q.options) ? q.options.map((_, i) => i) : [];
-    return { originalQIdx: qIdx, optionOrder: shuffleArr(optIndices) };
-  });
-}
 
 // ============= INITIALISIERUNG =============
 window.addEventListener('DOMContentLoaded', () => {
@@ -695,7 +658,6 @@ async function selectUnit(file) {
     session.unit = await res.json();
     session.answers = {};
     session.markings = {};
-    session.displayPlan = buildDisplayPlan(session.unit);
     saveSession();
     showScreen('content');
     renderContent();
@@ -712,8 +674,7 @@ function renderContent() {
   const counter = document.getElementById('progress-counter');
 
   label.textContent = u.title;
-  const sessionCount = session.displayPlan ? session.displayPlan.length : (u.questions ? u.questions.length : 0);
-  counter.textContent = u.type === 'quiz' ? `${sessionCount} Fragen` : '';
+  counter.textContent = u.type === 'quiz' ? `${u.questions.length} Fragen` : '';
 
   if (u.type === 'quiz') {
     renderQuiz(card, u);
@@ -730,17 +691,9 @@ function renderContent() {
 function renderQuiz(card, u) {
   let html = `<h1>${escapeHtml(u.title)}</h1>`;
   if (u.intro) html += `<p class="lead">${escapeHtml(u.intro)}</p>`;
-  const plan = session.displayPlan || buildDisplayPlan(u);
-  if (plan) {
-    plan.forEach((entry, displayIdx) => {
-      const q = u.questions[entry.originalQIdx];
-      html += renderQuestion(q, entry.originalQIdx, 'q', entry.optionOrder, displayIdx);
-    });
-  } else {
-    u.questions.forEach((q, idx) => {
-      html += renderQuestion(q, idx, 'q');
-    });
-  }
+  u.questions.forEach((q, idx) => {
+    html += renderQuestion(q, idx, 'q');
+  });
   card.innerHTML = html;
   attachOptionListeners();
 }
@@ -751,17 +704,9 @@ function renderShortCase(card, u) {
   html += renderVignette(u.vignette, false);
   if (u.questions && u.questions.length) {
     html += '<h2 style="margin-top:24px;">Fragen</h2>';
-    const plan = session.displayPlan || buildDisplayPlan(u);
-    if (plan) {
-      plan.forEach((entry, displayIdx) => {
-        const q = u.questions[entry.originalQIdx];
-        html += renderQuestion(q, entry.originalQIdx, 'q', entry.optionOrder, displayIdx);
-      });
-    } else {
-      u.questions.forEach((q, idx) => {
-        html += renderQuestion(q, idx, 'q');
-      });
-    }
+    u.questions.forEach((q, idx) => {
+      html += renderQuestion(q, idx, 'q');
+    });
   }
   card.innerHTML = html;
   attachOptionListeners();
@@ -916,24 +861,19 @@ function attachWordListeners() {
   // schon im HTML via onclick
 }
 
-function renderQuestion(q, originalQIdx, prefix, optionOrder, displayIdx) {
+function renderQuestion(q, idx, prefix) {
   const isMulti = q.multi === true;
   const inputType = isMulti ? 'checkbox' : 'radio';
-  const numberShown = (typeof displayIdx === 'number') ? displayIdx + 1 : originalQIdx + 1;
-  const order = Array.isArray(optionOrder) && optionOrder.length === q.options.length
-    ? optionOrder
-    : q.options.map((_, i) => i);
   let html = `
-    <div class="question" data-q="${originalQIdx}">
-      <div class="question-num">Frage ${numberShown}${isMulti ? ' · Mehrfachauswahl' : ''}</div>
+    <div class="question" data-q="${idx}">
+      <div class="question-num">Frage ${idx + 1}${isMulti ? ' · Mehrfachauswahl' : ''}</div>
       <div class="question-text">${escapeHtml(q.text)}</div>
       <div class="options">
   `;
-  order.forEach(oi => {
-    const opt = q.options[oi];
+  q.options.forEach((opt, oi) => {
     html += `
-      <label class="option" data-q="${originalQIdx}" data-o="${oi}">
-        <input type="${inputType}" name="${prefix}_${originalQIdx}" value="${oi}" onchange="onOptionChange(${originalQIdx})">
+      <label class="option" data-q="${idx}" data-o="${oi}">
+        <input type="${inputType}" name="${prefix}_${idx}" value="${oi}" onchange="onOptionChange(${idx})">
         <span class="option-text">${escapeHtml(opt)}</span>
       </label>
     `;
@@ -1001,7 +941,7 @@ function updateProgress() {
   if (!u) return;
   let progress = 0;
   if (u.type === 'quiz' || u.type === 'short_case') {
-    const total = session.displayPlan ? session.displayPlan.length : (u.questions ? u.questions.length : 0);
+    const total = u.questions ? u.questions.length : 0;
     const answered = session.answers.questions ? Object.keys(session.answers.questions).length : 0;
     progress = total ? (answered / total) * 100 : 0;
     counter.textContent = `${answered} / ${total}`;
@@ -1020,27 +960,21 @@ async function submitContent() {
   const u = session.unit;
   if (!u) return;
 
-  // Welche Fragen wurden in dieser Session überhaupt gestellt?
-  const askedIndices = session.displayPlan
-    ? session.displayPlan.map(p => p.originalQIdx)
-    : (u.questions ? u.questions.map((_, i) => i) : []);
-
   // Validierung
   if (u.type === 'quiz' || u.type === 'short_case') {
-    const total = askedIndices.length;
+    const total = u.questions ? u.questions.length : 0;
     const answered = session.answers.questions ? Object.keys(session.answers.questions).length : 0;
     if (answered < total) {
       if (!confirm(`Du hast erst ${answered} von ${total} Fragen beantwortet. Trotzdem absenden?`)) return;
     }
   }
 
-  // Auswertung berechnen — nur die in dieser Session gestellten Fragen
+  // Auswertung berechnen
   let scoreCorrect = null, scoreTotal = null;
   if ((u.type === 'quiz' || u.type === 'short_case') && u.questions) {
-    scoreTotal = askedIndices.length;
+    scoreTotal = u.questions.length;
     scoreCorrect = 0;
-    askedIndices.forEach(idx => {
-      const q = u.questions[idx];
+    u.questions.forEach((q, idx) => {
       const ans = session.answers.questions ? session.answers.questions[idx] : null;
       if (isAnswerCorrect(q, ans)) scoreCorrect++;
     });
@@ -1123,19 +1057,14 @@ function showResult(correctCount, total) {
         <div class="score-label">Richtig beantwortet · ${pct}%</div>
       </div>
     `;
-    // Detailauswertung — nur die in dieser Session gestellten Fragen,
-    // in der gleichen Reihenfolge wie im Quiz
+    // Detailauswertung pro Frage
     html += '<h2 style="margin-top:20px;">Auswertung</h2>';
-    const askedForResult = session.displayPlan
-      ? session.displayPlan.map(p => p.originalQIdx)
-      : u.questions.map((_, i) => i);
-    askedForResult.forEach((origIdx, displayIdx) => {
-      const q = u.questions[origIdx];
-      const ans = session.answers.questions ? session.answers.questions[origIdx] : null;
+    u.questions.forEach((q, idx) => {
+      const ans = session.answers.questions ? session.answers.questions[idx] : null;
       const isCorrect = isAnswerCorrect(q, ans);
       html += `
         <div class="question">
-          <div class="question-num">Frage ${displayIdx + 1} · ${isCorrect ? 'Richtig' : 'Falsch'}</div>
+          <div class="question-num">Frage ${idx + 1} · ${isCorrect ? 'Richtig' : 'Falsch'}</div>
           <div class="question-text">${escapeHtml(q.text)}</div>
           <div class="options">
       `;
@@ -1181,7 +1110,6 @@ function restartFlow() {
   session.unit = null;
   session.answers = {};
   session.markings = {};
-  session.displayPlan = null;
   showScreen('units');
   loadUnits();
 }
@@ -1199,7 +1127,7 @@ function saveSession() {
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     try {
-      localStorage.setItem('physio_session_v2', JSON.stringify(session));
+      localStorage.setItem('physio_session_v1', JSON.stringify(session));
       showAutosavePill();
     } catch (e) { /* speicher voll oder geblockt */ }
   }, 400);
@@ -1207,14 +1135,14 @@ function saveSession() {
 
 function loadSavedSession() {
   try {
-    const raw = localStorage.getItem('physio_session_v2');
+    const raw = localStorage.getItem('physio_session_v1');
     if (!raw) return null;
     return JSON.parse(raw);
   } catch (e) { return null; }
 }
 
 function clearSavedSession() {
-  try { localStorage.removeItem('physio_session_v2'); } catch (e) {}
+  try { localStorage.removeItem('physio_session_v1'); } catch (e) {}
 }
 
 function showAutosavePill() {
