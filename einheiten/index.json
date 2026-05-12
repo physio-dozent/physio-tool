@@ -1,23 +1,30 @@
 [
   {
-    "id": "demo-quiz-001",
-    "file": "demo-quiz.json",
-    "title": "Demo: Allgemeines Quiz",
-    "description": "Beispiel-Quizfragen zum Testen des Tools",
+    "id": "schmerz-quiz-001",
+    "file": "schmerz-quiz-001.json",
+    "title": "Schmerzverständnis 2.0 — Grundlagen-Quiz",
+    "description": "Fragen-Pool aus 28 Fragen. Pro Durchlauf werden 10 zufällig gezogen und gemischt.",
     "type": "quiz"
   },
   {
-    "id": "demo-shortcase-001",
-    "file": "demo-shortcase.json",
-    "title": "Demo: Kurzfall Knie",
-    "description": "Beispiel-Kurzfall mit Symptomerkennung",
+    "id": "schmerz-shortcase-001",
+    "file": "schmerz-shortcase-001.json",
+    "title": "Kurzfall: Markus, 42 — wiederkehrender Rückenschmerz",
+    "description": "Chronischer unspezifischer Rückenschmerz, Durchhalter-Profil. Drei Fragen zu Einflussfaktoren, Schmerzmechanismus und Calm/Build-Therapieansatz.",
     "type": "short_case"
   },
   {
-    "id": "demo-reasoning-001",
-    "file": "demo-reasoning.json",
-    "title": "Demo: Reasoning-Fall LWS",
-    "description": "Beispiel für einen langen Clinical-Reasoning-Fall",
-    "type": "reasoning_case"
+    "id": "schmerz-shortcase-002",
+    "file": "schmerz-shortcase-002.json",
+    "title": "Kurzfall: Frau Müller, 45 — anhaltender Knieschmerz nach Bagatelltrauma",
+    "description": "Vermeider-Profil mit Kinesiophobie und Fear-Avoidance. Drei Fragen zu dominanten Treibern, Therapie für Vermeider und Kontext-Treibern aus der Versorgungs-Vorgeschichte.",
+    "type": "short_case"
+  },
+  {
+    "id": "schmerz-shortcase-003",
+    "file": "schmerz-shortcase-003.json",
+    "title": "Kurzfall: Tom, 22 — akute Schulterschmerzen mit Chronifizierungs-Risiko",
+    "description": "Akute Beschwerden mit deutlichen Risikomarkern für Chronifizierung. Drei Fragen zu Risikomarkern, Profi-Anamnesefragen und Therapie mit Schwerpunkt Patientenedukation.",
+    "type": "short_case"
   }
 ]
