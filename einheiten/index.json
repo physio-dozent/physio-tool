@@ -26,5 +26,26 @@
     "title": "Kurzfall: Tom, 22 — akute Schulterschmerzen mit Chronifizierungs-Risiko",
     "description": "Akute Beschwerden mit deutlichen Risikomarkern für Chronifizierung. Drei Fragen zu Risikomarkern, Profi-Anamnesefragen und Therapie mit Schwerpunkt Patientenedukation.",
     "type": "short_case"
+  },
+  {
+    "id": "demo-quiz-001",
+    "file": "demo-quiz.json",
+    "title": "Demo: Allgemeines Quiz",
+    "description": "Beispiel-Quizfragen zum Testen des Tools",
+    "type": "quiz"
+  },
+  {
+    "id": "demo-shortcase-001",
+    "file": "demo-shortcase.json",
+    "title": "Demo: Kurzfall Knie",
+    "description": "Beispiel-Kurzfall mit Symptomerkennung",
+    "type": "short_case"
+  },
+  {
+    "id": "demo-reasoning-001",
+    "file": "demo-reasoning.json",
+    "title": "Demo: Reasoning-Fall LWS",
+    "description": "Beispiel für einen langen Clinical-Reasoning-Fall",
+    "type": "reasoning_case"
   }
 ]
