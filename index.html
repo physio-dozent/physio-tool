@@ -24,8 +24,8 @@
   --correct-bg: #1f3a28;
   --wrong: #f08585;
   --wrong-bg: #3d1f25;
-  --type-quiz: #7aa8d8;
-  --type-quiz-bg: #1f2e47;
+  --type-quiz: #e08a7a;
+  --type-quiz-bg: #3a2520;
   --type-short: #e5b87a;
   --type-short-bg: #382a1a;
   --type-reasoning: #7ac9c2;
@@ -216,14 +216,44 @@ button {
   padding: 14px 18px;
   border: 1px solid var(--line);
   border-radius: 6px;
-  background: var(--bg-card);
+  background: #22324d;
+  box-shadow: var(--shadow);
   cursor: pointer;
   transition: all 0.15s;
 }
-.unit-item:hover { transform: translateY(-1px); box-shadow: var(--shadow-lift); }
+.unit-item:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lift);
+  background: #2a3d5e;
+}
 .unit-item.type-quiz:hover { border-color: var(--type-quiz); background: var(--type-quiz-bg); }
 .unit-item.type-short_case:hover { border-color: var(--type-short); background: var(--type-short-bg); }
 .unit-item.type-reasoning_case:hover { border-color: var(--type-reasoning); background: var(--type-reasoning-bg); }
+
+/* Themen-Kacheln in der Themen-Maske — deutlich auffälliger als normale Lerneinheits-Kacheln */
+.unit-item.topic-tile {
+  padding: 20px 22px;
+  border-left: 4px solid var(--accent);
+  background: #28395a;
+  box-shadow: var(--shadow-lift);
+}
+.unit-item.topic-tile:hover {
+  background: #324672;
+  border-color: var(--accent-soft);
+  border-left-color: var(--accent);
+}
+.unit-item.topic-tile .unit-title {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.unit-item.topic-tile .unit-meta {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
 .unit-title { font-weight: 500; color: var(--ink); }
 .unit-meta { font-size: 13px; color: var(--ink-muted); margin-top: 2px; }
 .unit-tag {
@@ -739,7 +769,7 @@ function renderTopicsList() {
   list.innerHTML = '';
   topics.forEach(t => {
     const div = document.createElement('div');
-    div.className = 'unit-item';
+    div.className = 'unit-item topic-tile';
     div.onclick = () => selectTopic(t.id, t.title);
     div.innerHTML = `
       <div>
