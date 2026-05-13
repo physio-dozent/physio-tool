@@ -11,7 +11,7 @@
       "options": [
         "Direkte Kontaktverletzung mit Krafteinwirkung von medial gegen das Kniegelenk.",
         "Hyperextension des Kniegelenks beim Landen nach einem Sprung.",
-        "Nicht-Kontakt-Mechanismus mit Abstoppmanöver, Beinachsenkollaps (Valgus durch Hüft-Adduktion und -Innenrotation) und Tibia-Rotation — der klassische Mechanismus einer VKB-Ruptur nach Quatman et al. (2009).",
+        "Nicht-Kontakt-Mechanismus mit Abstoppmanöver, Beinachsenkollaps (Valgus durch Hüft-Adduktion und -Innenrotation) und Tibia-Rotation.",
         "Reine Außenrotation der Tibia bei feststehendem Fuß ohne Beinachsenkollaps."
       ],
       "correct": 2,
@@ -21,22 +21,22 @@
       "text": "Welche der folgenden Schritte und Tests sind in dieser Situation klinisch sinnvoll, um die Arbeitshypothese „VKB-Ruptur“ zu prüfen?",
       "multi": true,
       "options": [
-        "Lachmann-Test (Sensitivität 85 %, Spezifität 94 % nach Benjaminse et al., 2006).",
+        "Lachmann-Test.",
         "Anterior Drawer Test (vordere Schublade) in 90° Knie-Flexion.",
         "Lever Sign (Lelli-Test) — Faust unter den proximalen Unterschenkel, ventraler Druck auf den Oberschenkel.",
         "Apley-Test als Hauptdiagnostik für die VKB-Ruptur."
       ],
       "correct": [0, 1, 2],
-      "explanation": "Die klassische Test-Trias zur klinischen VKB-Hypothese sind Lachmann (am sensitivsten, hoher Einschlusswert), Anterior Drawer und Lever Sign (Lelli) mit guten Werten (Hesmerg et al., 2024). Sie ergänzen die problematische Handlung, Inspektion, ROM-Prüfung und Krafttest. Der Apley-Test ist ein Meniskus-Test mit niedriger Sensitivität (ca. 5/10 nach Blyth 2015) — er ist hier nicht der Hauptdiagnostiker, kann aber zur Differenzierung einer Begleitverletzung beitragen."
+      "explanation": "Die klassische Test-Trias zur klinischen VKB-Hypothese sind Lachmann (Sensitivität 85%, Spezifität 94% nach Benjaminse et al., 2006), Anterior Drawer (Sensitivität 80-87%, Spezifität 95% nach Jarbo et al., 2017 und Lever Sign (Lelli) mit guten Werten (Sensitivität 80%, Spezifität 92% Hesmerg et al., 2024). Sie ergänzen die problematische Handlung, Inspektion, ROM-Prüfung und Krafttest. Der Apley-Test ist ein Meniskus-Test mit niedriger Sensitivität (ca. 5/10 nach Blyth 2015) — er ist hier nicht der Hauptdiagnostiker, kann aber zur Differenzierung einer Begleitverletzung beitragen."
     },
     {
       "text": "Lena fragt unter Tränen, ob sie wirklich sofort operiert werden muss. Wie ordnest du ihr die Entscheidung „OP vs. konservativ“ evidenzbasiert ein?",
       "multi": false,
       "options": [
-        "Eine sofortige Operation ist alternativlos — ohne OP ist Rückkehr in den Hochleistungs-Handball ausgeschlossen.",
-        "Bei isolierter VKB-Ruptur zeigen aktuelle Vergleichsstudien keine grundlegenden Unterschiede zwischen konservativ und operativ in Schmerz, Funktion und Arthrose-Auftreten (Diemer, Zebisch, Saueressig 2021). Die Entscheidung sollte individuell auf Faktoren wie Begleitverletzungen, Risiko-Sportartanspruch (Handball mit Pivotbelastung), wiederkehrende Giving-Way-Episoden und Patienten-Einstellung gestützt werden — und sie kann jetzt noch reifen, nachdem MRT-Befund und erste Reha-Phase abgewartet sind.",
-        "Eine konservative Therapie ist bei Sportlern grundsätzlich kontraindiziert.",
-        "Die Operation muss innerhalb von 48 Stunden erfolgen, sonst heilt das VKB nie wieder."
+        "Eine sofortige Operation ist laut aktueller Datenlage alternativlos — ohne OP ist Rückkehr in den Hochleistungs-Handball ausgeschlossen. Das zeigt die Praxis.",
+        "Bei isolierter VKB-Ruptur zeigen Vergleichsstudien keine grundlegenden Unterschiede zwischen konservativ und operativ in Schmerz, Funktion und Arthrose-Auftreten. Die Entscheidung sollte individuell auf Faktoren wie Begleitverletzungen, Risiko-Sportartanspruch (Handball mit Pivotbelastung), wiederkehrende Giving-Way-Episoden und Patienten-Einstellung gestützt werden — und sie kann jetzt noch reifen, nachdem MRT-Befund und erste Reha-Phase abgewartet sind.",
+        "Eine konservative Therapie ist bei Sportlern mit höchstem Leistungsanspruch grundsätzlich kontraindiziert. Das erlaubt die Berufsgenossenschaft nicht.",
+        "Wenn sie sich für eine Operation entscheidet, muss sie innerhalb von 48 Stunden erfolgen, da sonst das neue Kreuzband nicht richtig heilen kann."
       ],
       "correct": 1,
       "explanation": "Aktuelle Studien zeigen keine grundlegenden Unterschiede zwischen konservativ und operativ in Schmerz, Funktion und Arthrose-Auftreten (Diemer, Zebisch, Saueressig 2021). Die Entscheidung hängt von Faktoren wie Begleitverletzungen (Frobell 2013), Pivot-Sportart-Anspruch (Grindem 2012, Diermeier 2021), Giving-Way-Episoden (Filbay 2019), Tibia-Slope (Bayer 2020, Salmon 2018) und psychischer Resilienz (Nedder 2024) ab. Auch die intrinsische VKB-Heilungsfähigkeit ist relevant — in der KANON-Studie hatten 56 % der nicht operierten Patienten nach 2 Jahren und 58 % nach 5 Jahren ein geheiltes VKB (Filbay 2022). Eine sofortige Notwendigkeit zur OP innerhalb von 48 Stunden besteht nicht."
