@@ -14,7 +14,7 @@
         "Komorbidität-Treiber (Schlafstörungen, Gewichtszunahme, Dekonditionierung).",
         "Peripher neuropathische Treiber mit eindeutigen radikulären Plus-Symptomen."
       ],
-      "correct": [0, 1, 2, 3],
+      "correct": [0, 1, 2],
       "explanation": "Dominant sind nozizeptive Treiber (mechanische Schmerzauslöser, Krepitation, Anlaufschmerz), kognitiv-emotionale Treiber (Bewegungsangst und Nocebo durch die Aussage der Bekannten) und Komorbidität-Treiber (Schlafstörungen, Gewichtszunahme von 8 kg, Dekonditionierung durch Inaktivität). Für eine periphere neuropathische Komponente gibt es klinisch keine Anzeichen — keine radikulären Plus-Symptome (Kribbeln, Brennen, „Ameisenlaufen“) oder Minus-Symptomen (Taubheit) im Versorgungsgebiet eines Nervs."
     },
     {
