@@ -12,7 +12,7 @@
         "Als eigenständige akute Meniskusverletzung, die unabhängig von der Knorpelveränderung zu sehen ist.",
         "Als degenerative Meniskopathie, die nach aktueller Sichtweise als frühes Zeichen einer Kniegelenksarthrose und nicht als unabhängiges Krankheitsbild zu verstehen ist.",
         "Als pathognomonisches Zeichen für eine traumatische Vorgeschichte, die der Patient verschweigt.",
-        "Als Indikation für eine sofortige Arthroskopie, weil der Riss strukturell sichtbar ist."
+        "Als Indikation für eine sofortige Arthroskopie, weil der Riss strukturell sichtbar ist und genäht werden muss."
       ],
       "correct": 1,
       "explanation": "Der Befund passt zu einer degenerativen Meniskopathie — schleichender Beginn ohne Trauma, kombiniert mit Knorpelveränderungen. Nach Sihvonen et al. (2017) sind degenerative Meniskopathien als frühes Zeichen einer Kniegelenksarthrose zu verstehen, nicht als unabhängiges Krankheitsbild. Zudem korrelieren Rissmuster, Rissgröße und Risslokalisation nicht mit Schmerzintensität oder Funktion (Tornbjerg et al., 2016)."
@@ -21,9 +21,9 @@
       "text": "Herr Schreiner fragt direkt nach der Arthroskopie. Welche Antwort entspricht der aktuellen Evidenzlage am besten?",
       "multi": false,
       "options": [
-        "„Bei dem MRT-Befund führt kein Weg an der Arthroskopie vorbei — je früher, desto besser.“",
-        "„Eine arthroskopische Meniskusteilresektion ist auch nach gescheiterter konservativer Behandlung nicht besser als eine Placebo-OP. Bei Ihrem Beschwerdebild, ohne Blockaden, empfehlen wir zunächst eine stufenweise aufgebaute konservative Therapie — Bewegung, Edukation, gegebenenfalls Belastungsanpassung unter Berücksichtigung der Schmerzen.“",
-        "„Eine arthroskopische OP wird die Knorpelveränderung sicher aufhalten und eventuell sogar rückgängig machen, damit ihr Knie wieder stabil ist.“",
+        "„Bei dem MRT-Befund führt kein Weg an der Arthroskopie vorbei — je früher, desto besser, damit das Knie wieder fit werden kann.“",
+        "„Eine arthroskopische Meniskusteilresektion ist auch nach gescheiterter konservativer Behandlung nicht besser als eine Placebo-OP. Bei Ihrem Beschwerdebild, empfehlen wir zunächst eine stufenweise aufgebaute konservative Therapie — Bewegung, Edukation, gegebenenfalls Belastungsanpassung unter Berücksichtigung der Schmerzen.“",
+        "„Eine arthroskopische OP wird die Knorpelveränderung sicher aufhalten und eventuell sogar rückgängig machen, damit ihr Knie wieder stabil ist. Erst danach macht Physiotherapie mit Übungen überhaupt Sinn.“",
         "„Bei Selbstständigen ist die Operation grundsätzlich die schnellere Lösung, weil sie sich kürzere Ausfallzeiten leisten können.“"
       ],
       "correct": 1,
