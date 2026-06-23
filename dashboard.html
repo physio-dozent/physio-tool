@@ -437,6 +437,7 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
       <button class="tab" data-tab="klasse" onclick="switchTab(event, 'klasse')">Klassen-Verlauf</button>
       <button class="tab" data-tab="schwachstellen" onclick="switchTab(event, 'schwachstellen')">Schwachstellen</button>
       <button class="tab" data-tab="reasoning" onclick="switchTab(event, 'reasoning')">Reasoning-Übersicht</button>
+      <button class="tab" data-tab="vereinheitlichen" onclick="switchTab(event, 'vereinheitlichen')">Vereinheitlichen</button>
     </div>
 
     <div id="pane-einsendungen" class="tab-pane active">
@@ -490,6 +491,28 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
           <select id="sel-reasoning-unit" onchange="renderReasoning()"><option value="">Bitte wählen…</option></select>
         </div>
         <div id="reasoning-content"></div>
+      </div>
+    </div>
+
+    <div id="pane-vereinheitlichen" class="tab-pane">
+      <div class="card">
+        <h2>Schüler &amp; Klassen vereinheitlichen</h2>
+        <p class="help-text">Wenn Schülerinnen oder Schüler sich mehrfach mit leicht unterschiedlichen Namen oder Klassen-Schreibweisen angemeldet haben, kannst du sie hier zu einem Eintrag zusammenführen. Die Umbenennung wirkt direkt auf die Datenbank und ist <strong>nicht rückgängig zu machen</strong>. Filter (Klasse, Datum) werden hier nicht angewendet — die Liste zeigt immer alle Einträge.</p>
+
+        <div style="margin-top:20px;">
+          <h3 style="margin-bottom:10px;">Schüler-Namen</h3>
+          <p class="help-text">Sortiert nach Klasse, innerhalb der Klasse nach Anzahl der Einsendungen. Klick auf „Umbenennen", um einen Namen auf eine andere Schreibweise zu mappen — bestehende Einsendungen werden zusammengeführt.</p>
+          <div style="margin-bottom:12px;">
+            <input type="text" id="f-unify-search" placeholder="Name oder Klasse filtern…" oninput="renderUnify()">
+          </div>
+          <div id="unify-students"><div class="empty"><span class="loading-bar"></span> Lade Daten…</div></div>
+        </div>
+
+        <div style="margin-top:28px;">
+          <h3 style="margin-bottom:10px;">Klassen-Schreibweisen</h3>
+          <p class="help-text">Sortiert nach Anzahl der Einsendungen. Klick auf „Umbenennen", um eine Klassen-Schreibweise zu vereinheitlichen — alle Einsendungen der Klasse werden auf die Ziel-Schreibweise gehoben.</p>
+          <div id="unify-classes"></div>
+        </div>
       </div>
     </div>
 
@@ -650,6 +673,7 @@ function renderActiveTab() {
   else if (currentTab === 'klasse') renderKlasse();
   else if (currentTab === 'schwachstellen') renderSchwachstellen();
   else if (currentTab === 'reasoning') renderReasoning();
+  else if (currentTab === 'vereinheitlichen') renderUnify();
 }
 
 function renderEinsendungen() {
@@ -976,6 +1000,201 @@ function renderReasoning() {
   }
   
   wrap.innerHTML = html;
+}
+
+// ============= VEREINHEITLICHEN =============
+function renderUnify() {
+  const fs = (document.getElementById('f-unify-search').value || '').toLowerCase().trim();
+
+  // Schüler-Gruppierung: (student_name, class_name) → Anzahl Submissions
+  const studentMap = {};
+  allRows.forEach(r => {
+    const key = r.student_name + '|' + r.class_name;
+    if (!studentMap[key]) {
+      studentMap[key] = { name: r.student_name, klasse: r.class_name, count: 0 };
+    }
+    studentMap[key].count++;
+  });
+  let students = Object.values(studentMap);
+  if (fs) {
+    students = students.filter(s =>
+      s.name.toLowerCase().includes(fs) || s.klasse.toLowerCase().includes(fs)
+    );
+  }
+  // Erst nach Klasse, dann nach Anzahl absteigend, dann nach Name
+  students.sort((a, b) => {
+    if (a.klasse !== b.klasse) return a.klasse.localeCompare(b.klasse);
+    if (b.count !== a.count) return b.count - a.count;
+    return a.name.localeCompare(b.name);
+  });
+
+  // Pro Klasse gruppieren
+  const byClass = {};
+  students.forEach(s => {
+    if (!byClass[s.klasse]) byClass[s.klasse] = [];
+    byClass[s.klasse].push(s);
+  });
+
+  const studentsWrap = document.getElementById('unify-students');
+  if (!students.length) {
+    studentsWrap.innerHTML = '<div class="empty">Keine Schüler-Einträge.</div>';
+  } else {
+    let html = '';
+    Object.keys(byClass).sort().forEach(klasse => {
+      html += `<div class="section-title" style="margin-top:14px;">${escapeHtml(klasse)}</div>`;
+      html += '<table><thead><tr><th>Name</th><th style="text-align:right;">Einsendungen</th><th></th></tr></thead><tbody>';
+      byClass[klasse].forEach(s => {
+        html += `<tr>
+          <td>${escapeHtml(s.name)}</td>
+          <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:var(--ink-soft);">${s.count}</td>
+          <td style="text-align:right;"><button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="openMergeModal('student', ${JSON.stringify(s.name).replace(/"/g, '&quot;')}, ${JSON.stringify(s.klasse).replace(/"/g, '&quot;')})">Umbenennen</button></td>
+        </tr>`;
+      });
+      html += '</tbody></table>';
+    });
+    studentsWrap.innerHTML = html;
+  }
+
+  // Klassen-Aggregation
+  const classMap = {};
+  allRows.forEach(r => {
+    if (!classMap[r.class_name]) {
+      classMap[r.class_name] = { name: r.class_name, count: 0, students: new Set() };
+    }
+    classMap[r.class_name].count++;
+    classMap[r.class_name].students.add(r.student_name);
+  });
+  const classes = Object.values(classMap)
+    .map(c => ({ name: c.name, count: c.count, studentsCount: c.students.size }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+
+  const classesWrap = document.getElementById('unify-classes');
+  if (!classes.length) {
+    classesWrap.innerHTML = '<div class="empty">Keine Klassen-Einträge.</div>';
+  } else {
+    let html = '<table><thead><tr><th>Klasse</th><th style="text-align:right;">Einsendungen</th><th style="text-align:right;">Schüler</th><th></th></tr></thead><tbody>';
+    classes.forEach(c => {
+      html += `<tr>
+        <td>${escapeHtml(c.name)}</td>
+        <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:var(--ink-soft);">${c.count}</td>
+        <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:var(--ink-soft);">${c.studentsCount}</td>
+        <td style="text-align:right;"><button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="openMergeModal('class', ${JSON.stringify(c.name).replace(/"/g, '&quot;')}, null)">Umbenennen</button></td>
+      </tr>`;
+    });
+    html += '</tbody></table>';
+    classesWrap.innerHTML = html;
+  }
+}
+
+function openMergeModal(type, oldValue, classContext) {
+  // Vorschlagsliste mit allen aktuell existierenden Werten desselben Typs (für Datalist)
+  let suggestions = [];
+  if (type === 'student') {
+    suggestions = [...new Set(
+      allRows
+        .filter(r => r.class_name === classContext)
+        .map(r => r.student_name)
+    )].filter(n => n !== oldValue).sort();
+  } else if (type === 'class') {
+    suggestions = [...new Set(allRows.map(r => r.class_name))].filter(n => n !== oldValue).sort();
+  }
+  const title = type === 'student'
+    ? `Schüler-Namen vereinheitlichen`
+    : `Klassen-Schreibweise vereinheitlichen`;
+  const contextLine = type === 'student'
+    ? `Aktueller Name: <strong>${escapeHtml(oldValue)}</strong> · Klasse: <strong>${escapeHtml(classContext)}</strong>`
+    : `Aktuelle Klasse: <strong>${escapeHtml(oldValue)}</strong>`;
+  const helpLine = type === 'student'
+    ? 'Tippe oder wähle den Zielnamen. Falls der Zielname bereits existiert, werden die Einsendungen zusammengeführt.'
+    : 'Tippe oder wähle die Ziel-Schreibweise. Falls die Ziel-Klasse bereits existiert, werden alle Einsendungen zusammengeführt.';
+
+  const datalistId = 'merge-suggestions-' + type;
+  const datalistHtml = suggestions.length
+    ? `<datalist id="${datalistId}">${suggestions.map(s => `<option value="${escapeHtml(s)}">`).join('')}</datalist>`
+    : '';
+
+  const html = `
+    <button class="modal-close" onclick="closeModal()">Schließen</button>
+    <h2>${title}</h2>
+    <p style="color:var(--ink-soft);margin-bottom:16px;">${contextLine}</p>
+    <p class="help-text" style="margin-bottom:14px;">${helpLine}</p>
+    <div style="margin-bottom:18px;">
+      <label for="merge-new-value">Ziel-${type === 'student' ? 'Name' : 'Klasse'}</label>
+      <input type="text" id="merge-new-value" list="${datalistId}" placeholder="${escapeHtml(oldValue)}" autocomplete="off" autofocus>
+      ${datalistHtml}
+    </div>
+    <div style="padding:12px 14px;background:var(--wrong-bg);border-left:3px solid var(--wrong);border-radius:4px;margin-bottom:18px;font-size:13px;color:var(--wrong);">
+      Diese Änderung wirkt direkt auf die Datenbank und ist nicht rückgängig zu machen.
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;">
+      <button class="btn-secondary" onclick="closeModal()">Abbrechen</button>
+      <button class="btn-primary" onclick="doMerge(${JSON.stringify(type)}, ${JSON.stringify(oldValue).replace(/"/g, '&quot;')}, ${JSON.stringify(classContext).replace(/"/g, '&quot;')})">Umbenennen</button>
+    </div>
+  `;
+  document.getElementById('modal-body').innerHTML = html;
+  document.getElementById('modal').classList.add('active');
+  setTimeout(() => {
+    const inp = document.getElementById('merge-new-value');
+    if (inp) inp.focus();
+  }, 50);
+}
+
+async function doMerge(type, oldValue, classContext) {
+  const newValue = (document.getElementById('merge-new-value').value || '').trim();
+  if (!newValue) { alert('Bitte einen Zielwert eintragen.'); return; }
+  if (newValue === oldValue) { alert('Zielwert ist identisch zum Quellwert — nichts zu tun.'); return; }
+
+  let url, payload, affectedDescription;
+  if (type === 'student') {
+    url = SUPABASE_URL + '/rest/v1/submissions'
+      + '?student_name=eq.' + encodeURIComponent(oldValue)
+      + '&class_name=eq.' + encodeURIComponent(classContext);
+    payload = { student_name: newValue };
+    affectedDescription = `Alle Einsendungen von "${oldValue}" in Klasse "${classContext}" werden auf "${newValue}" gehoben.`;
+  } else {
+    url = SUPABASE_URL + '/rest/v1/submissions?class_name=eq.' + encodeURIComponent(oldValue);
+    payload = { class_name: newValue };
+    affectedDescription = `Alle Einsendungen der Klasse "${oldValue}" werden auf "${newValue}" gehoben.`;
+  }
+
+  if (!confirm(`Wirklich umbenennen?\n\n${affectedDescription}\n\nDieser Vorgang ist nicht rückgängig zu machen.`)) return;
+
+  try {
+    const res = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json',
+        'x-dozent-zugang': DOZENT_TOKEN,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error('HTTP ' + res.status + ': ' + txt);
+    }
+    // Lokal aktualisieren
+    if (type === 'student') {
+      allRows.forEach(r => {
+        if (r.student_name === oldValue && r.class_name === classContext) {
+          r.student_name = newValue;
+        }
+      });
+    } else {
+      allRows.forEach(r => {
+        if (r.class_name === oldValue) {
+          r.class_name = newValue;
+        }
+      });
+    }
+    closeModal();
+    populateGlobalFilters();
+    renderActiveTab();
+  } catch (err) {
+    alert('Umbenennen fehlgeschlagen: ' + err.message + '\n\nPrüfe, ob in Supabase eine UPDATE-Policy mit dem Header-Token "x-dozent-zugang" eingerichtet ist.');
+  }
 }
 
 function renderLineChart(data, unit) {
