@@ -1,0 +1,45 @@
+{
+  "id": "huefte-shortcase-001",
+  "type": "short_case",
+  "title": "Kurzfall: Janek, 21 — adduktoren-bedingter Leistenschmerz im Fußball",
+  "intro": "Junger Amateur-Fußballer mit zunehmenden Leistenschmerzen bei Stop-and-Go-Belastung. Drei Fragen zur Einordnung, Untersuchungs-Strategie und Therapie-Phase.",
+  "vignette": "Janek, 21 Jahre, spielt seit der Jugend in der Kreisliga Fußball — drei Mal pro Woche Training plus Spiel am Wochenende. Seit etwa sechs Wochen merkt er einen ziehenden Schmerz im Bereich der linken Leiste, besonders bei Antritten, schnellen Richtungswechseln und Schüssen mit Innenseite. Anfangs war der Schmerz nur nach dem Training spürbar und ist verschwunden, jetzt zieht es bereits beim Anlaufen. Kein klares Trauma erinnerlich, eher schleichender Beginn. Kein Husten- oder Niesschmerz, keine Sensibilitätsstörungen, keine Schmerzausstrahlung über die Mitte des Oberschenkels hinaus. Klinisch: Palpation des Adduktoren-Ursprungs links deutlich druckschmerzhaft, isometrische Adduktion in 0°- und 45°-Position schmerzhaft, im Squeeze-Test (5 s isometrischer Druck in 45°-Hüft-Flexion) NRS 7/10. Passive Hüft-Abduktion endgradig dehnend, aber nicht eindeutig reproduzierend. FADDIR negativ, kein Klicken. Niesen/Husten ohne Schmerz, Lig. inguinale palpatorisch unauffällig. Active Straight Leg Raise ohne Symphysenschmerz.",
+  "questions": [
+    {
+      "text": "Welche Hinweise sprechen bei Janek am stärksten für eine adduktoren-bedingte Ursache und gegen die anderen Doha-Kategorien?",
+      "multi": true,
+      "options": [
+        "Druckschmerz am Adduktoren-Ursprung und schmerzhafte isometrische Adduktion.",
+        "Squeeze-Test mit NRS 7/10 — Schmerz > 6 als Hinweis auf relevanten Funktionsverlust im Hüft-Leistenbereich.",
+        "Unauffälliges Lig. inguinale, kein Husten-/Niesschmerz und ASLR ohne Symphysenbeschwerden.",
+        "Positiver FADDIR-Test als Bestätigung der adduktoren-bedingten Hauptursache."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Die Konstellation ist typisch adduktoren-bedingt: lokale Druckschmerzhaftigkeit am Ursprung, schmerzhafte Isometrie, deutlicher Squeeze-Test (NRS > 6 deutet nach Franklin-Miller, 2016 auf einen relevanten Funktionsverlust hin). Gleichzeitig sprechen unauffälliges Lig. inguinale, fehlender Husten-/Niesschmerz und ein unauffälliger ASLR gegen inguinale bzw. symphysale Anteile. Ein FADDIR-Test wäre für FAI / Labrum relevant — nicht für adduktoren-bedingte Beschwerden."
+    },
+    {
+      "text": "In welcher Phase befindet sich Janek aktuell aus Sicht der Therapieplanung und welche Bausteine sind in dieser Phase angemessen?",
+      "multi": false,
+      "options": [
+        "Chronische Spätphase mit Heavy-Slow-Resistance-Training, Sprüngen und voller Sportbelastung.",
+        "Akut-/Subakutphase: Sportpause bzw. deutliche Belastungsreduktion, isometrische Adduktion (z. B. ADD-Squeeze), Abduktion in Seitlage und Rumpfaktivität.",
+        "Strikte Immobilisation der Hüfte für vier bis sechs Wochen, ergänzt um Kortison-Infiltration.",
+        "Sofortige uneingeschränkte Sport-Rückkehr — frühe Belastung beschleunigt die Heilung am verlässlichsten."
+      ],
+      "correct": 1,
+      "explanation": "Bei sechs Wochen wachsender Symptomatik mit klar reproduzierbarem Squeeze-Test und schmerzhafter Belastung ist Janek noch in der Akut-/Subakutphase. Angemessen sind Sportpause bzw. deutliche Belastungsreduktion, isometrische Adduktion, dosierte Abduktion in Seitlage, Rumpfaktivität (Unterarmstütz, abdominal curls), optional Koordination (Einbeinstand). Strikte Immobilisation würde Dekonditionierung fördern, eine reflexhafte sofortige Sport-Rückkehr riskiert Chronifizierung — Kortison-Infiltration soll laut Evidenz vermieden werden."
+    },
+    {
+      "text": "Welche Kriterien sollten erfüllt sein, bevor Janek wieder in den vollen Fußball-Sport zurückkehrt?",
+      "multi": true,
+      "options": [
+        "Schmerzfreie, volle Dehnfähigkeit der Adduktoren.",
+        "Mindestens 90 % der Kraft im Seitenvergleich.",
+        "Palpation des Adduktoren-Ursprungs ohne Befund.",
+        "Vollständig negativer FADDIR-Test als zwingendes Rückkehr-Kriterium."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Voraussetzungen für die Rückkehr in den Sport sind: schmerzfreie, volle Dehnfähigkeit, > 90 % der Kraft im Seitenvergleich und eine palpatorisch unauffällige Region (modifiziert nach Thorborg u. a., 2022). Der FADDIR-Test ist FAI-/Labrum-bezogen und kein Kriterium für die Rückkehr bei adduktoren-bedingten Beschwerden."
+    }
+  ]
+}

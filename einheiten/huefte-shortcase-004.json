@@ -1,0 +1,45 @@
+{
+  "id": "huefte-shortcase-004",
+  "type": "short_case",
+  "title": "Kurzfall: Herr Berger, 64 — Hüftarthrose mit Übergewicht und Bewegungs-Skepsis",
+  "intro": "Älterer Patient mit klinisch eindeutiger Hüftarthrose links, deutlichem Übergewicht und der Überzeugung, dass Bewegung das Gelenk weiter zerstört. Drei Fragen zur klinischen Einordnung, zur Edukations-Botschaft rund um Fettleibigkeit und zur leitliniengerechten Therapie.",
+  "vignette": "Herr Berger, 64 Jahre, ehemaliger Lkw-Fahrer, seit zwei Jahren in Rente, kommt mit Leistenschmerzen links und einer schon mehrere Jahre andauernden, schleichend zunehmenden Bewegungseinschränkung. Schmerz lokalisiert er klassisch mit dem „C-Zeichen“ um das Hüftgelenk. Morgens beim Aufstehen sei das Bein steif (knapp 30 Minuten), dann „läuft sich das ein“, aber gegen Abend nehmen die Beschwerden bei Belastung zu. Beim Sitzen hat er kaum Beschwerden, beim längeren Stehen und Gehen schon. Beschwerden bestehen sicher länger als drei Monate, vermutlich über zwei Jahre. BMI 34, in den letzten zehn Jahren ca. 18 kg zugenommen, ernährt sich nach eigener Aussage „nicht besonders gesund“. Er hat das Gehen mit dem Hund seit einem Jahr reduziert — „mein Nachbar hat mir gesagt, je mehr ich gehe, desto schneller ist die Hüfte fertig“. Auf Nachfrage sagt er: „Ich bin halt einfach zu schwer fürs Gelenk.“ Röntgen vor drei Monaten: Coxarthrose links, Kellgren-Lawrence Grad 3. Klinisch: Gang mit deutlichem Duchenne-Hinken links. ROM Hüfte links eingeschränkt (Flex 100°, Ext 0°, IRO 5°, ARO 25°, ABD 20°). Hüft-Abduktoren links abgeschwächt. Keine relevanten neurologischen Befunde.",
+  "questions": [
+    {
+      "text": "Welche Befunde stützen bei Herrn Berger die klinische Hüftarthrose-Diagnose (mod. nach Altmann und Eitzen)?",
+      "multi": true,
+      "options": [
+        "Hüftschmerz mit „C-Zeichen“, Anlaufschmerz, kurze Morgensteifigkeit unter einer Stunde.",
+        "Beschwerden seit über drei Monaten, belastungsabhängiger Schmerz mit Zunahme im Tagesverlauf, weitgehend schmerzfreies Sitzen, Alter > 50 Jahre.",
+        "ROM-Einschränkung mit Schwerpunkt Hüft-IRO, -Extension, -Abduktion und Schwäche der Hüft-Abduktoren.",
+        "Akute einschießende Hüftschmerzen mit kurzem motorischen Versagen und Blockierungsgefühl."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "„C-Zeichen“, Anlaufschmerz, Morgensteifigkeit unter 60 Minuten, Beschwerden über drei Monate, belastungsabhängige Schmerzen mit Tagesverlauf-Zunahme, schmerzarmes Sitzen, Alter über 50, sowie reduziertes ROM (Schwerpunkt IRO, Ext, ABD) und Schwäche der Hüft-Abduktoren passen klassisch zur Hüftarthrose (mod. nach Altmann, 1991; Eitzen u. a., 2012). Einschießende Schmerzen mit motorischem Versagen sind hingegen Hinweise auf Labrum-Pathologie bzw. freie Gelenkkörper — nicht typisch für Arthrose."
+    },
+    {
+      "text": "Welche Edukations-Botschaft zur Rolle des Übergewichts ist bei Herrn Berger fachlich am korrektesten und gleichzeitig motivierend?",
+      "multi": false,
+      "options": [
+        "„Sie sind einfach zu schwer fürs Gelenk — wenn Sie 20 kg abnehmen, ist die Arthrose weg.",
+        "„Fettmasse wirkt nicht nur als Gewicht. Sie befeuert systemische Entzündungs-Prozesse im ganzen Körper — auch im Gelenk. Eine Gewichtsreduktion reduziert beides: Belastung und Entzündungslast. Gleichzeitig schützt regelmäßige Bewegung das Gelenk und lindert Schmerzen.",
+        "„Mit Ihrem Gewicht hat die Hüfte sowieso keine Chance — Bewegung würde alles nur schneller verschlimmern.",
+        "„Übergewicht hat keinen relevanten Einfluss auf die Arthrose — entscheidend ist allein die genetische Veranlagung."
+      ],
+      "correct": 1,
+      "explanation": "Der dominierende Mechanismus zwischen Fettleibigkeit und Hüftarthrose ist nicht die mechanische Belastung, sondern ein systemischer Entzündungsstoffwechsel, der von der freien Körperfettmasse befeuert wird — bezeichnet als „metabolische Arthrose“ (Kluzek u. a., 2015; Courties u. a., 2015; Reyes u. a., 2016). Eine reine Reduktions-Botschaft („Sie sind zu schwer“) wäre demotivierend und unvollständig — die Schon-Botschaft des Nachbarn („mehr gehen = Hüfte fertig“) ist ein klassisches Nocebo, das verstärkt werden würde."
+    },
+    {
+      "text": "Welche Therapie-Bausteine bilden bei Herrn Berger den leitlinien-empfohlenen Kern (vgl. Bannuru, Kraus, Fernandes)?",
+      "multi": true,
+      "options": [
+        "Edukation: Was ist Arthrose, Mythen auflösen, Risikofaktoren (v. a. Fettleibigkeit), typische Symptome, Wichtigkeit mechanischer Belastung, Selbstmanagement.",
+        "Aktive Therapie: ca. 12 Einheiten unter Supervision, dann eigenständig — ROM-Verbesserung je nach Ziel, Kraft- und Koordinationstraining 2–3 Mal pro Woche, Ausdauer 30 Minuten täglich.",
+        "Ergänzende Maßnahmen: topische NSAR, Achtsamkeitsübungen (z. B. Yoga, Tai-Chi), Manuelle Therapie.",
+        "Strikte Schon-Empfehlung, Spazierstock und Aussetzen aller körperlichen Aktivitäten bis zur Knie-TEP."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Leitlinien-Empfehlung: Edukation (inkl. Mythen-Aufklärung und Bedeutung mechanischer Belastung als Therapie), aktive Therapie mit definiertem Volumen unter Supervision und schrittweise selbstständig, plus ergänzende Maßnahmen wie topische NSAR, Achtsamkeitsübungen und Manuelle Therapie (Bannuru u. a., 2019; Kraus u. a., 2019; Fernandes u. a., 2013). Strikte Schon-Empfehlungen verstärken Dekonditionierung, Fear-Avoidance und Komorbiditäten — sie sind hier kontraproduktiv und stützen das Nocebo des Nachbarn."
+    }
+  ]
+}

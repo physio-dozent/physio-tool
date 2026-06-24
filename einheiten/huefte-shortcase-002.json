@@ -1,0 +1,45 @@
+{
+  "id": "huefte-shortcase-002",
+  "type": "short_case",
+  "title": "Kurzfall: Frau Vogel, 35 — Hüft- und Leistenschmerz mit FAI-Verdacht",
+  "intro": "Sportlich aktive Frau Mitte 30 mit langsam progredientem Leistenschmerz und Klicken im Drehmoment. Drei Fragen zur Diagnose-Logik, zur OP-Frage und zur konservativen Therapie.",
+  "vignette": "Frau Vogel, 35 Jahre, Architektin, kommt mit Schmerzen in der rechten Leiste, die sich seit ca. zwei Jahren langsam verstärkt haben. Sie spielt seit der Schulzeit Hockey, drei Mal pro Woche, mit vielen Stop-and-Go-Bewegungen. Beschreibung der Beschwerden: tief in der Leiste, intermittierend stechend, vor allem beim Drehen mit dem belasteten Bein, beim Aufstehen aus tiefer Hocke und nach längerem Sitzen. Gelegentlich ein hörbares Klicken in der rechten Hüfte, einmal kurz ein „Verriegelungsgefühl“ mit kurzem motorischen Wegrutschen — ohne Sturz. Sitzender Beruf, Beschwerden nehmen nach längerem Sitzen deutlich zu. Keine Sensibilitätsstörungen, keine Beschwerden in Husten oder Niesen. Klinisch: Hüft-IRO aus 90° Hüft-Flexion rechts ca. 10°, links ca. 25° — reproduziert den Leistenschmerz. FADDIR rechts positiv. FABER rechts ebenfalls schmerzhaft. Squeeze-Test der Adduktoren NRS 2/10, Palpation der Adduktorenursprünge unauffällig. Single-Leg-Bridges rechts 11 Wiederholungen, links 22. Side-Bridge-Endurance rechts 20 s, links 35 s. MRT-Befund vom Hausarzt: „CAM-Morphologie rechts, Labrum-Auffälligkeit antero-superior, keine relevante Knorpel-Läsion“. Sie fragt direkt: „Muss ich operiert werden?“",
+  "questions": [
+    {
+      "text": "Welche Befund-Konstellation stützt bei Frau Vogel am ehesten die Diagnose FAI / Labrum-Pathologie?",
+      "multi": true,
+      "options": [
+        "Reduzierte und schmerzhafte Hüft-IRO aus 90° Hüftflexion im Seitenvergleich.",
+        "Positiver FADDIR-Test mit Reproduktion des typischen Leistenschmerzes.",
+        "Klicken und kurze Verriegelung im Drehmoment, langsamer Beginn mit Beschwerden über zwei Jahre.",
+        "Klar positiver Squeeze-Test der Adduktoren mit NRS 7/10."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Reduzierte Hüft-IRO im Seitenvergleich, positiver FADDIR mit typischem Leistenschmerz, Klicken und Symptomverlauf über mehrere Jahre passen zu FAI mit Labrum-Beteiligung. Der MRT-Befund untermauert die Hypothese — die klinischen Symptome müssen aber vorhanden sein (Kemp, 2018; Griffin, 2016). Ein deutlich positiver Squeeze-Test wäre Hinweis auf eine adduktoren-bedingte Komponente — hier ist er mit NRS 2/10 nicht relevant."
+    },
+    {
+      "text": "Frau Vogel fragt direkt nach einer Operation. Welche Antwort entspricht der aktuellen Evidenzlage am besten?",
+      "multi": false,
+      "options": [
+        "„Mit Ihrem MRT-Befund führt kein Weg an der baldigen Operation vorbei.",
+        "„Es gibt zunehmende Hinweise, dass eine optimal aufgebaute konservative Therapie bei moderaten Beschwerden, ohne operationsbedürftige Begleitverletzungen und mit guter Compliance ein erfolgsversprechender erster Schritt sein kann. Erst wenn diese ausgereizt ist, sprechen wir über eine OP.",
+        "„Eine Operation würde Ihre CAM-Morphologie und alle Folgen zuverlässig rückgängig machen — sie ist die schnellste Lösung.",
+        "„Bei Klicken in der Hüfte ist die Arthroskopie immer indiziert, unabhängig von Symptomen und Funktionseinschränkungen."
+      ],
+      "correct": 1,
+      "explanation": "Die aktuelle Studienlage zeigt zunehmend erfolgsversprechende konservative Therapieansätze auch bei sportlich aktiven Patientinnen und Patienten mit FAI (Yazbek u. a., 2011; Emara u. a., 2011; Reiman u. a., 2015; Bizzini u. a., 2015). Voraussetzungen: keine operationsbedürftigen Begleitverletzungen, moderater Schmerz und geringe funktionelle Einschränkung, gute Compliance. Vor jeder operativen Behandlung sollten physiotherapeutische Interventionen in Betracht gezogen werden (Freke u. a., 2016; Ardern u. a., 2016)."
+    },
+    {
+      "text": "Welche Bausteine sollten im konservativen Therapieprotokoll bei Frau Vogel enthalten sein?",
+      "multi": true,
+      "options": [
+        "Patientenaufklärung zu Ursache, Prognose und Arthroserisiko-Reduktion durch Bewegung.",
+        "Progressive Kräftigung von Rumpf und Hüfte mit Schwerpunkt Abduktion, Außen- und Innenrotation.",
+        "Reduktion provozierender Faktoren wie tiefes Sitzen, Beine überkreuzen und endgradige IRO über das stehende Bein.",
+        "Endgradige Mobilisation der Hüfte zur Sprengung der knöchernen Bewegungsgrenze."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Empfohlen sind Edukation, progressive Kraft-Arbeit (Rumpf, Hüft-ABD und Rotatoren), Gleichgewichtsarbeit, ROM-Steigerung im verfügbaren Bereich, Heimübungsprogramm und Aktivitätsmodifikation (z. B. tiefes Sitzen reduzieren). Eine endgradige Mobilisation ist nicht sinnvoll, da die Bewegungsgrenze knöchern bedingt ist — sie würde Provokationen und ggf. Schaden riskieren, ohne den Bewegungsumfang substantiell zu erweitern."
+    }
+  ]
+}

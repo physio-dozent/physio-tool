@@ -1,0 +1,45 @@
+{
+  "id": "huefte-shortcase-003",
+  "type": "short_case",
+  "title": "Kurzfall: Frau Krause, 58 — lateraler Hüftschmerz und Schmerzen in Seitlage",
+  "intro": "Frau mittleren Alters mit zunehmenden Schmerzen lateral am Trochanter, vor allem nachts in Seitlage und beim Treppensteigen. Drei Fragen zur Diagnose-Logik, zu den passenden Tests und zur Therapie.",
+  "vignette": "Frau Krause, 58 Jahre, Verwaltungsangestellte, kommt mit Schmerzen rechts seitlich am oberen Oberschenkel. Sie sind vor etwa fünf Monaten schleichend gekommen, ohne Trauma. Drei Probleme stehen im Vordergrund: 1) Beim Schlafen in Seitlage auf dem rechten Bein hat sie nach kurzer Zeit drückende, brennende Schmerzen — sie wacht regelmäßig auf und legt sich auf den Rücken. 2) Beim Treppensteigen aufwärts zieht es deutlich am Trochanter major. 3) Längeres Sitzen mit überschlagenen Beinen verschärft die Symptomatik. Sie hat keine Leistenschmerzen, kein Klicken, keine Sensibilitätsstörungen. Wiederholte LWS-Bewegungen verändern die Symptomatik nicht, der Slump-Test ist negativ. Klinisch: deutliche Druckschmerzhaftigkeit am Trochanter major rechts. Hüft-ROM beidseits weitgehend frei und schmerzlos. Einbeinstand rechts kann nur etwa 12 s gehalten werden, dann wird es deutlich schmerzhaft und sie muss absetzen. Derotationstest rechts schmerzhaft. Resistive Hüft-Abduktion in Seitlage schmerzhaft und im Seitenvergleich abgeschwächt (Hip Lag Sign positiv). Keine relevanten internistischen Komorbiditäten, BMI 25.",
+  "questions": [
+    {
+      "text": "Welche Diagnose-Hypothese ist bei Frau Krause am wahrscheinlichsten und wie ordnet sie sich differenzialdiagnostisch ein?",
+      "multi": false,
+      "options": [
+        "Isolierte Bursitis trochanterica als häufigste primäre Ursache des lateralen Hüftschmerzes.",
+        "Tendinitis bzw. Tendinose des M. gluteus medius (ggf. mit M. gluteus minimus) — sekundär kann sich eine Bursitis entwickeln.",
+        "Hüftarthrose mit lateraler Schmerzprojektion und reduziertem ROM.",
+        "FAI-Syndrom mit Pincer-Morphologie und Labrum-Beteiligung."
+      ],
+      "correct": 1,
+      "explanation": "Lateraler Hüftschmerz wird häufig fälschlich als isolierte Bursitis trochanterica gedeutet — viel wahrscheinlicher ist eine Tendinitis bzw. Tendinose des M. gluteus medius, teils auch des M. gluteus minimus; eine Bursitis trochanterica entwickelt sich häufig erst sekundär (Strauss u. a., 2010). Die fehlende ROM-Einschränkung, das schmerzlose passive Bewegungsausmaß und die fehlenden Leistenschmerzen machen Hüftarthrose und FAI unwahrscheinlich."
+    },
+    {
+      "text": "Welche Befund-Konstellation ist bei Frau Krause als Bestätigung der Hypothese besonders aussagekräftig?",
+      "multi": true,
+      "options": [
+        "Druckschmerz am Trochanter major und positiver Hip Lag Sign mit Schwäche und Schmerz in resistiver ABD.",
+        "Positiver Einbeinstand-Test (Position für 30 s nicht haltbar).",
+        "Positiver Derotationstest mit Reproduktion der typischen Schmerzen.",
+        "Klar positive Schmerzzentralisation bei wiederholter LWS-Extension."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Druckschmerz am Trochanter major, ein nicht haltbarer 30-s-Einbeinstand (Sensitivität ca. 100 %, Spezifität ca. 97 %; Sunil Kumar, 2020), positiver Derotationstest und positiver Hip Lag Sign (Sensitivität ca. 89 %, Spezifität ca. 96 %; Kaltenborn, 2014) zusammen sprechen klar für eine gluteus-medius-bedingte Pathologie. Eine LWS-Zentralisation bei wiederholter Bewegung würde dagegen eine LWS-Beteiligung wahrscheinlicher machen — bei Frau Krause ist das negativ."
+    },
+    {
+      "text": "Welche Therapie-Bausteine sind bei Frau Krause initial sinnvoll?",
+      "multi": true,
+      "options": [
+        "Erhalt des verfügbaren Bewegungsausmaßes im Hüftgelenk.",
+        "Mobilisation und Dehnung spannungsreicher Strukturen wie Hüftflexoren, M. piriformis und M. tensor fasciae latae.",
+        "Exzentrisch-dominantes Training der Hüft-Abduktoren, z. B. am Zugapparat.",
+        "Empfehlung, sechs Wochen jede Belastung der Hüfte auszusetzen, bis der Druckschmerz vollständig verschwunden ist."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Sinnvoll sind ROM-Erhalt, Mobilisation/Dehnung spannungsreicher Strukturen (Hüftflexoren, M. piriformis, M. tensor fasciae latae) und vor allem exzentrisch-dominantes Training der Hüft-Abduktoren — z. B. am Zugapparat. Bei klinischen Hinweisen auf TLÜ-Beteiligung zusätzlich BWS-Mobilisation; bei Entzündungszeichen ggf. ergänzend Kälte- oder Elektrotherapie. Eine sechs Wochen lange Belastungs-Karenz würde Dekonditionierung fördern und die Tendinopathie nicht heilen."
+    }
+  ]
+}

@@ -1,0 +1,368 @@
+{
+  "id": "huefte-quiz-001",
+  "type": "quiz",
+  "title": "Untere Extremität — Hüfte · Grundlagen-Quiz",
+  "intro": "Fragen-Pool aus 30 Fragen über Anatomie, Clinical Reasoning, Leistenschmerz (Adduktoren, Symphyse, Iliopsoas, FAI), Hinkmechanismen, Hüftarthrose, Hüft-TEP und lateralen Hüftschmerz. Pro Durchlauf werden 10 zufällig gezogen und gemischt.",
+  "questions": [
+    {
+      "text": "Wie lauten die ungefähren Norm-Bewegungsausmaße des Hüftgelenks für Flexion–Extension nach der Neutral-Null-Methode?",
+      "multi": false,
+      "options": [
+        "90/0/0",
+        "110/0/5",
+        "140/0/10–15",
+        "160/0/30"
+      ],
+      "correct": 2,
+      "explanation": "Die in der Praxis verwendeten Norm-Bewegungsausmaße der Hüfte sind 140/0/10–15° für Flexion–Extension, 40/0/30° für Abduktion–Adduktion und 30/0/50° für Innenrotation–Außenrotation."
+    },
+    {
+      "text": "Welcher Muskel ist der stärkste Hüftflexor und von welchem Nerven entspringt seine Innervation?",
+      "multi": false,
+      "options": [
+        "M. rectus femoris — innerviert vom N. obturatorius (L2–L4).",
+        "M. iliopsoas — innerviert vom N. femoralis (L1–L4).",
+        "M. sartorius — innerviert vom N. gluteus superior (L4–L5).",
+        "M. tensor fasciae latae — innerviert vom N. femoralis (L1–L4)."
+      ],
+      "correct": 1,
+      "explanation": "Der M. iliopsoas (M. psoas major + M. iliacus) ist der stärkste Flexor des Hüftgelenks und wird vom N. femoralis (L1–L4) innerviert. Er beteiligt sich zusätzlich an der Außenrotation und ist wichtig für die Aufrichtung des Oberkörpers gegen die Schwerkraft. Er hat anatomisch eine enge Beziehung zum N. femoralis."
+    },
+    {
+      "text": "Welche Aussagen zur Innervation der Hüftgelenkskapsel und der hüftumgebenden Muskulatur sind korrekt?",
+      "multi": true,
+      "options": [
+        "Die Kapsel wird ventral aus L2–L4 und dorsal aus L5–S2 versorgt.",
+        "Die hüftumgebende Muskulatur wird segmental aus L1–S2 innerviert.",
+        "Periphere Hauptnerven sind N. gluteus superior und inferior, N. femoralis und N. obturatorius.",
+        "Die vegetative Versorgung der Hüfte erfolgt aus L2–S1."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Ventral wird die Kapsel aus L2–L4 versorgt, dorsal aus L5–S2. Die hüftumgebende Muskulatur ist segmental aus L1–S2 innerviert. Periphere Hauptnerven sind N. gluteus superior und inferior, N. femoralis und N. obturatorius. Die vegetative Versorgung kommt aus Th9–L2, nicht aus L2–S1."
+    },
+    {
+      "text": "Welcher Wert beschreibt ungefähr die auf das Hüftgelenk wirkende Belastung beim normalen Einbeinstand?",
+      "multi": false,
+      "options": [
+        "etwa 1-faches Körpergewicht.",
+        "etwa 2-faches Körpergewicht.",
+        "etwa 2,5- bis 3-faches Körpergewicht.",
+        "etwa 4- bis 5-faches Körpergewicht."
+      ],
+      "correct": 2,
+      "explanation": "Im Einbeinstand wirken auf das Hüftgelenk ca. das 2,5- bis 3-fache Körpergewicht (Brinckmann et al., 2000; Kummer, 2005). Beim Gehen sind es ca. das 2,6-fache, beim Laufen bei 5–6 m/s steigt die Belastung auf das ca. 6-fache."
+    },
+    {
+      "text": "Welche Befund-Konstellationen sprechen eher für eine hüftbedingte als für eine LWS-bedingte Beschwerde?",
+      "multi": true,
+      "options": [
+        "Gehen mit Hinkmechanismen.",
+        "Schmerzen lokalisiert in der Leiste.",
+        "Im Seitenvergleich reduzierte Hüft-Innenrotation.",
+        "Schmerzzentralisation bei wiederholter Bewegung der LWS."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Hinken im Gangbild ist 7-fach häufiger hüft- als LWS-bedingt, eine reduzierte Hüft-IRO im Seitenvergleich sogar 14-fach häufiger hüft-bedingt, Leistenschmerz ebenfalls eher hüft-bedingt. Eine Zentralisation bei wiederholter LWS-Bewegung spricht dagegen für eine LWS-Beteiligung, nicht für die Hüfte."
+    },
+    {
+      "text": "Welche Befunde bei der Differenzialdiagnostik sprechen gegen eine relevante Beteiligung von LWS bzw. ISG?",
+      "multi": true,
+      "options": [
+        "Positiver Straight Leg Raise.",
+        "Negativer Slump-Test.",
+        "Negativer Thigh-Thrust.",
+        "Positiver Thomas-Test."
+      ],
+      "correct": [1, 2],
+      "explanation": "Negativer SLR, negativer Slump und ausbleibende Symptomveränderung bei wiederholter LWS-Bewegung sprechen jeweils gegen eine LWS-Beteiligung. Ein negativer Thigh-Thrust spricht gegen das ISG. Ein positiver Thomas-Test ist hingegen ein Einschluss-Hinweis Richtung Hüft-Pathologie (z.B. Labrumriss bzw. intraartikulär) — nicht gegen die LWS."
+    },
+    {
+      "text": "Eine Patientin schildert einschießende Hüftschmerzen mit kurzem motorischem Versagen des Beines und gelegentlichem Blockierungsgefühl bei bestimmten Gelenkstellungen. Welche Hypothese passt am besten?",
+      "multi": false,
+      "options": [
+        "Adduktoren-bedingter Leistenschmerz mit muskulärem Krampf.",
+        "Labrum-Pathologie oder freier Gelenkkörper.",
+        "Symphysale Instabilität mit Beckenringlockerung.",
+        "Lateraler Hüftschmerz auf dem Boden einer Gluteus-medius-Tendinopathie."
+      ],
+      "correct": 1,
+      "explanation": "Einschießende Schmerzen mit motorischem Versagen weisen auf eine intraartikuläre Ursache hin — typischerweise eine Labrum-Pathologie oder einen freien Gelenkkörper. Letzterer zeigt sich zusätzlich häufig als Blockierungsgefühl in bestimmten Gelenkstellungen."
+    },
+    {
+      "text": "Das Doha-Agreement (2015) ordnet Leistenschmerz in fünf klinische Hauptkategorien. Welche der folgenden Kategorien gehören dazu?",
+      "multi": true,
+      "options": [
+        "Adduktoren-bedingt.",
+        "Rectus-femoris-bedingt.",
+        "Symphysen-bedingt.",
+        "Bursa-trochanterica-bedingt."
+      ],
+      "correct": [0, 2],
+      "explanation": "Das Doha-Agreement klassifiziert Leistenschmerz in fünf Kategorien: adduktoren-bedingt, iliopsoas-bedingt, inguinal-bedingt, symphysen-bedingt und hüft-bedingt. Die Bursa trochanterica gehört zum Bereich „lateraler Hüftschmerz“ und ist keine Kategorie der Doha-Klassifikation. Ebenso der M. rectus femoris ist keine eigenständige Kategorie."
+    },
+    {
+      "text": "Wie wird der Squeeze-Test der Adduktoren typischerweise durchgeführt und interpretiert?",
+      "multi": false,
+      "options": [
+        "Passive Adduktion in maximaler Hüftflexion bis zum Schmerz — positiv bei Reproduktion des Leistenschmerzes.",
+        "Isometrischer maximaler Adduktionsdruck für 5 Sekunden in definierter Position; Schmerzangabe NRS > 6 weisen auf einen relevanten Funktionsverlust hin.",
+        "Passive Hüftabduktion mit Überdruck am Ende des Bewegungsausmaßes — positiv bei Dehnschmerz medial.",
+        "Konzentrische Adduktion gegen Widerstand über 30 Sekunden — positiv bei rascher Ermüdung."
+      ],
+      "correct": 1,
+      "explanation": "Der Squeeze-Test (Franklin-Miller, 2016) wird als isometrischer maximaler Adduktionsdruck für 5 Sekunden in definierter Position durchgeführt; die Schmerzintensität wird auf der NRS 0–10 angegeben. Bei 700 untersuchten Fußballern zeigte sich: Je höher der Schmerz, desto schlechter die aktuelle und künftige Funktion im Hüft-Leistenbereich; Werte > 6 sind ein Hinweis auf einen relevanten Funktionsverlust."
+    },
+    {
+      "text": "Welche Aussage zur klinischen Wertigkeit des passiven Hüft-Abduktions-Stretch-Tests bei Adduktoren-bedingtem Leistenschmerz entspricht der aktuellen Evidenz?",
+      "multi": false,
+      "options": [
+        "Er ist der sensitivste Einzeltest und Goldstandard für die Diagnose einer adduktoren-bedingten Leistenproblematik.",
+        "Er hat hohe Spezifität und schließt eine adduktoren-bedingte Ursache nahezu sicher aus.",
+        "Sein zusätzlicher Wert für die Klassifizierung adduktoren-bedingter Leistenschmerzen ist gering — Palpation und isometrische Tests sind ergiebiger.",
+        "Er sollte als einziger Test zur Verlaufskontrolle eingesetzt werden, da er objektiv messbar ist."
+      ],
+      "correct": 2,
+      "explanation": "Heijboer et al. (2024) zeigten, dass ein passiver Hüft-ABD-Stretch-Test zur Schmerzprovokation keinen zusätzlichen Wert zur Klassifikation eines adduktoren-bedingten Leistenschmerzes hatte. Die Palpation der Adduktorenansätze und isometrische Adduktionstests in verschiedenen Positionen bleiben die ergiebigeren Untersuchungselemente."
+    },
+    {
+      "text": "Welche Therapie-Elemente sind in der Akut-/Subakutphase einer Adduktoren-Tendinopathie nach Thorborg sinnvoll?",
+      "multi": true,
+      "options": [
+        "Belastungsreduktion und Sportpause.",
+        "Isometrische Adduktion (z. B. ADD-Squeeze), Abduktion in Seitlage und Rumpfaktivität.",
+        "Strikte Immobilisation der Hüfte für vier bis sechs Wochen.",
+        "Übungen schmerzadaptiert 6–10 pro Training jeden 2. Tag mit TUT von 6–30 Sekunden, 2–3 Sätze."
+      ],
+      "correct": [0, 1, 3],
+      "explanation": "In der Akut-/Subakutphase sind Belastungsreduktion, gering-intensive & schmerzfreie/-arme isometrische Adduktion, gleichzeitige Aktivität der Abduktion und Rumpfmuskulatur sowie ein dosiertes Trainingsschema mit 6–10 Übungen jeden 2. Tag bei 6–30 s TUT und 2–3 Sätzen typische Bausteine. Ergänzend kann noch manualtherapeutisch Schmerz regulierend gearbeitet werden. Strikte Immobilisation ist nicht indiziert und würde Dekonditionierung fördern."
+    },
+    {
+      "text": "Wie lässt sich eine „symphysale Instabilität“ von einer „symphysalen Dysfunktion“ pathophysiologisch unterscheiden?",
+      "multi": false,
+      "options": [
+        "Die Instabilität ist durch eine Erweiterung des Symphysenspalts gekennzeichnet, während bei der Dysfunktion keine relevante strukturelle Spalterweiterung vorliegt.",
+        "Beide Begriffe meinen dasselbe und werden synonym verwendet.",
+        "Die Instabilität ist eine reine Weichteilreizung, während die Dysfunktion immer eine knöcherne Verletzung darstellt.",
+        "Die Dysfunktion betrifft ausschließlich Männer, die Instabilität ausschließlich Frauen postpartum."
+      ],
+      "correct": 0,
+      "explanation": "Die symphysale Instabilität ist durch eine Erweiterung des Symphysenspalts charakterisiert. Die symphysale Dysfunktion beschreibt ein klinisches Beschwerdebild ohne eindeutige Spalterweiterung — die Symphyse ist symptomatisch, aber strukturell nicht aufgeweitet."
+    },
+    {
+      "text": "Welche Grenzwerte gelten in der Flamingo-Aufnahme als Beweis für eine symphysale Instabilität?",
+      "multi": false,
+      "options": [
+        "Stufe > 0,5 mm bei Männern und > 1 mm bei Frauen.",
+        "Stufe > 1 mm bei Männern und > 2 mm bei Frauen.",
+        "Stufe > 5 mm bei Männern und > 10 mm bei Frauen.",
+        "Stufe > 10 mm unabhängig vom Geschlecht."
+      ],
+      "correct": 1,
+      "explanation": "Die Flamingo-Aufnahme wird im Zweibeinstand und nach einer Minute im Einbeinstand angefertigt. Eine Stufe von > 1 mm bei Männern bzw. > 2 mm bei Frauen gilt als pathologischer Beweis einer Instabilität. Eine symphyseale Distraktion unter 5 mm kann symptomlos bleiben — darüber hinaus kommt es zu einer deutlichen Instabilität."
+    },
+    {
+      "text": "Welche Maßnahme ist bei einer symptomatischen symphysalen Instabilität ein zentraler Therapie-Baustein?",
+      "multi": false,
+      "options": [
+        "Strikte Bettruhe für zwei Wochen.",
+        "Externe Stabilisierung (Gurt) kaudal der SIAS, bei vertikalen Aktivitäten getragen und schrittweise ausgeschlichen.",
+        "Endgradige Mobilisation der Symphyse zur Förderung der Knorpelregeneration.",
+        "Intensives Kräfttraining der Adduktoren mehrfach täglich zur Stabilisation des Beckenrings."
+      ],
+      "correct": 1,
+      "explanation": "Zentraler Baustein ist eine externe Stabilisierung mit Gurt kaudal der SIAS (nicht auf Symphysenhöhe), bei allen vertikalen Aktivitäten getragen — bei zurückkehrender Stabilität wird der Gurt schrittweise ausgeschlichen. Ergänzend: Edukation zur Aktivitätsanpassung, Kräftigung von M. transversus abdominis und Beckenboden, ggf. Sitzring."
+    },
+    {
+      "text": "Welche Aussage zur Osteitis pubis ist korrekt?",
+      "multi": false,
+      "options": [
+        "Sie ist eine bakterielle Infektion der Symphyse, die antibiotisch behandelt werden muss.",
+        "Sie ist eine schmerzhafte, nicht infektbedingte Entzündung der Symphyse mit Beteiligung umliegender Strukturen.",
+        "Sie tritt nahezu ausschließlich bei Frauen im Wochenbett auf und heilt innerhalb von zwei Wochen aus.",
+        "Sie ist eine akute traumatische Fraktur des Schambeins mit oder ohne entzündliche Komponente."
+      ],
+      "correct": 1,
+      "explanation": "Die Osteitis pubis ist eine schmerzhafte, nicht infektbedingte Entzündung der Symphyse mit Beteiligung der umliegenden Strukturen (Schambeinknochen, Ansätze der Adduktoren und Bauchmuskulatur). Sie zeigt häufig einen gutartigen, selbstlimitierenden Verlauf — dauert jedoch Wochen bis mehrere Monate. Vorzeitige Belastung kann zur Chronifizierung führen."
+    },
+    {
+      "text": "Welche Test-Kombination dient der Untersuchung einer iliopsoas-bedingten Leistenproblematik?",
+      "multi": true,
+      "options": [
+        "Palpation, Thomas-Handgriff und passive Hüft-Extension auf Schmerzprovokation.",
+        "Hip-Extension-Celing-Test (HEC) bzw. alternativ resistive Hüft-Flexion im Sitz.",
+        "FADDIR-Test mit Kompression auf Reproduktion des Klickens.",
+        "Femoraler Slump bzw. Prone Knee Bend zur Differenzialdiagnostik einer N.-femoralis-Beteiligung."
+      ],
+      "correct": [0, 1, 3],
+      "explanation": "Bei iliopsoas-bedingten Leistenschmerzen sind Palpation, Thomas-Handgriff, passive Hüft-Extension, der HEC-Test (Hüft-Flexion mit Außenrotation) bzw. alternativ resistive Hüft-Flexion im Sitz typische Untersuchungselemente. Femoraler Slump und Prone Knee Bend dienen der Differenzialdiagnostik des N. femoralis. Der FADDIR-Test wird dagegen für FAI / Labrum eingesetzt."
+    },
+    {
+      "text": "Welches Phänomen beschreibt das Trendelenburg-Zeichen und wie ist es biomechanisch zu erklären?",
+      "multi": false,
+      "options": [
+        "Neigung des Oberkörpers über das betroffene Standbein — willkürliche Strategie zur Verkürzung des Körpergewichts-Lastarms.",
+        "Absinken des Beckens auf der kontralateralen Seite im Einbeinstand — Kraft Hüft-Abduktoren < Lastarm des Körpergewichts.",
+        "Vorwärtskippung des gesamten Rumpfes ab Standbeinphase — Folge einer Insuffizienz der dorsalen Kette.",
+        "Außenrotation des Standbeins während der mittleren Standphase — kompensiert eine Schwäche der Abduktoren."
+      ],
+      "correct": 1,
+      "explanation": "Beim Trendelenburg-Zeichen sinkt das Becken im Einbeinstand auf der kontralateralen Seite ab, weil die Kraft der Hüft-Abduktoren nicht ausreicht — der Hebelarm des Körpergewichts vergrößert sich. Beim Duchenne-Hinken neigt sich der Oberkörper über das betroffene Standbein, was als Ausweichstrategie den Hebelarm des Körpergewichts verkürzt und die geforderte Abduktorenkraft reduziert."
+    },
+    {
+      "text": "Welche Aussage zur Klassifikation des Femoro-Azetabulären Impingements (FAI) ist korrekt?",
+      "multi": false,
+      "options": [
+        "Reine CAM-Formen sind die häufigste Variante und machen etwa 70 % der Fälle aus, gemischte Formen sind selten.",
+        "Reine Pincer-Formen machen etwa 20 %, reine CAM-Formen etwa 10 % aus, gemischte Formen sind selten.",
+        "Im klinischen Alltag dominieren gemischte Formen mit ca. 70 %, reine CAM mit ca. 20 % und reine Pincer mit ca. 10 % der Fälle.",
+        "CAM- und Pincer-Form treten in der Regel getrennt voneinander auf und werden klar abgegrenzt."
+      ],
+      "correct": 2,
+      "explanation": "Im klinischen Alltag dominieren gemischte Formen: ca. 70 % kombiniert, ca. 20 % reine CAM, ca. 10 % reine Pincer (Beck u. a., 2005). Die CAM-Pathologie verursacht primär Knorpelverletzungen, sekundär Labrumverletzungen — bei Pincer ist es umgekehrt: primär Labrum-, sekundär Knorpelverletzungen. Zusätzlich existiert das funktionelle Impingement („femoral anterior glide syndrome“)."
+    },
+    {
+      "text": "Eine 19-jährige Sportlerin hat einen MRT-Befund einer ausgeprägten CAM-Morphologie, ist aber komplett beschwerdefrei. Welche Aussage trifft auf diese Konstellation am besten zu?",
+      "multi": false,
+      "options": [
+        "Der Befund allein ist bereits die Diagnose FAI und sollte rasch operiert werden.",
+        "Asymptomatische CAM-Morphologien sind häufig — eine FAI-Diagnose erfordert zusätzlich passende klinische Symptomatik und positive Tests.",
+        "Eine asymptomatische CAM-Morphologie schließt eine künftige Hüftarthrose sicher aus.",
+        "Es besteht ein dringender Therapiebedarf, weil bildgebende Befunde immer kausal mit Beschwerden korrelieren."
+      ],
+      "correct": 1,
+      "explanation": "Eine bildgebend nachgewiesene CAM-Morphologie ist häufig auch asymptomatisch (ca. 22–23 % der Allgemeinbevölkerung, bei Sportlern bis 55 %). Die Diagnose FAI setzt eine Kombination aus radiologischem Befund, passender Klinik und positiven Tests voraus (Kemp, 2018; Griffin, 2016). Ein isolierter MRT-Befund rechtfertigt weder Diagnose noch operative Therapie."
+    },
+    {
+      "text": "Welche Aussage zur diagnostischen Wertigkeit des FADDIR-Tests bei Verdacht auf FAI ist korrekt?",
+      "multi": false,
+      "options": [
+        "Der FADDIR-Test hat eine sehr hohe Spezifität und ist daher als Einschlusstest besonders aussagekräftig.",
+        "Der FADDIR-Test hat eine sehr hohe Sensitivität, aber niedrige Spezifität — eignet sich gut zum Ausschluss, schlecht zum Einschluss.",
+        "Der FADDIR-Test ist der sensitivste und spezifischste Hüfttest und ersetzt die Bildgebung.",
+        "Der FADDIR-Test hat in beiden Werten eine moderate Aussagekraft und gilt als reiner Provokationstest ohne diagnostischen Mehrwert."
+      ],
+      "correct": 1,
+      "explanation": "Der FADDIR-Test hat eine hohe Sensitivität (ca. 99 %), aber eine niedrige Spezifität (ca. 5 %; Reiman u. a., 2015). Damit eignet er sich besonders zum Ausschluss: Bei negativem FADDIR sind FAI und Labrumpathologie deutlich unwahrscheinlicher. Ein positiver FADDIR liefert nur einen Anhalt — die Diagnose stützt sich auf die Gesamtkonstellation."
+    },
+    {
+      "text": "Welche Inhalte sind in einer leitliniengerechten konservativen Therapie des FAI typisch?",
+      "multi": true,
+      "options": [
+        "Patientenaufklärung zu Ursache, Prognose und Reduktion des Arthroserisikos durch Bewegung.",
+        "Progressive Kräftigung von Rumpf und Hüfte mit Schwerpunkt Abduktion, Außen- und Innenrotation.",
+        "Empfehlung aktiv zu bleiben ohne bestimmte Aktivitäten zu reduzieren oder anzupassen.",
+        "Verbesserung der Hüft-ROM in alle Richtungen bis zum normalen Ausmaß."
+      ],
+      "correct": [0, 1],
+      "explanation": "Eine konservative Therapie sollte vorwiegend aus aktivem Training bestehen und weniger eine Mobilitäts-Steigerung verfolgen. Bausteine sind Patientenaufklärung, progressive Kraft- und Kontroll-Arbeit, Modifikation provozierender Aktivitäten sowie Heimübungsprogramm. Eine Schon-Empfehlung würde Dekonditionierung und Fear-Avoidance fördern."
+    },
+    {
+      "text": "Welche Symptome sind nach den klinischen Kriterien (mod. nach Altmann und Eitzen) typisch für eine Hüftarthrose?",
+      "multi": true,
+      "options": [
+        "Anlaufschmerz nach längerer Ruhephase und morgendliche Steifigkeit unter 60 Minuten.",
+        "Beschwerden seit über drei Monaten und Schmerzen bei Belastung, oft Zunahme im Tagesverlauf.",
+        "Hüftschmerz in der Leiste — typisches „C-Zeichen“.",
+        "Akut einschießende Schmerzen mit motorischem Versagen, häufig schon innerhalb weniger Tage."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Typisch sind Hüftschmerz in der Leiste mit „C-Zeichen“, Anlaufschmerz, kurze Morgensteifigkeit unter 60 Minuten, Beschwerden über drei Monate, belastungsabhängige Schmerzen mit Tagesverlauf-Zunahme, Gangabweichungen und ein Alter über 50. Einschießende Schmerzen mit motorischem Versagen passen dagegen zu einer Labrum-Pathologie oder einem freien Gelenkkörper."
+    },
+    {
+      "text": "Wie ist der Zusammenhang zwischen Fettleibigkeit und Hüftarthrose nach aktuellem Verständnis am besten zu erklären?",
+      "multi": false,
+      "options": [
+        "Ausschließlich über die zusätzliche mechanische Gewichtsbelastung der Gelenkflächen.",
+        "Überwiegend über systemische Entzündungsprozesse, die durch die freie Körperfettmasse befeuert werden.",
+        "Über eine direkte hormonelle Schädigung des Knorpels ohne entzündliche Komponente.",
+        "Es gibt keinen relevanten Zusammenhang — Fettleibigkeit und Hüftarthrose sind unabhängige Phänomene."
+      ],
+      "correct": 1,
+      "explanation": "Je größer die freie Körperfettmasse, desto höher ist das Arthrose-Risiko. Der dominierende Mechanismus ist nicht primär die mechanische Belastung, sondern ein systemischer Entzündungsstoffwechsel, der von der Körperfettmasse befeuert wird — bezeichnet als „metabolische Arthrose“ (Kluzek u. a., 2015; Courties u. a., 2015; Reyes u. a., 2016)."
+    },
+    {
+      "text": "Welche Aussage zur Bedeutung von Aktivität und Belastung für die Entstehung einer Hüftarthrose entspricht der aktuellen Evidenz?",
+      "multi": false,
+      "options": [
+        "Sportliche Belastungen steigeren das Risiko einer Hüftarthrose unabhängig von Dauer & Intensität.",
+        "Der Zusammenhang zwischen mechanischer Belastung und Arthroseentwicklung ist teilweise unklar und komplex.",
+        "Menschen mit weniger Bewegung haben grundsätzlich ein geringeres Risiko für eine Hüftarthrose.",
+        "Walking ist nachweislich risikoärmer als Joggen, weil die Stoßbelastung geringer ist und führt zu weniger Hüftarthrose."
+      ],
+      "correct": 1,
+      "explanation": "Der Zusammenhang ist unklar und komplex: Einerseits haben Menschen mit weniger Bewegung ein höheres Arthrose-Risiko, andererseits gibt es widersprüchliche Daten zu höherer Belastung. Joggen bei normalen biomechanischen Verhältnissen erhöht das Risiko nicht — es kann sogar geringer sein als beim Walking (Alentorn-Geli u. a., 2017). Ein Zusammenhang Aktivitätsniveau ↔ Knorpelaufbau besteht nur im Kindesalter (Jones u. a., 2003)."
+    },
+    {
+      "text": "Welche Therapie-Bausteine bilden bei der Hüftarthrose den leitlinien-empfohlenen Kern?",
+      "multi": true,
+      "options": [
+        "Edukation zu Mythen, Risikofaktoren, Selbstmanagement und Verhaltensänderung.",
+        "Kraft- und Koordinationstraining 2–3x pro Woche und Ausdauer ca. 30 Min. täglich.",
+        "Ergänzende Maßnahmen wie topische NSAR, Achtsamkeitsübungen (z. B. Yoga, Tai-Chi) und Manuelle Therapie.",
+        "Zuerst sollte passiv am Gelenk gearbeitet werden und bei voller Gelenkbeweglichkeit erst aktiv."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Leitlinien empfehlen Edukation (inklusive Aufklärung über Mythen), aktive Therapie mit mind. 12 Einheiten unter Supervision, dann eigenständig mit Fokus auf Kraft- & Koordinationsübungen 2–3x pro Woche und Ausdauer ca. 30 Min. täglich. Dazu ergänzende Maßnahmen wie topische NSAR, Achtsamkeitsübungen und Manuelle Therapie (Bannuru u. a., 2019; Kraus u. a., 2019; Fernandes u. a., 2013). Eine Schon-Empfehlung widerspricht dem Konzept der mechanischen Belastung als Therapie."
+    },
+    {
+      "text": "Welche Komplikation ist beim posterioren / dorsalen Zugangsweg einer Hüft-TEP besonders zu beachten?",
+      "multi": false,
+      "options": [
+        "Erhöhte Luxationsgefahr nach dorsal — daher mindestens sechs Wochen postoperativ keine forcierte Flexion, Extension, Adduktion und Rotation.",
+        "Hauptproblem ist eine erhöhte Frakturrate des Schenkelhalses während der OP.",
+        "Der posteriore Zugang erspart jede Bewegungseinschränkung — sechs Wochen Vorgaben sind nicht nötig.",
+        "Beim posterioren Zugang ist ausschließlich die Außenrotation eingeschränkt, nicht aber Flexion oder Adduktion."
+      ],
+      "correct": 0,
+      "explanation": "Beim posterioren Zugang werden M. gluteus maximus gespalten, die Außenrotatoren abgelöst und die posteriore Kapsel durchtrennt — daraus resultiert eine erhöhte Luxationsgefahr nach dorsal. Konsequenz: Mindestens sechs Wochen postoperativ keine forcierte Flexion, Extension, Adduktion und keine forcierte Innen- bzw. Außenrotation. Das Nachbehandlungsschema ist konsequent einzuhalten."
+    },
+    {
+      "text": "Welche Aussage zum anterioren Zugang (z. B. nach Weigel oder Nerlich) bei der Hüft-TEP ist korrekt?",
+      "multi": false,
+      "options": [
+        "Es erfolgt eine umfangreiche Durchtrennung der lateralen Muskulatur und der posterioren Kapsel.",
+        "Es gibt keine Muskeldurchtrennung; die OP nutzt eine Lücke zwischen M. sartorius/rectus femoris und M. tensor fasciae latae und durchtrennt die vordere Kapsel.",
+        "Der anteriore Zugang ist mit einer besonders hohen Luxationsgefahr nach dorsal verbunden.",
+        "Beim anterioren Zugang ist eine sechs- bis zwölfwöchige strikte Bettruhe Standard."
+      ],
+      "correct": 1,
+      "explanation": "Der anteriore Zugang nutzt eine Lücke zwischen M. sartorius/rectus femoris und M. tensor fasciae latae — ohne Muskeldurchtrennung — und durchtrennt nur die vordere Kapsel. Beachtet werden müssen eine mögliche Kompression des N. cutaneus femoris lateralis und des N. gluteus superior. Mindestens sechs Wochen postoperativ keine forcierte Extension und Außenrotation."
+    },
+    {
+      "text": "Welche Aussage zur Differenzialdiagnostik des lateralen Hüftschmerzes ist nach aktueller Studienlage korrekt?",
+      "multi": false,
+      "options": [
+        "Eine Bursitis trochanterica ist die häufigste isolierte Ursache und sollte primär behandelt werden.",
+        "Eine Tendinitis des M. gluteus medius (+ evtl. M. gluteus min.) ist die wahrscheinlichere primäre Ursache; eine Bursitis entwickelt sich häufig erst sekundär.",
+        "Die Ursache eines lateralen Hüftschmerzes ist meistens ein Hypertonie des M. iliopsoas und auf eine Coxa saltans interna zurückzuführen.",
+        "Eine Irritation des Ramus dorsalis von Th12 aufgrund eines Bandscheibenvorfalls ist die häufigste Einzelursache."
+      ],
+      "correct": 1,
+      "explanation": "Die Tendinitis bzw. Tendinose des M. gluteus medius — teils auch des M. gluteus minimus — ist die wahrscheinlichere primäre Ursache des lateralen Hüftschmerzes. Eine Bursitis trochanterica tritt häufig erst sekundär in deren Folge auf (Strauss u. a., 2010). Coxa saltans und Th12-Irritation kommen als Differenzialdiagnosen vor, aber seltener."
+    },
+    {
+      "text": "Welche Test-Wertigkeit beschreibt den Einbeinstand-Test (30 Sekunden halten) bei Verdacht auf lateralen Hüftschmerz nach Sunil Kumar (2020) am besten?",
+      "multi": false,
+      "options": [
+        "Niedrige Sensitivität, hohe Spezifität — eignet sich vor allem als Einschlusstest.",
+        "Sehr hohe Sensitivität (ca. 100 %) und hohe Spezifität (ca. 97 %) — eignet sich gut zum Ein- und Ausschluss.",
+        "Hohe Sensitivität, niedrige Spezifität — vor allem als Ausschlusstest geeignet.",
+        "Niedrige Sensitivität und niedrige Spezifität — diagnostisch wenig hilfreich."
+      ],
+      "correct": 1,
+      "explanation": "Der Einbeinstand für 30 Sekunden zeigt nach Sunil Kumar (2020) eine sehr hohe Sensitivität (ca. 100 %) und Spezifität (ca. 97 %). Positiv ist der Test, wenn die Position nicht gehalten werden kann. Die Kombination aus hoher Sensitivität und hoher Spezifität macht ihn sowohl für den Ein- als auch den Ausschluss klinisch wertvoll."
+    },
+    {
+      "text": "Welche Therapie-Schwerpunkte sind bei lateralem Hüftschmerz auf Boden einer Gluteus-medius-Tendinopathie sinnvoll?",
+      "multi": true,
+      "options": [
+        "Erhalt des verfügbaren Bewegungsausmaßes im Hüftgelenk.",
+        "Mobilisation und Dehnung spannungsreicher Strukturen — insbesondere Hüftflexoren, M. piriformis und M. tensor fasciae latae.",
+        "Exzentrisch-dominantes Training der Hüft-Abduktoren, z. B. am Zugapparat.",
+        "Strikte Vermeidung jeglicher Abduktionsbelastung über mindestens sechs Wochen."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Sinnvoll sind ROM-Erhalt, Mobilisation/Dehnung spannungsreicher Strukturen wie Hüftflexoren, M. piriformis und M. tensor fasciae latae, sowie ein exzentrisch-dominantes Training der Hüft-Abduktoren. Bei Hinweisen auf TLÜ-Beteiligung zusätzlich BWS-Mobilisation. Eine sechs Wochen lange ABD-Karenz wäre kontraproduktiv und würde die Tendinopathie nicht heilen."
+    }
+  ]
+}
