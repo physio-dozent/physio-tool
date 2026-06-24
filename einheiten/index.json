@@ -117,6 +117,42 @@
     "topic_title": "Untere Extremität — Hüfte"
   },
   {
+    "id": "fuss-quiz-001",
+    "file": "fuss-quiz-001.json",
+    "title": "Untere Extremität — Fuß · Grundlagen-Quiz",
+    "description": "Fragen-Pool aus 29 Fragen über Anatomie, Supinationstrauma, Syndesmosenruptur, chronische Sprunggelenksinstabilität (CAI), Achillessehnen-Pathologien und Reha-Prinzipien. Pro Durchlauf werden 10 zufällig gezogen und gemischt.",
+    "type": "quiz",
+    "topic": "fuss",
+    "topic_title": "Untere Extremität — Fuß"
+  },
+  {
+    "id": "fuss-shortcase-001",
+    "file": "fuss-shortcase-001.json",
+    "title": "Kurzfall: Yannick, 24 — frisches Supinationstrauma beim Basketball",
+    "description": "Junger Sportler mit klassischem Inversionstrauma vor zwei Wochen. Drei Fragen zur Befund-Einordnung, zur akuten Therapie nach PEACE & LOVE und zur frühen Reha-Phase.",
+    "type": "short_case",
+    "topic": "fuss",
+    "topic_title": "Untere Extremität — Fuß"
+  },
+  {
+    "id": "fuss-shortcase-002",
+    "file": "fuss-shortcase-002.json",
+    "title": "Kurzfall: Herr Becker, 47 — Achillessehnen-Tendinopathie beim Hobby-Läufer",
+    "description": "Hobby-Läufer mittleren Alters mit zunehmenden Schmerzen am Sehnen-Mittelteil nach plötzlich gesteigertem Trainingsumfang. Drei Fragen zur diagnostischen Einordnung, zur Edukations-Botschaft und zur initialen Therapie.",
+    "type": "short_case",
+    "topic": "fuss",
+    "topic_title": "Untere Extremität — Fuß"
+  },
+  {
+    "id": "fuss-shortcase-003",
+    "file": "fuss-shortcase-003.json",
+    "title": "Kurzfall: Lina, 26 — chronische Sprunggelenksinstabilität nach wiederholtem Umknicken",
+    "description": "Junge Sportlerin mit mehreren Umknick-Erlebnissen in den letzten 18 Monaten und persistierendem Instabilitätsgefühl. Drei Fragen zur Einordnung als CAI, zur Test-Strategie und zur Therapie-Logik nach dem FIRE-Programm.",
+    "type": "short_case",
+    "topic": "fuss",
+    "topic_title": "Untere Extremität — Fuß"
+  },
+  {
     "id": "demo-quiz-001",
     "file": "demo-quiz.json",
     "title": "Demo: Allgemeines Quiz",
