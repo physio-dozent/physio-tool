@@ -1128,7 +1128,7 @@ function openMergeModal(type, oldValue, classContext) {
     </div>
     <div style="display:flex;gap:10px;justify-content:flex-end;">
       <button class="btn-secondary" onclick="closeModal()">Abbrechen</button>
-      <button class="btn-primary" onclick="doMerge(${JSON.stringify(type)}, ${JSON.stringify(oldValue).replace(/"/g, '&quot;')}, ${JSON.stringify(classContext).replace(/"/g, '&quot;')})">Umbenennen</button>
+      <button class="btn-primary" onclick="doMerge(${JSON.stringify(type).replace(/"/g, '&quot;')}, ${JSON.stringify(oldValue).replace(/"/g, '&quot;')}, ${JSON.stringify(classContext).replace(/"/g, '&quot;')})">Umbenennen</button>
     </div>
   `;
   document.getElementById('modal-body').innerHTML = html;
