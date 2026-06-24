@@ -1,0 +1,45 @@
+{
+  "id": "fuss-shortcase-001",
+  "type": "short_case",
+  "title": "Kurzfall: Yannick, 24 — frisches Supinationstrauma beim Basketball",
+  "intro": "Junger Sportler mit klassischem Inversionstrauma vor zwei Wochen. Drei Fragen zur Befund-Einordnung, zur akuten Therapie nach PEACE & LOVE und zur frühen Reha-Phase.",
+  "vignette": "Yannick, 24 Jahre, Industriemechaniker, spielt seit der Schulzeit Basketball auf Vereinsebene (3–4-mal pro Woche). Beim Sprungwurf vor 14 Tagen ist er auf dem Fuß eines Gegenspielers gelandet, dabei nach lateral umgeknickt. Sofort starker Schmerz am lateralen Sprunggelenk rechts, anschließend deutliche Schwellung. Beim Hausarzt war ein Röntgen unauffällig — er hat eine Aircast-Schiene und Schmerzmedikamente bekommen, mit dem Hinweis sich schmerzadaptiert zu bewegen. Beim Gehen ohne Stützen schmerzt es lateral um den Außenknöchel und am vorderen OSG (NRS 6/10). Daher entlastet er noch deutlich mit den Unterarmgehstützen. Der Einbeinstand rechts ist aktuell nicht möglich — Gefühl von Unsicherheit. Klinisch in der Untersuchung 14 Tage nach Trauma: noch sichtbare Restschwellung lateral, Druckschmerz unmittelbar caudal des Malleolus lateralis und über dem Verlauf des Lig. talofibulare anterius. ROM aktiv D-Ext rechts 5°, links 20°; Pronation/Supination eingeschränkt. Anterior-Drawer rechts mit erhöhter Translation und weichem Endgefühl, mäßig schmerzhaft. Talar-Tilt rechts negativ. Ottawa Ankle Rules vollständig durchgegangen — kein Anhalt für eine Fraktur. External-Rotation-Test und Squeeze-Test negativ. Vorgeschichte: bereits zwei mildere Umknick-Erlebnisse im letzten Jahr, jeweils ohne strukturierte Reha.",
+  "questions": [
+    {
+      "text": "Welche klinische Klassifikation passt am ehesten zu Yannicks Befund-Konstellation?",
+      "multi": false,
+      "options": [
+        "Reine Teilruptur Lig. talofibulare anterius — Schwellung und Palpationsschmerz, alle Stabilitätstests negativ, Gelenk stabil.",
+        "Totalruptur Lig. talofibulare anterius mit Teilruptur Lig. calcaneofibulare — Schwellung, Palpationsschmerz, positiver Anterior-Drawer, negativer Talar-Tilt, Gelenk klinisch instabil.",
+        "Totalruptur Lig. talofibulare anterius und Lig. calcaneofibulare — alle Stabilitätstests positiv, hochgradig instabiles Gelenk.",
+        "Syndesmosenverletzung Grad II — positiver External-Rotation- und Squeeze-Test, kein Schaden an den Außenbändern."
+      ],
+      "correct": 1,
+      "explanation": "Schwellung und Palpationsschmerz, positiver Anterior-Drawer mit weichem Endgefühl, aber negativer Talar-Tilt passen zur Konstellation Totalruptur TFA + Teilruptur CF — das Gelenk ist klinisch instabil. Eine reine TFA-Teilruptur wäre Anterior-Drawer-negativ; eine kombinierte Totalruptur TFA + CF wäre auch Talar-Tilt-positiv. Die negativen Syndesmosen-Tests sprechen klar gegen eine high ankle sprain."
+    },
+    {
+      "text": "Welche Risikofaktoren erhöhen bei Yannick aktuell das Risiko für ein erneutes Supinationstrauma?",
+      "multi": true,
+      "options": [
+        "Vorverletzungen der Außenbänder im letzten Jahr (zwei milde Umknick-Episoden ohne strukturierte Reha).",
+        "Reduzierte Dorsalextension im OSG rechts (aktuell 5° statt 20°).",
+        "Reduzierte Tiefensensibilität, Balance und Reaktionszeit (Einbeinstand aktuell nicht möglich).",
+        "Hohe sportliche Aktivität im Basketball mit Stop-and-Go-Belastung und Sprung-Landungen."
+      ],
+      "correct": [0, 1, 2, 3],
+      "explanation": "Alle vier Punkte sind nach Vuurberg (2018) Risikofaktoren: Größter einzelner Faktor ist die Vorverletzung, dazu kommen reduzierte D-Extension, propriozeptive und Balance-Defizite sowie Defizite in Kraft und Reaktionszeit der Mm. peronaei. Hohe sportliche Aktivität mit Stop-and-Go und Sprung-Landungen ist ein zusätzlicher mechanischer Treiber. Genau diese Konstellation würde unbehandelt das Risiko einer chronischen Sprunggelenksinstabilität (CAI) deutlich erhöhen."
+    },
+    {
+      "text": "Welche Therapie-Bausteine sind in Yannicks aktueller Phase (ca. 2 Wochen nach Trauma, beginnende Proliferationsphase) sinnvoll?",
+      "multi": true,
+      "options": [
+        "Schmerzfreie Mobilisation des OSG, mit Schwerpunkt Dorsalextension vor Pronation/Supination.",
+        "Edukation zum aktiven Ansatz und Schmerzüberwachungsmodell, schmerzabhängige Vollbelastung, Orthesenversorgung beibehalten.",
+        "Beginn lokaler Gelenkstabilität: Aktivierung intrinsische und sprunggelenksumgebende Muskulatur, Feedback-Kontrolle (Balance, Beinachse, Rumpfkontrolle).",
+        "Maximale plyometrische Sprungbelastung über zwei Beine und Side-Hops zur frühen Provokation der Außenbänder."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "In der Proliferationsphase (2.–6. Woche) sind spannungs- und schmerzfreie Mobilisation (D-Ext zuerst), Edukation, schmerzabhängige Vollbelastung mit Orthesenversorgung sowie der Beginn lokaler Gelenkstabilität (intrinsische und sprunggelenksumgebende Muskulatur) und Feedback-basierte Balance-Kontrolle die zentralen Bausteine. Plyometrische Sprung-Belastung gehört in die Remodellierungsphase ab ca. der 6. Woche — eine zu frühe Provokation würde die Heilung gefährden und das Re-Trauma-Risiko erhöhen."
+    }
+  ]
+}

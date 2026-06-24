@@ -1,0 +1,356 @@
+{
+  "id": "fuss-quiz-001",
+  "type": "quiz",
+  "title": "Untere Extremität — Fuß · Grundlagen-Quiz",
+  "intro": "Fragen-Pool aus 29 Fragen über Anatomie, Supinationstrauma, Syndesmosenruptur, chronische Sprunggelenksinstabilität (CAI), Achillessehnen-Pathologien und Reha-Prinzipien. Pro Durchlauf werden 10 zufällig gezogen und gemischt.",
+  "questions": [
+    {
+      "text": "Welche drei Hauptfunktionen werden dem menschlichen Fuß zugeschrieben?",
+      "multi": false,
+      "options": [
+        "Flexibilität, Stabilität und Propriozeption.",
+        "Stabilität, Flexion und Pronation.",
+        "Propriozeption, Spannung und Rotation.",
+        "Flexibilität, Kraft und Verriegelung."
+      ],
+      "correct": 0,
+      "explanation": "McKeon (2015) und Sarrafian (1993) beschreiben drei Hauptfunktionen des Fußes: Flexibilität (Belastungs-Absorption und Anpassung an den Untergrund), Stabilität (Initial Contact und Hebel zur Fortbewegung) und Propriozeption (Fußsohle nimmt Untergrund wahr, ergänzt durch Ligamente und Gelenke)."
+    },
+    {
+      "text": "Wie lauten die ungefähren Norm-Bewegungsausmaße des oberen Sprunggelenks (OSG) für Dorsalextension–Plantarflexion nach der Neutral-Null-Methode?",
+      "multi": false,
+      "options": [
+        "10°/0/30°",
+        "20°/0/50°",
+        "30°/0/70°",
+        "40°/0/90°"
+      ],
+      "correct": 1,
+      "explanation": "Die in der Praxis verwendeten Norm-Bewegungsausmaße sind 20°/0/50° für Dorsalextension–Plantarflexion am OSG, 10°/0/20° für Pronation–Supination am USG und 20°/0/40° für Pronation–Supination im Chopart- und Lisfranc-Gelenk."
+    },
+    {
+      "text": "Welche Risikofaktoren erhöhen nach Vuurberg (2018) die Wahrscheinlichkeit eines Supinationstraumas?",
+      "multi": true,
+      "options": [
+        "Vorverletzung der Außenbänder (auch wenn sie bis zu einem Jahr zurückliegt).",
+        "Reduzierte Beweglichkeit in Dorsalextension.",
+        "Reduzierte Tiefensensibilität und Balancefähigkeit.",
+        "Ein hallux valgus, unabhängig ob operiert oder nicht."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Größter einzelner Risikofaktor ist die Vorverletzung der Außenbänder. Weitere Risikofaktoren sind eine reduzierte D-Extension, Tiefensensibilitäts- und Balance-Defizite, Kraft- und Reaktionszeit-Defizite der Mm. peronaei sowie eine reduzierte Hüft-ABD- und Hüft-Ext-Kraft (Vuurberg, 2018). Eine starke Hüft-Abduktorenkraft ist potenziell sogar ein protektiver Faktor."
+    },
+    {
+      "text": "In welcher Hierarchie sind die lateralen Sprunggelenksbänder beim Supinationstrauma typischerweise betroffen?",
+      "multi": false,
+      "options": [
+        "85,3 % Lig. talofibulare anterius (TFA), 34,5 % Lig. calcaneofibulare (CF).",
+        "85,3 % Lig. calcaneofibulare (CF), 34,5 % Lig. talofibulare anterius (TFA).",
+        "Beide Bänder sind in jeweils ca. 90 % der Fälle gleichermaßen betroffen.",
+        "Das Lig. talofibulare posterius ist mit ca. 70 % das am häufigsten verletzte Band."
+      ],
+      "correct": 0,
+      "explanation": "Nach Swenson u. a. (2013) ist beim Supinationstrauma das Lig. talofibulare anterius (TFA) in ca. 85,3 % der Fälle verletzt, das Lig. calcaneofibulare (CF) in ca. 34,5 %. Das Lig. talofibulare posterius ist dagegen selten betroffen."
+    },
+    {
+      "text": "Wie sind die Ottawa Ankle and Midfoot Rules in Sensitivität und Spezifität einzuordnen und wofür werden sie eingesetzt?",
+      "multi": false,
+      "options": [
+        "Sensitivität ca. 32 %, Spezifität ca. 98 % — eignen sich primär zum Einschluss einer Fraktur.",
+        "Sensitivität ca. 98 %, Spezifität ca. 32 % — eignen sich primär zum klinischen Ausschluss einer Fraktur.",
+        "Sensitivität ca. 65 %, Spezifität ca. 65 % — moderate Aussagekraft für beide Richtungen.",
+        "Sensitivität ca. 85 %, Spezifität ca. 85 % — eignen sich gleichermaßen zum Ein- und Ausschluss."
+      ],
+      "correct": 1,
+      "explanation": "Die Ottawa Ankle and Midfoot Rules haben nach Bachmann u. a. (2003) eine hohe Sensitivität (ca. 98 %), aber niedrige Spezifität (ca. 32 %). Damit eignen sie sich primär zum klinischen Ausschluss von Frakturen. Eine Bildgebung ist indiziert, wenn mindestens einer von fünf Punkten zutrifft (Druckschmerz Malleolus lateralis/medialis, Basis Metatarsale V, Os naviculare oder Unfähigkeit, vier Schritte zu laufen)."
+    },
+    {
+      "text": "Welche klinische Befund-Konstellation passt zu einer Totalruptur von Lig. talofibulare anterius (TFA) und Lig. calcaneofibulare (CF)?",
+      "multi": false,
+      "options": [
+        "Positiver Anterior-Drawer-Test, negativer Talar-Tilt-Test — ohne Instabilität.",
+        "Positiver Palpationsschmerz, negativer Anterior-Drawer-Test, negativer Talar-Tilt-Test — ohne Instabilität.",
+        "Positiver Palpationsschmerz, positiver Anterior-Drawer-Test, positiver Talar-Tilt-Test — mit Instabilität.",
+        "Nur ein positiver Talar-Tilt-Test ohne Palpationsschmerz — ohne Instabilität."
+      ],
+      "correct": 2,
+      "explanation": "Bei Totalruptur von TFA und CF zeigen sich Palpationsschmerz, positiver Anterior-Drawer-Test und positiver Talar-Tilt-Test — das Gelenk ist klinisch instabil. Eine reine TFA-Teilruptur zeigt nur Palpationsschmerz ohne positive Stabilitätstests. Eine TFA-Totalruptur mit CF-Teilruptur ist meist Anterior-Drawer-positiv, aber Talar-Tilt-negativ."
+    },
+    {
+      "text": "Welche Aussage zur Reliabilität klinischer Sprunggelenkstests nach einem Supinationstrauma ist korrekt?",
+      "multi": false,
+      "options": [
+        "Die Tests sind im akuten Zustand am verlässlichsten und sollten möglichst sofort nach dem Trauma durchgeführt werden.",
+        "Eine Nachuntersuchung 3–5 Tage nach dem Trauma liefert deutlich verlässlichere Ergebnisse als die akute Testung.",
+        "Schmerz und Schwellung in der Akutphase haben keinen Einfluss auf die Reliabilität der Tests.",
+        "Klinische Tests sind ohne Bildgebung grundsätzlich nicht aussagekräftig und sollten in der Akutphase entfallen."
+      ],
+      "correct": 1,
+      "explanation": "Eine Untersuchung 3–5 Tage nach dem Trauma liefert deutlich verlässlichere Testergebnisse als die akute Testung, vor allem weil Schmerz und Schwellung in der Akutphase die Befund-Erhebung verfälschen. Eine Nachuntersuchung in diesem Zeitfenster ist daher klinischer Standard."
+    },
+    {
+      "text": "Welche Bausteine bilden das PEACE-Konzept zum Management akuter Weichteilverletzungen?",
+      "multi": true,
+      "options": [
+        "Protektion (Belastung und ROM in den ersten 3 Tagen reduzieren).",
+        "Hochlagern der verletzten Extremität über Herzhöhe & Kompression",
+        "Vermeidung von NSAR und Kälteanwendung <0°C",
+        "Cortison-Gabe für die ersten 7 Tage zur Entzündungs-Unterdrückung."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Das PEACE-Konzept nach Dubois und Jesculier (2019) umfasst: Protektion (Belastungs- und ROM-Reduktion in den ersten 3 Tagen), Hochlagern (Elevation über Herzhöhe), Vermeide NSAR, Kompression (elastische Bandage/Taping) und Edukation. NSAR können die Wundheilung negativ beeinflussen und sollen gerade vermieden werden."
+    },
+    {
+      "text": "Welche Bausteine bilden das LOVE-Konzept im subakuten Verlauf einer Weichteilverletzung?",
+      "multi": false,
+      "options": [
+        "Lagern, Operation, Verband, Eis.",
+        "Belaste, Optimismus, Vaskularisation, Training.",
+        "Limitiere, Orthese, Vitamine, Elektrotherapie.",
+        "Lagerung, Oszillation, Vasoaktiva, Entspannung."
+      ],
+      "correct": 1,
+      "explanation": "Das LOVE-Konzept (Dubois und Jesculier, 2019) bedeutet: Belaste schrittweise (Load — auf den Körper hören und sicher steigern), Optimismus (positive Erwartungshaltung zur Regeneration), Vaskularisation (kardiovaskuläres Training zur Förderung der Durchblutung) und Training (aktive Förderung von Beweglichkeit, Kraft und Propriozeption)."
+    },
+    {
+      "text": "Welche Ziele und Inhalte sind typisch für die Entzündungsphase (bis ca. 2. Woche) eines konservativ behandelten Supinationstraumas?",
+      "multi": true,
+      "options": [
+        "Funktionelle Immobilisation mit Orthesenversorgung und schmerzfreie Mobilisation.",
+        "Entzündungskontrolle und Edukation, schmerzabhängige Vollbelastung.",
+        "Gering-dosiertes Krafttraining und Kraftsteigerung angrenzender Muskelgruppen, ggf. Cross-Education.",
+        "Atrophieprophylaxe sowie Krafterhalt angrenzender Muskelgruppen, ggf. Cross-Education.",."
+      ],
+      "correct": [0, 1, 3],
+      "explanation": "In der Entzündungsphase steht die Entzündungskontrolle, die Edukation und die funktionelle Immobilisation im Vordergrund. Schmerzfreie Mobilisation und schmerzabhängige Vollbelastung sind möglich. Krafterhalt angrenzender Muskelgruppen und Cross-Education sichern den allgemeinen Trainingszustand. Ein progressives Krafttraining der verletzten Region ist dieser Phase nicht angemessen — es gehört in die Remodellierungsphase."
+    },
+    {
+      "text": "Welcher Verletzungsmechanismus ist typisch für eine Syndesmosenruptur (high ankle sprain)?",
+      "multi": false,
+      "options": [
+        "Inversion und Plantarflexion bei feststehendem Vorfuß.",
+        "Eversion und Dorsalextension mit Außenrotation des Sprunggelenks.",
+        "Adduktion des Calcaneus mit Dorsalextension ohne Außenrotation.",
+        "Plantarflexion mit gleichzeitiger Pronation des Vorfußes."
+      ],
+      "correct": 1,
+      "explanation": "Die Syndesmosenruptur entsteht typischerweise durch Eversion und Dorsalextension des Sprunggelenks in Kombination mit Außenrotation des Rückfußes und Innenrotation des Unterschenkels — z. B. nach einer Landung auf unebenem Untergrund. Sie tritt in 1–18 % der Sprunggelenksverletzungen auf, häufig als Begleitverletzung. Etwa 42 % der Patientinnen und Patienten mit chronischer Sprunggelenksinstabilität erlitten begleitend eine Syndesmosenverletzung."
+    },
+    {
+      "text": "Welche drei klinischen Tests werden bei Verdacht auf eine Syndesmosenverletzung typischerweise eingesetzt?",
+      "multi": false,
+      "options": [
+        "Anterior-Drawer-Test, Talar-Tilt-Test und Thompson-Test.",
+        "Palpation, External-Rotation-Test und Squeeze-Test.",
+        "Lachmann-Test, Pivot-Shift-Test und Apley-Test.",
+        "Mulder-Click-Test, Tinel-Zeichen und Ottawa-Rules."
+      ],
+      "correct": 1,
+      "explanation": "Spezifisch für die Syndesmose sind Palpation (Sensitivität ca. 92 %), External-Rotation-Test (Spezifität ca. 78 %) und Squeeze-Test (Spezifität ca. 85 %) — Netterström-Wedin u. a. (2021). Anterior-Drawer und Talar-Tilt sind dagegen Außenband-Tests. Lachmann und Pivot-Shift betreffen das Kniegelenk."
+    },
+    {
+      "text": "Welche Bewegungs-Kombination ist in den ersten 7 Tagen nach Syndesmosen-Verletzung Grad I unbedingt zu vermeiden?",
+      "multi": false,
+      "options": [
+        "Dorsalextension kombiniert mit Eversion.",
+        "Plantarflexion kombiniert mit Inversion.",
+        "Sanfte Dehnung der Wadenmuskulatur mit einem Handtuch.",
+        "Mobilisation des Sprunggelenks in Dorsalextension allein."
+      ],
+      "correct": 0,
+      "explanation": "Nach Reiter u. a. (2019) wird in der frühen konservativen Phase (1.–7. Tag, Teilbelastung) die Kombinationsbewegung von Dorsalextension und Eversion explizit vermieden, weil sie genau den Verletzungsmechanismus der Syndesmose belastet. Mobilisation in D-Ext, P-Flex und Sehnungen der Wadenmuskulatur sind dagegen angezeigt."
+    },
+    {
+      "text": "Wie wird die chronische Sprunggelenksinstabilität (Chronic Ankle Instability, CAI) nach Hertel und Corbett (2019) definiert und untergliedert?",
+      "multi": false,
+      "options": [
+        "Indextrauma ≥ 12 Monate mit rezidivierenden Instabilitäten, Schwellungen & Beschwerden.",
+        "Schmerzhafte Bewegungseinschränkung des Sprunggelenks ohne Trauma in der Vorgeschichte, definiert über Bildgebung.",
+        "Globale osteoligamentäre Insuffizienz, trotzdem sind Aktivitäten uneingeschränkt möglich.",
+        "Indextrauma ≤ 12 Monate mit mechanischen Insuffizienz, ohne funktionelle Schwierigkeiten."
+      ],
+      "correct": 0,
+      "explanation": "Die CAI fasst nach Diemer (2017) und Hertel und Corbett (2019) verschiedene Insuffizienzen des Sprunggelenkkomplexes nach einem Indextrauma ≥ 12 Monate mit rezidivierenden Symptomen zusammen. Differenziert wird zwischen mechanischer Instabilität (Laxität) und funktioneller Instabilität (propriozeptive und muskuläre Defizite) sowie zwischen lateraler und medialer Instabilität. 20–75 % aller Patientinnen und Patienten mit Sprunggelenkstrauma entwickeln eine CAI (Hubbard-Turner, 2019)."
+    },
+    {
+      "text": "Welche Defizite werden bei Patientinnen und Patienten mit chronischer Sprunggelenksinstabilität (CAI) am häufigsten festgestellt?",
+      "multi": true,
+      "options": [
+        "Reduzierte Kraft der intrinsischen Fußmuskulatur sowie der Fuß-Evertoren und -Invertoren.",
+        "Reduzierte Kraft der Hüft-Flexoren, -Abduktoren und -Außenrotatoren.",
+        "Geringe intrinsische Fußmuskulatur.",
+        "Starke Plantarflexoren und starke Hüft-Abduktoren und -Außenrotatoren als Kompensation."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Nach Khalaj u. a. (2020, Meta-Analyse mit 16 Studien) und Hoch u. a. (2023) sind bei CAI unter anderem reduziert: intrinsische Fußmuskulatur, Fuß-Evertoren- und -Invertorenkraft, Knie-Extensoren-Kraft (konzentrisch), Hüft-Flexoren- und -Abduktoren-Kraft, Hüft-Außenrotatoren-Kraft und die posturale Kontrolle."
+    },
+    {
+      "text": "Welche Bausteine gehören zum FIRE-Programm (Foot Intensive Rehabilitation) nach Hoch (2023) bei chronischer Sprunggelenksinstabilität?",
+      "multi": true,
+      "options": [
+        "Passive und aktive Mobilisation des OSG vor allem in Dorsalextension.",
+        "Manuelle Therapie zur Korrektur der Instabilität, meist ohne Aktivierung der intrinsischen Fußmuskulatur.",
+        "Krafttraining der Unterschenkelmuskulatur und angrenzender Gelenke (v.a. Hüfte).",
+        "Langsam progressives Sprungtraining im Wechsel mit Schonung des Sprunggelenks für mindestens 12 Wochen."
+      ],
+      "correct": [0, 2],
+      "explanation": "Das FIRE-Programm umfasst Mobilisation des OSG (vor allem D-Ext durch z. B. Talus-Dorsalschub, Triceps-surae-Dehnung, multidimensionale aktive Mobi), sensorische Stimulation der Fußsohle, Aktivierung der intrinsischen Fußmuskulatur (kurzer Fuß nach Janda, D1-Ext, D1-ABD, D2-5-Ext), Krafttraining der Unterschenkelmuskulatur (isolierte Pro-/Supination, P-Flex + Supination) und angrenzender Gelenke (v. a. Hüfte) sowie statisches und dynamisches Balancetraining. Frühes Sprungtraining & eine strikte Schon-Empfehlung würde Überlastung bzw. Dekonditionierung und Fear-Avoidance fördern und ist nicht Teil des Programms."
+    },
+    {
+      "text": "Welche Aussage zur Spezifität von Gleichgewichtstraining auf instabilen Unterlagen entspricht der aktuellen Studienlage?",
+      "multi": false,
+      "options": [
+        "Das Training einer Gleichgewichtsaufgabe (z. B. Kippbrett) verbessert das Gleichgewicht allgemein und überträgt sich auf untrainierten Aufgaben.",
+        "Das Training einer Gleichgewichtsaufgabe wirkt sich primär auf diese Aufgabe aus — ein Transfer ist unwahrscheinlich, selbst wenn sich Übungen ähneln.",
+        "Gleichgewichtstraining auf instabilen Unterlagen ist eine effektive Maßnahme zur Verbesserung der Propriozeption und Sturzprävention.",
+        "Gleichgewichtstraining wirkt sich positiv auf koordinative Aufgaben aus, weil Aufmerksamkeitskapazität auch bei anderen Übungen frei wird."
+      ],
+      "correct": 1,
+      "explanation": "Giboin u. a. (2015) und Kramer/Giboin (2019) zeigen: Das Training einer Gleichgewichtsaufgabe verbessert primär die trainierte Aufgabe — ein Transfer auf untrainierte Aufgaben (auch ähnliche) ist in der Regel nicht zu erwarten. Klinische Konsequenz: Gleichgewichtstraining muss möglichst spezifisch und aufgabenorientiert gestaltet werden."
+    },
+    {
+      "text": "Welche Wirkung hat eine Außenknöchel-Orthese (z. B. E.A.S.Y. — „External Ankle Stabilizer for one Year“) nach Barelds (2018) auf das Verletzungsrisiko?",
+      "multi": false,
+      "options": [
+        "Primärprävention ca. 47 % Risikoreduktion, Sekundärprävention (mit Vorverletzung) ca. 63 % Risikoreduktion.",
+        "Primärprävention ca. 90 % Risikoreduktion, Sekundärprävention ca. 10 % Risikoreduktion.",
+        "Beide Effekte sind klinisch irrelevant, die Risikoreduktion liegt unter 5 %.",
+        "Außenknöchel-Orthesen erhöhen das Verletzungsrisiko um etwa 20 % durch Bewegungseinschränkung."
+      ],
+      "correct": 0,
+      "explanation": "Nach Barelds u. a. (2018) reduziert eine Außenknöchel-Orthese das Risiko eines Supinationstraumas in der Primärprävention (ohne Vorverletzung) um ca. 47 % und in der Sekundärprävention (mit Vorverletzung) um ca. 63 %. Damit ist die Wirkung besonders deutlich bei vorbelasteten Personen."
+    },
+    {
+      "text": "Welche Aussage zur Aktivierung der intrinsischen Fußmuskulatur durch die typischen Reha-Übungen ist korrekt?",
+      "multi": false,
+      "options": [
+        "D1- & D2–5-Flexion aktiviert die intrinsische Fußmuskulatur — andere Übungen haben keine klinisch relevante Wirkung.",
+        "Kurzer Fuß“ nach Janda, Spreizübung, D1-Extension und D2–5-Extension aktivieren die intrinsische Fußmuskulatur in unterschiedlichem Ausmaß (zwischen ca. 9 und 35 %).",
+        "Die intrinsische Fußmuskulatur lässt sich klinisch nur über elektrische Stimulation aktivieren.",
+        "Die Aktivierung der intrinsischen Fußmuskulatur hat keinen Einfluss auf das Längs- und Quergewölbe."
+      ],
+      "correct": 1,
+      "explanation": "Die intrinsische Fußmuskulatur unterstützt das mediale Längsgewölbe, kontrolliert Verformung und unterstützt die posturale Kontrolle. „Kurzer Fuß“ nach Janda und Spreizübung (D1-ABD) erreichen ca. 17–35 % Aktivierung, D1-Extension ca. 13–18 %, D2–5-Extension ca. 9–22 %. Empfehlung: 2 × 15 Wiederholungen pro Übung."
+    },
+    {
+      "text": "Wie unterscheiden sich Achillessehnen-Tendinitis, und -Tendinopathie nach gängiger Terminologie?",
+      "multi": false,
+      "options": [
+        "Tendinitis = Entzündung der Sehne; Tendinopathie = Degeneration/fehlgeschlagene Heilung der Sehne durch Überlastung mit Schmerz.",
+        "Tendinitis und Tendinopathie können synonym verwendet werden; Tendinopathie ist eine Entzündung des mittleren Sehnenanteils mit Schmerz.",
+        "Tendinopathie benötigt Querfriktionen, um durch die lokal entstehende Tendinitis anschließend vollständig heilen zu können.",
+        "Tendinopathie ist eine bakterielle Infektion der Sehne und muss antibiotisch behandelt werden."
+      ],
+      "correct": 0,
+      "explanation": "Tendinitis bezeichnet eine Entzündung der Sehne (entzündlicher Prozess), Tendinose eine Degeneration mit Dickenzunahme und Verlust des normalen Kollagenaufbaus (vermehrte Proteoglykane, Gewebs-Abbau; Scott u. a., 2015), Tendinopathie eine Degeneration oder fehlgeschlagene Heilung aufgrund bestehender Überlastung mit Schmerz. Klinisch handelt es sich bei Achillessehnen-Beschwerden meist um eine Tendinopathie."
+    },
+    {
+      "text": "An welcher anatomischen Stelle treten Achillessehnen-Tendinopathien am häufigsten auf?",
+      "multi": false,
+      "options": [
+        "Im proximalen muskulotendinösen Übergang.",
+        "Im mittleren Bereich der Sehne.",
+        "An der Insertion am Calcaneus.",
+        "Verteilt sich gleichmäßig auf alle drei Bereiche."
+      ],
+      "correct": 1,
+      "explanation": "Nach Kvist (1991) verteilen sich Achillessehnen-Tendinopathien wie folgt: Insertionstendinopathie 20–25 %, mittlerer Bereich 55–65 %, proximaler muskulotendinöser Übergang 9–25 %. Der mittlere Bereich ist also klar am häufigsten betroffen."
+    },
+    {
+      "text": "Welche Befunde sprechen typischerweise für eine akute Achillessehnen-Ruptur?",
+      "multi": true,
+      "options": [
+        "Lauter „Peitschenknall“ zum Zeitpunkt der Verletzung und kurzfristig heftige, stechende Schmerzen.",
+        "Tastbare Lücke entlang der Sehne, meist 2–6 cm proximal des Sehnenansatzes, und keine aktive Plantarflexion mehr möglich.",
+        "Frauen sind ca. 10-mal häufiger betroffen als Männer, typisches Alter zwischen 30 und 45 Jahren.",
+        "Schleichender Beginn über Wochen mit Morgensteifigkeit, die sich im Tagesverlauf bessert."
+      ],
+      "correct": [0, 1],
+      "explanation": "Eine akute Achillessehnen-Ruptur ist die häufigste Sehnenruptur am Körper. Typisch sind ein lauter „Peitschenknall“, kurzfristig heftige stechende Schmerzen, eine tastbare Lücke 2–6 cm proximal des Sehnenansatzes, fehlende aktive Plantarflexion, eingeschränkte Gehfähigkeit und ggf. Schwellung/Einblutung. Männer sind 10-mal häufiger betroffen, das typische Alter liegt zwischen 30 und 45 Jahren. Schleichender Beginn mit Morgensteifigkeit passt eher zur Tendinopathie."
+    },
+    {
+      "text": "Wie wird der Thompson-Test bei Verdacht auf Achillessehnen-Ruptur durchgeführt und interpretiert?",
+      "multi": false,
+      "options": [
+        "Patient in Bauchlage mit frei hängendem Fuß, Druck in die Wadenmuskulatur --> positiv bei ausbleibender Plantarflexion.",
+        "Patient in Rückenlage; Untersucher forciert eine Dorsalextension --> Test positiv bei vermehrter Dorsalextension.",
+        "Patient in Seitlage; Untersucher provoziert eine Außenrotation des Talus — Test positiv bei Schmerz.",
+        "Patient steht einbeinig; Untersucher beobachtet die Stand-Halte-Dauer — Test positiv bei Abbruch unter 30 Sekunden."
+      ],
+      "correct": 0,
+      "explanation": "Der Thompson-Test wird in Bauchlage mit frei hängendem Fuß durchgeführt — der Untersucher kneift in die Wadenmuskulatur. Bei intakter Achillessehne wird der Fuß reflektorisch in Plantarflexion gebracht; bei einer Ruptur bleibt diese Reaktion aus (Sensitivität ca. 96 %, Spezifität ca. 93 %; Maffulli u. a., 1998)."
+    },
+    {
+      "text": "Welche Aussage zum primären Management einer Achillessehnen-Tendinopathie entspricht der aktuellen Evidenz?",
+      "multi": false,
+      "options": [
+        "Das primäre Management besteht aus Kortison-Infiltration und vollständiger Sportpause für mindestens 12 Wochen.",
+        "Das primäre Management besteht aus Patientenedukation und aktiven Übungen (mechanische Belastung der Sehne).",
+        "Das primäre Management besteht aus Tapeanlage & Bandagenversorgung mit Manueller Therapie & aktiven Übungen.",
+        "Das primäre Management besteht aus Ultraschall-Therapie und Belastungspause für 14 Tage."
+      ],
+      "correct": 1,
+      "explanation": "Das primäre Management einer Achillessehnen-Tendinopathie besteht aus Edukation und aktiven Übungen (Malliaras u. a., 2020; Rhim u. a., 2020; van der Vlist u. a., 2021). Die Edukation umfasst u. a. das Erklären der Schmerztreiber, das Schmerzüberwachungsmodell und die gemeinsame Festlegung der Behandlungsstrategie. Das Training dient dem Umbau der Sehne, Linderung der Schmerzen und Verbesserung von Kraft und Ausdauer der Wadenmuskulatur."
+    },
+    {
+      "text": "Welche vier Rehabilitations-Phasen werden bei einer Achillessehnen-Tendinopathie typischerweise unterschieden?",
+      "multi": false,
+      "options": [
+        "Diagnostik — Passive Stabilisation — aktive Stabilisierung — Rückkehr zum Sport.",
+        "Belastungsreduktion — Erholung — Wiederaufbau — Rückkehr zum Sport.",
+        "Akut — Subakut — Chronisch — Endphase.",
+        "Schonung — Passive Phase — Aktive Phase — Wettkampf."
+      ],
+      "correct": 1,
+      "explanation": "Die vier Phasen sind: 1) Symptommanagement und Belastungsreduktion (Ziel: negativer Zyklus der Überlastung stoppen), 2) Erholung (Wadenkraft und Belastbarkeit der Sehne steigern), 3) Wiederaufbau (intensiveres Krafttraining, kinetische Kette, Lauf- und Sprungaktivität), 4) Rückkehr zum Sport (volle sportliche Teilnahme bei weiterer Funktionssteigerung)."
+    },
+    {
+      "text": "Welche Schmerz-Toleranz gilt im Schmerzüberwachungsmodell bei der Achillessehnen-Tendinopathie-Reha als akzeptabel?",
+      "multi": false,
+      "options": [
+        "Schmerz während und 24 Stunden nach der Aktivität bis maximal NRS 5/10 ist akzeptabel.",
+        "Schmerz strikt 0 auf der NRS — jede Schmerzangabe >1 bedeutet sofortiger Trainingsabbruch.",
+        "Schmerz bis 9 auf der NRS akzeptabel, solange die Person durchhält.",
+        "Schmerz allein ist nicht relevant — entscheidend ist nur das Bewegungsausmaß & die Leistung."
+      ],
+      "correct": 0,
+      "explanation": "Nach Silbernagel u. a. (2017) ist Schmerz auf der NRS bis 5 während der Aktivität und 24 Stunden danach akzeptabel — eine vorübergehende Schmerzzunahme kann während der Reha sogar nötig sein, solange sie sich innerhalb von 24 Stunden zurückbildet. Der Schmerz am Morgen nach der Aktivität sollte 5 NRS nicht überschreiten, Schmerzen und Steifigkeit dürfen von Woche zu Woche nicht zunehmen."
+    },
+    {
+      "text": "Welches Belastungs-Profil beschreibt die Berliner Methode beim Sehnen-Krafttraining nach Radovanović (2022)?",
+      "multi": false,
+      "options": [
+        "3 Sekunden Belastung, 3 Sekunden Pause, 5 Sätze mit je 4 Wiederholungen, Intensität ≥ 85 % der isometrischen Maximalkraft, 2–4-mal pro Woche.",
+        "10 Sekunden Belastung, 10 Sekunden Pause, 1 Satz mit 50 Wiederholungen, Intensität 30 % der Maximalkraft, einmal täglich.",
+        "1 Sekunde Belastung, 1 Sekunde Pause, 5 Sätze mit je 30 Wiederholungen, ballistisch ausgeführt.",
+        "Reine Isometrie ohne Pausen, kontinuierlich 5 Minuten gehalten, einmal pro Woche."
+      ],
+      "correct": 0,
+      "explanation": "Die Berliner Methode (Radovanović u. a., 2022) nutzt einen Wechsel von 3 Sekunden Belastung und 3 Sekunden Pause bei einer Intensität von ≥ 85 % der isometrischen Maximalkraft, mit 5 Sätzen à 4 Wiederholungen, 2-mal pro Woche steigerbar auf 4-mal pro Woche. Schmerzabhängige Steuerung (NRS ≤ 5)."
+    },
+    {
+      "text": "Welche Aussage zum klassischen exzentrischen Training nach Alfredson bei Achillessehnen-Tendinopathie ist korrekt?",
+      "multi": false,
+      "options": [
+        "1-mal wöchentlich, 1 Satz à 5 Wiederholungen, mit maximaler Kadenz und ohne Schmerz-Toleranz.",
+        "Geschwindigkeit 3–0–1 oder 3–0–0, 3 Sätze à 15 Wiederholungen, 2-mal täglich (zwei verschiedene Übungen), schmerzabhängige Steuerung (NRS ≤ 5).",
+        "Geschwindigkeit 0,5–0,5–0,5, 10 Sätze à 30 Wiederholungen, einmal pro Woche.",
+        "Reine konzentrische Übungen mit Stufe, einmal monatlich."
+      ],
+      "correct": 1,
+      "explanation": "Das exzentrische Training nach Alfredson (1998, 2004) sieht eine Kadenz von 3–0–1 oder 3–0–0 vor, 3 Sätze à 15 Wiederholungen, 2-mal täglich mit zwei verschiedenen Übungen (Knie gestreckt und Knie gebeugt). Steuerung über Schmerzempfinden (NRS ≤ 5). Belastungsschmerz kann sich in den ersten 1–3 Wochen leicht verstärken, sollte sich aber nach 24 Stunden zurückbilden."
+    },
+    {
+      "text": "Welche Aussage zur Wahl Operation oder konservativ bei einer isolierten Außenbandruptur (Supinationstrauma) entspricht der Evidenz?",
+      "multi": false,
+      "options": [
+        "Eine Operation bringt deutlich bessere funktionelle Ergebnisse als die konservative Therapie und sollte primär gewählt werden.",
+        "Eine Operation bringt bei einer Außenbandruptur keine Vorteile im Vergleich zur konservativen Therapie, aber ein höheres Komplikationsrisiko.",
+        "Eine Operation ist indiziert, sobald der Anterior-Drawer-Test positiv ist und eine Instabilität vorliegt.",
+        "Eine Operation ist nur bei rein medialen Bandverletzungen indiziert, da die Außenbänder nur sehr schwierig genäht werden können."
+      ],
+      "correct": 1,
+      "explanation": "Bei einer isolierten Außenbandruptur bringt eine Operation keine signifikanten Vorteile bezüglich funktioneller Ergebnisse, dafür aber ein höheres Risiko für Komplikationen. Die konservative Therapie ist Erstwahl — vorausgesetzt, es liegen keine relevanten Begleitverletzungen (Syndesmosen-/Knorpelverletzungen, Frakturen) vor und der Zustand ist nicht chronisch."
+    }
+  ]
+}

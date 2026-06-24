@@ -1,0 +1,45 @@
+{
+  "id": "fuss-shortcase-002",
+  "type": "short_case",
+  "title": "Kurzfall: Herr Becker, 47 — Achillessehnen-Tendinopathie beim Hobby-Läufer",
+  "intro": "Hobby-Läufer mittleren Alters mit zunehmenden Schmerzen am Sehnen-Mittelteil nach plötzlich gesteigertem Trainingsumfang. Drei Fragen zur diagnostischen Einordnung, zur Edukations-Botschaft und zur initialen Therapie.",
+  "vignette": "Herr Becker, 47 Jahre, Lehrer, läuft seit etwa fünf Jahren regelmäßig. Bisher 3-mal pro Woche je ca. 6–8 km. Vor drei Monaten hat er sich vorgenommen, einen Halbmarathon im Herbst zu laufen, und seitdem den Wochenumfang innerhalb von vier Wochen von ca. 20 km auf 45 km gesteigert — gleichzeitig zwei neue Lauftempo-Einheiten dazu. Seit etwa zwei Monaten ziehende Schmerzen am rechten Sehnen-Mittelteil, etwa 4 cm proximal des Calcaneus. Charakteristisch: morgens und in der Anlauf-Phase deutliche Steifigkeit und Schmerz (NRS 5/10), nach 5–10 Minuten Aufwärmen wird es spürbar besser. Bei zügigem Lauftempo ziehen die Beschwerden wieder an. Kein Trauma, kein plötzliches Knall-Ereignis. Klinisch: lokalisierte Druckschmerzhaftigkeit über dem mittleren Drittel der Achillessehne rechts, leichte Verdickung tastbar. Aktive Plantarflexion frei, Kraft nach manuellem Funktions-Profil 4/5 mit Schmerz. ROM D-Ext rechts ca. 10°, links 20°. Thompson-Test negativ — Plantarflexion wird reflektorisch ausgelöst, keine tastbare Sehnen-Lücke. Keine Schwellung über der Sehne, keine Überwärmung. Risikofaktoren: erhöhter Trainingsumfang in kurzer Zeit, reduzierte D-Ext rechts, BMI 27. Er fragt: „Soll ich die Sehne jetzt schonen und das Joggen erstmal komplett aussetzen? Oder einfach Schmerzmittel nehmen und weiterlaufen wie geplant?“",
+  "questions": [
+    {
+      "text": "Welche Befund-Konstellation passt bei Herrn Becker am ehesten zu einer Achillessehnen-Tendinopathie im mittleren Sehnenbereich (Mid-Portion-Tendinopathie)?",
+      "multi": true,
+      "options": [
+        "Schleichender Beginn nach plötzlicher Belastungssteigerung, Schmerz morgens und im Anlauf, Besserung nach 5–10 Minuten Aufwärmen.",
+        "Lokalisierte Druckschmerzhaftigkeit und Verdickung am mittleren Sehnenanteil, ca. 4 cm proximal des Calcaneus.",
+        "Negativer Thompson-Test, intakte aktive Plantarflexion.",
+        "Lauter „Peitschenknall“ zum Verletzungszeitpunkt, tastbare Sehnen-Lücke und fehlende aktive Plantarflexion."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Schleichender Beginn nach Belastungssteigerung, Anlaufschmerz mit Besserung nach Aufwärmen, lokalisierte Druckschmerzhaftigkeit und Verdickung am mittleren Drittel sowie intakter Thompson-Test und intakte aktive Plantarflexion passen typisch zu einer Achillessehnen-Tendinopathie im mittleren Bereich — der mit ca. 55–65 % häufigsten Lokalisation (Kvist, 1991). Ein „Peitschenknall“ mit Sehnen-Lücke und fehlender aktiver Plantarflexion wäre ein klassisches Bild der akuten Ruptur — bei Herrn Becker eindeutig nicht der Fall."
+    },
+    {
+      "text": "Welche Edukations-Botschaft entspricht bei Herrn Becker am besten dem aktuellen Stand zum primären Management einer Achillessehnen-Tendinopathie?",
+      "multi": false,
+      "options": [
+        "Komplette Sportpause für mindestens drei Monate und parallel hochdosierte NSAR — danach langsam wieder einsteigen.",
+        "Edukation zum Schmerzüberwachungsmodell und ein aktives Übungsprogramm sind das primäre Management — Belastung wird dosiert und schmerzgesteuert (NRS bis 5 akzeptabel), gleichzeitig wird die Trainingssteigerung als ursächlicher Faktor angepasst.",
+        "Symptomatische Schmerzmittel-Einnahme erlauben weiterzulaufen wie geplant — die Sehne passt sich von selbst an.",
+        "Sofortige Operation, um den Risiko-Verlauf einer drohenden Ruptur zu unterbinden."
+      ],
+      "correct": 1,
+      "explanation": "Das primäre Management einer Achillessehnen-Tendinopathie besteht aus Edukation und aktiven Übungen (Malliaras u. a., 2020; Rhim u. a., 2020; van der Vlist u. a., 2021). Schmerzüberwachung mit NRS bis 5 während und 24 Stunden nach Belastung ist akzeptabel — eine vorübergehende Zunahme ist toleriert, solange sich der Schmerz innerhalb von 24 Stunden zurückbildet. NSAR werden bei Tendinopathien gerade nicht empfohlen. Eine OP ist hier nicht indiziert; vollständige Sportpause ist nicht das Ziel, sondern dosierte Belastungssteuerung."
+    },
+    {
+      "text": "Welche Bausteine gehören in den initialen aktiven Therapieplan (Phase 1–2) für Herrn Becker?",
+      "multi": true,
+      "options": [
+        "Isometrisches Training als Einstieg, wenn dynamische Übungen noch nicht schmerzfrei toleriert werden — statisch 10–45 Sekunden, mehrere Sätze, Schmerz NRS ≤ 5.",
+        "Exzentrisches Wadentraining nach Alfredson oder Heavy-Slow-Resistance-Training mit langsamer Kadenz (z. B. 3–0–3), schmerzgesteuert.",
+        "Identifikation und Anpassung der Trainingssteigerung als ursächlicher Faktor — Lauf-Umfang und -Intensität schrittweise und dosiert wieder aufbauen.",
+        "Immobilisation der Achillessehne in einem Gipsverband für ca. sechs Wochen und striktes Bett-Ruhe-Konzept."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Sinnvoll sind als Einstieg isometrische Übungen (statisch 10–45 s, 1–5 Sätze, NRS ≤ 5), gefolgt von exzentrischem Wadentraining nach Alfredson (3–0–1, 3 × 15, 2-mal täglich) oder Heavy-Slow-Resistance (3–0–3, 3 × 15 reduzierend auf 4 × 10, jeden 2. Tag) — alles schmerzgesteuert mit NRS ≤ 5. Parallel muss die ursächliche Belastungssteigerung adressiert werden. Eine Immobilisation im Gipsverband mit Bettruhe ist für die akute Ruptur reserviert und bei Tendinopathie kontraproduktiv."
+    }
+  ]
+}

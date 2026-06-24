@@ -1,0 +1,45 @@
+{
+  "id": "fuss-shortcase-003",
+  "type": "short_case",
+  "title": "Kurzfall: Lina, 26 — chronische Sprunggelenksinstabilität nach wiederholtem Umknicken",
+  "intro": "Junge Sportlerin mit mehreren Umknick-Erlebnissen in den letzten 18 Monaten und persistierendem Instabilitätsgefühl. Drei Fragen zur Einordnung als CAI, zur Test-Strategie und zur Therapie-Logik nach dem FIRE-Programm.",
+  "vignette": "Lina, 26 Jahre, Pädagogin in Ausbildung, spielt zweimal pro Woche Hobby-Volleyball. Seit etwa 18 Monaten knickt sie regelmäßig um — zuletzt drei mildere Episoden in den letzten sechs Monaten, jeweils mit kurzer Schwellung und mehreren Tagen Schon-Verhalten, aber ohne strukturierte Reha. Anhaltendes Instabilitätsgefühl: „Mein Knöchel ist einfach nicht mehr verlässlich.“ Sie sagt: „Wenn ich auf unebenem Boden gehe oder schnell die Richtung wechsle, habe ich Angst, dass es wieder passiert.“ Beim Volleyball schont sie sich inzwischen deutlich, geht selten zum Block ans Netz und versucht Landungen abzufangen. Klinisch in der Untersuchung — sechs Wochen nach dem letzten Umknick: keine akute Schwellung, keine Überwärmung. Druckschmerz lateral mild, vor allem über dem Verlauf des Lig. talofibulare anterius. Anterior-Drawer rechts mit erhöhter Translation und weichem Endgefühl, aber heute nicht schmerzhaft. Talar-Tilt rechts negativ. ROM D-Ext rechts 12°, links 22°. Cumberland Ankle Instability Tool: deutlich auffällig. Y-Balance rechts in allen drei Richtungen reduziert im Seitenvergleich. Side-Hop-Test deutlich asymmetrisch. Hüft-Abduktoren- und Hüft-Außenrotatoren-Kraft rechts abgeschwächt im manuellen Funktions-Profil. Kein Hinweis auf Fraktur (Ottawa Rules negativ), keine relevanten Begleitverletzungen.",
+  "questions": [
+    {
+      "text": "Welche Befunde sprechen bei Lina für eine chronische Sprunggelenksinstabilität (CAI) und wie ist die Konstellation mechanisch versus funktionell einzuordnen?",
+      "multi": true,
+      "options": [
+        "Symptomdauer > 12 Monate mit rezidivierenden Umknick-Episoden und persistierendem Instabilitätsgefühl.",
+        "Erhöhte Translation im Anterior-Drawer mit weichem Endgefühl — Hinweis auf mechanische (ligamentäre) Komponente.",
+        "Auffällige funktionelle Tests (Y-Balance asymmetrisch, Side-Hop reduziert, Hüft-Kraft-Defizite) — Hinweis auf funktionelle Komponente.",
+        "Akute starke Schwellung und Überwärmung mit positiven Ottawa Rules — Hinweis auf akute Fraktur."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Linas Konstellation passt klar zur CAI nach Hertel und Corbett (2019): Indextrauma ≥ 12 Monate mit rezidivierenden Symptomen, persistierendes Instabilitätsgefühl und auffälliges PROM (Cumberland Tool). Der positive Anterior-Drawer mit weichem Endgefühl spricht für eine mechanische Komponente (Laxität des Lig. talofibulare anterius); die asymmetrischen funktionellen Tests und Hüft-Kraft-Defizite sprechen für eine funktionelle Komponente. In der Praxis liegt oft beides parallel vor. Akute Fraktur-Befunde liegen nicht vor."
+    },
+    {
+      "text": "Welche Test-Strategie ist bei Verdacht auf CAI sinnvoll, um sowohl mechanische als auch funktionelle Anteile zu erfassen?",
+      "multi": false,
+      "options": [
+        "Ausschließlich Anterior-Drawer und Talar-Tilt — funktionelle Tests sind bei CAI nicht aussagekräftig.",
+        "Anterior-Drawer und Talar-Tilt für mechanische Anteile, ergänzt um funktionelle Tests wie Y-Balance, Hop-Tests und PROMS (z. B. Cumberland Ankle Instability Tool) für funktionelle Anteile.",
+        "Ausschließlich PROM-Fragebögen — klinische Tests sind bei chronischer Instabilität nicht mehr verwertbar.",
+        "Ottawa Ankle Rules — sie sind das Standard-Instrument zur Quantifizierung der Instabilität."
+      ],
+      "correct": 1,
+      "explanation": "Für die mechanische Komponente eignen sich Anterior-Drawer (TFA, ca. 65 % nach Hertel) und Talar-Tilt (CF, ca. 20 % nach Hertel). Die funktionelle Komponente wird über Y-Balance bzw. Star Excursion Balance Test, Hop-Tests (Side-Hop, Timed Hop, Figure-of-8) und PROMs wie das Cumberland Ankle Instability Tool oder die Foot and Ankle Ability Measure erfasst. Die Ottawa Rules dienen dem Fraktur-Ausschluss in der Akutphase, nicht der CAI-Diagnostik."
+    },
+    {
+      "text": "Welche Therapie-Bausteine sind bei Lina nach dem FIRE-Programm (Hoch, 2023) sinnvoll, und welche Erwartungen sollten realistisch kommuniziert werden?",
+      "multi": true,
+      "options": [
+        "Mobilisation des OSG (vor allem in D-Ext), sensorische Stimulation der Fußsohle, Aktivierung der intrinsischen Fußmuskulatur.",
+        "Krafttraining der Unterschenkel- und der Hüftmuskulatur (Hüft-ABD, -ARO, -Flexoren), statisches und dynamisches Balancetraining mit aufgabenspezifischer Progression.",
+        "Hinweis, dass Gleichgewichtstraining sich primär auf die trainierten Aufgaben auswirkt und ein Transfer auf untrainierte Aufgaben nicht automatisch zu erwarten ist — daher muss das Training spezifisch und sportnah gestaltet sein.",
+        "Empfehlung, das Volleyball-Training für mindestens sechs Monate komplett auszusetzen und nur passive Maßnahmen (Massage, Wärme) zu nutzen."
+      ],
+      "correct": [0, 1, 2],
+      "explanation": "Das FIRE-Programm umfasst: OSG-Mobilisation, sensorische Stimulation der Fußsohle, Aktivierung der intrinsischen Fußmuskulatur, Krafttraining der Unterschenkel- und der Hüftmuskulatur, statisches und dynamisches Balancetraining. Wichtig in der Edukation: Gleichgewichtstraining ist aufgabenspezifisch (Giboin u. a., 2015; Kramer/Giboin, 2019) — ein automatischer Transfer auf untrainierte Aufgaben ist nicht zu erwarten, daher muss das Training nah am sportlichen Anforderungsprofil gestaltet werden. Eine sechsmonatige Sportkarenz mit rein passiven Maßnahmen widerspricht den Empfehlungen und würde die CAI-Symptomatik nicht verbessern."
+    }
+  ]
+}
