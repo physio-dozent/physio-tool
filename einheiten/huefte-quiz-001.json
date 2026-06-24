@@ -105,7 +105,7 @@
       "multi": false,
       "options": [
         "Passive Adduktion in maximaler Hüftflexion bis zum Schmerz — positiv bei Reproduktion des Leistenschmerzes.",
-        "Isometrischer maximaler Adduktionsdruck für 5 Sekunden in definierter Position; Schmerzangabe NRS > 6 weisen auf einen relevanten Funktionsverlust hin.",
+        "Isometrische Adduktion für 5 Sekunden in definierter Position; Schmerzangabe NRS > 6 weisen auf einen relevanten Funktionsverlust hin.",
         "Passive Hüftabduktion mit Überdruck am Ende des Bewegungsausmaßes — positiv bei Dehnschmerz medial.",
         "Konzentrische Adduktion gegen Widerstand über 30 Sekunden — positiv bei rascher Ermüdung."
       ],
@@ -118,7 +118,7 @@
       "options": [
         "Er ist der sensitivste Einzeltest und Goldstandard für die Diagnose einer adduktoren-bedingten Leistenproblematik.",
         "Er hat hohe Spezifität und schließt eine adduktoren-bedingte Ursache nahezu sicher aus.",
-        "Sein zusätzlicher Wert für die Klassifizierung adduktoren-bedingter Leistenschmerzen ist gering — Palpation und isometrische Tests sind ergiebiger.",
+        "Sein zusätzlicher Wert für die Klassifizierung adduktoren-bedingter Leistenschmerzen ist gering. Besser: Palpation + isometrische ADD.",
         "Er sollte als einziger Test zur Verlaufskontrolle eingesetzt werden, da er objektiv messbar ist."
       ],
       "correct": 2,
@@ -140,7 +140,7 @@
       "text": "Wie lässt sich eine „symphysale Instabilität“ von einer „symphysalen Dysfunktion“ pathophysiologisch unterscheiden?",
       "multi": false,
       "options": [
-        "Die Instabilität ist durch eine Erweiterung des Symphysenspalts gekennzeichnet, während bei der Dysfunktion keine relevante strukturelle Spalterweiterung vorliegt.",
+        "Die Instabilität zeigt eine Erweiterung des Symphysenspalts, während bei der Dysfunktion keine relevante strukturelle Spalterweiterung vorliegt.",
         "Beide Begriffe meinen dasselbe und werden synonym verwendet.",
         "Die Instabilität ist eine reine Weichteilreizung, während die Dysfunktion immer eine knöcherne Verletzung darstellt.",
         "Die Dysfunktion betrifft ausschließlich Männer, die Instabilität ausschließlich Frauen postpartum."
@@ -257,7 +257,7 @@
       "explanation": "Eine konservative Therapie sollte vorwiegend aus aktivem Training bestehen und weniger eine Mobilitäts-Steigerung verfolgen. Bausteine sind Patientenaufklärung, progressive Kraft- und Kontroll-Arbeit, Modifikation provozierender Aktivitäten sowie Heimübungsprogramm. Eine Schon-Empfehlung würde Dekonditionierung und Fear-Avoidance fördern."
     },
     {
-      "text": "Welche Symptome sind nach den klinischen Kriterien (mod. nach Altmann und Eitzen) typisch für eine Hüftarthrose?",
+      "text": "Welche Symptome sind nach den klinischen Kriterien typisch für eine Hüftarthrose?",
       "multi": true,
       "options": [
         "Anlaufschmerz nach längerer Ruhephase und morgendliche Steifigkeit unter 60 Minuten.",
@@ -308,7 +308,7 @@
       "text": "Welche Komplikation ist beim posterioren / dorsalen Zugangsweg einer Hüft-TEP besonders zu beachten?",
       "multi": false,
       "options": [
-        "Erhöhte Luxationsgefahr nach dorsal — daher mindestens sechs Wochen postoperativ keine forcierte Flexion, Extension, Adduktion und Rotation.",
+        "Erhöhte Luxationsgefahr nach dorsal — daher mind. sechs Wochen postoperativ keine forcierte Flexion, Extension, Adduktion und Rotation.",
         "Hauptproblem ist eine erhöhte Frakturrate des Schenkelhalses während der OP.",
         "Der posteriore Zugang erspart jede Bewegungseinschränkung — sechs Wochen Vorgaben sind nicht nötig.",
         "Beim posterioren Zugang ist ausschließlich die Außenrotation eingeschränkt, nicht aber Flexion oder Adduktion."
@@ -321,7 +321,7 @@
       "multi": false,
       "options": [
         "Es erfolgt eine umfangreiche Durchtrennung der lateralen Muskulatur und der posterioren Kapsel.",
-        "Die OP nutzt eine Lücke zwischen M. sartorius/rectus femoris und M. tensor fasciae latae und durchtrennt nur die vordere Kapsel.",
+        "Die OP nutzt eine Lücke zwischen M. sartorius/rectus femoris & M. tensor fasciae latae und durchtrennt nur die vordere Kapsel.",
         "Der anteriore Zugang ist mit einer besonders hohen Luxationsgefahr nach dorsal verbunden.",
         "Beim anterioren Zugang ist die Vorgabe: nicht über 90° Hüft-Flex, keine Add/IRO/ARO sinnvoll."
       ],
