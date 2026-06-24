@@ -1,3 +1,30 @@
 {
-  "klassen": []
+  "klassen": [
+    {
+      "name": "PT59 Fs",
+      "visible_units": [
+        "schmerz-quiz-001",
+        "schmerz-shortcase-001",
+        "schmerz-shortcase-002",
+        "schmerz-shortcase-003",
+        "knie-quiz-001",
+        "knie-shortcase-001",
+        "knie-shortcase-002",
+        "knie-shortcase-003"
+      ]
+    },
+    {
+      "name": "PT59 Ai",
+      "visible_units": [
+        "schmerz-quiz-001",
+        "schmerz-shortcase-001",
+        "schmerz-shortcase-002",
+        "schmerz-shortcase-003",
+        "knie-quiz-001",
+        "knie-shortcase-001",
+        "knie-shortcase-002",
+        "knie-shortcase-003"
+      ]
+    }
+  ]
 }
