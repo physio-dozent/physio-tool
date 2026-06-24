@@ -72,6 +72,51 @@
     "topic_title": "Untere Extremität — Knie"
   },
   {
+    "id": "huefte-quiz-001",
+    "file": "huefte-quiz-001.json",
+    "title": "Untere Extremität — Hüfte · Grundlagen-Quiz",
+    "description": "Fragen-Pool aus 30 Fragen über Anatomie, Clinical Reasoning, Leistenschmerz (Adduktoren, Symphyse, Iliopsoas, FAI), Hinkmechanismen, Hüftarthrose, Hüft-TEP und lateralen Hüftschmerz. Pro Durchlauf werden 10 zufällig gezogen und gemischt.",
+    "type": "quiz",
+    "topic": "huefte",
+    "topic_title": "Untere Extremität — Hüfte"
+  },
+  {
+    "id": "huefte-shortcase-001",
+    "file": "huefte-shortcase-001.json",
+    "title": "Kurzfall: Janek, 21 — adduktoren-bedingter Leistenschmerz im Fußball",
+    "description": "Junger Amateur-Fußballer mit zunehmenden Leistenschmerzen bei Stop-and-Go-Belastung. Drei Fragen zur Einordnung, Untersuchungs-Strategie und Therapie-Phase.",
+    "type": "short_case",
+    "topic": "huefte",
+    "topic_title": "Untere Extremität — Hüfte"
+  },
+  {
+    "id": "huefte-shortcase-002",
+    "file": "huefte-shortcase-002.json",
+    "title": "Kurzfall: Frau Vogel, 35 — Hüft- und Leistenschmerz mit FAI-Verdacht",
+    "description": "Sportlich aktive Frau Mitte 30 mit langsam progredientem Leistenschmerz und Klicken im Drehmoment. Drei Fragen zur Diagnose-Logik, zur OP-Frage und zur konservativen Therapie.",
+    "type": "short_case",
+    "topic": "huefte",
+    "topic_title": "Untere Extremität — Hüfte"
+  },
+  {
+    "id": "huefte-shortcase-003",
+    "file": "huefte-shortcase-003.json",
+    "title": "Kurzfall: Frau Krause, 58 — lateraler Hüftschmerz und Schmerzen in Seitlage",
+    "description": "Frau mittleren Alters mit zunehmenden Schmerzen lateral am Trochanter, vor allem nachts in Seitlage und beim Treppensteigen. Drei Fragen zur Diagnose-Logik, zu den passenden Tests und zur Therapie.",
+    "type": "short_case",
+    "topic": "huefte",
+    "topic_title": "Untere Extremität — Hüfte"
+  },
+  {
+    "id": "huefte-shortcase-004",
+    "file": "huefte-shortcase-004.json",
+    "title": "Kurzfall: Herr Berger, 64 — Hüftarthrose mit Übergewicht und Bewegungs-Skepsis",
+    "description": "Älterer Patient mit klinisch eindeutiger Hüftarthrose links, deutlichem Übergewicht und der Überzeugung, dass Bewegung das Gelenk weiter zerstört. Drei Fragen zur klinischen Einordnung, zur Edukations-Botschaft rund um Fettleibigkeit und zur leitliniengerechten Therapie.",
+    "type": "short_case",
+    "topic": "huefte",
+    "topic_title": "Untere Extremität — Hüfte"
+  },
+  {
     "id": "demo-quiz-001",
     "file": "demo-quiz.json",
     "title": "Demo: Allgemeines Quiz",
