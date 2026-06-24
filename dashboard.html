@@ -438,6 +438,7 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
       <button class="tab" data-tab="schwachstellen" onclick="switchTab(event, 'schwachstellen')">Schwachstellen</button>
       <button class="tab" data-tab="reasoning" onclick="switchTab(event, 'reasoning')">Reasoning-Übersicht</button>
       <button class="tab" data-tab="vereinheitlichen" onclick="switchTab(event, 'vereinheitlichen')">Vereinheitlichen</button>
+      <button class="tab" data-tab="sichtbarkeit" onclick="switchTab(event, 'sichtbarkeit')">Sichtbarkeit</button>
     </div>
 
     <div id="pane-einsendungen" class="tab-pane active">
@@ -513,6 +514,25 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
           <p class="help-text">Sortiert nach Anzahl der Einsendungen. Klick auf „Umbenennen", um eine Klassen-Schreibweise zu vereinheitlichen — alle Einsendungen der Klasse werden auf die Ziel-Schreibweise gehoben.</p>
           <div id="unify-classes"></div>
         </div>
+      </div>
+    </div>
+
+    <div id="pane-sichtbarkeit" class="tab-pane">
+      <div class="card">
+        <h2>Sichtbarkeit pro Klasse</h2>
+        <p class="help-text">Lege fest, welche Klasse welche Lerneinheiten zu sehen bekommt. Klassen, die du hier anlegst, erscheinen im Schüler-Login als Dropdown — Schüler können dann keine falschen Schreibweisen mehr eintippen.</p>
+        <p class="help-text"><strong>Speichern:</strong> Änderungen werden lokal vorgehalten. Klicke unten auf <em>„kurse.json herunterladen"</em>, lade die Datei ins GitHub-Repo unter <code>einheiten/kurse.json</code> hoch und committe. Erst dann wirken die Änderungen für die Schüler.</p>
+        <p class="help-text"><strong>Fallback:</strong> Solange noch keine Klasse angelegt ist (oder die Datei nicht im Repo liegt), bleibt der Schüler-Login bei Freitext und alle Einheiten sind sichtbar — wie bisher.</p>
+
+        <div id="sichtbarkeit-status" style="margin:14px 0;"></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px;">
+          <input type="text" id="new-course-name" placeholder="Neue Klasse, z. B. PT59 Fs" style="flex:1;min-width:200px;">
+          <button class="btn-secondary" onclick="addCourse()">Klasse hinzufügen</button>
+          <button class="btn-primary" onclick="downloadKurseJson()">kurse.json herunterladen</button>
+        </div>
+
+        <div id="sichtbarkeit-content"><div class="empty"><span class="loading-bar"></span> Lade Konfiguration…</div></div>
       </div>
     </div>
 
@@ -674,6 +694,7 @@ function renderActiveTab() {
   else if (currentTab === 'schwachstellen') renderSchwachstellen();
   else if (currentTab === 'reasoning') renderReasoning();
   else if (currentTab === 'vereinheitlichen') renderUnify();
+  else if (currentTab === 'sichtbarkeit') renderSichtbarkeit();
 }
 
 function renderEinsendungen() {
@@ -1083,6 +1104,185 @@ function renderUnify() {
     });
     html += '</tbody></table>';
     classesWrap.innerHTML = html;
+  }
+}
+
+// ============= SICHTBARKEIT (kurse.json verwalten) =============
+// coursesState: [{ name, visible_units: [...] }] — wird beim Tab-Open geladen, im Speicher editiert,
+// per Download-Button als kurse.json exportiert.
+let coursesState = null;
+let coursesDirty = false;
+
+async function loadKurseJson() {
+  try {
+    const res = await fetch('einheiten/kurse.json?t=' + Date.now());
+    if (!res.ok) { coursesState = []; coursesDirty = false; return; }
+    const data = await res.json();
+    coursesState = Array.isArray(data && data.klassen) ? data.klassen.map(c => ({
+      name: String(c.name || ''),
+      visible_units: Array.isArray(c.visible_units) ? [...c.visible_units] : []
+    })) : [];
+  } catch (err) {
+    coursesState = [];
+  }
+  coursesDirty = false;
+}
+
+async function renderSichtbarkeit() {
+  const wrap = document.getElementById('sichtbarkeit-content');
+  if (!wrap) return;
+  if (coursesState === null) {
+    wrap.innerHTML = '<div class="empty"><span class="loading-bar"></span> Lade Konfiguration…</div>';
+    await loadKurseJson();
+  }
+  // Lerneinheiten aus dem Frontend-Index (nicht versteckte)
+  const allUnits = (unitsIndex || []).filter(u => !u.hidden);
+  // Topics gruppieren
+  const topicsMap = {};
+  allUnits.forEach(u => {
+    const tid = u.topic || 'sonstige';
+    if (!topicsMap[tid]) topicsMap[tid] = { title: u.topic_title || tid, units: [] };
+    topicsMap[tid].units.push(u);
+  });
+
+  const statusEl = document.getElementById('sichtbarkeit-status');
+  if (statusEl) {
+    if (coursesDirty) {
+      statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--warn-bg);border-left:3px solid var(--warn);border-radius:4px;font-size:13px;color:var(--warn);"><strong>Ungespeicherte Änderungen</strong> — vergiss nicht, <em>kurse.json</em> herunterzuladen und ins Repo hochzuladen.</div>';
+    } else {
+      statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--correct-bg);border-left:3px solid var(--correct);border-radius:4px;font-size:13px;color:var(--correct);">Konfiguration synchron mit Repo-Datei.</div>';
+    }
+  }
+
+  if (!coursesState.length) {
+    wrap.innerHTML = '<div class="empty">Noch keine Klassen angelegt. Solange das so bleibt, fällt der Schüler-Login auf Freitext zurück und alle Einheiten sind sichtbar.</div>';
+    return;
+  }
+
+  let html = '';
+  coursesState.forEach((cls, idx) => {
+    const selectedCount = (cls.visible_units || []).length;
+    const totalCount = allUnits.length;
+    html += `<div class="card" style="margin-bottom:14px;padding:18px 20px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
+        <div>
+          <h3 style="margin:0;">${escapeHtml(cls.name)}</h3>
+          <div style="font-size:13px;color:var(--ink-muted);margin-top:2px;">${selectedCount} von ${totalCount} Einheiten freigeschaltet</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="setAllUnitsForCourse(${idx}, true)">Alle freischalten</button>
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="setAllUnitsForCourse(${idx}, false)">Alle abwählen</button>
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="renameCourseInState(${idx})">Klasse umbenennen</button>
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;color:var(--wrong);border-color:var(--wrong);" onclick="removeCourse(${idx})">Klasse löschen</button>
+        </div>
+      </div>`;
+    // Pro Topic eine Gruppe von Checkboxen
+    Object.keys(topicsMap).forEach(tid => {
+      const grp = topicsMap[tid];
+      html += `<div style="margin-top:10px;"><div style="font-weight:600;color:var(--ink-soft);margin-bottom:6px;">${escapeHtml(grp.title)}</div>`;
+      grp.units.forEach(u => {
+        const checked = (cls.visible_units || []).includes(u.id) ? 'checked' : '';
+        const typeLabel = u.type === 'quiz' ? 'Quiz' : (u.type === 'short_case' ? 'Kurzfall' : 'Reasoning-Fall');
+        html += `<label style="display:flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer;">
+          <input type="checkbox" ${checked} onchange="toggleCourseUnit(${idx}, ${JSON.stringify(u.id).replace(/"/g, '&quot;')})">
+          <span style="flex:1;">${escapeHtml(u.title)}</span>
+          <span style="font-size:12px;color:var(--ink-muted);font-family:'JetBrains Mono',monospace;">${typeLabel}</span>
+        </label>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div>`;
+  });
+  wrap.innerHTML = html;
+}
+
+function addCourse() {
+  const inp = document.getElementById('new-course-name');
+  const name = (inp.value || '').trim();
+  if (!name) { alert('Bitte einen Klassen-Namen eingeben.'); return; }
+  if (coursesState.some(c => c.name === name)) { alert('Klasse mit diesem Namen existiert bereits.'); return; }
+  coursesState.push({ name, visible_units: [] });
+  coursesDirty = true;
+  inp.value = '';
+  renderSichtbarkeit();
+}
+
+function removeCourse(idx) {
+  const cls = coursesState[idx];
+  if (!cls) return;
+  if (!confirm(`Klasse "${cls.name}" wirklich aus der Vorgabeliste entfernen?\n\nHinweis: Bestehende Einsendungen dieser Klasse bleiben in der Datenbank erhalten — nur die Vorgabe-Liste und das Dropdown im Schüler-Login werden bereinigt.`)) return;
+  coursesState.splice(idx, 1);
+  coursesDirty = true;
+  renderSichtbarkeit();
+}
+
+function renameCourseInState(idx) {
+  const cls = coursesState[idx];
+  if (!cls) return;
+  const neu = prompt('Neuer Name für diese Klasse (nur in der Vorgabe-Liste, ändert keine Einsendungen):', cls.name);
+  if (neu === null) return;
+  const trimmed = neu.trim();
+  if (!trimmed) { alert('Leerer Name nicht erlaubt.'); return; }
+  if (trimmed === cls.name) return;
+  if (coursesState.some((c, i) => i !== idx && c.name === trimmed)) { alert('Klasse mit diesem Namen existiert bereits.'); return; }
+  cls.name = trimmed;
+  coursesDirty = true;
+  renderSichtbarkeit();
+}
+
+function toggleCourseUnit(idx, unitId) {
+  const cls = coursesState[idx];
+  if (!cls) return;
+  if (!Array.isArray(cls.visible_units)) cls.visible_units = [];
+  const pos = cls.visible_units.indexOf(unitId);
+  if (pos >= 0) cls.visible_units.splice(pos, 1);
+  else cls.visible_units.push(unitId);
+  coursesDirty = true;
+  // Status-Banner aktualisieren, aber Liste nicht komplett neu rendern (Fokus bleibt erhalten)
+  const statusEl = document.getElementById('sichtbarkeit-status');
+  if (statusEl) {
+    statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--warn-bg);border-left:3px solid var(--warn);border-radius:4px;font-size:13px;color:var(--warn);"><strong>Ungespeicherte Änderungen</strong> — vergiss nicht, <em>kurse.json</em> herunterzuladen und ins Repo hochzuladen.</div>';
+  }
+  // Zähler oben auf der Karte aktualisieren wäre nett — der Einfachheit halber rerendern:
+  // Nur die Zähler-Zeile. Wir rerendern aber alles, da das State-Change klein ist.
+  // Performance reicht aus. Fokus geht dabei verloren — Trade-off akzeptabel.
+  renderSichtbarkeit();
+}
+
+function setAllUnitsForCourse(idx, on) {
+  const cls = coursesState[idx];
+  if (!cls) return;
+  if (on) {
+    cls.visible_units = (unitsIndex || []).filter(u => !u.hidden).map(u => u.id);
+  } else {
+    cls.visible_units = [];
+  }
+  coursesDirty = true;
+  renderSichtbarkeit();
+}
+
+function downloadKurseJson() {
+  const payload = {
+    klassen: (coursesState || []).map(c => ({
+      name: c.name,
+      visible_units: Array.isArray(c.visible_units) ? [...c.visible_units] : []
+    }))
+  };
+  const json = JSON.stringify(payload, null, 2) + '\n';
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'kurse.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  coursesDirty = false;
+  // Status-Banner aktualisieren
+  const statusEl = document.getElementById('sichtbarkeit-status');
+  if (statusEl) {
+    statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--correct-bg);border-left:3px solid var(--correct);border-radius:4px;font-size:13px;color:var(--correct);"><strong>Heruntergeladen.</strong> Lade die Datei jetzt in dein GitHub-Repo unter <code>einheiten/kurse.json</code> hoch und committe — erst dann ist die Änderung für Schüler wirksam.</div>';
   }
 }
 
