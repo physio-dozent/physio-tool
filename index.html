@@ -517,6 +517,7 @@ button {
     <div class="field-row">
       <div class="field">
         <label for="class_name">Klasse / Kurs</label>
+        <select id="class_name_select" class="hidden"></select>
         <input type="text" id="class_name" placeholder="z. B. PT-23" autocomplete="off">
       </div>
       <div class="field">
@@ -587,6 +588,7 @@ button {
 const SUPABASE_URL = 'https://oosqtqanwsijbmkxgyao.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9vc3F0cWFud3NpamJta3hneWFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyODI4NTYsImV4cCI6MjA5Mzg1ODg1Nn0.zSJsXeYRb8y5_XTN0-K9fdB2k1TnGMEK6imlIcqznTs';
 const UNITS_INDEX = 'einheiten/index.json';
+const COURSES_INDEX = 'einheiten/kurse.json';
 
 // ============= STATE =============
 let session = {
@@ -602,6 +604,9 @@ let session = {
 };
 
 let availableUnits = [];
+// availableCourses: null = noch nicht geladen, [] = leer/fallback (Freitext + alles sichtbar),
+// [{name, visible_units}, ...] = aktiver Vorgabe-Modus mit Dropdown und Sichtbarkeits-Filter
+let availableCourses = null;
 
 // ============= HELPER: SHUFFLE & DISPLAY-PLAN =============
 // Fisher-Yates, gibt eine neue Liste zurück
@@ -640,10 +645,13 @@ function buildDisplayPlan(unit) {
 }
 
 // ============= INITIALISIERUNG =============
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
   // Datum vorbelegen
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('session_date').value = today;
+
+  // Klassen-Vorgabe laden (entscheidet, ob Dropdown oder Freitext)
+  await loadCourses();
 
   // Wiederhergestellten Zustand prüfen
   const saved = loadSavedSession();
@@ -651,7 +659,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (confirm('Du hast eine ungespeicherte Sitzung. Fortsetzen?')) {
       session = saved;
       document.getElementById('student_name').value = session.student_name || '';
-      document.getElementById('class_name').value = session.class_name || '';
+      restoreClassValue(session.class_name || '');
       document.getElementById('session_date').value = session.session_date || today;
       if (session.unit) {
         // Aktive Lerneinheit war offen — direkt dorthin zurück
@@ -673,6 +681,69 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// ============= KLASSEN-VORGABE =============
+async function loadCourses() {
+  try {
+    const res = await fetch(COURSES_INDEX + '?t=' + Date.now());
+    if (!res.ok) { availableCourses = []; setupClassPicker(); return; }
+    const data = await res.json();
+    availableCourses = Array.isArray(data && data.klassen) ? data.klassen : [];
+  } catch (err) {
+    availableCourses = [];
+  }
+  setupClassPicker();
+}
+
+function setupClassPicker() {
+  const sel = document.getElementById('class_name_select');
+  const inp = document.getElementById('class_name');
+  if (!availableCourses || !availableCourses.length) {
+    // Fallback: Freitext-Eingabe + keine Filterung
+    if (sel) sel.classList.add('hidden');
+    if (inp) inp.classList.remove('hidden');
+    return;
+  }
+  // Dropdown aktivieren, Freitext ausblenden
+  if (sel) {
+    sel.innerHTML = '<option value="">Bitte wählen…</option>'
+      + availableCourses.map(c => `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
+    sel.classList.remove('hidden');
+  }
+  if (inp) inp.classList.add('hidden');
+}
+
+function getClassNameInput() {
+  if (availableCourses && availableCourses.length) {
+    return (document.getElementById('class_name_select').value || '').trim();
+  }
+  return (document.getElementById('class_name').value || '').trim();
+}
+
+function restoreClassValue(value) {
+  // Wenn Dropdown aktiv: nur setzen, wenn der Wert in den Optionen vorhanden ist.
+  // Sonst Freitext-Wert setzen.
+  if (availableCourses && availableCourses.length) {
+    const sel = document.getElementById('class_name_select');
+    if (sel) {
+      const match = Array.from(sel.options).some(o => o.value === value);
+      sel.value = match ? value : '';
+    }
+  } else {
+    const inp = document.getElementById('class_name');
+    if (inp) inp.value = value;
+  }
+}
+
+function getVisibleUnitIdsForClass(className) {
+  // null = keine Filterung (alle nicht-versteckten Einheiten zeigen)
+  // Array = nur diese unit-IDs zeigen
+  if (!availableCourses || !availableCourses.length) return null;
+  if (!className) return [];
+  const cls = availableCourses.find(c => c.name === className);
+  if (!cls) return null; // Klasse nicht in Vorgabe (z. B. Altdaten) → keine Filterung als Fallback
+  return Array.isArray(cls.visible_units) ? cls.visible_units : [];
+}
+
 // ============= NAVIGATION =============
 function showScreen(name) {
   ['login', 'topics', 'units', 'content', 'result'].forEach(s => {
@@ -690,11 +761,16 @@ function showScreen(name) {
 
 function goToTopicSelection() {
   const name = document.getElementById('student_name').value.trim();
-  const klasse = document.getElementById('class_name').value.trim();
+  const klasse = getClassNameInput();
   let date = document.getElementById('session_date').value;
 
   if (!name) { alert('Bitte deinen Namen eintragen.'); return; }
-  if (!klasse) { alert('Bitte deine Klasse / deinen Kurs eintragen.'); return; }
+  if (!klasse) {
+    alert(availableCourses && availableCourses.length
+      ? 'Bitte deine Klasse aus der Liste auswählen.'
+      : 'Bitte deine Klasse / deinen Kurs eintragen.');
+    return;
+  }
   if (!date) {
     // Datum ist optional — Default auf heute
     date = new Date().toISOString().split('T')[0];
@@ -743,10 +819,13 @@ async function loadIndex() {
 function renderTopicsList() {
   const list = document.getElementById('topic-list');
   if (!list) return;
-  // Schüler sehen nur sichtbare Einheiten — verborgene (z. B. Demo) werden ausgefiltert.
-  const visibleUnits = availableUnits.filter(u => !u.hidden);
+  // Schüler sehen nur Einheiten, die (a) nicht versteckt sind und (b) für ihre Klasse freigeschaltet sind.
+  const allowedIds = getVisibleUnitIdsForClass(session.class_name);
+  const visibleUnits = availableUnits.filter(u =>
+    !u.hidden && (allowedIds === null || allowedIds.includes(u.id))
+  );
   if (!visibleUnits.length) {
-    list.innerHTML = '<div class="empty-state">Aktuell sind keine Themen verfügbar.</div>';
+    list.innerHTML = '<div class="empty-state">Für deine Klasse sind aktuell keine Themen freigeschaltet. Bitte deinen Dozenten ansprechen.</div>';
     return;
   }
   // Eindeutige Themen aus den sichtbaren Einheiten ziehen, Reihenfolge der ersten Begegnung beibehalten.
@@ -796,12 +875,15 @@ function selectTopic(topicId, topicTitle) {
 function renderUnitList() {
   const list = document.getElementById('unit-list');
   if (!list) return;
-  // Nur sichtbare Einheiten des gewählten Themas (verborgene werden für Schüler ausgeblendet)
+  // Nur sichtbare Einheiten des gewählten Themas, eingeschränkt auf die für die Klasse freigeschalteten.
+  const allowedIds = getVisibleUnitIdsForClass(session.class_name);
   const filtered = availableUnits.filter(u =>
-    (u.topic || 'sonstige') === session.topic && !u.hidden
+    (u.topic || 'sonstige') === session.topic
+    && !u.hidden
+    && (allowedIds === null || allowedIds.includes(u.id))
   );
   if (!filtered.length) {
-    list.innerHTML = '<div class="empty-state">Für dieses Thema sind aktuell keine Einheiten verfügbar.</div>';
+    list.innerHTML = '<div class="empty-state">Für dieses Thema sind aktuell keine Einheiten freigeschaltet.</div>';
     return;
   }
   list.innerHTML = '';
