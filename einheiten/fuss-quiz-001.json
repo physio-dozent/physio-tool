@@ -35,7 +35,7 @@
         "Vorverletzung der Außenbänder (auch wenn sie bis zu einem Jahr zurückliegt).",
         "Reduzierte Beweglichkeit in Dorsalextension.",
         "Reduzierte Tiefensensibilität und Balancefähigkeit.",
-        "Ein hallux valgus, unabhängig ob operiert oder nicht."
+        "Ein Hallux valgus, unabhängig davon ob operiert oder nicht."
       ],
       "correct": [0, 1, 2],
       "explanation": "Größter einzelner Risikofaktor ist die Vorverletzung der Außenbänder. Weitere Risikofaktoren sind eine reduzierte D-Extension, Tiefensensibilitäts- und Balance-Defizite, Kraft- und Reaktionszeit-Defizite der Mm. peronaei sowie eine reduzierte Hüft-ABD- und Hüft-Ext-Kraft (Vuurberg, 2018). Eine starke Hüft-Abduktorenkraft ist potenziell sogar ein protektiver Faktor."
@@ -93,9 +93,9 @@
       "multi": true,
       "options": [
         "Protektion (Belastung und ROM in den ersten 3 Tagen reduzieren).",
-        "Hochlagern der verletzten Extremität über Herzhöhe & Kompression",
-        "Vermeidung von NSAR und Kälteanwendung <0°C",
-        "Cortison-Gabe für die ersten 7 Tage zur Entzündungs-Unterdrückung."
+        "Hochlagern der verletzten Extremität über Herzhöhe und Kompression.",
+        "Vermeidung von NSAR und Edukation zur aktiven Genesung.",
+        "Kortison-Gabe für die ersten 7 Tage zur Entzündungs-Unterdrückung."
       ],
       "correct": [0, 1, 2],
       "explanation": "Das PEACE-Konzept nach Dubois und Jesculier (2019) umfasst: Protektion (Belastungs- und ROM-Reduktion in den ersten 3 Tagen), Hochlagern (Elevation über Herzhöhe), Vermeide NSAR, Kompression (elastische Bandage/Taping) und Edukation. NSAR können die Wundheilung negativ beeinflussen und sollen gerade vermieden werden."
@@ -158,7 +158,7 @@
         "Mobilisation des Sprunggelenks in Dorsalextension allein."
       ],
       "correct": 0,
-      "explanation": "Nach Reiter u. a. (2019) wird in der frühen konservativen Phase (1.–7. Tag, Teilbelastung) die Kombinationsbewegung von Dorsalextension und Eversion explizit vermieden, weil sie genau den Verletzungsmechanismus der Syndesmose belastet. Mobilisation in D-Ext, P-Flex und Sehnungen der Wadenmuskulatur sind dagegen angezeigt."
+      "explanation": "Nach Reiter u. a. (2019) wird in der frühen konservativen Phase (1.–7. Tag, Teilbelastung) die Kombinationsbewegung von Dorsalextension und Eversion explizit vermieden, weil sie genau den Verletzungsmechanismus der Syndesmose belastet. Mobilisation in D-Ext, P-Flex und Dehnungen der Wadenmuskulatur sind dagegen angezeigt."
     },
     {
       "text": "Wie wird die chronische Sprunggelenksinstabilität (Chronic Ankle Instability, CAI) nach Hertel und Corbett (2019) definiert und untergliedert?",
@@ -167,7 +167,7 @@
         "Indextrauma ≥ 12 Monate mit rezidivierenden Instabilitäten, Schwellungen & Beschwerden.",
         "Schmerzhafte Bewegungseinschränkung des Sprunggelenks ohne Trauma in der Vorgeschichte, definiert über Bildgebung.",
         "Globale osteoligamentäre Insuffizienz, trotzdem sind Aktivitäten uneingeschränkt möglich.",
-        "Indextrauma ≤ 12 Monate mit mechanischen Insuffizienz, ohne funktionelle Schwierigkeiten."
+        "Indextrauma ≤ 12 Monate mit mechanischer Insuffizienz, ohne funktionelle Schwierigkeiten."
       ],
       "correct": 0,
       "explanation": "Die CAI fasst nach Diemer (2017) und Hertel und Corbett (2019) verschiedene Insuffizienzen des Sprunggelenkkomplexes nach einem Indextrauma ≥ 12 Monate mit rezidivierenden Symptomen zusammen. Differenziert wird zwischen mechanischer Instabilität (Laxität) und funktioneller Instabilität (propriozeptive und muskuläre Defizite) sowie zwischen lateraler und medialer Instabilität. 20–75 % aller Patientinnen und Patienten mit Sprunggelenkstrauma entwickeln eine CAI (Hubbard-Turner, 2019)."
@@ -200,7 +200,7 @@
       "text": "Welche Aussage zur Spezifität von Gleichgewichtstraining auf instabilen Unterlagen entspricht der aktuellen Studienlage?",
       "multi": false,
       "options": [
-        "Das Training einer Gleichgewichtsaufgabe (z. B. Kippbrett) verbessert das Gleichgewicht allgemein und überträgt sich auf untrainierten Aufgaben.",
+        "Das Training einer Gleichgewichtsaufgabe (z. B. Kippbrett) verbessert das Gleichgewicht allgemein und überträgt sich auf untrainierte Aufgaben.",
         "Das Training einer Gleichgewichtsaufgabe wirkt sich primär auf diese Aufgabe aus — ein Transfer ist unwahrscheinlich, selbst wenn sich Übungen ähneln.",
         "Gleichgewichtstraining auf instabilen Unterlagen ist eine effektive Maßnahme zur Verbesserung der Propriozeption und Sturzprävention.",
         "Gleichgewichtstraining wirkt sich positiv auf koordinative Aufgaben aus, weil Aufmerksamkeitskapazität auch bei anderen Übungen frei wird."
@@ -225,7 +225,7 @@
       "multi": false,
       "options": [
         "D1- & D2–5-Flexion aktiviert die intrinsische Fußmuskulatur — andere Übungen haben keine klinisch relevante Wirkung.",
-        "Kurzer Fuß“ nach Janda, Spreizübung, D1-Extension und D2–5-Extension aktivieren die intrinsische Fußmuskulatur in unterschiedlichem Ausmaß (zwischen ca. 9 und 35 %).",
+        "„Kurzer Fuß“ nach Janda, Spreizübung, D1-Extension und D2–5-Extension aktivieren die intrinsische Fußmuskulatur in unterschiedlichem Ausmaß (zwischen ca. 9 und 35 %).",
         "Die intrinsische Fußmuskulatur lässt sich klinisch nur über elektrische Stimulation aktivieren.",
         "Die Aktivierung der intrinsischen Fußmuskulatur hat keinen Einfluss auf das Längs- und Quergewölbe."
       ],
@@ -233,7 +233,7 @@
       "explanation": "Die intrinsische Fußmuskulatur unterstützt das mediale Längsgewölbe, kontrolliert Verformung und unterstützt die posturale Kontrolle. „Kurzer Fuß“ nach Janda und Spreizübung (D1-ABD) erreichen ca. 17–35 % Aktivierung, D1-Extension ca. 13–18 %, D2–5-Extension ca. 9–22 %. Empfehlung: 2 × 15 Wiederholungen pro Übung."
     },
     {
-      "text": "Wie unterscheiden sich Achillessehnen-Tendinitis, und -Tendinopathie nach gängiger Terminologie?",
+      "text": "Wie unterscheiden sich Achillessehnen-Tendinitis und -Tendinopathie nach gängiger Terminologie?",
       "multi": false,
       "options": [
         "Tendinitis = Entzündung der Sehne; Tendinopathie = Degeneration/fehlgeschlagene Heilung der Sehne durch Überlastung mit Schmerz.",
@@ -272,8 +272,8 @@
       "text": "Wie wird der Thompson-Test bei Verdacht auf Achillessehnen-Ruptur durchgeführt und interpretiert?",
       "multi": false,
       "options": [
-        "Patient in Bauchlage mit frei hängendem Fuß, Druck in die Wadenmuskulatur --> positiv bei ausbleibender Plantarflexion.",
-        "Patient in Rückenlage; Untersucher forciert eine Dorsalextension --> Test positiv bei vermehrter Dorsalextension.",
+        "Patient in Bauchlage mit frei hängendem Fuß; Untersucher kneift die Wadenmuskulatur — positiv bei ausbleibender Plantarflexion.",
+        "Patient in Rückenlage; Untersucher forciert eine Dorsalextension — Test positiv bei vermehrter Dorsalextension.",
         "Patient in Seitlage; Untersucher provoziert eine Außenrotation des Talus — Test positiv bei Schmerz.",
         "Patient steht einbeinig; Untersucher beobachtet die Stand-Halte-Dauer — Test positiv bei Abbruch unter 30 Sekunden."
       ],
@@ -296,7 +296,7 @@
       "text": "Welche vier Rehabilitations-Phasen werden bei einer Achillessehnen-Tendinopathie typischerweise unterschieden?",
       "multi": false,
       "options": [
-        "Diagnostik — Passive Stabilisation — aktive Stabilisierung — Rückkehr zum Sport.",
+        "Diagnostik — passive Stabilisation — aktive Stabilisierung — Rückkehr zum Sport.",
         "Belastungsreduktion — Erholung — Wiederaufbau — Rückkehr zum Sport.",
         "Akut — Subakut — Chronisch — Endphase.",
         "Schonung — Passive Phase — Aktive Phase — Wettkampf."
