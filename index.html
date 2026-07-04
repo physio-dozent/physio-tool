@@ -326,6 +326,13 @@ button {
   cursor: pointer;
   transition: all 0.15s;
   background: var(--bg);
+  /* Label-Grundstil neutralisieren (.option ist ein <label>) */
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 0;
 }
 .option:hover { border-color: var(--accent-soft); background: var(--accent-bg); }
 .option input[type="radio"], .option input[type="checkbox"] {
@@ -534,6 +541,31 @@ button {
 .recent-score { color: var(--accent); font-weight: 600; white-space: nowrap; }
 .device-note { font-size: 12px; color: var(--ink-muted); margin-top: 16px; }
 
+/* Schritt-Modus */
+.repeat-hint {
+  background: var(--accent-bg);
+  color: var(--ink-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  margin-bottom: 20px;
+}
+.option.locked { cursor: default; }
+.option.locked:hover { border-color: var(--line); background: var(--bg); }
+.option.locked.correct, .option.locked.correct:hover { border-color: var(--correct); background: var(--correct-bg); }
+.option.locked.wrong, .option.locked.wrong:hover { border-color: var(--wrong); background: var(--wrong-bg); }
+.step-nav { justify-content: flex-end; }
+.step-nav .btn-ghost { margin-right: auto; }
+
+/* Gemischtes Quiz — Kachel */
+.unit-item.mixed-tile { border-left-color: var(--type-reasoning); }
+.unit-item.mixed-tile:hover {
+  background: var(--type-reasoning-bg);
+  border-color: var(--type-reasoning);
+  border-left-color: var(--type-reasoning);
+}
+
 /* Ergebnis-Badges */
 .result-badges {
   display: flex;
@@ -700,7 +732,11 @@ let session = {
   unit: null,
   answers: {},
   markings: {},
-  displayPlan: null
+  displayPlan: null,
+  stepIdx: 0,        // aktuelle Frage im Schritt-Modus
+  revealed: {},      // originalQIdx -> true, sobald Feedback gezeigt wurde (Antwort gesperrt)
+  mixedMap: null,    // beim gemischten Quiz: Zuordnung Frage -> Quell-Einheit
+  repeatCount: 0     // wie viele Wiederholungsfragen in dieser Session stecken
 };
 
 let availableUnits = [];
@@ -725,14 +761,23 @@ function shuffleArr(arr) {
 // Der Plan speichert Original-Indizes — Antworten gehen mit Pool-Indizes an Supabase,
 // damit Dashboard und Schwachstellenanalyse konsistent bleiben.
 const QUIZ_QUESTIONS_PER_SESSION = 10;
+const MAX_REPEAT_QUESTIONS = 5; // maximal so viele Wiederholungsfragen pro Session
+let lastRepeatCount = 0;        // wird von buildDisplayPlan gesetzt, vom Aufrufer in session.repeatCount übernommen
+
 function buildDisplayPlan(unit) {
+  lastRepeatCount = 0;
   if (!unit || !unit.questions || !unit.questions.length) return null;
   if (unit.type === 'reasoning_case') return null;
   const allIndices = unit.questions.map((_, i) => i);
   let questionIndices;
   if (unit.type === 'quiz') {
     const n = Math.min(QUIZ_QUESTIONS_PER_SESSION, allIndices.length);
-    questionIndices = shuffleArr(allIndices).slice(0, n);
+    // Spaced Repetition: zuletzt falsch beantwortete Fragen dieser Einheit bevorzugt ziehen
+    const wrongPool = getWrongPool(unit.id).filter(i => i >= 0 && i < allIndices.length);
+    const priority = shuffleArr(wrongPool).slice(0, Math.min(MAX_REPEAT_QUESTIONS, n));
+    const rest = shuffleArr(allIndices.filter(i => !priority.includes(i))).slice(0, n - priority.length);
+    questionIndices = shuffleArr(priority.concat(rest));
+    lastRepeatCount = priority.length;
   } else {
     // short_case: alle Fragen, Reihenfolge unverändert
     questionIndices = allIndices;
@@ -888,6 +933,10 @@ function backToTopics() {
   session.answers = {};
   session.markings = {};
   session.displayPlan = null;
+  session.revealed = {};
+  session.stepIdx = 0;
+  session.mixedMap = null;
+  session.repeatCount = 0;
   saveSession();
   showScreen('topics');
   renderTopicsList();
@@ -951,7 +1000,81 @@ function renderTopicsList() {
     `;
     list.appendChild(div);
   });
+
+  // Gemischtes Quiz: Interleaving über alle freigeschalteten Themen (ab 2 Quiz-Einheiten)
+  const quizUnits = visibleUnits.filter(u => u.type === 'quiz');
+  if (quizUnits.length >= 2) {
+    const div = document.createElement('div');
+    div.className = 'unit-item topic-tile mixed-tile';
+    div.onclick = () => startMixedQuiz();
+    div.innerHTML = `
+      <div>
+        <div class="unit-title">Gemischtes Quiz</div>
+        <div class="unit-meta">10 Fragen quer durch alle Themen — ideal zur Prüfungsvorbereitung</div>
+      </div>
+      <div class="unit-tag">🎲</div>
+    `;
+    list.appendChild(div);
+  }
+
   renderPersonalCard(topics);
+}
+
+// ============= GEMISCHTES QUIZ (Interleaving) =============
+async function startMixedQuiz() {
+  const allowedIds = getVisibleUnitIdsForClass(session.class_name);
+  const quizMetas = availableUnits.filter(u =>
+    u.type === 'quiz' && !u.hidden && (allowedIds === null || allowedIds.includes(u.id))
+  );
+  if (quizMetas.length < 2) { showDialog('Für ein gemischtes Quiz braucht es mindestens zwei freigeschaltete Quiz-Einheiten.'); return; }
+  try {
+    const loaded = await Promise.all(quizMetas.map(async m => {
+      const res = await fetch('einheiten/' + m.file + '?t=' + Date.now());
+      if (!res.ok) throw new Error('Einheit ' + m.file + ' nicht gefunden');
+      return { meta: m, unit: await res.json() };
+    }));
+
+    // Kandidaten sammeln; zuletzt falsch beantwortete Fragen (über alle Einheiten) bevorzugen
+    const candidates = [];
+    loaded.forEach(({ meta, unit }) => {
+      const wrongPool = new Set(getWrongPool(unit.id));
+      (unit.questions || []).forEach((q, qi) => {
+        candidates.push({ q, unit_id: unit.id, unit_title: unit.title, origIdx: qi, wasWrong: wrongPool.has(qi) });
+      });
+    });
+    if (candidates.length < 2) { showDialog('Zu wenige Fragen für ein gemischtes Quiz vorhanden.'); return; }
+
+    const n = Math.min(QUIZ_QUESTIONS_PER_SESSION, candidates.length);
+    const priority = shuffleArr(candidates.filter(c => c.wasWrong)).slice(0, Math.min(MAX_REPEAT_QUESTIONS, n));
+    const rest = shuffleArr(candidates.filter(c => !priority.includes(c))).slice(0, n - priority.length);
+    const chosen = shuffleArr(priority.concat(rest));
+
+    session.unit = {
+      id: 'gemischt',
+      title: 'Gemischtes Quiz',
+      type: 'quiz',
+      mixed: true,
+      intro: 'Fragen aus allen deinen Themen, bunt gemischt. Das Unterscheiden zwischen Krankheitsbildern trainiert genau das, was in der Prüfung zählt.',
+      questions: chosen.map(c => c.q)
+    };
+    session.mixedMap = chosen.map(c => ({ unit_id: c.unit_id, unit_title: c.unit_title, origIdx: c.origIdx }));
+    session.topic = 'gemischt';
+    session.topic_title = 'Gemischtes Quiz';
+    session.answers = {};
+    session.markings = {};
+    session.revealed = {};
+    session.stepIdx = 0;
+    session.repeatCount = priority.length;
+    session.displayPlan = session.unit.questions.map((q, i) => ({
+      originalQIdx: i,
+      optionOrder: shuffleArr((q.options || []).map((_, j) => j))
+    }));
+    saveSession();
+    showScreen('content');
+    renderContent();
+  } catch (err) {
+    showDialog('Gemischtes Quiz konnte nicht geladen werden: ' + err.message);
+  }
 }
 
 // ============= PERSÖNLICHE STARTSEITE =============
@@ -1088,7 +1211,11 @@ async function selectUnit(file) {
     session.unit = await res.json();
     session.answers = {};
     session.markings = {};
+    session.revealed = {};
+    session.stepIdx = 0;
+    session.mixedMap = null;
     session.displayPlan = buildDisplayPlan(session.unit);
+    session.repeatCount = lastRepeatCount;
     saveSession();
     showScreen('content');
     renderContent();
@@ -1105,8 +1232,12 @@ function renderContent() {
   const counter = document.getElementById('progress-counter');
 
   label.textContent = u.title;
-  const sessionCount = session.displayPlan ? session.displayPlan.length : (u.questions ? u.questions.length : 0);
-  counter.textContent = u.type === 'quiz' ? `${sessionCount} Fragen` : '';
+  counter.textContent = '';
+
+  // Im Schritt-Modus (Quiz/Kurzfall) läuft das Absenden über den Button in der Karte —
+  // der globale Absenden-Button gilt nur noch für Reasoning-Fälle.
+  const submitBtn = document.getElementById('submit-btn');
+  if (submitBtn) submitBtn.classList.toggle('hidden', u.type !== 'reasoning_case');
 
   if (u.type === 'quiz') {
     renderQuiz(card, u);
@@ -1120,44 +1251,126 @@ function renderContent() {
   updateProgress();
 }
 
+// Schritt-Modus: eine Frage pro Bildschirm, Antwort prüfen, sofortiges Feedback,
+// dann weiter — nach der Lernforschung wirksamer als gesammeltes Feedback am Ende.
 function renderQuiz(card, u) {
-  let html = `<h1>${escapeHtml(u.title)}</h1>`;
-  if (u.intro) html += `<p class="lead">${escapeHtml(u.intro)}</p>`;
-  const plan = session.displayPlan || buildDisplayPlan(u);
-  if (plan) {
-    plan.forEach((entry, displayIdx) => {
-      const q = u.questions[entry.originalQIdx];
-      html += renderQuestion(q, entry.originalQIdx, 'q', entry.optionOrder, displayIdx);
-    });
-  } else {
-    u.questions.forEach((q, idx) => {
-      html += renderQuestion(q, idx, 'q');
-    });
-  }
-  card.innerHTML = html;
-  attachOptionListeners();
+  renderStep(card, u);
 }
 
 function renderShortCase(card, u) {
+  renderStep(card, u);
+}
+
+function renderStep(card, u) {
+  if (!session.displayPlan || !session.displayPlan.length) {
+    session.displayPlan = buildDisplayPlan(u);
+    session.repeatCount = lastRepeatCount;
+  }
+  const plan = session.displayPlan;
+  if (!plan || !plan.length) {
+    card.innerHTML = '<p>Diese Einheit enthält keine Fragen.</p>';
+    return;
+  }
+  if (!session.revealed) session.revealed = {};
+  // Alt-Sessions (vor dem Schritt-Modus): beantwortete Fragen als aufgedeckt übernehmen
+  if (session.answers.questions) {
+    Object.keys(session.answers.questions).forEach(k => {
+      if (session.revealed[k] === undefined && session.answers.questions[k] != null) session.revealed[k] = true;
+    });
+  }
+  if (typeof session.stepIdx !== 'number' || session.stepIdx < 0) {
+    const first = plan.findIndex(p => !session.revealed[p.originalQIdx]);
+    session.stepIdx = first === -1 ? plan.length - 1 : first;
+  }
+  if (session.stepIdx >= plan.length) session.stepIdx = plan.length - 1;
+
+  const entry = plan[session.stepIdx];
+  const q = u.questions[entry.originalQIdx];
+  const isRevealed = !!session.revealed[entry.originalQIdx];
+  const isLast = session.stepIdx === plan.length - 1;
+
   let html = `<h1>${escapeHtml(u.title)}</h1>`;
-  if (u.intro) html += `<p class="lead">${escapeHtml(u.intro)}</p>`;
-  html += renderVignette(u.vignette, false);
-  if (u.questions && u.questions.length) {
-    html += '<h2 style="margin-top:24px;">Fragen</h2>';
-    const plan = session.displayPlan || buildDisplayPlan(u);
-    if (plan) {
-      plan.forEach((entry, displayIdx) => {
-        const q = u.questions[entry.originalQIdx];
-        html += renderQuestion(q, entry.originalQIdx, 'q', entry.optionOrder, displayIdx);
-      });
-    } else {
-      u.questions.forEach((q, idx) => {
-        html += renderQuestion(q, idx, 'q');
-      });
+  if (session.stepIdx === 0) {
+    if (u.intro) html += `<p class="lead">${escapeHtml(u.intro)}</p>`;
+    if (session.repeatCount > 0) {
+      html += `<div class="repeat-hint">🔁 Enthält ${session.repeatCount} Frage${session.repeatCount === 1 ? '' : 'n'}, die du zuletzt nicht sicher hattest — gezieltes Wiederholen wirkt.</div>`;
     }
   }
+  if (u.type === 'short_case' && u.vignette) {
+    html += renderVignette(u.vignette, false);
+  }
+  html += renderQuestion(q, entry.originalQIdx, 'q', entry.optionOrder, session.stepIdx);
+
+  if (isRevealed) {
+    const ans = session.answers.questions ? session.answers.questions[entry.originalQIdx] : null;
+    const ok = isAnswerCorrect(q, ans);
+    html += `<div class="feedback ${ok ? 'correct' : 'wrong'}"><strong>${ok ? '✓ Richtig' : '✗ Nicht ganz'}</strong>${escapeHtml(q.explanation || '')}</div>`;
+  }
+
+  html += '<div class="btn-row step-nav">';
+  if (session.stepIdx > 0) {
+    html += '<button class="btn-ghost" onclick="prevStep()">← Vorherige Frage</button>';
+  }
+  if (!isRevealed) {
+    html += '<button class="btn-primary" onclick="checkAnswer()">Antwort prüfen</button>';
+  } else if (!isLast) {
+    html += '<button class="btn-primary" onclick="nextStep()">Weiter →</button>';
+  } else {
+    html += '<button class="btn-primary" onclick="submitContent()">Abschließen &amp; Ergebnis</button>';
+  }
+  html += '</div>';
+
   card.innerHTML = html;
   attachOptionListeners();
+  if (isRevealed) decorateRevealed(q, entry.originalQIdx);
+}
+
+// Nach dem Prüfen: richtige Option grün, falsch gewählte rot, Eingaben sperren
+function decorateRevealed(q, origIdx) {
+  const ans = session.answers.questions ? session.answers.questions[origIdx] : null;
+  document.querySelectorAll(`.option[data-q="${origIdx}"]`).forEach(el => {
+    const oi = parseInt(el.dataset.o);
+    const isCorrectOpt = q.multi ? q.correct.includes(oi) : q.correct === oi;
+    const wasSelected = q.multi ? (Array.isArray(ans) && ans.includes(oi)) : ans === oi;
+    if (isCorrectOpt) el.classList.add('correct');
+    else if (wasSelected) el.classList.add('wrong');
+    const input = el.querySelector('input');
+    if (input) input.disabled = true;
+    el.classList.add('locked');
+  });
+}
+
+function checkAnswer() {
+  const plan = session.displayPlan;
+  if (!plan) return;
+  const entry = plan[session.stepIdx];
+  const ans = session.answers.questions ? session.answers.questions[entry.originalQIdx] : null;
+  const hasAnswer = Array.isArray(ans) ? ans.length > 0 : ans != null;
+  if (!hasAnswer) {
+    showDialog('Bitte wähle zuerst eine Antwort aus.');
+    return;
+  }
+  session.revealed[entry.originalQIdx] = true;
+  saveSession();
+  renderContent();
+}
+
+function nextStep() {
+  if (session.stepIdx < session.displayPlan.length - 1) {
+    session.stepIdx++;
+    saveSession();
+    renderContent();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function prevStep() {
+  if (session.stepIdx > 0) {
+    session.stepIdx--;
+    saveSession();
+    renderContent();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
 
 function renderReasoningCase(card, u) {
@@ -1394,10 +1607,13 @@ function updateProgress() {
   if (!u) return;
   let progress = 0;
   if (u.type === 'quiz' || u.type === 'short_case') {
-    const total = session.displayPlan ? session.displayPlan.length : (u.questions ? u.questions.length : 0);
-    const answered = session.answers.questions ? Object.keys(session.answers.questions).length : 0;
-    progress = total ? (answered / total) * 100 : 0;
-    counter.textContent = `${answered} / ${total}`;
+    const plan = session.displayPlan || [];
+    const total = plan.length || (u.questions ? u.questions.length : 0);
+    const done = session.revealed
+      ? plan.filter(p => session.revealed[p.originalQIdx]).length
+      : (session.answers.questions ? Object.keys(session.answers.questions).length : 0);
+    progress = total ? (done / total) * 100 : 0;
+    counter.textContent = `Frage ${Math.min((session.stepIdx || 0) + 1, total)} / ${total}`;
   } else if (u.type === 'reasoning_case') {
     const r = session.answers.reasoning || {};
     const fields = ['triage', 'main_hypothesis', 'further_plan'];
@@ -1414,6 +1630,18 @@ function updateProgress() {
 async function submitContent(silentReturn) {
   const u = session.unit;
   if (!u) return;
+
+  // Zurück ohne eine einzige Eingabe: nichts senden, nur navigieren
+  if (silentReturn) {
+    const hasAny = (session.answers.questions && Object.keys(session.answers.questions).length > 0)
+      || session.answers.reasoning
+      || Object.keys(session.markings || {}).length > 0;
+    if (!hasAny) {
+      clearSavedSession();
+      returnToList();
+      return;
+    }
+  }
 
   // Welche Fragen wurden in dieser Session überhaupt gestellt?
   const askedIndices = session.displayPlan
@@ -1432,6 +1660,7 @@ async function submitContent(silentReturn) {
 
   // Auswertung berechnen — nur die in dieser Session gestellten Fragen
   let scoreCorrect = null, scoreTotal = null;
+  const wrongIdx = [];
   if ((u.type === 'quiz' || u.type === 'short_case') && u.questions) {
     scoreTotal = askedIndices.length;
     scoreCorrect = 0;
@@ -1439,6 +1668,7 @@ async function submitContent(silentReturn) {
       const q = u.questions[idx];
       const ans = session.answers.questions ? session.answers.questions[idx] : null;
       if (isAnswerCorrect(q, ans)) scoreCorrect++;
+      else wrongIdx.push(idx);
     });
   }
 
@@ -1446,21 +1676,59 @@ async function submitContent(silentReturn) {
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
   btn.innerHTML = '<span class="loading"></span> Sende…';
+  const stepBtn = document.querySelector('#content-card .step-nav .btn-primary');
+  if (stepBtn) {
+    stepBtn.disabled = true;
+    stepBtn.innerHTML = '<span class="loading"></span> Sende…';
+  }
 
-  const payload = {
-    student_name: session.student_name,
-    class_name: session.class_name,
-    session_date: session.session_date,
-    unit_id: session.unit.id,
-    unit_title: session.unit.title,
-    content_type: session.unit.type,
-    answers: {
-      ...session.answers,
-      markings: Object.values(session.markings)
-    },
-    score_correct: scoreCorrect,
-    score_total: scoreTotal
-  };
+  // Gemischtes Quiz: pro Quell-Einheit eine Zeile senden, mit Original-Indizes —
+  // so bleiben Schwachstellen-Analyse und Dashboard vollständig konsistent.
+  let payload;
+  const mixedGroups = {};
+  if (u.mixed && session.mixedMap) {
+    askedIndices.forEach(idx => {
+      const src = session.mixedMap[idx];
+      if (!src) return;
+      const q = u.questions[idx];
+      const ans = session.answers.questions ? session.answers.questions[idx] : null;
+      if (!mixedGroups[src.unit_id]) {
+        mixedGroups[src.unit_id] = { unit_id: src.unit_id, unit_title: src.unit_title, questions: {}, correct: 0, total: 0, asked: [], wrong: [] };
+      }
+      const g = mixedGroups[src.unit_id];
+      if (ans != null) g.questions[src.origIdx] = ans;
+      g.total++;
+      g.asked.push(src.origIdx);
+      if (isAnswerCorrect(q, ans)) g.correct++;
+      else g.wrong.push(src.origIdx);
+    });
+    payload = Object.values(mixedGroups).map(g => ({
+      student_name: session.student_name,
+      class_name: session.class_name,
+      session_date: session.session_date,
+      unit_id: g.unit_id,
+      unit_title: g.unit_title,
+      content_type: 'quiz',
+      answers: { questions: g.questions, markings: [], mixed_session: true },
+      score_correct: g.correct,
+      score_total: g.total
+    }));
+  } else {
+    payload = {
+      student_name: session.student_name,
+      class_name: session.class_name,
+      session_date: session.session_date,
+      unit_id: session.unit.id,
+      unit_title: session.unit.title,
+      content_type: session.unit.type,
+      answers: {
+        ...session.answers,
+        markings: Object.values(session.markings)
+      },
+      score_correct: scoreCorrect,
+      score_total: scoreTotal
+    };
+  }
 
   try {
     const res = await fetch(SUPABASE_URL + '/rest/v1/submissions', {
@@ -1478,8 +1746,9 @@ async function submitContent(silentReturn) {
       throw new Error(errText || 'Speichern fehlgeschlagen');
     }
     clearSavedSession();
-    // Ergebnis lokal im Geräte-Verlauf festhalten (für persönliche Startseite)
-    const meta = recordResult({
+    // Ergebnis lokal im Geräte-Verlauf festhalten (für persönliche Startseite
+    // und den Wiederholungs-Pool: falsch beantwortete Fragen kommen bevorzugt wieder)
+    const entry = {
       ts: new Date().toISOString(),
       day: localDay(),
       unit_id: session.unit.id,
@@ -1489,16 +1758,23 @@ async function submitContent(silentReturn) {
       type: session.unit.type,
       score_correct: scoreCorrect,
       score_total: scoreTotal
-    });
+    };
+    if (u.mixed && session.mixedMap) {
+      entry.asked_by_unit = {};
+      entry.wrong_by_unit = {};
+      Object.values(mixedGroups).forEach(g => {
+        entry.asked_by_unit[g.unit_id] = g.asked;
+        entry.wrong_by_unit[g.unit_id] = g.wrong;
+      });
+    } else if (u.type === 'quiz' || u.type === 'short_case') {
+      entry.asked_q = askedIndices;
+      entry.wrong_q = wrongIdx;
+    }
+    const meta = recordResult(entry);
     if (silentReturn) {
-      // Antworten gespeichert — zurück zur Unit-Liste des aktuellen Themas, kein Ergebnis-Screen
-      session.unit = null;
-      session.answers = {};
-      session.markings = {};
-      session.displayPlan = null;
+      // Antworten gespeichert — zurück zur Liste, kein Ergebnis-Screen
       showAutosavePill('✓ Antworten gespeichert');
-      showScreen('units');
-      renderUnitList();
+      returnToList();
     } else {
       try {
         showResult(scoreCorrect, scoreTotal, meta);
@@ -1512,6 +1788,10 @@ async function submitContent(silentReturn) {
   } catch (err) {
     btn.disabled = false;
     btn.textContent = 'Antworten absenden';
+    if (stepBtn) {
+      stepBtn.disabled = false;
+      stepBtn.innerHTML = 'Abschließen &amp; Ergebnis';
+    }
     showDialog('Fehler beim Speichern: ' + err.message + '\n\nDeine Antworten sind lokal noch erhalten. Versuche es bitte gleich noch einmal.');
   }
 }
@@ -1519,6 +1799,28 @@ async function submitContent(silentReturn) {
 // Vom "Zurück"-Button aufgerufen — sendet die Antworten und navigiert zurück.
 function goBackToUnits() {
   submitContent(true);
+}
+
+// Einheit verlassen: beim gemischten Quiz zur Themen-Übersicht, sonst zur Unit-Liste
+function returnToList() {
+  const wasMixed = !!session.mixedMap;
+  session.unit = null;
+  session.answers = {};
+  session.markings = {};
+  session.displayPlan = null;
+  session.revealed = {};
+  session.stepIdx = 0;
+  session.repeatCount = 0;
+  session.mixedMap = null;
+  if (wasMixed) {
+    session.topic = '';
+    session.topic_title = '';
+    showScreen('topics');
+    renderTopicsList();
+  } else {
+    showScreen('units');
+    renderUnitList();
+  }
 }
 
 function isAnswerCorrect(q, ans) {
@@ -1610,12 +1912,7 @@ function showResult(correctCount, total, meta) {
 }
 
 function restartFlow() {
-  session.unit = null;
-  session.answers = {};
-  session.markings = {};
-  session.displayPlan = null;
-  showScreen('units');
-  renderUnitList();
+  returnToList();
 }
 
 async function confirmAbort() {
@@ -1647,6 +1944,8 @@ function loadSavedSession() {
 }
 
 function clearSavedSession() {
+  // Laufenden Autosave-Timer stoppen, sonst schreibt er den Zustand gleich wieder rein
+  clearTimeout(saveTimer);
   try { localStorage.removeItem('physio_session_v3'); } catch (e) {}
 }
 
@@ -1737,6 +2036,29 @@ function computeStreak(profile) {
     cursor.setDate(cursor.getDate() - 1);
   }
   return { days: streak, activeToday };
+}
+
+// Wiederholungs-Pool: welche Fragen einer Einheit wurden zuletzt falsch beantwortet?
+// Chronologisch ausgewertet — wer eine Frage später richtig hat, fällt aus dem Pool
+// (Prinzip des „successive relearning").
+function getWrongPool(unitId) {
+  const prof = getProfile(session.student_name);
+  if (!prof || !prof.results) return [];
+  const pool = new Set();
+  prof.results.forEach(r => {
+    let asked = null, wrong = null;
+    if (r.unit_id === unitId && Array.isArray(r.asked_q)) {
+      asked = r.asked_q;
+      wrong = r.wrong_q;
+    } else if (r.asked_by_unit && Array.isArray(r.asked_by_unit[unitId])) {
+      asked = r.asked_by_unit[unitId];
+      wrong = r.wrong_by_unit ? r.wrong_by_unit[unitId] : null;
+    }
+    if (!asked) return;
+    asked.forEach(i => pool.delete(i));
+    (wrong || []).forEach(i => pool.add(i));
+  });
+  return [...pool];
 }
 
 function rememberLastLogin(name, klasse) {
