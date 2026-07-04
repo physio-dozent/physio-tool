@@ -484,6 +484,101 @@ button {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* Persönliche Startseite */
+.personal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.streak-pill {
+  background: var(--accent-bg);
+  color: var(--accent);
+  border: 1px solid var(--accent-soft);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.personal-section { margin-top: 20px; }
+.rec-list { display: flex; flex-direction: column; gap: 8px; }
+.rec-chip {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  background: var(--bg);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.rec-chip:hover {
+  background: var(--accent-bg);
+  border-color: var(--accent-soft);
+  border-left-color: var(--accent);
+}
+.rec-title { font-weight: 600; font-size: 14px; }
+.rec-reason { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+.recent-row {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 14px;
+}
+.recent-row:last-child { border-bottom: none; }
+.recent-when { color: var(--ink-muted); font-size: 13px; min-width: 52px; }
+.recent-title { flex-grow: 1; }
+.recent-score { color: var(--accent); font-weight: 600; white-space: nowrap; }
+.device-note { font-size: 12px; color: var(--ink-muted); margin-top: 16px; }
+
+/* Ergebnis-Badges */
+.result-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.result-badges .badge {
+  background: var(--accent-bg);
+  color: var(--accent);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Dialog-Modal (Ersatz für native confirm/alert) */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 10, 20, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 200;
+}
+.modal {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lift);
+  padding: 24px;
+  max-width: 440px;
+  width: 100%;
+}
+.modal-text {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+  white-space: pre-line;
+}
+.modal .btn-row { justify-content: flex-end; }
+
 .hidden { display: none !important; }
 
 .empty-state {
@@ -507,23 +602,17 @@ button {
   <!-- SCHRITT 1: Anmeldung -->
   <section id="screen-login" class="card">
     <h1>Willkommen</h1>
-    <p class="lead">Bitte trage deine Daten ein, bevor du mit der Übung beginnst.</p>
+    <p class="lead">Melde dich mit Name und Klasse an — danach siehst du deine persönliche Übersicht.</p>
 
     <div class="field">
       <label for="student_name">Name</label>
       <input type="text" id="student_name" placeholder="Vor- und Nachname" autocomplete="off">
     </div>
 
-    <div class="field-row">
-      <div class="field">
-        <label for="class_name">Klasse / Kurs</label>
-        <select id="class_name_select" class="hidden"></select>
-        <input type="text" id="class_name" placeholder="z. B. PT-23" autocomplete="off">
-      </div>
-      <div class="field">
-        <label for="session_date">Datum</label>
-        <input type="date" id="session_date">
-      </div>
+    <div class="field">
+      <label for="class_name">Klasse / Kurs</label>
+      <select id="class_name_select" class="hidden"></select>
+      <input type="text" id="class_name" placeholder="z. B. PT-23" autocomplete="off">
     </div>
 
     <div class="btn-row">
@@ -531,10 +620,11 @@ button {
     </div>
   </section>
 
-  <!-- SCHRITT 2: Thema wählen -->
+  <!-- SCHRITT 2: Persönliche Übersicht + Thema wählen -->
   <section id="screen-topics" class="hidden">
+    <div id="personal-home"></div>
     <div class="card">
-      <h1>Thema wählen</h1>
+      <h2>Thema wählen</h2>
       <p class="lead">Wähle das Thema, mit dem du heute arbeitest.</p>
       <div id="topic-list" class="unit-list">
         <div class="empty-state">Lade verfügbare Themen…</div>
@@ -568,7 +658,7 @@ button {
     </div>
     <div class="card" id="content-card"></div>
     <div class="btn-row">
-      <button class="btn-ghost" onclick="goBackToUnits()">← Zurück (Antworten werden gesendet)</button>
+      <button class="btn-ghost" onclick="goBackToUnits()">← Speichern &amp; zurück</button>
       <button class="btn-ghost" onclick="confirmAbort()">Abbrechen</button>
       <button class="btn-primary" id="submit-btn" onclick="submitContent()">Antworten absenden</button>
     </div>
@@ -582,6 +672,16 @@ button {
 </div>
 
 <div id="autosave-pill" class="autosave-pill">✓ Zwischengespeichert</div>
+
+<div id="modal-backdrop" class="modal-backdrop hidden">
+  <div class="modal">
+    <div class="modal-text" id="modal-text"></div>
+    <div class="btn-row">
+      <button class="btn-secondary" id="modal-cancel">Abbrechen</button>
+      <button class="btn-primary" id="modal-ok">OK</button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ============= KONFIGURATION =============
@@ -646,38 +746,34 @@ function buildDisplayPlan(unit) {
 
 // ============= INITIALISIERUNG =============
 window.addEventListener('DOMContentLoaded', async () => {
-  // Datum vorbelegen
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('session_date').value = today;
-
   // Klassen-Vorgabe laden (entscheidet, ob Dropdown oder Freitext)
   await loadCourses();
 
-  // Wiederhergestellten Zustand prüfen
+  // Letzte Anmeldung vorbelegen (weniger Tipparbeit)
+  prefillLastLogin();
+
+  // Wiederhergestellten Zustand prüfen — nur fragen, wenn wirklich etwas offen war
   const saved = loadSavedSession();
-  if (saved) {
-    if (confirm('Du hast eine ungespeicherte Sitzung. Fortsetzen?')) {
+  if (saved && (saved.unit || saved.topic)) {
+    const resume = await showDialog('Du hast eine unfertige Sitzung. Möchtest du dort weitermachen?', { okText: 'Fortsetzen', cancelText: 'Neu starten' });
+    if (resume) {
       session = saved;
       document.getElementById('student_name').value = session.student_name || '';
       restoreClassValue(session.class_name || '');
-      document.getElementById('session_date').value = session.session_date || today;
       if (session.unit) {
         // Aktive Lerneinheit war offen — direkt dorthin zurück
         showScreen('content');
         renderContent();
         return;
       }
-      if (session.topic) {
-        // Thema gewählt, aber noch keine Lerneinheit — Unit-Liste des Themas zeigen
-        showScreen('topics');
-        loadIndex().then(() => {
-          selectTopic(session.topic, session.topic_title || session.topic);
-        });
-        return;
-      }
-    } else {
-      clearSavedSession();
+      // Thema gewählt, aber noch keine Lerneinheit — Unit-Liste des Themas zeigen
+      showScreen('topics');
+      loadIndex().then(() => {
+        selectTopic(session.topic, session.topic_title || session.topic);
+      });
+      return;
     }
+    clearSavedSession();
   }
 });
 
@@ -762,23 +858,19 @@ function showScreen(name) {
 function goToTopicSelection() {
   const name = document.getElementById('student_name').value.trim();
   const klasse = getClassNameInput();
-  let date = document.getElementById('session_date').value;
 
-  if (!name) { alert('Bitte deinen Namen eintragen.'); return; }
+  if (!name) { showDialog('Bitte trage deinen Namen ein.'); return; }
   if (!klasse) {
-    alert(availableCourses && availableCourses.length
-      ? 'Bitte deine Klasse aus der Liste auswählen.'
-      : 'Bitte deine Klasse / deinen Kurs eintragen.');
+    showDialog(availableCourses && availableCourses.length
+      ? 'Bitte wähle deine Klasse aus der Liste.'
+      : 'Bitte trage deine Klasse / deinen Kurs ein.');
     return;
-  }
-  if (!date) {
-    // Datum ist optional — Default auf heute
-    date = new Date().toISOString().split('T')[0];
-    document.getElementById('session_date').value = date;
   }
   session.student_name = name;
   session.class_name = klasse;
-  session.session_date = date;
+  // Datum wird automatisch auf heute gesetzt (Feld entfernt)
+  session.session_date = new Date().toISOString().split('T')[0];
+  rememberLastLogin(name, klasse);
 
   showScreen('topics');
   loadIndex();
@@ -859,6 +951,92 @@ function renderTopicsList() {
     `;
     list.appendChild(div);
   });
+  renderPersonalCard(topics);
+}
+
+// ============= PERSÖNLICHE STARTSEITE =============
+function renderPersonalCard(topics) {
+  const host = document.getElementById('personal-home');
+  if (!host) return;
+  const firstName = escapeHtml((session.student_name || '').trim().split(/\s+/)[0] || '');
+  const profile = getProfile(session.student_name);
+
+  if (!profile || !profile.results.length) {
+    host.innerHTML = `<div class="card">
+      <div class="personal-head">
+        <div>
+          <h1>Hallo, ${firstName}!</h1>
+          <p class="lead" style="margin-bottom:0;">Schön, dass du da bist. Nach deiner ersten Einheit siehst du hier deine Ergebnisse, deine Lernserie und persönliche Empfehlungen.</p>
+        </div>
+        <div class="streak-pill">🔥 Tag 1 beginnt heute</div>
+      </div>
+      <p class="device-note">Dein Verlauf wird nur auf diesem Gerät gespeichert.</p>
+    </div>`;
+    return;
+  }
+
+  const streak = computeStreak(profile);
+  let streakText;
+  if (streak.days === 0) {
+    streakText = '🔥 Starte heute deine Serie';
+  } else {
+    streakText = `🔥 ${streak.days} Tag${streak.days === 1 ? '' : 'e'} in Folge${streak.activeToday ? '' : ' · heute noch offen'}`;
+  }
+
+  const recent = [...profile.results].slice(-3).reverse();
+  const recentHtml = recent.map(r => {
+    const score = (r.score_total != null && r.score_total > 0)
+      ? `${r.score_correct} / ${r.score_total}`
+      : 'abgegeben';
+    return `<div class="recent-row">
+      <span class="recent-when">${fmtDay(r.day)}</span>
+      <span class="recent-title">${escapeHtml(r.unit_title)}</span>
+      <span class="recent-score">${score}</span>
+    </div>`;
+  }).join('');
+
+  const recs = buildRecommendations(profile, topics);
+  const recsHtml = recs.map(r => `
+    <div class="rec-chip" onclick="selectTopic('${escapeHtml(r.topicId)}', '${escapeHtml(r.topicTitle)}')">
+      <div class="rec-title">${escapeHtml(r.topicTitle)}</div>
+      <div class="rec-reason">${escapeHtml(r.reason)}</div>
+    </div>`).join('');
+
+  host.innerHTML = `<div class="card">
+    <div class="personal-head">
+      <div><h1>Hallo, ${firstName}!</h1></div>
+      <div class="streak-pill">${streakText}</div>
+    </div>
+    ${recs.length ? `<div class="personal-section"><h3>Empfohlen für dich</h3><div class="rec-list">${recsHtml}</div></div>` : ''}
+    ${recent.length ? `<div class="personal-section"><h3>Deine letzten Ergebnisse</h3>${recentHtml}</div>` : ''}
+    <p class="device-note">Dein Verlauf wird nur auf diesem Gerät gespeichert.</p>
+  </div>`;
+}
+
+// Regelbasierte Empfehlungen nach Lernforschungs-Prinzipien:
+// 1. Schwache Themen zuerst wiederholen (Retrieval Practice bei < 60 %)
+// 2. Länger nicht geübte Themen auffrischen (Spacing ab 7 Tagen)
+// 3. Neue Themen vorschlagen
+function buildRecommendations(profile, topics) {
+  const now = new Date();
+  const recs = [];
+  (topics || []).forEach(t => {
+    const scored = profile.results.filter(r => r.topic === t.id && r.score_total > 0);
+    if (!scored.length) {
+      recs.push({ topicId: t.id, topicTitle: t.title, reason: 'Noch nicht geübt — probier es aus', prio: 3, sort: 0 });
+      return;
+    }
+    const last = scored[scored.length - 1];
+    const pct = Math.round((last.score_correct / last.score_total) * 100);
+    const daysSince = Math.floor((now - new Date(last.ts)) / 86400000);
+    if (pct < 60) {
+      recs.push({ topicId: t.id, topicTitle: t.title, reason: `Zuletzt ${last.score_correct}/${last.score_total} richtig — gezieltes Wiederholen lohnt sich`, prio: 1, sort: pct });
+    } else if (daysSince >= 7) {
+      recs.push({ topicId: t.id, topicTitle: t.title, reason: `Seit ${daysSince} Tagen nicht geübt — Zeit zum Auffrischen`, prio: 2, sort: -daysSince });
+    }
+  });
+  recs.sort((a, b) => a.prio - b.prio || a.sort - b.sort);
+  return recs.slice(0, 3);
 }
 
 function selectTopic(topicId, topicTitle) {
@@ -915,7 +1093,7 @@ async function selectUnit(file) {
     showScreen('content');
     renderContent();
   } catch (err) {
-    alert('Lerneinheit konnte nicht geladen werden: ' + err.message);
+    showDialog('Lerneinheit konnte nicht geladen werden: ' + err.message);
   }
 }
 
@@ -1247,7 +1425,8 @@ async function submitContent(silentReturn) {
     const total = askedIndices.length;
     const answered = session.answers.questions ? Object.keys(session.answers.questions).length : 0;
     if (answered < total) {
-      if (!confirm(`Du hast erst ${answered} von ${total} Fragen beantwortet. Trotzdem absenden?`)) return;
+      const ok = await showDialog(`Du hast erst ${answered} von ${total} Fragen beantwortet. Trotzdem absenden?`, { okText: 'Trotzdem absenden', cancelText: 'Weiter bearbeiten' });
+      if (!ok) return;
     }
   }
 
@@ -1299,6 +1478,18 @@ async function submitContent(silentReturn) {
       throw new Error(errText || 'Speichern fehlgeschlagen');
     }
     clearSavedSession();
+    // Ergebnis lokal im Geräte-Verlauf festhalten (für persönliche Startseite)
+    const meta = recordResult({
+      ts: new Date().toISOString(),
+      day: localDay(),
+      unit_id: session.unit.id,
+      unit_title: session.unit.title,
+      topic: session.topic,
+      topic_title: session.topic_title,
+      type: session.unit.type,
+      score_correct: scoreCorrect,
+      score_total: scoreTotal
+    });
     if (silentReturn) {
       // Antworten gespeichert — zurück zur Unit-Liste des aktuellen Themas, kein Ergebnis-Screen
       session.unit = null;
@@ -1310,10 +1501,10 @@ async function submitContent(silentReturn) {
       renderUnitList();
     } else {
       try {
-        showResult(scoreCorrect, scoreTotal);
+        showResult(scoreCorrect, scoreTotal, meta);
       } catch (e) {
         console.error('Fehler bei Ergebnisanzeige:', e);
-        alert('Deine Antworten wurden gespeichert! Es gab nur ein kleines Problem bei der Anzeige der Ergebnisseite. Du kannst die Seite neu laden.');
+        showDialog('Deine Antworten wurden gespeichert! Es gab nur ein kleines Problem bei der Anzeige der Ergebnisseite. Du kannst die Seite neu laden.');
         btn.disabled = false;
         btn.textContent = 'Antworten absenden';
       }
@@ -1321,7 +1512,7 @@ async function submitContent(silentReturn) {
   } catch (err) {
     btn.disabled = false;
     btn.textContent = 'Antworten absenden';
-    alert('Fehler beim Speichern: ' + err.message + '\n\nDeine Antworten sind lokal noch erhalten. Versuche es bitte gleich noch einmal.');
+    showDialog('Fehler beim Speichern: ' + err.message + '\n\nDeine Antworten sind lokal noch erhalten. Versuche es bitte gleich noch einmal.');
   }
 }
 
@@ -1342,11 +1533,19 @@ function isAnswerCorrect(q, ans) {
   return ans === q.correct;
 }
 
-function showResult(correctCount, total) {
+function showResult(correctCount, total, meta) {
   const u = session.unit;
   const card = document.getElementById('result-card');
   let html = `<h1>Geschafft!</h1>
   <p class="lead">Deine Antworten wurden gespeichert.</p>`;
+
+  // Persönliche Highlights: Lernserie und Bestleistung
+  const badges = [];
+  if (meta && meta.streakDays >= 2) badges.push(`🔥 ${meta.streakDays}. Tag in Folge`);
+  if (meta && meta.isPersonalBest) badges.push('⭐ Persönlicher Rekord in dieser Einheit');
+  if (badges.length) {
+    html += `<div class="result-badges">${badges.map(b => `<span class="badge">${b}</span>`).join('')}</div>`;
+  }
 
   if (correctCount !== null && total !== null && total > 0) {
     const pct = Math.round((correctCount / total) * 100);
@@ -1419,8 +1618,9 @@ function restartFlow() {
   renderUnitList();
 }
 
-function confirmAbort() {
-  if (confirm('Bist du sicher, dass du abbrechen willst? Deine bisherigen Eingaben gehen verloren.')) {
+async function confirmAbort() {
+  const ok = await showDialog('Bist du sicher, dass du abbrechen willst? Deine bisherigen Eingaben gehen verloren.', { okText: 'Ja, abbrechen', cancelText: 'Weiterarbeiten' });
+  if (ok) {
     clearSavedSession();
     location.reload();
   }
@@ -1460,6 +1660,127 @@ function showAutosavePill(text) {
     pill.classList.remove('show');
     if (customText) pill.textContent = '✓ Zwischengespeichert';
   }, customText ? 2200 : 1500);
+}
+
+// ============= GERÄTE-VERLAUF (Profile pro Name, localStorage) =============
+const PROFILES_KEY = 'physio_profiles_v1';
+const LAST_LOGIN_KEY = 'physio_last_login_v1';
+
+function normName(name) {
+  return (name || '').trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+function loadProfiles() {
+  try { return JSON.parse(localStorage.getItem(PROFILES_KEY)) || {}; } catch (e) { return {}; }
+}
+
+function saveProfiles(p) {
+  try { localStorage.setItem(PROFILES_KEY, JSON.stringify(p)); } catch (e) { /* Speicher voll oder geblockt */ }
+}
+
+function getProfile(name) {
+  const key = normName(name);
+  if (!key) return null;
+  return loadProfiles()[key] || null;
+}
+
+// Speichert ein Ergebnis im lokalen Verlauf und liefert Metadaten
+// für die Ergebnisseite (Streak, persönliche Bestleistung).
+function recordResult(entry) {
+  const out = { streakDays: 0, isPersonalBest: false };
+  const key = normName(session.student_name);
+  if (!key) return out;
+  const profiles = loadProfiles();
+  if (!profiles[key]) profiles[key] = { name: session.student_name, class_name: session.class_name, results: [] };
+  const prof = profiles[key];
+  prof.class_name = session.class_name;
+
+  const prev = prof.results.filter(r => r.unit_id === entry.unit_id && r.score_total > 0);
+  if (entry.score_total > 0 && prev.length) {
+    const pct = entry.score_correct / entry.score_total;
+    out.isPersonalBest = prev.every(r => pct > r.score_correct / r.score_total);
+  }
+
+  prof.results.push(entry);
+  if (prof.results.length > 300) prof.results = prof.results.slice(-300);
+  saveProfiles(profiles);
+  out.streakDays = computeStreak(prof).days;
+  return out;
+}
+
+// Lokales Datum als YYYY-MM-DD (bewusst nicht UTC, damit spätabends kein Tag verrutscht)
+function localDay(d) {
+  const x = d || new Date();
+  return x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0') + '-' + String(x.getDate()).padStart(2, '0');
+}
+
+function fmtDay(day) {
+  if (day === localDay()) return 'Heute';
+  const y = new Date();
+  y.setDate(y.getDate() - 1);
+  if (day === localDay(y)) return 'Gestern';
+  const p = (day || '').split('-');
+  return p.length === 3 ? p[2] + '.' + p[1] + '.' : day;
+}
+
+// Streak = aufeinanderfolgende Lerntage bis heute (oder bis gestern,
+// wenn heute noch nichts bearbeitet wurde — die Serie lebt dann noch)
+function computeStreak(profile) {
+  if (!profile || !profile.results || !profile.results.length) return { days: 0, activeToday: false };
+  const daySet = new Set(profile.results.map(r => r.day));
+  const activeToday = daySet.has(localDay());
+  let streak = 0;
+  const cursor = new Date();
+  if (!activeToday) cursor.setDate(cursor.getDate() - 1);
+  while (daySet.has(localDay(cursor))) {
+    streak++;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return { days: streak, activeToday };
+}
+
+function rememberLastLogin(name, klasse) {
+  try { localStorage.setItem(LAST_LOGIN_KEY, JSON.stringify({ name, class_name: klasse })); } catch (e) {}
+}
+
+function prefillLastLogin() {
+  try {
+    const d = JSON.parse(localStorage.getItem(LAST_LOGIN_KEY));
+    if (!d) return;
+    if (d.name) document.getElementById('student_name').value = d.name;
+    if (d.class_name) restoreClassValue(d.class_name);
+  } catch (e) {}
+}
+
+// ============= DIALOG (Ersatz für native confirm/alert) =============
+// showDialog('Text') — nur OK-Button, wie alert.
+// showDialog('Text', {okText, cancelText}) — mit Abbrechen, wie confirm.
+// Gibt ein Promise<boolean> zurück.
+function showDialog(text, opts) {
+  const o = opts || {};
+  return new Promise(resolve => {
+    const backdrop = document.getElementById('modal-backdrop');
+    const ok = document.getElementById('modal-ok');
+    const cancel = document.getElementById('modal-cancel');
+    document.getElementById('modal-text').textContent = text;
+    ok.textContent = o.okText || 'OK';
+    if (o.cancelText) {
+      cancel.textContent = o.cancelText;
+      cancel.classList.remove('hidden');
+    } else {
+      cancel.classList.add('hidden');
+    }
+    backdrop.classList.remove('hidden');
+    const done = (v) => {
+      backdrop.classList.add('hidden');
+      ok.onclick = null;
+      cancel.onclick = null;
+      resolve(v);
+    };
+    ok.onclick = () => done(true);
+    cancel.onclick = () => done(false);
+    ok.focus();
+  });
 }
 
 // ============= UTILS =============
