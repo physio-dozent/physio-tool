@@ -6,32 +6,39 @@
 <title>Physiotherapie Lerntool</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* =========================================================
+   Skill Lab — helles Design (Variante A: Petrol + Koralle)
+   Schrift: Nunito (Überschriften) + Inter (Fließtext)
+   ========================================================= */
 :root {
-  --bg: #0f1a2b;
-  --bg-card: #1a2942;
-  --ink: #f0f3f8;
-  --ink-soft: #b8c2d0;
-  --ink-muted: #7a8696;
-  --accent: #e0a464;
-  --accent-soft: #b88547;
-  --accent-bg: #2a3855;
-  --line: #2d3d59;
-  --line-soft: #25334d;
-  --highlight: #f0c14a;
-  --correct: #6dd07a;
-  --correct-bg: #1f3a28;
-  --wrong: #f08585;
-  --wrong-bg: #3d1f25;
-  --type-quiz: #e08a7a;
-  --type-quiz-bg: #3a2520;
-  --type-short: #e5b87a;
-  --type-short-bg: #382a1a;
-  --type-reasoning: #7ac9c2;
-  --type-reasoning-bg: #1a302d;
-  --shadow: 0 1px 2px rgba(0,0,0,0.25), 0 4px 12px rgba(0,0,0,0.35);
-  --shadow-lift: 0 2px 4px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.45);
+  --brand: #0ea5a5;
+  --brand-dark: #0b7d7d;
+  --brand-soft: #d4f3f1;
+  --accent: #ff6b5e;
+  --accent-soft: #ffe3df;
+  --bg: #f4f7f9;
+  --card: #ffffff;
+  --ink: #16232b;
+  --ink-soft: #5a6b76;
+  --ink-mute: #93a1aa;
+  --line: #e6ecef;
+  --ring-track: #e9eef1;
+  --good: #16b364;
+  --good-soft: #d6f5e4;
+  --warn: #f5a524;
+  --warn-soft: #fdefd8;
+  --wrong: #e5484d;
+  --wrong-soft: #fde7e7;
+  --highlight: #ffe58a;
+  --shadow: 0 1px 2px rgba(16,40,52,.04), 0 6px 20px rgba(16,40,52,.07);
+  --shadow-lift: 0 2px 6px rgba(16,40,52,.08), 0 16px 40px rgba(16,40,52,.12);
+  /* Themen-Akzentfarben */
+  --t-schmerz: #a855f7;
+  --t-knie: #0ea5a5;
+  --t-fuss: #f5a524;
+  --t-huefte: #ff6b5e;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,589 +53,415 @@ html, body {
   min-height: 100vh;
 }
 
-.container {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 32px 20px 80px;
-}
+.container { max-width: 760px; margin: 0 auto; padding: 24px 16px 80px; }
 
 h1, h2, h3 {
-  font-family: 'Fraunces', serif;
-  font-weight: 600;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
   letter-spacing: -0.01em;
   color: var(--ink);
 }
-h1 { font-size: clamp(28px, 5vw, 36px); line-height: 1.15; margin-bottom: 4px; }
-h2 { font-size: clamp(22px, 4vw, 26px); line-height: 1.2; margin-bottom: 12px; }
-h3 { font-size: 18px; margin-bottom: 8px; }
+h1 { font-size: clamp(24px, 5vw, 30px); line-height: 1.2; margin-bottom: 4px; }
+h2 { font-size: clamp(19px, 4vw, 23px); line-height: 1.25; margin-bottom: 12px; }
+h3 { font-size: 17px; margin-bottom: 8px; }
 
-.lead {
-  color: var(--ink-soft);
-  font-size: 15px;
-  margin-bottom: 24px;
-}
+.lead { color: var(--ink-soft); font-size: 15px; margin-bottom: 22px; }
 
 .card {
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 28px;
+  background: var(--card);
+  border-radius: 18px;
+  padding: 24px;
   box-shadow: var(--shadow);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
-
 @media (max-width: 600px) {
-  .card { padding: 20px; }
-  .container { padding: 20px 14px 60px; }
+  .card { padding: 18px; }
+  .container { padding: 18px 12px 60px; }
 }
 
-.brand {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin-bottom: 32px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--line);
+/* App-Kopf */
+.appbar { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.appbar .logo {
+  width: 42px; height: 42px; border-radius: 13px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+  display: grid; place-items: center; color: #fff;
+  box-shadow: var(--shadow);
 }
-.brand-mark {
-  font-family: 'Fraunces', serif;
-  font-weight: 700;
-  font-size: 22px;
-  color: var(--accent);
-  letter-spacing: -0.02em;
-}
-.brand-sub {
-  font-size: 13px;
-  color: var(--ink-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.brand-spacer { flex-grow: 1; }
-.brand-author {
-  font-family: 'Fraunces', serif;
-  font-size: 14px;
-  color: var(--ink-soft);
-  font-style: italic;
-}
-@media (max-width: 480px) {
-  .brand-sub { display: none; }
-  .brand-author { font-size: 12px; }
+.brand-mark { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 20px; letter-spacing: -0.02em; }
+.brand-sub { font-size: 11.5px; color: var(--ink-mute); font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
+.avatar {
+  margin-left: auto; width: 42px; height: 42px; border-radius: 50%;
+  background: var(--accent-soft); color: var(--accent);
+  display: grid; place-items: center; font-weight: 800; font-family: 'Nunito', sans-serif; font-size: 17px;
 }
 
-/* Typ-spezifische Farb-Tags */
-.unit-tag.type-quiz { background: var(--type-quiz-bg); color: var(--type-quiz); }
-.unit-tag.type-short_case { background: var(--type-short-bg); color: var(--type-short); }
-.unit-tag.type-reasoning_case { background: var(--type-reasoning-bg); color: var(--type-reasoning); }
-.unit-item.type-quiz { border-left: 3px solid var(--type-quiz); }
-.unit-item.type-short_case { border-left: 3px solid var(--type-short); }
-.unit-item.type-reasoning_case { border-left: 3px solid var(--type-reasoning); }
+/* Abschnitts-Überschrift */
+.section-h {
+  font-size: 12.5px; font-weight: 800; color: var(--ink-mute);
+  text-transform: uppercase; letter-spacing: 0.07em; margin: 24px 4px 12px;
+  font-family: 'Nunito', sans-serif;
+}
 
-/* Typ-spezifische Hover-Effekte */
-.unit-item.type-quiz:hover { border-color: var(--type-quiz); background: var(--type-quiz-bg); }
-.unit-item.type-short_case:hover { border-color: var(--type-short); background: var(--type-short-bg); }
-.unit-item.type-reasoning_case:hover { border-color: var(--type-reasoning); background: var(--type-reasoning-bg); }
-
+/* Formulare */
 label {
-  display: block;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink-soft);
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  display: block; font-size: 13px; font-weight: 600; color: var(--ink-soft);
+  margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em;
 }
-
 input[type="text"], input[type="date"], select, textarea {
-  width: 100%;
-  padding: 10px 12px;
+  width: 100%; padding: 12px 14px;
   background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  font-family: inherit;
-  font-size: 15px;
-  color: var(--ink);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  font-family: inherit; font-size: 15px; color: var(--ink);
   transition: border-color 0.15s, box-shadow 0.15s;
 }
-
 input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(224,164,100,0.25);
+  outline: none; border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(14,165,165,0.18);
 }
-
-textarea {
-  min-height: 90px;
-  resize: vertical;
-  font-family: inherit;
-  line-height: 1.5;
-}
-
+textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
 .field { margin-bottom: 18px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
 
-button {
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 500;
-  padding: 11px 22px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.15s;
+/* Buttons */
+button { font-family: inherit; }
+.btn-primary, .btn-secondary {
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 15.5px;
+  padding: 13px 24px; border-radius: 13px; border: none; cursor: pointer;
+  transition: transform 0.1s, filter 0.1s;
 }
-
 .btn-primary {
-  background: var(--accent);
-  color: #0f1a2b;
-  font-weight: 600;
+  background: var(--brand); color: #fff;
+  box-shadow: 0 6px 16px rgba(14,165,165,0.35);
 }
-.btn-primary:hover { background: #c89048; }
-.btn-primary:disabled { background: var(--ink-muted); cursor: not-allowed; }
-
+.btn-primary:hover { filter: brightness(1.06); }
+.btn-primary:active { transform: scale(0.99); }
+.btn-primary:disabled { background: var(--ink-mute); box-shadow: none; cursor: not-allowed; }
 .btn-secondary {
-  background: transparent;
-  color: var(--ink);
-  border: 1px solid var(--line);
+  background: var(--card); color: var(--ink);
+  border: 1.5px solid var(--line); box-shadow: var(--shadow);
 }
-.btn-secondary:hover { background: var(--accent-bg); border-color: var(--accent-soft); }
-
+.btn-secondary:hover { border-color: var(--brand); color: var(--brand-dark); }
 .btn-ghost {
-  background: transparent;
-  color: var(--ink-soft);
-  font-size: 14px;
-  padding: 6px 12px;
+  background: transparent; border: none; color: var(--ink-soft);
+  font-size: 14px; font-weight: 600; padding: 8px 12px; cursor: pointer; border-radius: 10px;
 }
-.btn-ghost:hover { color: var(--accent); }
-
-.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
-
-/* Lerneinheiten-Auswahl */
-.unit-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.unit-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 18px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: #22324d;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.unit-item:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-lift);
-  background: #2a3d5e;
-}
-.unit-item.type-quiz:hover { border-color: var(--type-quiz); background: var(--type-quiz-bg); }
-.unit-item.type-short_case:hover { border-color: var(--type-short); background: var(--type-short-bg); }
-.unit-item.type-reasoning_case:hover { border-color: var(--type-reasoning); background: var(--type-reasoning-bg); }
-
-/* Themen-Kacheln in der Themen-Maske — deutlich auffälliger als normale Lerneinheits-Kacheln */
-.unit-item.topic-tile {
-  padding: 20px 22px;
-  border-left: 4px solid var(--accent);
-  background: #28395a;
-  box-shadow: var(--shadow-lift);
-}
-.unit-item.topic-tile:hover {
-  background: #324672;
-  border-color: var(--accent-soft);
-  border-left-color: var(--accent);
-}
-.unit-item.topic-tile .unit-title {
-  font-family: 'Fraunces', serif;
-  font-size: 19px;
-  font-weight: 600;
-  color: var(--ink);
-}
-.unit-item.topic-tile .unit-meta {
-  font-size: 13px;
-  color: var(--ink-soft);
-  margin-top: 4px;
-}
-
-.unit-title { font-weight: 500; color: var(--ink); }
-.unit-meta { font-size: 13px; color: var(--ink-muted); margin-top: 2px; }
-.unit-tag {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 3px 8px;
-  background: var(--accent-bg);
-  color: var(--accent);
-  border-radius: 3px;
-  font-weight: 600;
-}
-
-/* Fortschrittsanzeige */
-.progress {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-  padding: 12px 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-}
-.progress-text { font-size: 13px; color: var(--ink-soft); font-weight: 500; }
-.progress-bar {
-  height: 4px;
-  background: var(--line-soft);
-  border-radius: 2px;
-  overflow: hidden;
-  flex-grow: 1;
-  margin: 0 16px;
-}
-.progress-fill {
-  height: 100%;
-  background: var(--accent);
-  transition: width 0.3s;
-}
-
-/* Quizfragen */
-.question {
-  margin-bottom: 28px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--line-soft);
-}
-.question:last-of-type { border-bottom: none; }
-.question-num {
-  font-size: 13px;
-  color: var(--ink-muted);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 6px;
-}
-.question-text {
-  font-size: 17px;
-  font-weight: 500;
-  margin-bottom: 16px;
-  line-height: 1.4;
-}
-
-.options { display: flex; flex-direction: column; gap: 8px; }
-.option {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px 14px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.15s;
-  background: var(--bg);
-  /* Label-Grundstil neutralisieren (.option ist ein <label>) */
-  text-transform: none;
-  letter-spacing: normal;
-  font-size: 15px;
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 0;
-}
-.option:hover { border-color: var(--accent-soft); background: var(--accent-bg); }
-.option input[type="radio"], .option input[type="checkbox"] {
-  margin-top: 3px;
-  flex-shrink: 0;
-  accent-color: var(--accent);
-}
-.option-text { flex-grow: 1; line-height: 1.45; }
-
-.option.selected { border-color: var(--accent); background: var(--accent-bg); }
-.option.correct { border-color: var(--correct); background: var(--correct-bg); }
-.option.wrong { border-color: var(--wrong); background: var(--wrong-bg); }
-
-.feedback {
-  margin-top: 10px;
-  padding: 12px 14px;
-  border-radius: 6px;
-  font-size: 14px;
-  line-height: 1.5;
-}
-.feedback.correct { background: var(--correct-bg); color: var(--correct); border-left: 3px solid var(--correct); }
-.feedback.wrong { background: var(--wrong-bg); color: var(--wrong); border-left: 3px solid var(--wrong); }
-.feedback strong { display: block; margin-bottom: 4px; }
-
-/* Fall-Vignette */
-.vignette {
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--accent);
-  border-radius: 6px;
-  padding: 20px 22px;
-  margin-bottom: 24px;
-  font-size: 15.5px;
-  line-height: 1.65;
-  color: var(--ink-soft);
-}
-.vignette-title {
-  font-family: 'Fraunces', serif;
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-
-.vignette-words {
-  user-select: none;
-  -webkit-user-select: none;
-}
-.word {
-  display: inline;
-  cursor: pointer;
-  border-radius: 2px;
-  padding: 1px 1px;
-  transition: background 0.1s;
-}
-.word:hover { background: var(--line-soft); }
-.word.marked { background: var(--highlight); font-weight: 500; color: #0f1a2b; }
-
-.markings-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px dashed var(--line);
-  font-size: 13px;
-  color: var(--ink-muted);
-}
-.markings-count strong { color: var(--accent); }
-
-/* Reasoning-Sektion */
-.reasoning-section {
-  margin-bottom: 24px;
-}
-.reasoning-help {
-  font-size: 13px;
-  color: var(--ink-muted);
-  font-style: italic;
-  margin-top: 4px;
-  margin-bottom: 10px;
-}
-
-.hypothesis-block {
-  margin-bottom: 16px;
-  padding: 14px 16px;
-  background: var(--bg);
-  border: 1px solid var(--line-soft);
-  border-radius: 6px;
-}
-.hypothesis-block label { margin-bottom: 4px; }
-
-/* Score-Display */
-.score-card {
-  text-align: center;
-  padding: 32px 24px;
-  background: var(--accent-bg);
-  border-radius: 8px;
-  margin-bottom: 24px;
-}
-.score-number {
-  font-family: 'Fraunces', serif;
-  font-size: 48px;
-  font-weight: 600;
-  color: var(--accent);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.score-label {
-  font-size: 14px;
-  color: var(--ink-soft);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-/* Status-Box */
-.status {
-  padding: 14px 18px;
-  border-radius: 6px;
-  margin-bottom: 16px;
-  font-size: 14px;
-}
-.status-info { background: var(--accent-bg); color: var(--ink-soft); }
-.status-success { background: var(--correct-bg); color: var(--correct); }
-.status-error { background: var(--wrong-bg); color: var(--wrong); }
-
-.autosave-pill {
-  position: fixed;
-  bottom: 18px;
-  right: 18px;
-  background: var(--ink);
-  color: var(--bg);
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 12px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-  z-index: 100;
-  box-shadow: var(--shadow-lift);
-}
-.autosave-pill.show { opacity: 0.9; }
-
-/* Loading */
-.loading {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  border: 2px solid var(--line);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  vertical-align: middle;
-  margin-right: 6px;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* Persönliche Startseite */
-.personal-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.streak-pill {
-  background: var(--accent-bg);
-  color: var(--accent);
-  border: 1px solid var(--accent-soft);
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-.personal-section { margin-top: 20px; }
-.rec-list { display: flex; flex-direction: column; gap: 8px; }
-.rec-chip {
-  padding: 12px 14px;
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--accent);
-  border-radius: 6px;
-  background: var(--bg);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.rec-chip:hover {
-  background: var(--accent-bg);
-  border-color: var(--accent-soft);
-  border-left-color: var(--accent);
-}
-.rec-title { font-weight: 600; font-size: 14px; }
-.rec-reason { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
-.recent-row {
-  display: flex;
-  gap: 12px;
-  align-items: baseline;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--line-soft);
-  font-size: 14px;
-}
-.recent-row:last-child { border-bottom: none; }
-.recent-when { color: var(--ink-muted); font-size: 13px; min-width: 52px; }
-.recent-title { flex-grow: 1; }
-.recent-score { color: var(--accent); font-weight: 600; white-space: nowrap; }
-.device-note { font-size: 12px; color: var(--ink-muted); margin-top: 16px; }
-
-/* Schritt-Modus */
-.repeat-hint {
-  background: var(--accent-bg);
-  color: var(--ink-soft);
-  border-left: 3px solid var(--accent);
-  border-radius: 6px;
-  padding: 10px 14px;
-  font-size: 13.5px;
-  margin-bottom: 20px;
-}
-.option.locked { cursor: default; }
-.option.locked:hover { border-color: var(--line); background: var(--bg); }
-.option.locked.correct, .option.locked.correct:hover { border-color: var(--correct); background: var(--correct-bg); }
-.option.locked.wrong, .option.locked.wrong:hover { border-color: var(--wrong); background: var(--wrong-bg); }
+.btn-ghost:hover { color: var(--brand-dark); background: var(--brand-soft); }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; align-items: center; }
 .step-nav { justify-content: flex-end; }
 .step-nav .btn-ghost { margin-right: auto; }
 
-/* Gemischtes Quiz — Kachel */
-.unit-item.mixed-tile { border-left-color: var(--type-reasoning); }
-.unit-item.mixed-tile:hover {
-  background: var(--type-reasoning-bg);
-  border-color: var(--type-reasoning);
-  border-left-color: var(--type-reasoning);
+/* Hero (persönliche Startseite) */
+.hero {
+  background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+  color: #fff; border-radius: 20px; padding: 22px 22px 20px;
+  box-shadow: var(--shadow-lift); margin-bottom: 16px;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: ''; position: absolute; right: -40px; top: -40px;
+  width: 170px; height: 170px; border-radius: 50%;
+  background: rgba(255,255,255,0.10);
+}
+.hero h1 { font-size: 24px; font-weight: 800; margin-bottom: 2px; color: #fff; }
+.hero p { opacity: 0.92; font-size: 14px; }
+.hero-stats { display: flex; gap: 10px; margin-top: 16px; position: relative; z-index: 1; }
+.hstat { background: rgba(255,255,255,0.16); border-radius: 13px; padding: 11px 13px; flex: 1; }
+.hstat .n { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 21px; line-height: 1.1; }
+.hstat .l { font-size: 11px; opacity: 0.92; margin-top: 2px; }
+
+/* Ringe */
+.goal-row { display: flex; align-items: center; gap: 16px; }
+.ringwrap { position: relative; flex-shrink: 0; }
+.ringwrap .val {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 15px;
+}
+.goal-txt h3 { font-size: 16px; margin-bottom: 2px; }
+.goal-txt p { font-size: 13.5px; color: var(--ink-soft); }
+
+/* Themen-Karten */
+.topic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 520px) { .topic-grid { grid-template-columns: 1fr; } }
+.topic-card {
+  background: var(--card); border-radius: 18px; padding: 16px;
+  box-shadow: var(--shadow); cursor: pointer; border: 1.5px solid transparent;
+  transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
+}
+.topic-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); border-color: var(--tc); }
+.topic-card .ticon {
+  width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--tc) 14%, #fff); color: var(--tc); margin-bottom: 12px;
+}
+.topic-card h3 { font-size: 16px; line-height: 1.25; margin-bottom: 2px; }
+.topic-card .tmeta { font-size: 12.5px; color: var(--ink-mute); margin-bottom: 12px; }
+.tbar { height: 7px; border-radius: 99px; background: var(--ring-track); overflow: hidden; }
+.tbar > i { display: block; height: 100%; border-radius: 99px; background: var(--tc); }
+.tpct { font-size: 12px; font-weight: 700; color: var(--tc); margin-top: 7px; display: block; }
+
+.mixed-banner {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: 14px;
+  background: linear-gradient(120deg, var(--accent), #f0554a);
+  color: #fff; border-radius: 18px; padding: 16px 18px; cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.12s;
+}
+.mixed-banner:hover { transform: translateY(-2px); }
+.mixed-banner .em { font-size: 26px; }
+.mixed-banner h3 { font-size: 16px; color: #fff; margin: 0; }
+.mixed-banner p { font-size: 12.5px; opacity: 0.93; }
+.mixed-banner .go { margin-left: auto; font-size: 20px; }
+
+/* Empfehlungen */
+.rec-list { display: flex; flex-direction: column; gap: 9px; }
+.rec-chip {
+  padding: 13px 15px; background: var(--card);
+  border: 1.5px solid var(--line); border-left: 4px solid var(--brand);
+  border-radius: 14px; cursor: pointer; box-shadow: var(--shadow);
+  transition: border-color 0.12s, transform 0.12s;
+}
+.rec-chip:hover { border-color: var(--brand); transform: translateX(2px); }
+.rec-title { font-weight: 700; font-size: 14.5px; font-family: 'Nunito', sans-serif; }
+.rec-reason { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+
+/* Verlauf */
+.recent { background: var(--card); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; }
+.recent-row { display: flex; gap: 12px; align-items: baseline; padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 14px; }
+.recent-row:last-child { border-bottom: none; }
+.recent-when { color: var(--ink-mute); font-size: 12.5px; min-width: 52px; }
+.recent-title { flex-grow: 1; font-weight: 600; }
+.recent-score { color: var(--brand-dark); font-weight: 800; font-family: 'Nunito', sans-serif; white-space: nowrap; }
+.device-note { font-size: 12px; color: var(--ink-mute); margin-top: 14px; }
+
+/* Einheiten-Liste (Thema-Ansicht) */
+.unit-list { display: flex; flex-direction: column; gap: 11px; }
+.lesson-row {
+  display: flex; align-items: center; gap: 14px; background: var(--card);
+  border-radius: 16px; padding: 14px 16px; box-shadow: var(--shadow); cursor: pointer;
+  border: 1.5px solid transparent; transition: border-color 0.12s, transform 0.12s;
+}
+.lesson-row:hover { border-color: var(--tc, var(--brand)); transform: translateX(2px); }
+.lesson-row .l-ring { width: 46px; height: 46px; flex-shrink: 0; position: relative; }
+.lesson-row .l-ring .val { position: absolute; inset: 0; display: grid; place-items: center; font-size: 11px; font-weight: 800; font-family: 'Nunito', sans-serif; }
+.lesson-row .l-check { width: 46px; height: 46px; border-radius: 50%; background: var(--good-soft); color: var(--good); display: grid; place-items: center; flex-shrink: 0; }
+.lesson-row .l-body { flex: 1; min-width: 0; }
+.lesson-row .l-body h3 { font-size: 15px; font-weight: 700; margin: 0; }
+.lesson-row .l-body p { font-size: 12.5px; color: var(--ink-mute); }
+.unit-tag {
+  font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 99px;
+  font-family: 'Nunito', sans-serif; flex-shrink: 0;
+}
+.unit-tag.type-quiz { background: var(--brand-soft); color: var(--brand-dark); }
+.unit-tag.type-short_case { background: var(--warn-soft); color: #b45309; }
+.unit-tag.type-reasoning_case { background: #ede9fe; color: #6d28d9; }
+.unit-tag.tag-done { background: var(--good-soft); color: var(--good); }
+
+.topic-head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.topic-head .ticon { width: 52px; height: 52px; border-radius: 15px; display: grid; place-items: center; background: color-mix(in srgb, var(--tc, var(--brand)) 14%, #fff); color: var(--tc, var(--brand)); flex-shrink: 0; }
+.topic-head h1 { margin-bottom: 0; }
+.topic-head p { font-size: 13.5px; color: var(--ink-soft); }
+
+.back {
+  display: inline-flex; align-items: center; gap: 6px; background: none; border: none;
+  color: var(--ink-soft); font-family: inherit; font-size: 14px; font-weight: 600;
+  cursor: pointer; margin-bottom: 14px; padding: 6px 10px; border-radius: 10px;
+}
+.back:hover { color: var(--brand-dark); background: var(--brand-soft); }
+
+/* Fortschrittsanzeige (oben im Quiz) */
+.progress {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 18px; padding: 12px 16px;
+  background: var(--card); border-radius: 14px; box-shadow: var(--shadow); gap: 14px;
+}
+.progress-text { font-size: 13px; color: var(--ink-soft); font-weight: 700; font-family: 'Nunito', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.progress-bar { height: 8px; background: var(--ring-track); border-radius: 99px; overflow: hidden; flex-grow: 1; }
+.progress-fill { height: 100%; background: var(--brand); border-radius: 99px; transition: width 0.3s; }
+
+/* Fragen */
+.question { margin-bottom: 26px; padding-bottom: 4px; }
+.question-num {
+  font-size: 12.5px; color: var(--brand-dark); font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;
+  font-family: 'Nunito', sans-serif;
+}
+.question-text {
+  font-size: 18px; font-weight: 700; margin-bottom: 18px; line-height: 1.4;
+  font-family: 'Nunito', sans-serif;
+}
+.options { display: flex; flex-direction: column; gap: 10px; }
+.option {
+  display: flex; align-items: flex-start; gap: 12px; padding: 14px 15px;
+  border: 2px solid var(--line); border-radius: 14px; cursor: pointer;
+  transition: border-color 0.12s, background 0.12s; background: var(--card);
+  box-shadow: var(--shadow);
+  /* Label-Grundstil neutralisieren (.option ist ein <label>) */
+  text-transform: none; letter-spacing: normal; font-size: 15px;
+  font-weight: 400; color: var(--ink); margin-bottom: 0;
+}
+.option:hover { border-color: var(--brand); }
+.option input[type="radio"], .option input[type="checkbox"] {
+  margin-top: 3px; flex-shrink: 0; accent-color: var(--brand);
+  width: 17px; height: 17px;
+}
+.option-text { flex-grow: 1; line-height: 1.45; }
+.option.selected { border-color: var(--brand); background: var(--brand-soft); }
+.option.correct { border-color: var(--good); background: var(--good-soft); }
+.option.wrong { border-color: var(--wrong); background: var(--wrong-soft); }
+.option.locked { cursor: default; box-shadow: none; }
+.option.locked:hover { border-color: var(--line); }
+.option.locked.correct, .option.locked.correct:hover { border-color: var(--good); }
+.option.locked.wrong, .option.locked.wrong:hover { border-color: var(--wrong); }
+
+.feedback { margin-top: 14px; padding: 14px 16px; border-radius: 14px; font-size: 14px; line-height: 1.55; }
+.feedback.correct { background: var(--good-soft); color: #15803d; border-left: 4px solid var(--good); }
+.feedback.wrong { background: var(--wrong-soft); color: #b42318; border-left: 4px solid var(--wrong); }
+.feedback strong { display: block; margin-bottom: 4px; font-family: 'Nunito', sans-serif; font-weight: 800; }
+
+/* Sicherheits-Einschätzung */
+.conf-box { margin-top: 18px; }
+.conf-label {
+  font-size: 13px; font-weight: 800; color: var(--ink-soft); margin-bottom: 9px;
+  font-family: 'Nunito', sans-serif; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.conf-row { display: flex; gap: 9px; flex-wrap: wrap; }
+.conf-btn {
+  flex: 1; min-width: 100px; padding: 12px 10px;
+  background: var(--card); border: 1.5px solid var(--line); border-radius: 13px;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 14px; color: var(--ink);
+  cursor: pointer; box-shadow: var(--shadow);
+  transition: border-color 0.12s, background 0.12s, transform 0.1s;
+}
+.conf-btn:hover { border-color: var(--brand); background: var(--brand-soft); }
+.conf-btn:active { transform: scale(0.98); }
+.conf-hint { font-size: 12px; color: var(--ink-mute); margin-top: 8px; }
+
+/* Vorhersage vor dem Quiz */
+.pred-emoji { font-size: 48px; text-align: center; margin-bottom: 6px; }
+.pred-grid { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; margin-top: 6px; }
+.pred-chip {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--card); border: 2px solid var(--line);
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 17px; color: var(--ink);
+  cursor: pointer; box-shadow: var(--shadow);
+  transition: border-color 0.12s, background 0.12s, transform 0.1s;
+}
+.pred-chip:hover { border-color: var(--brand); background: var(--brand-soft); transform: translateY(-2px); }
+
+/* Wiederholungs-Hinweis */
+.repeat-hint {
+  background: var(--brand-soft); color: var(--brand-dark);
+  border-left: 4px solid var(--brand); border-radius: 12px;
+  padding: 11px 14px; font-size: 13.5px; font-weight: 600; margin-bottom: 18px;
 }
 
-/* Ergebnis-Badges */
-.result-badges {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 20px;
+/* Fall-Vignette */
+.vignette {
+  background: var(--bg); border: 1.5px solid var(--line);
+  border-left: 4px solid var(--warn); border-radius: 14px;
+  padding: 18px 20px; margin-bottom: 22px;
+  font-size: 15px; line-height: 1.65; color: var(--ink-soft);
 }
+.vignette-title {
+  font-family: 'Nunito', sans-serif; font-size: 12.5px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.08em; color: #b45309; margin-bottom: 10px;
+}
+.vignette-words { user-select: none; -webkit-user-select: none; }
+.word { display: inline; cursor: pointer; border-radius: 3px; padding: 1px 1px; transition: background 0.1s; }
+.word:hover { background: var(--ring-track); }
+.word.marked { background: var(--highlight); font-weight: 600; color: var(--ink); }
+.markings-info {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line);
+  font-size: 13px; color: var(--ink-mute);
+}
+.markings-count strong { color: var(--brand-dark); }
+
+/* Reasoning */
+.reasoning-section { margin-bottom: 24px; }
+.reasoning-help { font-size: 13px; color: var(--ink-mute); font-style: italic; margin-top: 4px; margin-bottom: 10px; }
+.hypothesis-block {
+  margin-bottom: 16px; padding: 16px;
+  background: var(--bg); border: 1.5px solid var(--line); border-radius: 14px;
+}
+.hypothesis-block label { margin-bottom: 4px; }
+
+/* Ergebnis */
+.result-hero { text-align: center; padding: 8px 0 0; }
+.result-emoji { font-size: 56px; line-height: 1.1; }
+.result-hero h1 { font-size: 26px; font-weight: 900; margin-top: 6px; }
+.result-ring { width: 210px; height: 210px; margin: 18px auto; position: relative; }
+.result-ring .val { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.result-ring .big-num { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 50px; line-height: 1; }
+.result-ring .sub { font-size: 14px; color: var(--ink-mute); font-weight: 700; }
+.result-badges { display: flex; gap: 9px; flex-wrap: wrap; justify-content: center; margin: 6px 0 18px; }
 .result-badges .badge {
-  background: var(--accent-bg);
-  color: var(--accent);
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
+  background: var(--brand-soft); color: var(--brand-dark);
+  padding: 7px 14px; border-radius: 999px; font-size: 13.5px; font-weight: 800;
+  font-family: 'Nunito', sans-serif;
 }
+.result-badges .badge.badge-warn { background: var(--warn-soft); color: #b45309; }
+.conf-flag { font-size: 12.5px; font-weight: 700; color: #b45309; margin-top: 6px; }
 
-/* Dialog-Modal (Ersatz für native confirm/alert) */
+/* Status-Box */
+.status { padding: 14px 18px; border-radius: 14px; margin-bottom: 16px; font-size: 14px; }
+.status-info { background: var(--brand-soft); color: var(--brand-dark); }
+.status-success { background: var(--good-soft); color: #15803d; }
+.status-error { background: var(--wrong-soft); color: #b42318; }
+
+.autosave-pill {
+  position: fixed; bottom: 18px; right: 18px;
+  background: var(--ink); color: #fff;
+  padding: 9px 15px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+  opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100;
+  box-shadow: var(--shadow-lift);
+}
+.autosave-pill.show { opacity: 0.92; }
+
+/* Dialog-Modal */
 .modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(5, 10, 20, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  z-index: 200;
+  position: fixed; inset: 0; background: rgba(22,35,43,0.45);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; z-index: 200;
 }
 .modal {
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  box-shadow: var(--shadow-lift);
-  padding: 24px;
-  max-width: 440px;
-  width: 100%;
+  background: var(--card); border-radius: 18px;
+  box-shadow: var(--shadow-lift); padding: 24px;
+  max-width: 440px; width: 100%;
 }
-.modal-text {
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--ink);
-  white-space: pre-line;
-}
+.modal-text { font-size: 15px; line-height: 1.55; color: var(--ink); white-space: pre-line; }
 .modal .btn-row { justify-content: flex-end; }
 
-.hidden { display: none !important; }
-
-.empty-state {
-  text-align: center;
-  color: var(--ink-muted);
-  padding: 40px 20px;
+/* Loading */
+.loading {
+  display: inline-block; width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff;
+  border-radius: 50%; animation: spin 0.7s linear infinite;
+  vertical-align: middle; margin-right: 6px;
 }
+.btn-ghost .loading, .empty-state .loading { border-color: var(--line); border-top-color: var(--brand); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.hidden { display: none !important; }
+.empty-state { text-align: center; color: var(--ink-mute); padding: 40px 20px; }
+
 </style>
 </head>
 <body>
 
 <div class="container">
 
-  <header class="brand">
-    <div class="brand-mark">Skill Lab</div>
-    <div class="brand-sub">Physiotherapie · Lernwerkstatt</div>
-    <div class="brand-spacer"></div>
-    <div class="brand-author">Philipp Läufer</div>
+  <header class="appbar">
+    <div class="logo">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 8v6l9 5 9-5V8"/></svg>
+    </div>
+    <div>
+      <div class="brand-mark">Skill Lab</div>
+      <div class="brand-sub">Physiotherapie</div>
+    </div>
+    <div class="avatar hidden" id="user-avatar">?</div>
   </header>
 
   <!-- SCHRITT 1: Anmeldung -->
@@ -655,29 +488,28 @@ button {
   <!-- SCHRITT 2: Persönliche Übersicht + Thema wählen -->
   <section id="screen-topics" class="hidden">
     <div id="personal-home"></div>
-    <div class="card">
-      <h2>Thema wählen</h2>
-      <p class="lead">Wähle das Thema, mit dem du heute arbeitest.</p>
-      <div id="topic-list" class="unit-list">
-        <div class="empty-state">Lade verfügbare Themen…</div>
-      </div>
-      <div class="btn-row">
-        <button class="btn-ghost" onclick="backToLogin()">← Zurück</button>
-      </div>
+    <div class="section-h">Deine Themen</div>
+    <div id="topic-list" class="topic-grid">
+      <div class="empty-state" style="grid-column:1/-1">Lade verfügbare Themen…</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-ghost" onclick="backToLogin()">← Nicht du? Neu anmelden</button>
     </div>
   </section>
 
   <!-- SCHRITT 3: Lerneinheit wählen -->
   <section id="screen-units" class="hidden">
-    <div class="card">
-      <h1 id="units-title">Lerneinheit wählen</h1>
-      <p class="lead">Wähle die Einheit, die dein Dozent angegeben hat.</p>
-      <div id="unit-list" class="unit-list">
-        <div class="empty-state">Lade verfügbare Einheiten…</div>
+    <button class="back" onclick="backToTopics()">← Zurück zur Übersicht</button>
+    <div class="topic-head" id="units-head">
+      <div class="ticon" id="units-icon"></div>
+      <div>
+        <h1 id="units-title">Lerneinheit wählen</h1>
+        <p id="units-sub">Wähle deine Einheit.</p>
       </div>
-      <div class="btn-row">
-        <button class="btn-ghost" onclick="backToTopics()">← Anderes Thema wählen</button>
-      </div>
+    </div>
+    <div class="section-h">Lerneinheiten</div>
+    <div id="unit-list" class="unit-list">
+      <div class="empty-state">Lade verfügbare Einheiten…</div>
     </div>
   </section>
 
@@ -736,8 +568,38 @@ let session = {
   stepIdx: 0,        // aktuelle Frage im Schritt-Modus
   revealed: {},      // originalQIdx -> true, sobald Feedback gezeigt wurde (Antwort gesperrt)
   mixedMap: null,    // beim gemischten Quiz: Zuordnung Frage -> Quell-Einheit
-  repeatCount: 0     // wie viele Wiederholungsfragen in dieser Session stecken
+  repeatCount: 0,    // wie viele Wiederholungsfragen in dieser Session stecken
+  prediction: null,  // Vorhersage vor dem Quiz (-1 = übersprungen, null = noch nicht gefragt)
+  confidence: {}     // originalQIdx -> 'sicher' | 'unsicher' | 'geraten'
 };
+
+// ============= THEMEN: FARBEN & ICONS =============
+const TOPIC_COLORS = {
+  schmerz: 'var(--t-schmerz)',
+  knie: 'var(--t-knie)',
+  fuss: 'var(--t-fuss)',
+  huefte: 'var(--t-huefte)'
+};
+function topicColor(topicId) {
+  return TOPIC_COLORS[topicId] || 'var(--brand)';
+}
+
+const TOPIC_ICONS = {
+  // Blitz — Schmerzverständnis
+  schmerz: '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>',
+  // Knie — Bein mit Gelenkpunkt
+  knie: '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v6a4 4 0 0 0 4 4 4 4 0 0 1 4 4v4"/><circle cx="8" cy="13" r="1.6"/></svg>',
+  // Fuß
+  fuss: '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4c-1 3-2 6-2 9 0 4 2 7 5 7s4-2 4-4c0-1 1-2 2-2s2-1 2-3-1-3-3-4c-2-1-3-2-4-3s-2-1-3 0Z"/></svg>',
+  // Hüfte — Gelenkkopf mit Pfanne
+  huefte: '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M9 11c-2 2-3 5-3 9M9 11c2 1 4 2 6 1"/></svg>',
+  // Fallback — Buch
+  default: '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5v13Z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-2.5"/></svg>'
+};
+function topicIcon(topicId, size) {
+  const svg = TOPIC_ICONS[topicId] || TOPIC_ICONS.default;
+  return svg.replace(/__S__/g, size || 24);
+}
 
 let availableUnits = [];
 // availableCourses: null = noch nicht geladen, [] = leer/fallback (Freitext + alles sichtbar),
@@ -805,6 +667,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       session = saved;
       document.getElementById('student_name').value = session.student_name || '';
       restoreClassValue(session.class_name || '');
+      updateAvatar();
       if (session.unit) {
         // Aktive Lerneinheit war offen — direkt dorthin zurück
         showScreen('content');
@@ -934,6 +797,8 @@ function backToTopics() {
   session.markings = {};
   session.displayPlan = null;
   session.revealed = {};
+  session.confidence = {};
+  session.prediction = null;
   session.stepIdx = 0;
   session.mixedMap = null;
   session.repeatCount = 0;
@@ -988,15 +853,25 @@ function renderTopicsList() {
   });
   list.innerHTML = '';
   topics.forEach(t => {
+    const unitsOfTopic = visibleUnits.filter(u => (u.topic || 'sonstige') === t.id);
+    const stats = topicMasteryStats(unitsOfTopic);
+    const color = topicColor(t.id);
     const div = document.createElement('div');
-    div.className = 'unit-item topic-tile';
+    div.className = 'topic-card';
+    div.style.setProperty('--tc', color);
     div.onclick = () => selectTopic(t.id, t.title);
+    let progHtml;
+    if (stats.pool > 0) {
+      const pct = Math.round((stats.mastered / stats.pool) * 100);
+      progHtml = `<div class="tbar"><i style="width:${pct}%"></i></div><span class="tpct">${stats.mastered} von ${stats.pool} Fragen gemeistert</span>`;
+    } else {
+      progHtml = `<div class="tbar"><i style="width:0%"></i></div><span class="tpct">Neu — jetzt starten</span>`;
+    }
     div.innerHTML = `
-      <div>
-        <div class="unit-title">${escapeHtml(t.title)}</div>
-        <div class="unit-meta">${t.count} Einheit${t.count === 1 ? '' : 'en'} verfügbar</div>
-      </div>
-      <div class="unit-tag">→</div>
+      <div class="ticon">${topicIcon(t.id, 24)}</div>
+      <h3>${escapeHtml(t.title)}</h3>
+      <div class="tmeta">${t.count} Einheit${t.count === 1 ? '' : 'en'}</div>
+      ${progHtml}
     `;
     list.appendChild(div);
   });
@@ -1005,14 +880,15 @@ function renderTopicsList() {
   const quizUnits = visibleUnits.filter(u => u.type === 'quiz');
   if (quizUnits.length >= 2) {
     const div = document.createElement('div');
-    div.className = 'unit-item topic-tile mixed-tile';
+    div.className = 'mixed-banner';
     div.onclick = () => startMixedQuiz();
     div.innerHTML = `
+      <div class="em">🎲</div>
       <div>
-        <div class="unit-title">Gemischtes Quiz</div>
-        <div class="unit-meta">10 Fragen quer durch alle Themen — ideal zur Prüfungsvorbereitung</div>
+        <h3>Gemischtes Quiz</h3>
+        <p>10 Fragen quer durch alle Themen — ideal zur Prüfungsvorbereitung</p>
       </div>
-      <div class="unit-tag">🎲</div>
+      <div class="go">→</div>
     `;
     list.appendChild(div);
   }
@@ -1063,6 +939,8 @@ async function startMixedQuiz() {
     session.answers = {};
     session.markings = {};
     session.revealed = {};
+    session.confidence = {};
+    session.prediction = null;
     session.stepIdx = 0;
     session.repeatCount = priority.length;
     session.displayPlan = session.unit.questions.map((q, i) => ({
@@ -1083,57 +961,68 @@ function renderPersonalCard(topics) {
   if (!host) return;
   const firstName = escapeHtml((session.student_name || '').trim().split(/\s+/)[0] || '');
   const profile = getProfile(session.student_name);
-
-  if (!profile || !profile.results.length) {
-    host.innerHTML = `<div class="card">
-      <div class="personal-head">
-        <div>
-          <h1>Hallo, ${firstName}!</h1>
-          <p class="lead" style="margin-bottom:0;">Schön, dass du da bist. Nach deiner ersten Einheit siehst du hier deine Ergebnisse, deine Lernserie und persönliche Empfehlungen.</p>
-        </div>
-        <div class="streak-pill">🔥 Tag 1 beginnt heute</div>
-      </div>
-      <p class="device-note">Dein Verlauf wird nur auf diesem Gerät gespeichert.</p>
-    </div>`;
-    return;
-  }
-
+  const hasHistory = !!(profile && profile.results.length);
   const streak = computeStreak(profile);
-  let streakText;
-  if (streak.days === 0) {
-    streakText = '🔥 Starte heute deine Serie';
-  } else {
-    streakText = `🔥 ${streak.days} Tag${streak.days === 1 ? '' : 'e'} in Folge${streak.activeToday ? '' : ' · heute noch offen'}`;
+  const masteredTotal = totalMasteredQuestions(profile);
+  const avg = avgScorePct(profile);
+  const todayN = questionsAnsweredToday(profile);
+
+  // Hero mit Kennzahlen
+  const hero = `<div class="hero">
+    <h1>Hallo, ${firstName}! 👋</h1>
+    <p>${hasHistory ? 'Schön, dass du wieder da bist. Weiter geht’s.' : 'Schön, dass du da bist — such dir unten ein Thema aus und leg los.'}</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="n">🔥 ${streak.days}</div><div class="l">Tage in Folge</div></div>
+      <div class="hstat"><div class="n">${masteredTotal}</div><div class="l">Fragen gemeistert</div></div>
+      <div class="hstat"><div class="n">${avg == null ? '–' : avg + '%'}</div><div class="l">Ø Trefferquote</div></div>
+    </div>
+  </div>`;
+
+  // Tagesziel-Ring
+  const remaining = Math.max(DAILY_GOAL_QUESTIONS - todayN, 0);
+  const dash = 201; // 2π·32
+  const off = Math.round(dash * (1 - Math.min(todayN / DAILY_GOAL_QUESTIONS, 1)));
+  const goal = `<div class="card">
+    <div class="goal-row">
+      <div class="ringwrap">
+        <svg width="74" height="74"><circle cx="37" cy="37" r="32" fill="none" stroke="var(--ring-track)" stroke-width="8"/><circle cx="37" cy="37" r="32" fill="none" stroke="var(--brand)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${dash}" stroke-dashoffset="${off}" transform="rotate(-90 37 37)"/></svg>
+        <div class="val">${Math.min(todayN, DAILY_GOAL_QUESTIONS)}/${DAILY_GOAL_QUESTIONS}</div>
+      </div>
+      <div class="goal-txt">
+        <h3>Tagesziel</h3>
+        <p>${remaining === 0
+          ? 'Geschafft — Tagesziel erreicht! Jede weitere Frage ist Bonus. 🎉'
+          : `Noch <strong>${remaining} Frage${remaining === 1 ? '' : 'n'}</strong> bis zu deinem Tagesziel.`}</p>
+      </div>
+    </div>
+  </div>`;
+
+  // Empfehlungen (nur mit Verlauf)
+  let recsHtml = '';
+  if (hasHistory) {
+    const recs = buildRecommendations(profile, topics);
+    if (recs.length) {
+      recsHtml = '<div class="section-h">Empfohlen für dich</div><div class="rec-list">' + recs.map(r => `
+        <div class="rec-chip" onclick="selectTopic('${escapeHtml(r.topicId)}', '${escapeHtml(r.topicTitle)}')">
+          <div class="rec-title">${escapeHtml(r.topicTitle)}</div>
+          <div class="rec-reason">${escapeHtml(r.reason)}</div>
+        </div>`).join('') + '</div>';
+    }
   }
 
-  const recent = [...profile.results].slice(-3).reverse();
-  const recentHtml = recent.map(r => {
-    const score = (r.score_total != null && r.score_total > 0)
-      ? `${r.score_correct} / ${r.score_total}`
-      : 'abgegeben';
-    return `<div class="recent-row">
-      <span class="recent-when">${fmtDay(r.day)}</span>
-      <span class="recent-title">${escapeHtml(r.unit_title)}</span>
-      <span class="recent-score">${score}</span>
-    </div>`;
-  }).join('');
+  // Letzte Ergebnisse
+  let recentHtml = '';
+  if (hasHistory) {
+    const recent = [...profile.results].slice(-3).reverse();
+    recentHtml = '<div class="section-h">Zuletzt bearbeitet</div><div class="recent">' + recent.map(r => {
+      const score = (r.score_total != null && r.score_total > 0) ? `${r.score_correct} / ${r.score_total}` : 'abgegeben';
+      return `<div class="recent-row"><span class="recent-when">${fmtDay(r.day)}</span><span class="recent-title">${escapeHtml(r.unit_title)}</span><span class="recent-score">${score}</span></div>`;
+    }).join('') + '</div>';
+  }
 
-  const recs = buildRecommendations(profile, topics);
-  const recsHtml = recs.map(r => `
-    <div class="rec-chip" onclick="selectTopic('${escapeHtml(r.topicId)}', '${escapeHtml(r.topicTitle)}')">
-      <div class="rec-title">${escapeHtml(r.topicTitle)}</div>
-      <div class="rec-reason">${escapeHtml(r.reason)}</div>
-    </div>`).join('');
-
-  host.innerHTML = `<div class="card">
-    <div class="personal-head">
-      <div><h1>Hallo, ${firstName}!</h1></div>
-      <div class="streak-pill">${streakText}</div>
-    </div>
-    ${recs.length ? `<div class="personal-section"><h3>Empfohlen für dich</h3><div class="rec-list">${recsHtml}</div></div>` : ''}
-    ${recent.length ? `<div class="personal-section"><h3>Deine letzten Ergebnisse</h3>${recentHtml}</div>` : ''}
-    <p class="device-note">Dein Verlauf wird nur auf diesem Gerät gespeichert.</p>
-  </div>`;
+  host.innerHTML = hero + goal + recsHtml + recentHtml
+    + '<p class="device-note">Gemeistert = zweimal in Folge richtig beantwortet. Dein Verlauf wird nur auf diesem Gerät gespeichert.</p>';
+  updateAvatar();
 }
 
 // Regelbasierte Empfehlungen nach Lernforschungs-Prinzipien:
@@ -1167,9 +1056,13 @@ function selectTopic(topicId, topicTitle) {
   session.topic_title = topicTitle;
   saveSession();
   showScreen('units');
-  // Titel im Units-Screen anzeigen
+  // Kopf des Units-Screens: Titel, Icon, Themenfarbe
   const t = document.getElementById('units-title');
   if (t) t.textContent = topicTitle || 'Lerneinheit wählen';
+  const head = document.getElementById('units-head');
+  if (head) head.style.setProperty('--tc', topicColor(topicId));
+  const icon = document.getElementById('units-icon');
+  if (icon) icon.innerHTML = topicIcon(topicId, 28);
   renderUnitList();
 }
 
@@ -1183,22 +1076,52 @@ function renderUnitList() {
     && !u.hidden
     && (allowedIds === null || allowedIds.includes(u.id))
   );
+  const sub = document.getElementById('units-sub');
   if (!filtered.length) {
+    if (sub) sub.textContent = '';
     list.innerHTML = '<div class="empty-state">Für dieses Thema sind aktuell keine Einheiten freigeschaltet.</div>';
     return;
   }
+  const tStats = topicMasteryStats(filtered);
+  if (sub) {
+    sub.textContent = `${filtered.length} Einheit${filtered.length === 1 ? '' : 'en'}`
+      + (tStats.pool > 0 ? ` · ${tStats.mastered} von ${tStats.pool} Fragen gemeistert` : ' · neu');
+  }
+  const color = topicColor(session.topic);
   list.innerHTML = '';
   filtered.forEach(u => {
     const div = document.createElement('div');
-    div.className = 'unit-item type-' + u.type;
+    div.className = 'lesson-row';
+    div.style.setProperty('--tc', color);
     div.onclick = () => selectUnit(u.file);
-    const typeLabel = u.type === 'quiz' ? 'Quiz' : (u.type === 'short_case' ? 'Kurzfall' : 'Reasoning-Fall');
+    const typeLabel = u.type === 'quiz' ? 'Quiz' : (u.type === 'short_case' ? 'Kurzfall' : 'Reasoning');
+    let left, meta, tagCls = 'type-' + u.type, tagText = typeLabel;
+    if (u.type === 'quiz') {
+      const s = unitMasteryStats(u.id);
+      if (s.attempts > 0) {
+        const pct = s.poolSize > 0 ? Math.round((s.mastered / s.poolSize) * 100) : 0;
+        left = smallRing(pct, color);
+        const wdh = getWrongPool(u.id).length;
+        meta = `${s.mastered} von ${s.poolSize} Fragen gemeistert${wdh ? ' · ' + wdh + ' zum Wiederholen' : ''}`;
+      } else {
+        left = smallRing(0, color);
+        meta = u.description || 'Noch nicht gestartet';
+      }
+    } else {
+      if (hasResultFor(u.id)) {
+        left = '<div class="l-check"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>';
+        meta = 'Bearbeitet — nochmal üben jederzeit möglich';
+        tagCls = 'tag-done';
+        tagText = '✓ ' + typeLabel;
+      } else {
+        left = '<div class="l-ring"><svg width="46" height="46"><circle cx="23" cy="23" r="19" fill="none" stroke="var(--ring-track)" stroke-width="5"/></svg><div class="val" style="color:var(--ink-mute)">–</div></div>';
+        meta = u.description || 'Noch offen';
+      }
+    }
     div.innerHTML = `
-      <div>
-        <div class="unit-title">${escapeHtml(u.title)}</div>
-        <div class="unit-meta">${escapeHtml(u.description || '')}</div>
-      </div>
-      <div class="unit-tag type-${u.type}">${typeLabel}</div>
+      ${left}
+      <div class="l-body"><h3>${escapeHtml(u.title)}</h3><p>${escapeHtml(meta)}</p></div>
+      <span class="unit-tag ${tagCls}">${tagText}</span>
     `;
     list.appendChild(div);
   });
@@ -1212,6 +1135,8 @@ async function selectUnit(file) {
     session.answers = {};
     session.markings = {};
     session.revealed = {};
+    session.confidence = {};
+    session.prediction = null;
     session.stepIdx = 0;
     session.mixedMap = null;
     session.displayPlan = buildDisplayPlan(session.unit);
@@ -1272,11 +1197,23 @@ function renderStep(card, u) {
     return;
   }
   if (!session.revealed) session.revealed = {};
+  if (!session.confidence) session.confidence = {};
   // Alt-Sessions (vor dem Schritt-Modus): beantwortete Fragen als aufgedeckt übernehmen
   if (session.answers.questions) {
     Object.keys(session.answers.questions).forEach(k => {
       if (session.revealed[k] === undefined && session.answers.questions[k] != null) session.revealed[k] = true;
     });
+  }
+
+  // Vorhersage vor dem Quiz (Pretesting-Effekt + Metakognition) — nur Quiz, nur ganz am Anfang
+  if (u.type === 'quiz' && session.prediction == null) {
+    const answeredAny = session.answers.questions && Object.keys(session.answers.questions).length > 0;
+    if (answeredAny) {
+      session.prediction = -1; // mitten in alter Session — nicht mehr nachfragen
+    } else {
+      renderPrediction(card, u);
+      return;
+    }
   }
   if (typeof session.stepIdx !== 'number' || session.stepIdx < 0) {
     const first = plan.findIndex(p => !session.revealed[p.originalQIdx]);
@@ -1304,25 +1241,67 @@ function renderStep(card, u) {
   if (isRevealed) {
     const ans = session.answers.questions ? session.answers.questions[entry.originalQIdx] : null;
     const ok = isAnswerCorrect(q, ans);
-    html += `<div class="feedback ${ok ? 'correct' : 'wrong'}"><strong>${ok ? '✓ Richtig' : '✗ Nicht ganz'}</strong>${escapeHtml(q.explanation || '')}</div>`;
-  }
-
-  html += '<div class="btn-row step-nav">';
-  if (session.stepIdx > 0) {
-    html += '<button class="btn-ghost" onclick="prevStep()">← Vorherige Frage</button>';
-  }
-  if (!isRevealed) {
-    html += '<button class="btn-primary" onclick="checkAnswer()">Antwort prüfen</button>';
-  } else if (!isLast) {
-    html += '<button class="btn-primary" onclick="nextStep()">Weiter →</button>';
+    const conf = session.confidence[entry.originalQIdx];
+    // Konfidenz-bewusstes Feedback: Hypercorrection-Effekt nutzen
+    let head = ok ? '✓ Richtig' : '✗ Nicht ganz';
+    if (ok && conf === 'geraten') head = '✓ Richtig — gut geraten! Lies die Erklärung trotzdem in Ruhe.';
+    if (!ok && conf === 'sicher') head = '✗ Nicht ganz — und du warst dir sicher. Diese Erklärung lohnt sich doppelt.';
+    html += `<div class="feedback ${ok ? 'correct' : 'wrong'}"><strong>${head}</strong>${escapeHtml(q.explanation || '')}</div>`;
+    html += '<div class="btn-row step-nav">';
+    if (session.stepIdx > 0) {
+      html += '<button class="btn-ghost" onclick="prevStep()">← Vorherige Frage</button>';
+    }
+    if (!isLast) {
+      html += '<button class="btn-primary" onclick="nextStep()">Weiter →</button>';
+    } else {
+      html += '<button class="btn-primary" onclick="submitContent()">Abschließen &amp; Ergebnis</button>';
+    }
+    html += '</div>';
   } else {
-    html += '<button class="btn-primary" onclick="submitContent()">Abschließen &amp; Ergebnis</button>';
+    // Sicherheits-Einschätzung: löst gleichzeitig die Prüfung aus (metakognitive Kalibrierung)
+    html += `
+      <div class="conf-box">
+        <div class="conf-label">Wie sicher bist du dir?</div>
+        <div class="conf-row">
+          <button class="conf-btn" onclick="checkAnswer('sicher')">🎯 Sicher</button>
+          <button class="conf-btn" onclick="checkAnswer('unsicher')">🤔 Unsicher</button>
+          <button class="conf-btn" onclick="checkAnswer('geraten')">🎲 Geraten</button>
+        </div>
+        <div class="conf-hint">Antwort antippen, dann Sicherheit wählen — danach wird aufgelöst.</div>
+      </div>`;
+    if (session.stepIdx > 0) {
+      html += '<div class="btn-row step-nav"><button class="btn-ghost" onclick="prevStep()">← Vorherige Frage</button></div>';
+    }
   }
-  html += '</div>';
 
   card.innerHTML = html;
   attachOptionListeners();
   if (isRevealed) decorateRevealed(q, entry.originalQIdx);
+}
+
+// Vorhersage-Screen vor dem Quiz
+function renderPrediction(card, u) {
+  const n = session.displayPlan.length;
+  let chips = '';
+  for (let i = 0; i <= n; i++) {
+    chips += `<button class="pred-chip" onclick="setPrediction(${i})">${i}</button>`;
+  }
+  card.innerHTML = `
+    <div class="pred-emoji">🔮</div>
+    <h1 style="text-align:center;">Kurz geschätzt!</h1>
+    <p class="lead" style="text-align:center;">Wie viele der <strong>${n} Fragen</strong> wirst du richtig beantworten?<br>Die Einschätzung schärft den Blick für den eigenen Wissensstand.</p>
+    <div class="pred-grid">${chips}</div>
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn-ghost" onclick="setPrediction(-1)">Lieber überspringen</button>
+    </div>
+  `;
+}
+
+function setPrediction(n) {
+  session.prediction = n;
+  saveSession();
+  renderContent();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Nach dem Prüfen: richtige Option grün, falsch gewählte rot, Eingaben sperren
@@ -1340,16 +1319,18 @@ function decorateRevealed(q, origIdx) {
   });
 }
 
-function checkAnswer() {
+function checkAnswer(conf) {
   const plan = session.displayPlan;
   if (!plan) return;
   const entry = plan[session.stepIdx];
   const ans = session.answers.questions ? session.answers.questions[entry.originalQIdx] : null;
   const hasAnswer = Array.isArray(ans) ? ans.length > 0 : ans != null;
   if (!hasAnswer) {
-    showDialog('Bitte wähle zuerst eine Antwort aus.');
+    showDialog('Bitte wähle zuerst eine Antwort aus — dann deine Sicherheit.');
     return;
   }
+  if (!session.confidence) session.confidence = {};
+  if (conf) session.confidence[entry.originalQIdx] = conf;
   session.revealed[entry.originalQIdx] = true;
   saveSession();
   renderContent();
@@ -1693,10 +1674,11 @@ async function submitContent(silentReturn) {
       const q = u.questions[idx];
       const ans = session.answers.questions ? session.answers.questions[idx] : null;
       if (!mixedGroups[src.unit_id]) {
-        mixedGroups[src.unit_id] = { unit_id: src.unit_id, unit_title: src.unit_title, questions: {}, correct: 0, total: 0, asked: [], wrong: [] };
+        mixedGroups[src.unit_id] = { unit_id: src.unit_id, unit_title: src.unit_title, questions: {}, conf: {}, correct: 0, total: 0, asked: [], wrong: [] };
       }
       const g = mixedGroups[src.unit_id];
       if (ans != null) g.questions[src.origIdx] = ans;
+      if (session.confidence && session.confidence[idx]) g.conf[src.origIdx] = session.confidence[idx];
       g.total++;
       g.asked.push(src.origIdx);
       if (isAnswerCorrect(q, ans)) g.correct++;
@@ -1709,7 +1691,10 @@ async function submitContent(silentReturn) {
       unit_id: g.unit_id,
       unit_title: g.unit_title,
       content_type: 'quiz',
-      answers: { questions: g.questions, markings: [], mixed_session: true },
+      answers: Object.assign(
+        { questions: g.questions, markings: [], mixed_session: true },
+        Object.keys(g.conf).length ? { confidence: g.conf } : {}
+      ),
       score_correct: g.correct,
       score_total: g.total
     }));
@@ -1723,7 +1708,9 @@ async function submitContent(silentReturn) {
       content_type: session.unit.type,
       answers: {
         ...session.answers,
-        markings: Object.values(session.markings)
+        markings: Object.values(session.markings),
+        ...(session.confidence && Object.keys(session.confidence).length ? { confidence: session.confidence } : {}),
+        ...(session.prediction != null && session.prediction >= 0 ? { prediction: session.prediction } : {})
       },
       score_correct: scoreCorrect,
       score_total: scoreTotal
@@ -1759,6 +1746,12 @@ async function submitContent(silentReturn) {
       score_correct: scoreCorrect,
       score_total: scoreTotal
     };
+    if (!u.mixed && u.questions && (u.type === 'quiz' || u.type === 'short_case')) {
+      entry.pool_size = u.questions.length;
+    }
+    if (session.prediction != null && session.prediction >= 0) {
+      entry.prediction = session.prediction;
+    }
     if (u.mixed && session.mixedMap) {
       entry.asked_by_unit = {};
       entry.wrong_by_unit = {};
@@ -1809,6 +1802,8 @@ function returnToList() {
   session.markings = {};
   session.displayPlan = null;
   session.revealed = {};
+  session.confidence = {};
+  session.prediction = null;
   session.stepIdx = 0;
   session.repeatCount = 0;
   session.mixedMap = null;
@@ -1838,28 +1833,66 @@ function isAnswerCorrect(q, ans) {
 function showResult(correctCount, total, meta) {
   const u = session.unit;
   const card = document.getElementById('result-card');
-  let html = `<h1>Geschafft!</h1>
-  <p class="lead">Deine Antworten wurden gespeichert.</p>`;
-
-  // Persönliche Highlights: Lernserie und Bestleistung
-  const badges = [];
-  if (meta && meta.streakDays >= 2) badges.push(`🔥 ${meta.streakDays}. Tag in Folge`);
-  if (meta && meta.isPersonalBest) badges.push('⭐ Persönlicher Rekord in dieser Einheit');
-  if (badges.length) {
-    html += `<div class="result-badges">${badges.map(b => `<span class="badge">${b}</span>`).join('')}</div>`;
-  }
+  let html = '';
 
   if (correctCount !== null && total !== null && total > 0) {
     const pct = Math.round((correctCount / total) * 100);
+    const mood = pct >= 80 ? ['🎉', 'Stark gemacht!'] : (pct >= 50 ? ['💪', 'Gut dabei!'] : ['🌱', 'Dranbleiben — Wiederholen wirkt!']);
+    const ringColor = pct >= 70 ? 'var(--good)' : 'var(--brand)';
+    const dash = 565; // 2π·90
+    const off = Math.round(dash * (1 - pct / 100));
     html += `
-      <div class="score-card">
-        <div class="score-number">${correctCount} / ${total}</div>
-        <div class="score-label">Richtig beantwortet · ${pct}%</div>
+      <div class="result-hero">
+        <div class="result-emoji">${mood[0]}</div>
+        <h1>${mood[1]}</h1>
+      </div>
+      <div class="result-ring">
+        <svg width="210" height="210"><circle cx="105" cy="105" r="90" fill="none" stroke="var(--ring-track)" stroke-width="15"/><circle cx="105" cy="105" r="90" fill="none" stroke="${ringColor}" stroke-width="15" stroke-linecap="round" stroke-dasharray="${dash}" stroke-dashoffset="${off}" transform="rotate(-90 105 105)"/></svg>
+        <div class="val"><span class="big-num" style="color:${ringColor}">${correctCount}/${total}</span><span class="sub">${pct}% richtig</span></div>
       </div>
     `;
+
+    // Persönliche Highlights: Serie, Bestleistung, Vorhersage-Vergleich
+    const badges = [];
+    if (meta && meta.streakDays >= 2) badges.push(`🔥 ${meta.streakDays}. Tag in Folge`);
+    if (meta && meta.isPersonalBest) badges.push('⭐ Persönlicher Rekord');
+    if (session.prediction != null && session.prediction >= 0) {
+      const diff = correctCount - session.prediction;
+      const verdict = diff > 0 ? 'besser als gedacht!' : (diff === 0 ? 'punktgenau geschätzt!' : 'etwas zu optimistisch');
+      badges.push(`🔮 Geschätzt ${session.prediction}, geschafft ${correctCount} — ${verdict}`);
+    }
+    if (badges.length) {
+      html += `<div class="result-badges">${badges.map(b => `<span class="badge">${b}</span>`).join('')}</div>`;
+    }
+
+    // Themen-Fortschritt der Einheit (nur normale Einheiten mit bekanntem Pool)
+    if (!u.mixed) {
+      const s = unitMasteryStats(u.id);
+      if (s.poolSize > 0) {
+        const upct = Math.round((s.mastered / s.poolSize) * 100);
+        const gdash = 201;
+        const goff = Math.round(gdash * (1 - Math.min(upct, 100) / 100));
+        const color = topicColor(session.topic);
+        html += `
+          <div class="card">
+            <div class="goal-row">
+              <div class="ringwrap">
+                <svg width="74" height="74"><circle cx="37" cy="37" r="32" fill="none" stroke="var(--ring-track)" stroke-width="8"/><circle cx="37" cy="37" r="32" fill="none" stroke="${color}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${gdash}" stroke-dashoffset="${goff}" transform="rotate(-90 37 37)"/></svg>
+                <div class="val" style="color:${color}">${upct}%</div>
+              </div>
+              <div class="goal-txt">
+                <h3>${escapeHtml(u.title)}</h3>
+                <p><strong>${s.mastered} von ${s.poolSize} Fragen</strong> gemeistert — gemeistert heißt: zweimal in Folge richtig.</p>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
     // Detailauswertung — nur die in dieser Session gestellten Fragen,
     // in der gleichen Reihenfolge wie im Quiz
-    html += '<h2 style="margin-top:20px;">Auswertung</h2>';
+    html += '<h2 style="margin-top:24px;">Auswertung</h2>';
     const askedForResult = session.displayPlan
       ? session.displayPlan.map(p => p.originalQIdx)
       : u.questions.map((_, i) => i);
@@ -1885,18 +1918,27 @@ function showResult(correctCount, total, meta) {
       if (q.explanation) {
         html += `<div class="feedback ${isCorrect ? 'correct' : 'wrong'}"><strong>${isCorrect ? '✓ Richtig' : '✗ Erläuterung'}</strong>${escapeHtml(q.explanation)}</div>`;
       }
+      // Hinweis auf selbstsichere Fehler (Hypercorrection: genau hier hinschauen)
+      const conf = session.confidence ? session.confidence[origIdx] : null;
+      if (!isCorrect && conf === 'sicher') {
+        html += '<div class="conf-flag">🎯 Du warst dir hier sicher — genau diese Frage lohnt einen zweiten Blick.</div>';
+      }
       html += '</div>';
     });
   } else if (u.type === 'reasoning_case') {
     html += `
+      <div class="result-hero" style="margin-bottom:18px;">
+        <div class="result-emoji">📋</div>
+        <h1>Eingereicht!</h1>
+      </div>
       <div class="status status-success">
         Deine Falllösung wurde erfasst und wird im Unterricht besprochen. Eine automatische Auswertung gibt es bei Reasoning-Fällen nicht — dein Dozent prüft deine Antworten manuell.
       </div>
     `;
     if (u.expert_solution) {
       html += `<h2 style="margin-top:24px;">Wie es weiterging</h2>
-      <div class="vignette" style="border-left-color: var(--correct);">
-        <div class="vignette-title" style="color:var(--correct);">Experten-Lösung</div>
+      <div class="vignette" style="border-left-color: var(--good);">
+        <div class="vignette-title" style="color:var(--good);">Experten-Lösung</div>
         <div>${escapeHtml(u.expert_solution).replace(/\n/g, '<br>')}</div>
       </div>`;
     }
@@ -1904,7 +1946,8 @@ function showResult(correctCount, total, meta) {
 
   html += `
     <div class="btn-row">
-      <button class="btn-secondary" onclick="restartFlow()">Weitere Einheit bearbeiten</button>
+      <button class="btn-primary" onclick="restartFlow()">Weitere Einheit bearbeiten</button>
+      <button class="btn-ghost" onclick="backToTopics()">Zur Themen-Übersicht</button>
     </div>
   `;
   card.innerHTML = html;
@@ -2059,6 +2102,116 @@ function getWrongPool(unitId) {
     (wrong || []).forEach(i => pool.add(i));
   });
   return [...pool];
+}
+
+// ============= MASTERY (gemeistert = 2× in Folge richtig) =============
+const MASTERY_STREAK = 2;
+const DAILY_GOAL_QUESTIONS = 10;
+
+// Pro Frage einer Einheit: aktuelle Serie richtiger Antworten (chronologisch)
+function getQuestionStreaks(unitId) {
+  const streaks = {};
+  const prof = getProfile(session.student_name);
+  if (!prof || !prof.results) return streaks;
+  prof.results.forEach(r => {
+    let asked = null, wrong = null;
+    if (r.unit_id === unitId && Array.isArray(r.asked_q)) {
+      asked = r.asked_q;
+      wrong = r.wrong_q || [];
+    } else if (r.asked_by_unit && Array.isArray(r.asked_by_unit[unitId])) {
+      asked = r.asked_by_unit[unitId];
+      wrong = (r.wrong_by_unit || {})[unitId] || [];
+    }
+    if (!asked) return;
+    asked.forEach(i => { streaks[i] = wrong.includes(i) ? 0 : (streaks[i] || 0) + 1; });
+  });
+  return streaks;
+}
+
+function unitMasteryStats(unitId) {
+  const prof = getProfile(session.student_name);
+  let poolSize = 0, attempts = 0;
+  if (prof && prof.results) {
+    prof.results.forEach(r => {
+      if (r.unit_id === unitId) {
+        attempts++;
+        if (r.pool_size) poolSize = Math.max(poolSize, r.pool_size);
+      } else if (r.asked_by_unit && r.asked_by_unit[unitId]) {
+        attempts++;
+      }
+    });
+  }
+  const streaks = getQuestionStreaks(unitId);
+  const seen = Object.keys(streaks).length;
+  const mastered = Object.values(streaks).filter(s => s >= MASTERY_STREAK).length;
+  return { mastered, poolSize: Math.max(poolSize, seen), seen, attempts };
+}
+
+function topicMasteryStats(unitsOfTopic) {
+  let mastered = 0, pool = 0, played = 0;
+  unitsOfTopic.forEach(u => {
+    if (u.type === 'reasoning_case') return;
+    const s = unitMasteryStats(u.id);
+    if (s.attempts > 0) {
+      played++;
+      mastered += s.mastered;
+      pool += s.poolSize;
+    }
+  });
+  return { mastered, pool, played };
+}
+
+function totalMasteredQuestions(profile) {
+  if (!profile) return 0;
+  const unitIds = new Set();
+  profile.results.forEach(r => {
+    if (r.asked_q) unitIds.add(r.unit_id);
+    if (r.asked_by_unit) Object.keys(r.asked_by_unit).forEach(id => unitIds.add(id));
+  });
+  let total = 0;
+  unitIds.forEach(id => { total += unitMasteryStats(id).mastered; });
+  return total;
+}
+
+function avgScorePct(profile) {
+  if (!profile) return null;
+  const scored = profile.results.filter(r => r.score_total > 0);
+  if (!scored.length) return null;
+  return Math.round(scored.reduce((s, r) => s + r.score_correct / r.score_total, 0) / scored.length * 100);
+}
+
+// Tagesziel: heute beantwortete Fragen
+function questionsAnsweredToday(profile) {
+  if (!profile) return 0;
+  const today = localDay();
+  return profile.results
+    .filter(r => r.day === today && r.score_total > 0)
+    .reduce((s, r) => s + r.score_total, 0);
+}
+
+function hasResultFor(unitId) {
+  const prof = getProfile(session.student_name);
+  return !!(prof && prof.results.some(r => r.unit_id === unitId));
+}
+
+// Kleiner SVG-Fortschrittsring (46px) für Einheiten-Listen
+function smallRing(pct, color) {
+  const dash = 119; // 2π·19
+  const off = Math.round(dash * (1 - Math.min(pct, 100) / 100));
+  const stroke = pct > 0 ? `<circle cx="23" cy="23" r="19" fill="none" stroke="${color}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${dash}" stroke-dashoffset="${off}" transform="rotate(-90 23 23)"/>` : '';
+  return `<div class="l-ring"><svg width="46" height="46"><circle cx="23" cy="23" r="19" fill="none" stroke="var(--ring-track)" stroke-width="5"/>${stroke}</svg><div class="val" style="color:${pct > 0 ? color : 'var(--ink-mute)'}">${pct}%</div></div>`;
+}
+
+function updateAvatar() {
+  const av = document.getElementById('user-avatar');
+  if (!av) return;
+  const initial = (session.student_name || '').trim().charAt(0).toUpperCase();
+  if (initial) {
+    av.textContent = initial;
+    av.classList.remove('hidden');
+  } else {
+    av.classList.add('hidden');
+  }
 }
 
 function rememberLastLogin(name, klasse) {
