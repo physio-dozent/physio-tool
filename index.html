@@ -121,6 +121,7 @@ input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus
 }
 textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
 .field { margin-bottom: 18px; }
+.class-hint { font-size: 12.5px; font-weight: 600; color: var(--good); margin-top: 7px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
 
@@ -478,6 +479,7 @@ button { font-family: inherit; }
       <label for="class_name">Klasse / Kurs</label>
       <select id="class_name_select" class="hidden"></select>
       <input type="text" id="class_name" placeholder="z. B. PT-23" autocomplete="off">
+      <div id="class-hint" class="class-hint hidden">✓ Klasse automatisch erkannt — bitte kurz prüfen</div>
     </div>
 
     <div class="btn-row">
@@ -658,6 +660,9 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   // Letzte Anmeldung vorbelegen (weniger Tipparbeit)
   prefillLastLogin();
+
+  // Klasse automatisch nachschlagen, sobald der volle Name eingetippt ist
+  initClassAutofill();
 
   // Wiederhergestellten Zustand prüfen — nur fragen, wenn wirklich etwas offen war
   const saved = loadSavedSession();
@@ -2216,6 +2221,67 @@ function updateAvatar() {
 
 function rememberLastLogin(name, klasse) {
   try { localStorage.setItem(LAST_LOGIN_KEY, JSON.stringify({ name, class_name: klasse })); } catch (e) {}
+}
+
+// ============= KLASSEN-AUTOFILL (Supabase-RPC klasse_fuer_name) =============
+// Fragt bei vollständigem Namen die zuletzt verwendete Klasse ab. Existiert die
+// RPC-Funktion (noch) nicht oder findet nichts, passiert einfach nichts —
+// die manuelle Eingabe bleibt der Fallback.
+let classAutoFilled = false;
+let classLookupTimer = null;
+
+function initClassAutofill() {
+  const nameInput = document.getElementById('student_name');
+  if (!nameInput) return;
+  nameInput.addEventListener('input', () => {
+    clearTimeout(classLookupTimer);
+    classLookupTimer = setTimeout(tryClassAutofill, 600);
+  });
+}
+
+async function lookupClassForName(name) {
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/klasse_fuer_name', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ p_name: name })
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return (typeof data === 'string' && data.trim()) ? data.trim() : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+async function tryClassAutofill() {
+  const nameInput = document.getElementById('student_name');
+  const hint = document.getElementById('class-hint');
+  const name = nameInput.value.trim();
+  // Erst nachschlagen, wenn Vor- UND Nachname dastehen
+  if (name.split(/\s+/).length < 2) {
+    if (hint) hint.classList.add('hidden');
+    return;
+  }
+  // Manuelle Eingaben nie überschreiben — nur leere oder selbst befüllte Felder
+  if (getClassNameInput() && !classAutoFilled) return;
+
+  const klasse = await lookupClassForName(name);
+  // Falls währenddessen weitergetippt wurde: Ergebnis verwerfen
+  if (nameInput.value.trim() !== name) return;
+  if (getClassNameInput() && !classAutoFilled) return;
+
+  if (klasse) {
+    restoreClassValue(klasse);
+    classAutoFilled = true;
+    if (hint) hint.classList.remove('hidden');
+  } else if (hint) {
+    hint.classList.add('hidden');
+  }
 }
 
 function prefillLastLogin() {
