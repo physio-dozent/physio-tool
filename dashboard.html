@@ -103,6 +103,9 @@ button {
 .btn-primary:hover { background: #8c3818; }
 .btn-secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
 .btn-secondary:hover { background: var(--accent-bg); }
+.btn-primary:disabled, .btn-secondary:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary:disabled:hover { background: var(--accent); }
+.btn-secondary:disabled:hover { background: transparent; }
 .btn-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 
 .tabs {
@@ -409,8 +412,8 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
     <div class="card">
       <div class="filters">
         <div>
-          <label for="f-class">Klasse</label>
-          <select id="f-class" onchange="onGlobalFilter()"><option value="">Alle Klassen</option></select>
+          <label for="f-class">Semester</label>
+          <select id="f-class" onchange="onGlobalFilter()"><option value="">Alle Semester</option></select>
         </div>
         <div>
           <label for="f-date-from">Datum von</label>
@@ -434,7 +437,7 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
     <div class="tabs" id="tabs">
       <button class="tab active" data-tab="einsendungen" onclick="switchTab(event, 'einsendungen')">Einsendungen</button>
       <button class="tab" data-tab="schueler" onclick="switchTab(event, 'schueler')">Schüler-Verlauf</button>
-      <button class="tab" data-tab="klasse" onclick="switchTab(event, 'klasse')">Klassen-Verlauf</button>
+      <button class="tab" data-tab="klasse" onclick="switchTab(event, 'klasse')">Semester-Verlauf</button>
       <button class="tab" data-tab="schwachstellen" onclick="switchTab(event, 'schwachstellen')">Schwachstellen</button>
       <button class="tab" data-tab="reasoning" onclick="switchTab(event, 'reasoning')">Reasoning-Übersicht</button>
       <button class="tab" data-tab="vereinheitlichen" onclick="switchTab(event, 'vereinheitlichen')">Vereinheitlichen</button>
@@ -469,8 +472,8 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
 
     <div id="pane-klasse" class="tab-pane">
       <div class="card">
-        <h2>Klassen-Verlauf</h2>
-        <p class="help-text">Wie entwickelt sich die Klasse über das Semester? Quiz-Quoten pro Lerneinheit, Trend, Vergleich der Schüler untereinander.</p>
+        <h2>Semester-Verlauf</h2>
+        <p class="help-text">Wie entwickelt sich das Semester über die Zeit? Quiz-Quoten pro Lerneinheit, Trend, Vergleich der Schüler untereinander.</p>
         <div id="klasse-content"></div>
       </div>
     </div>
@@ -497,21 +500,21 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
 
     <div id="pane-vereinheitlichen" class="tab-pane">
       <div class="card">
-        <h2>Schüler &amp; Klassen vereinheitlichen</h2>
-        <p class="help-text">Wenn Schülerinnen oder Schüler sich mehrfach mit leicht unterschiedlichen Namen oder Klassen-Schreibweisen angemeldet haben, kannst du sie hier zu einem Eintrag zusammenführen. Die Umbenennung wirkt direkt auf die Datenbank und ist <strong>nicht rückgängig zu machen</strong>. Filter (Klasse, Datum) werden hier nicht angewendet — die Liste zeigt immer alle Einträge.</p>
+        <h2>Schüler &amp; Semester vereinheitlichen</h2>
+        <p class="help-text">Wenn Schülerinnen oder Schüler sich mehrfach mit leicht unterschiedlichen Namen oder Semester-Schreibweisen angemeldet haben, kannst du sie hier zu einem Eintrag zusammenführen. Die Umbenennung wirkt direkt auf die Datenbank und ist <strong>nicht rückgängig zu machen</strong>. Filter (Semester, Datum) werden hier nicht angewendet — die Liste zeigt immer alle Einträge.</p>
 
         <div style="margin-top:20px;">
           <h3 style="margin-bottom:10px;">Schüler-Namen</h3>
-          <p class="help-text">Sortiert nach Klasse, innerhalb der Klasse nach Anzahl der Einsendungen. Klick auf „Umbenennen", um einen Namen auf eine andere Schreibweise zu mappen — bestehende Einsendungen werden zusammengeführt.</p>
+          <p class="help-text">Sortiert nach Semester, innerhalb des Semesters nach Anzahl der Einsendungen. Klick auf „Umbenennen", um einen Namen auf eine andere Schreibweise zu mappen — bestehende Einsendungen werden zusammengeführt.</p>
           <div style="margin-bottom:12px;">
-            <input type="text" id="f-unify-search" placeholder="Name oder Klasse filtern…" oninput="renderUnify()">
+            <input type="text" id="f-unify-search" placeholder="Name oder Semester filtern…" oninput="renderUnify()">
           </div>
           <div id="unify-students"><div class="empty"><span class="loading-bar"></span> Lade Daten…</div></div>
         </div>
 
         <div style="margin-top:28px;">
-          <h3 style="margin-bottom:10px;">Klassen-Schreibweisen</h3>
-          <p class="help-text">Sortiert nach Anzahl der Einsendungen. Klick auf „Umbenennen", um eine Klassen-Schreibweise zu vereinheitlichen — alle Einsendungen der Klasse werden auf die Ziel-Schreibweise gehoben.</p>
+          <h3 style="margin-bottom:10px;">Semester-Schreibweisen</h3>
+          <p class="help-text">Sortiert nach Anzahl der Einsendungen. Klick auf „Umbenennen", um eine Semester-Schreibweise zu vereinheitlichen — alle Einsendungen des Semesters werden auf die Ziel-Schreibweise gehoben.</p>
           <div id="unify-classes"></div>
         </div>
       </div>
@@ -519,17 +522,17 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
 
     <div id="pane-sichtbarkeit" class="tab-pane">
       <div class="card">
-        <h2>Sichtbarkeit pro Klasse</h2>
-        <p class="help-text">Lege fest, welche Klasse welche Lerneinheiten zu sehen bekommt. Klassen, die du hier anlegst, erscheinen im Schüler-Login als Dropdown — Schüler können dann keine falschen Schreibweisen mehr eintippen.</p>
+        <h2>Sichtbarkeit pro Semester</h2>
+        <p class="help-text">Lege fest, welches Semester welche Lerneinheiten zu sehen bekommt. Semester, die du hier anlegst, erscheinen im Schüler-Login als Dropdown — Schüler können dann keine falschen Schreibweisen mehr eintippen.</p>
         <p class="help-text"><strong>Speichern:</strong> Änderungen werden lokal vorgehalten. Klicke unten auf <em>„kurse.json herunterladen"</em>, lade die Datei ins GitHub-Repo unter <code>einheiten/kurse.json</code> hoch und committe. Erst dann wirken die Änderungen für die Schüler.</p>
-        <p class="help-text"><strong>Fallback:</strong> Solange noch keine Klasse angelegt ist (oder die Datei nicht im Repo liegt), bleibt der Schüler-Login bei Freitext und alle Einheiten sind sichtbar — wie bisher.</p>
+        <p class="help-text"><strong>Fallback:</strong> Solange noch kein Semester angelegt ist (oder die Datei nicht im Repo liegt), bleibt der Schüler-Login bei Freitext und alle Einheiten sind sichtbar — wie bisher.</p>
 
         <div id="sichtbarkeit-status" style="margin:14px 0;"></div>
 
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px;">
-          <input type="text" id="new-course-name" placeholder="Neue Klasse, z. B. PT59 Fs" style="flex:1;min-width:200px;">
-          <button class="btn-secondary" onclick="addCourse()">Klasse hinzufügen</button>
-          <button class="btn-primary" onclick="downloadKurseJson()">kurse.json herunterladen</button>
+          <input type="text" id="new-course-name" placeholder="Neues Semester, z. B. PT60 oder PT59 Fs" style="flex:1;min-width:200px;">
+          <button class="btn-secondary" id="course-add-btn" onclick="addCourse()">Semester hinzufügen</button>
+          <button class="btn-primary" id="course-download-btn" onclick="downloadKurseJson()">kurse.json herunterladen</button>
         </div>
 
         <div id="sichtbarkeit-content"><div class="empty"><span class="loading-bar"></span> Lade Konfiguration…</div></div>
@@ -642,7 +645,7 @@ function populateGlobalFilters() {
   
   const fc = document.getElementById('f-class');
   const fu = document.getElementById('f-unit');
-  fc.innerHTML = '<option value="">Alle Klassen</option>' + classes.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+  fc.innerHTML = '<option value="">Alle Semester</option>' + classes.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
   fu.innerHTML = '<option value="">Alle Einheiten</option>' + units.map(u => `<option value="${escapeHtml(u.id)}">${escapeHtml(u.title)}</option>`).join('');
   
   const reasoningUnits = [...new Set(allRows.filter(r => r.content_type === 'reasoning_case').map(r => r.unit_id))]
@@ -722,7 +725,7 @@ function renderEinsendungen() {
   }
   let html = `<table>
     <thead><tr>
-      <th>Datum</th><th>Klasse</th><th>Name</th><th>Lerneinheit</th><th>Typ</th><th>Score</th><th>Eingegangen</th><th></th>
+      <th>Datum</th><th>Semester</th><th>Name</th><th>Lerneinheit</th><th>Typ</th><th>Score</th><th>Eingegangen</th><th></th>
     </tr></thead><tbody>`;
   rows.forEach(r => {
     const created = new Date(r.created_at).toLocaleString('de-DE', { dateStyle: 'short', timeStyle: 'short' });
@@ -832,12 +835,12 @@ function renderKlasse() {
       <div class="stat"><div class="stat-label">Einsendungen</div><div class="stat-value">${rows.length}</div></div>
       <div class="stat"><div class="stat-label">Schüler</div><div class="stat-value">${studentStats.length}</div></div>
       <div class="stat"><div class="stat-label">Lerneinheiten</div><div class="stat-value">${unitStats.length}</div></div>
-      <div class="stat"><div class="stat-label">Ø Klassen-Quote</div><div class="stat-value">${unitStats.length ? Math.round(unitStats.reduce((s, u) => s + u.avg, 0) / unitStats.length) + '%' : '—'}</div></div>
+      <div class="stat"><div class="stat-label">Ø Semester-Quote</div><div class="stat-value">${unitStats.length ? Math.round(unitStats.reduce((s, u) => s + u.avg, 0) / unitStats.length) + '%' : '—'}</div></div>
     </div>
   `;
   
   if (dateStats.length >= 2) {
-    html += `<div class="section-title">Klassen-Quote im Zeitverlauf (Ø pro Termin)</div>`;
+    html += `<div class="section-title">Semester-Quote im Zeitverlauf (Ø pro Termin)</div>`;
     html += renderLineChart(dateStats, '%');
   }
   
@@ -1042,14 +1045,14 @@ function renderUnify() {
       s.name.toLowerCase().includes(fs) || s.klasse.toLowerCase().includes(fs)
     );
   }
-  // Erst nach Klasse, dann nach Anzahl absteigend, dann nach Name
+  // Erst nach Semester, dann nach Anzahl absteigend, dann nach Name
   students.sort((a, b) => {
     if (a.klasse !== b.klasse) return a.klasse.localeCompare(b.klasse);
     if (b.count !== a.count) return b.count - a.count;
     return a.name.localeCompare(b.name);
   });
 
-  // Pro Klasse gruppieren
+  // Pro Semester gruppieren
   const byClass = {};
   students.forEach(s => {
     if (!byClass[s.klasse]) byClass[s.klasse] = [];
@@ -1076,7 +1079,7 @@ function renderUnify() {
     studentsWrap.innerHTML = html;
   }
 
-  // Klassen-Aggregation
+  // Semester-Aggregation
   const classMap = {};
   allRows.forEach(r => {
     if (!classMap[r.class_name]) {
@@ -1091,9 +1094,9 @@ function renderUnify() {
 
   const classesWrap = document.getElementById('unify-classes');
   if (!classes.length) {
-    classesWrap.innerHTML = '<div class="empty">Keine Klassen-Einträge.</div>';
+    classesWrap.innerHTML = '<div class="empty">Keine Semester-Einträge.</div>';
   } else {
-    let html = '<table><thead><tr><th>Klasse</th><th style="text-align:right;">Einsendungen</th><th style="text-align:right;">Schüler</th><th></th></tr></thead><tbody>';
+    let html = '<table><thead><tr><th>Semester</th><th style="text-align:right;">Einsendungen</th><th style="text-align:right;">Schüler</th><th></th></tr></thead><tbody>';
     classes.forEach(c => {
       html += `<tr>
         <td>${escapeHtml(c.name)}</td>
@@ -1112,28 +1115,63 @@ function renderUnify() {
 // per Download-Button als kurse.json exportiert.
 let coursesState = null;
 let coursesDirty = false;
+// Fehlertext, wenn kurse.json existiert, aber nicht lesbar ist. Dann sind Bearbeiten und
+// Download gesperrt — eine neue Datei würde sonst alle bestehenden Semester verlieren.
+let coursesLoadError = null;
 
 async function loadKurseJson() {
-  try {
-    const res = await fetch('einheiten/kurse.json?t=' + Date.now());
-    if (!res.ok) { coursesState = []; coursesDirty = false; return; }
-    const data = await res.json();
-    coursesState = Array.isArray(data && data.klassen) ? data.klassen.map(c => ({
-      name: String(c.name || ''),
-      visible_units: Array.isArray(c.visible_units) ? [...c.visible_units] : []
-    })) : [];
-  } catch (err) {
-    coursesState = [];
-  }
+  coursesState = [];
   coursesDirty = false;
+  coursesLoadError = null;
+  let res;
+  try {
+    res = await fetch('einheiten/kurse.json?t=' + Date.now());
+  } catch (err) {
+    coursesLoadError = 'Datei nicht abrufbar (' + err.message + ')';
+    return;
+  }
+  if (res.status === 404) return; // noch keine Datei im Repo: leere Liste ist korrekt
+  if (!res.ok) { coursesLoadError = 'Datei nicht abrufbar (HTTP ' + res.status + ')'; return; }
+  let data;
+  try {
+    data = JSON.parse(await res.text());
+  } catch (err) {
+    coursesLoadError = 'ungültiges JSON: ' + err.message;
+    return;
+  }
+  if (!data || !Array.isArray(data.klassen)) {
+    coursesLoadError = 'das Feld „klassen“ fehlt oder ist keine Liste';
+    return;
+  }
+  coursesState = data.klassen.map(c => ({
+    name: String(c.name || ''),
+    visible_units: Array.isArray(c.visible_units) ? [...c.visible_units] : []
+  }));
+}
+
+function setCourseEditingLocked(locked) {
+  ['new-course-name', 'course-add-btn', 'course-download-btn'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.disabled = locked;
+  });
 }
 
 async function renderSichtbarkeit() {
   const wrap = document.getElementById('sichtbarkeit-content');
   if (!wrap) return;
-  if (coursesState === null) {
+  // Nach einem Lesefehler bei jedem Öffnen neu versuchen (z. B. nach dem Hochladen der reparierten Datei)
+  if (coursesState === null || coursesLoadError) {
     wrap.innerHTML = '<div class="empty"><span class="loading-bar"></span> Lade Konfiguration…</div>';
     await loadKurseJson();
+  }
+  setCourseEditingLocked(!!coursesLoadError);
+  if (coursesLoadError) {
+    const statusEl = document.getElementById('sichtbarkeit-status');
+    if (statusEl) {
+      statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--wrong-bg);border-left:3px solid var(--wrong);border-radius:4px;font-size:13px;color:var(--wrong);"><strong>kurse.json im Repo ist nicht lesbar</strong> — ' + escapeHtml(coursesLoadError) + '.<br>Bearbeiten und Herunterladen sind gesperrt, weil eine neue Datei sonst alle bestehenden Semester verlieren würde. Solange der Fehler besteht, sehen Schüler:innen ein Freitextfeld und alle Einheiten. Repariere die Datei im Repo und öffne diesen Tab danach erneut.</div>';
+    }
+    wrap.innerHTML = '';
+    return;
   }
   // Lerneinheiten aus dem Frontend-Index (nicht versteckte)
   const allUnits = (unitsIndex || []).filter(u => !u.hidden);
@@ -1155,7 +1193,7 @@ async function renderSichtbarkeit() {
   }
 
   if (!coursesState.length) {
-    wrap.innerHTML = '<div class="empty">Noch keine Klassen angelegt. Solange das so bleibt, fällt der Schüler-Login auf Freitext zurück und alle Einheiten sind sichtbar.</div>';
+    wrap.innerHTML = '<div class="empty">Noch keine Semester angelegt. Solange das so bleibt, fällt der Schüler-Login auf Freitext zurück und alle Einheiten sind sichtbar.</div>';
     return;
   }
 
@@ -1172,8 +1210,8 @@ async function renderSichtbarkeit() {
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
           <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="setAllUnitsForCourse(${idx}, true)">Alle freischalten</button>
           <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="setAllUnitsForCourse(${idx}, false)">Alle abwählen</button>
-          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="renameCourseInState(${idx})">Klasse umbenennen</button>
-          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;color:var(--wrong);border-color:var(--wrong);" onclick="removeCourse(${idx})">Klasse löschen</button>
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="renameCourseInState(${idx})">Semester umbenennen</button>
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;color:var(--wrong);border-color:var(--wrong);" onclick="removeCourse(${idx})">Semester löschen</button>
         </div>
       </div>`;
     // Pro Topic eine Gruppe von Checkboxen
@@ -1197,10 +1235,11 @@ async function renderSichtbarkeit() {
 }
 
 function addCourse() {
+  if (coursesLoadError) return;
   const inp = document.getElementById('new-course-name');
   const name = (inp.value || '').trim();
-  if (!name) { alert('Bitte einen Klassen-Namen eingeben.'); return; }
-  if (coursesState.some(c => c.name === name)) { alert('Klasse mit diesem Namen existiert bereits.'); return; }
+  if (!name) { alert('Bitte einen Semester-Namen eingeben.'); return; }
+  if (coursesState.some(c => c.name === name)) { alert('Semester mit diesem Namen existiert bereits.'); return; }
   coursesState.push({ name, visible_units: [] });
   coursesDirty = true;
   inp.value = '';
@@ -1210,7 +1249,7 @@ function addCourse() {
 function removeCourse(idx) {
   const cls = coursesState[idx];
   if (!cls) return;
-  if (!confirm(`Klasse "${cls.name}" wirklich aus der Vorgabeliste entfernen?\n\nHinweis: Bestehende Einsendungen dieser Klasse bleiben in der Datenbank erhalten — nur die Vorgabe-Liste und das Dropdown im Schüler-Login werden bereinigt.`)) return;
+  if (!confirm(`Semester "${cls.name}" wirklich aus der Vorgabeliste entfernen?\n\nHinweis: Bestehende Einsendungen dieses Semesters bleiben in der Datenbank erhalten — nur die Vorgabe-Liste und das Dropdown im Schüler-Login werden bereinigt.`)) return;
   coursesState.splice(idx, 1);
   coursesDirty = true;
   renderSichtbarkeit();
@@ -1219,12 +1258,12 @@ function removeCourse(idx) {
 function renameCourseInState(idx) {
   const cls = coursesState[idx];
   if (!cls) return;
-  const neu = prompt('Neuer Name für diese Klasse (nur in der Vorgabe-Liste, ändert keine Einsendungen):', cls.name);
+  const neu = prompt('Neuer Name für dieses Semester (nur in der Vorgabe-Liste, ändert keine Einsendungen):', cls.name);
   if (neu === null) return;
   const trimmed = neu.trim();
   if (!trimmed) { alert('Leerer Name nicht erlaubt.'); return; }
   if (trimmed === cls.name) return;
-  if (coursesState.some((c, i) => i !== idx && c.name === trimmed)) { alert('Klasse mit diesem Namen existiert bereits.'); return; }
+  if (coursesState.some((c, i) => i !== idx && c.name === trimmed)) { alert('Semester mit diesem Namen existiert bereits.'); return; }
   cls.name = trimmed;
   coursesDirty = true;
   renderSichtbarkeit();
@@ -1262,6 +1301,7 @@ function setAllUnitsForCourse(idx, on) {
 }
 
 function downloadKurseJson() {
+  if (coursesLoadError || coursesState === null) return;
   const payload = {
     klassen: (coursesState || []).map(c => ({
       name: c.name,
@@ -1300,13 +1340,13 @@ function openMergeModal(type, oldValue, classContext) {
   }
   const title = type === 'student'
     ? `Schüler-Namen vereinheitlichen`
-    : `Klassen-Schreibweise vereinheitlichen`;
+    : `Semester-Schreibweise vereinheitlichen`;
   const contextLine = type === 'student'
-    ? `Aktueller Name: <strong>${escapeHtml(oldValue)}</strong> · Klasse: <strong>${escapeHtml(classContext)}</strong>`
-    : `Aktuelle Klasse: <strong>${escapeHtml(oldValue)}</strong>`;
+    ? `Aktueller Name: <strong>${escapeHtml(oldValue)}</strong> · Semester: <strong>${escapeHtml(classContext)}</strong>`
+    : `Aktuelles Semester: <strong>${escapeHtml(oldValue)}</strong>`;
   const helpLine = type === 'student'
     ? 'Tippe oder wähle den Zielnamen. Falls der Zielname bereits existiert, werden die Einsendungen zusammengeführt.'
-    : 'Tippe oder wähle die Ziel-Schreibweise. Falls die Ziel-Klasse bereits existiert, werden alle Einsendungen zusammengeführt.';
+    : 'Tippe oder wähle die Ziel-Schreibweise. Falls das Ziel-Semester bereits existiert, werden alle Einsendungen zusammengeführt.';
 
   const datalistId = 'merge-suggestions-' + type;
   const datalistHtml = suggestions.length
@@ -1319,7 +1359,7 @@ function openMergeModal(type, oldValue, classContext) {
     <p style="color:var(--ink-soft);margin-bottom:16px;">${contextLine}</p>
     <p class="help-text" style="margin-bottom:14px;">${helpLine}</p>
     <div style="margin-bottom:18px;">
-      <label for="merge-new-value">Ziel-${type === 'student' ? 'Name' : 'Klasse'}</label>
+      <label for="merge-new-value">Ziel-${type === 'student' ? 'Name' : 'Semester'}</label>
       <input type="text" id="merge-new-value" list="${datalistId}" placeholder="${escapeHtml(oldValue)}" autocomplete="off" autofocus>
       ${datalistHtml}
     </div>
@@ -1350,11 +1390,11 @@ async function doMerge(type, oldValue, classContext) {
       + '?student_name=eq.' + encodeURIComponent(oldValue)
       + '&class_name=eq.' + encodeURIComponent(classContext);
     payload = { student_name: newValue };
-    affectedDescription = `Alle Einsendungen von "${oldValue}" in Klasse "${classContext}" werden auf "${newValue}" gehoben.`;
+    affectedDescription = `Alle Einsendungen von "${oldValue}" im Semester "${classContext}" werden auf "${newValue}" gehoben.`;
   } else {
     url = SUPABASE_URL + '/rest/v1/submissions?class_name=eq.' + encodeURIComponent(oldValue);
     payload = { class_name: newValue };
-    affectedDescription = `Alle Einsendungen der Klasse "${oldValue}" werden auf "${newValue}" gehoben.`;
+    affectedDescription = `Alle Einsendungen des Semesters "${oldValue}" werden auf "${newValue}" gehoben.`;
   }
 
   if (!confirm(`Wirklich umbenennen?\n\n${affectedDescription}\n\nDieser Vorgang ist nicht rückgängig zu machen.`)) return;
@@ -1513,7 +1553,7 @@ function closeModal() { document.getElementById('modal').classList.remove('activ
 async function deleteSubmission(id, fromModal) {
   const r = allRows.find(x => x.id === id);
   if (!r) return;
-  const confirmText = `Diese Einsendung wirklich löschen?\n\nSchüler: ${r.student_name}\nKlasse: ${r.class_name}\nDatum: ${r.session_date}\nLerneinheit: ${r.unit_title}\n\nDieser Vorgang kann nicht rückgängig gemacht werden.`;
+  const confirmText = `Diese Einsendung wirklich löschen?\n\nSchüler: ${r.student_name}\nSemester: ${r.class_name}\nDatum: ${r.session_date}\nLerneinheit: ${r.unit_title}\n\nDieser Vorgang kann nicht rückgängig gemacht werden.`;
   if (!confirm(confirmText)) return;
   try {
     const res = await fetch(SUPABASE_URL + '/rest/v1/submissions?id=eq.' + encodeURIComponent(id), {
@@ -1541,7 +1581,7 @@ async function deleteSubmission(id, fromModal) {
 
 function exportCsv() {
   const rows = getFilteredRows();
-  const header = ['Datum', 'Klasse', 'Name', 'Lerneinheit', 'Typ', 'Score-Richtig', 'Score-Total', 'Score-Prozent', 'Eingegangen', 'Antworten-JSON'];
+  const header = ['Datum', 'Semester', 'Name', 'Lerneinheit', 'Typ', 'Score-Richtig', 'Score-Total', 'Score-Prozent', 'Eingegangen', 'Antworten-JSON'];
   const lines = [header.join(';')];
   rows.forEach(r => {
     const pct = (r.score_total && r.score_total > 0) ? Math.round((r.score_correct / r.score_total) * 100) : '';
