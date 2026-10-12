@@ -14,12 +14,12 @@
         "fuss-quiz-001",
         "fuss-shortcase-001",
         "fuss-shortcase-002",
-        "fuss-shortcase-003"
+        "fuss-shortcase-003",
         "huefte-quiz-001",
         "huefte-shortcase-001",
         "huefte-shortcase-002",
         "huefte-shortcase-003",
-        "huefte-shortcase-004",
+        "huefte-shortcase-004"
       ]
     },
     {
@@ -37,6 +37,15 @@
         "fuss-shortcase-001",
         "fuss-shortcase-002",
         "fuss-shortcase-003"
+      ]
+    },
+    {
+      "name": "PT60",
+      "visible_units": [
+        "schmerz-quiz-001",
+        "schmerz-shortcase-001",
+        "schmerz-shortcase-002",
+        "schmerz-shortcase-003"
       ]
     }
   ]
