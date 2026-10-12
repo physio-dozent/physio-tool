@@ -121,7 +121,10 @@ input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus
 }
 textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
 .field { margin-bottom: 18px; }
-.class-hint { font-size: 12.5px; font-weight: 600; color: var(--good); margin-top: 7px; }
+.class-hint { font-size: 12.5px; font-weight: 600; margin-top: 7px; line-height: 1.45; }
+.class-hint.ok { color: var(--good); }
+.class-hint.err { color: var(--wrong); }
+.class-hint.info { color: var(--ink-soft); }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
 
@@ -468,7 +471,7 @@ button { font-family: inherit; }
   <!-- SCHRITT 1: Anmeldung -->
   <section id="screen-login" class="card">
     <h1>Willkommen</h1>
-    <p class="lead">Melde dich mit Name und Klasse an — danach siehst du deine persönliche Übersicht.</p>
+    <p class="lead">Melde dich mit Name und Semester an — danach siehst du deine persönliche Übersicht.</p>
 
     <div class="field">
       <label for="student_name">Name</label>
@@ -476,10 +479,10 @@ button { font-family: inherit; }
     </div>
 
     <div class="field">
-      <label for="class_name">Klasse / Kurs</label>
+      <label for="class_name">Semester</label>
       <select id="class_name_select" class="hidden"></select>
-      <input type="text" id="class_name" placeholder="z. B. PT-23" autocomplete="off">
-      <div id="class-hint" class="class-hint hidden">✓ Klasse automatisch erkannt — bitte kurz prüfen</div>
+      <input type="text" id="class_name" placeholder="z. B. PT60 oder PT59 Ai" autocomplete="off">
+      <div id="class-hint" class="class-hint hidden"></div>
     </div>
 
     <div class="btn-row">
@@ -775,8 +778,8 @@ function goToTopicSelection() {
   if (!name) { showDialog('Bitte trage deinen Namen ein.'); return; }
   if (!klasse) {
     showDialog(availableCourses && availableCourses.length
-      ? 'Bitte wähle deine Klasse aus der Liste.'
-      : 'Bitte trage deine Klasse / deinen Kurs ein.');
+      ? 'Bitte wähle dein Semester aus der Liste.'
+      : 'Bitte trage dein Semester ein.');
     return;
   }
   session.student_name = name;
@@ -836,7 +839,7 @@ function renderTopicsList() {
     !u.hidden && (allowedIds === null || allowedIds.includes(u.id))
   );
   if (!visibleUnits.length) {
-    list.innerHTML = '<div class="empty-state">Für deine Klasse sind aktuell keine Themen freigeschaltet. Bitte deinen Dozenten ansprechen.</div>';
+    list.innerHTML = '<div class="empty-state">Für dein Semester sind aktuell keine Themen freigeschaltet. Bitte deinen Dozenten ansprechen.</div>';
     return;
   }
   // Eindeutige Themen aus den sichtbaren Einheiten ziehen, Reihenfolge der ersten Begegnung beibehalten.
@@ -967,7 +970,7 @@ function renderPersonalCard(topics) {
   const firstName = escapeHtml((session.student_name || '').trim().split(/\s+/)[0] || '');
   const profile = getProfile(session.student_name);
   const hasHistory = !!(profile && profile.results.length);
-  const streak = computeStreak(profile);
+  const month = computeMonthDays(profile);
   const masteredTotal = totalMasteredQuestions(profile);
   const avg = avgScorePct(profile);
   const todayN = questionsAnsweredToday(profile);
@@ -977,7 +980,7 @@ function renderPersonalCard(topics) {
     <h1>Hallo, ${firstName}! 👋</h1>
     <p>${hasHistory ? 'Schön, dass du wieder da bist. Weiter geht’s.' : 'Schön, dass du da bist — such dir unten ein Thema aus und leg los.'}</p>
     <div class="hero-stats">
-      <div class="hstat"><div class="n">🔥 ${streak.days}</div><div class="l">Tage in Folge</div></div>
+      <div class="hstat"><div class="n">📅 ${month.days}</div><div class="l">${month.days === 1 ? 'Lerntag' : 'Lerntage'} im ${month.monthName}</div></div>
       <div class="hstat"><div class="n">${masteredTotal}</div><div class="l">Fragen gemeistert</div></div>
       <div class="hstat"><div class="n">${avg == null ? '–' : avg + '%'}</div><div class="l">Ø Trefferquote</div></div>
     </div>
@@ -1857,9 +1860,9 @@ function showResult(correctCount, total, meta) {
       </div>
     `;
 
-    // Persönliche Highlights: Serie, Bestleistung, Vorhersage-Vergleich
+    // Persönliche Highlights: Lerntage im Monat, Bestleistung, Vorhersage-Vergleich
     const badges = [];
-    if (meta && meta.streakDays >= 2) badges.push(`🔥 ${meta.streakDays}. Tag in Folge`);
+    if (meta && meta.monthDays >= 2) badges.push(`📅 ${meta.monthDays}. Lerntag im ${meta.monthName}`);
     if (meta && meta.isPersonalBest) badges.push('⭐ Persönlicher Rekord');
     if (session.prediction != null && session.prediction >= 0) {
       const diff = correctCount - session.prediction;
@@ -2032,9 +2035,9 @@ function getProfile(name) {
 }
 
 // Speichert ein Ergebnis im lokalen Verlauf und liefert Metadaten
-// für die Ergebnisseite (Streak, persönliche Bestleistung).
+// für die Ergebnisseite (Lerntage im Monat, persönliche Bestleistung).
 function recordResult(entry) {
-  const out = { streakDays: 0, isPersonalBest: false };
+  const out = { monthDays: 0, monthName: '', isPersonalBest: false };
   const key = normName(session.student_name);
   if (!key) return out;
   const profiles = loadProfiles();
@@ -2051,7 +2054,9 @@ function recordResult(entry) {
   prof.results.push(entry);
   if (prof.results.length > 300) prof.results = prof.results.slice(-300);
   saveProfiles(profiles);
-  out.streakDays = computeStreak(prof).days;
+  const month = computeMonthDays(prof);
+  out.monthDays = month.days;
+  out.monthName = month.monthName;
   return out;
 }
 
@@ -2070,20 +2075,14 @@ function fmtDay(day) {
   return p.length === 3 ? p[2] + '.' + p[1] + '.' : day;
 }
 
-// Streak = aufeinanderfolgende Lerntage bis heute (oder bis gestern,
-// wenn heute noch nichts bearbeitet wurde — die Serie lebt dann noch)
-function computeStreak(profile) {
-  if (!profile || !profile.results || !profile.results.length) return { days: 0, activeToday: false };
-  const daySet = new Set(profile.results.map(r => r.day));
-  const activeToday = daySet.has(localDay());
-  let streak = 0;
-  const cursor = new Date();
-  if (!activeToday) cursor.setDate(cursor.getDate() - 1);
-  while (daySet.has(localDay(cursor))) {
-    streak++;
-    cursor.setDate(cursor.getDate() - 1);
-  }
-  return { days: streak, activeToday };
+// Lerntage im laufenden Monat = verschiedene Tage mit mindestens einem Ergebnis.
+// Bewusst keine Serie: ein ausgelassener Tag setzt nichts auf null.
+function computeMonthDays(profile) {
+  const monthName = new Date().toLocaleDateString('de-DE', { month: 'long' });
+  if (!profile || !profile.results || !profile.results.length) return { days: 0, monthName };
+  const prefix = localDay().slice(0, 8); // "YYYY-MM-"
+  const daySet = new Set(profile.results.map(r => r.day).filter(d => typeof d === 'string' && d.startsWith(prefix)));
+  return { days: daySet.size, monthName };
 }
 
 // Wiederholungs-Pool: welche Fragen einer Einheit wurden zuletzt falsch beantwortet?
@@ -2237,6 +2236,14 @@ function initClassAutofill() {
     clearTimeout(classLookupTimer);
     classLookupTimer = setTimeout(tryClassAutofill, 600);
   });
+  // Eigene Auswahl gilt als manuell: Hinweis weg, Autofill überschreibt sie nicht mehr
+  const sel = document.getElementById('class_name_select');
+  if (sel) sel.addEventListener('change', () => {
+    classAutoFilled = false;
+    hideClassHint();
+  });
+  const inp = document.getElementById('class_name');
+  if (inp) inp.addEventListener('input', () => { classAutoFilled = false; });
 }
 
 async function lookupClassForName(name) {
@@ -2260,11 +2267,10 @@ async function lookupClassForName(name) {
 
 async function tryClassAutofill() {
   const nameInput = document.getElementById('student_name');
-  const hint = document.getElementById('class-hint');
   const name = nameInput.value.trim();
   // Erst nachschlagen, wenn Vor- UND Nachname dastehen
   if (name.split(/\s+/).length < 2) {
-    if (hint) hint.classList.add('hidden');
+    hideClassHint();
     return;
   }
   // Manuelle Eingaben nie überschreiben — nur leere oder selbst befüllte Felder
@@ -2277,11 +2283,43 @@ async function tryClassAutofill() {
 
   if (klasse) {
     restoreClassValue(klasse);
-    classAutoFilled = true;
-    if (hint) hint.classList.remove('hidden');
-  } else if (hint) {
-    hint.classList.add('hidden');
+    // Im Dropdown-Modus greift das nur, wenn das Semester in kurse.json steht
+    if (getClassNameInput() === klasse) {
+      classAutoFilled = true;
+      showClassHint(true);
+    } else {
+      classAutoFilled = false;
+      showClassHint(false);
+    }
+  } else {
+    // Veraltete Auto-Füllung entfernen, damit kein fremdes Semester stehen bleibt
+    if (classAutoFilled) {
+      restoreClassValue('');
+      classAutoFilled = false;
+    }
+    showClassHint(false);
   }
+}
+
+function showClassHint(ok) {
+  const hint = document.getElementById('class-hint');
+  if (!hint) return;
+  if (ok) {
+    hint.textContent = '✓ Semester automatisch erkannt — bitte kurz prüfen.';
+    hint.className = 'class-hint ok';
+  } else if (availableCourses && availableCourses.length) {
+    // Dropdown: nichts falsch gemacht (z. B. erste Anmeldung), nur auswählen
+    hint.textContent = 'Bitte wähle dein Semester aus der Liste.';
+    hint.className = 'class-hint info';
+  } else {
+    hint.textContent = '✗ Semester nicht automatisch erkannt. Bitte beachte die korrekte Schreibweise, z. B. PT60 oder PT59 Ai.';
+    hint.className = 'class-hint err';
+  }
+}
+
+function hideClassHint() {
+  const hint = document.getElementById('class-hint');
+  if (hint) hint.className = 'class-hint hidden';
 }
 
 function prefillLastLogin() {
