@@ -125,6 +125,7 @@ textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
 .class-hint.ok { color: var(--good); }
 .class-hint.err { color: var(--wrong); }
 .class-hint.info { color: var(--ink-soft); }
+.label-opt { text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--ink-mute); }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
 
@@ -471,22 +472,27 @@ button { font-family: inherit; }
   <!-- SCHRITT 1: Anmeldung -->
   <section id="screen-login" class="card">
     <h1>Willkommen</h1>
-    <p class="lead">Melde dich mit Name und Semester an — danach siehst du deine persönliche Übersicht.</p>
+    <p class="lead">Melde dich mit deinem Namen an. Beim ersten Mal brauchst du zusätzlich den Code deines Semesters.</p>
 
     <div class="field">
       <label for="student_name">Name</label>
       <input type="text" id="student_name" placeholder="Vor- und Nachname" autocomplete="off">
+      <div id="name-hint" class="class-hint hidden"></div>
     </div>
 
-    <div class="field">
+    <div class="field hidden" id="code-field">
+      <label for="semester_code">Semester-Code <span class="label-opt">· nur beim ersten Mal</span></label>
+      <input type="text" id="semester_code" placeholder="Code von deiner Lehrkraft" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+    </div>
+
+    <!-- Nur ohne lesbare kurse.json (Fallback wie früher: Freitext, alles sichtbar) -->
+    <div class="field hidden" id="class-field">
       <label for="class_name">Semester</label>
-      <select id="class_name_select" class="hidden"></select>
       <input type="text" id="class_name" placeholder="z. B. PT60 oder PT59 Ai" autocomplete="off">
-      <div id="class-hint" class="class-hint hidden"></div>
     </div>
 
     <div class="btn-row">
-      <button class="btn-primary" onclick="goToTopicSelection()">Weiter</button>
+      <button class="btn-primary" id="login-btn" onclick="goToTopicSelection()">Weiter</button>
     </div>
   </section>
 
@@ -608,7 +614,7 @@ function topicIcon(topicId, size) {
 
 let availableUnits = [];
 // availableCourses: null = noch nicht geladen, [] = leer/fallback (Freitext + alles sichtbar),
-// [{name, visible_units}, ...] = aktiver Vorgabe-Modus mit Dropdown und Sichtbarkeits-Filter
+// [{name, visible_units, code_sha256?}, ...] = Vorgabe-Modus: Semester per Code oder Name, Sichtbarkeits-Filter
 let availableCourses = null;
 
 // ============= HELPER: SHUFFLE & DISPLAY-PLAN =============
@@ -658,14 +664,20 @@ function buildDisplayPlan(unit) {
 
 // ============= INITIALISIERUNG =============
 window.addEventListener('DOMContentLoaded', async () => {
-  // Klassen-Vorgabe laden (entscheidet, ob Dropdown oder Freitext)
+  // Semester-Vorgabe laden (entscheidet: Name + Code oder Freitext-Fallback)
   await loadCourses();
 
   // Letzte Anmeldung vorbelegen (weniger Tipparbeit)
   prefillLastLogin();
 
-  // Klasse automatisch nachschlagen, sobald der volle Name eingetippt ist
-  initClassAutofill();
+  // Namen nachschlagen, sobald Vor- und Nachname dastehen (Hinweis unter dem Feld)
+  initNameHint();
+
+  // Enter in Name oder Code = Weiter
+  ['student_name', 'semester_code', 'class_name'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') goToTopicSelection(); });
+  });
 
   // Wiederhergestellten Zustand prüfen — nur fragen, wenn wirklich etwas offen war
   const saved = loadSavedSession();
@@ -674,7 +686,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (resume) {
       session = saved;
       document.getElementById('student_name').value = session.student_name || '';
-      restoreClassValue(session.class_name || '');
       updateAvatar();
       if (session.unit) {
         // Aktive Lerneinheit war offen — direkt dorthin zurück
@@ -693,57 +704,105 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-// ============= KLASSEN-VORGABE =============
+// ============= SEMESTER-VORGABE =============
 async function loadCourses() {
   try {
     const res = await fetch(COURSES_INDEX + '?t=' + Date.now());
-    if (!res.ok) { availableCourses = []; setupClassPicker(); return; }
+    if (!res.ok) { availableCourses = []; setupLoginFields(); return; }
     const data = await res.json();
     availableCourses = Array.isArray(data && data.klassen) ? data.klassen : [];
   } catch (err) {
     availableCourses = [];
   }
-  setupClassPicker();
+  setupLoginFields();
 }
 
-function setupClassPicker() {
-  const sel = document.getElementById('class_name_select');
-  const inp = document.getElementById('class_name');
-  if (!availableCourses || !availableCourses.length) {
-    // Fallback: Freitext-Eingabe + keine Filterung
-    if (sel) sel.classList.add('hidden');
-    if (inp) inp.classList.remove('hidden');
-    return;
-  }
-  // Dropdown aktivieren, Freitext ausblenden
-  if (sel) {
-    sel.innerHTML = '<option value="">Bitte wählen…</option>'
-      + availableCourses.map(c => `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
-    sel.classList.remove('hidden');
-  }
-  if (inp) inp.classList.add('hidden');
+function hasCourses() {
+  return !!(availableCourses && availableCourses.length);
 }
 
-function getClassNameInput() {
-  if (availableCourses && availableCourses.length) {
-    return (document.getElementById('class_name_select').value || '').trim();
-  }
-  return (document.getElementById('class_name').value || '').trim();
+function courseExists(name) {
+  return (availableCourses || []).some(c => c.name === name);
 }
 
-function restoreClassValue(value) {
-  // Wenn Dropdown aktiv: nur setzen, wenn der Wert in den Optionen vorhanden ist.
-  // Sonst Freitext-Wert setzen.
-  if (availableCourses && availableCourses.length) {
-    const sel = document.getElementById('class_name_select');
-    if (sel) {
-      const match = Array.from(sel.options).some(o => o.value === value);
-      sel.value = match ? value : '';
+// Mit Vorgabe: Name + Code, das Semester wird abgeleitet (keine Auswahl).
+// Ohne lesbare kurse.json: Freitext-Semester wie früher, alles sichtbar.
+function setupLoginFields() {
+  document.getElementById('code-field').classList.toggle('hidden', !hasCourses());
+  document.getElementById('class-field').classList.toggle('hidden', hasCourses());
+}
+
+// ============= SEMESTER-CODE =============
+// Neue Schüler:innen geben beim ersten Mal den Code ihres Semesters ein, das Semester
+// kommt aus dem Code (`code_sha256` in kurse.json). Danach erkennt die App das Semester
+// am Namen (letzte Einsendung, sonst letzte Anmeldung auf diesem Gerät). Hürde, kein
+// Schutz: Wer einen bekannten Namen eintippt, kommt ohne Code rein, und die Einheiten
+// liegen im öffentlichen Repo.
+const CODE_HASH_PREFIX = 'skilllab-semestercode:';
+
+// Groß/klein, Leerzeichen, Bindestriche und Satzzeichen zählen nicht, ä = ae usw.
+// Muss mit normCode()/hashCode() in dashboard.html übereinstimmen.
+function normCode(code) {
+  return String(code || '').normalize('NFC').toLowerCase()
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+async function hashCode(code) {
+  const bytes = new TextEncoder().encode(CODE_HASH_PREFIX + normCode(code));
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function semesterForCode(code) {
+  const hash = await hashCode(code);
+  const cls = (availableCourses || []).find(c => c.code_sha256 === hash);
+  return cls ? cls.name : null;
+}
+
+// { klasse } oder { klasse: null, offline } — nur Semester aus kurse.json zählen
+async function semesterForName(name) {
+  const r = await lookupClassForName(name);
+  if (r.ok && r.klasse && courseExists(r.klasse)) return { klasse: r.klasse };
+  const last = loadLastLogin();
+  if (last && normName(last.name) === normName(name) && courseExists(last.class_name)) {
+    return { klasse: last.class_name };
+  }
+  return { klasse: null, offline: !r.ok };
+}
+
+// Semester für den Login bestimmen. Gibt null zurück, nachdem ein Hinweis gezeigt wurde.
+async function resolveSemester(name) {
+  if (!hasCourses()) {
+    const typed = document.getElementById('class_name').value.trim();
+    if (typed) return typed;
+    const r = await lookupClassForName(name);
+    if (r.ok && r.klasse) return r.klasse;
+    showDialog('Bitte trage dein Semester ein.');
+    return null;
+  }
+  const codeInp = document.getElementById('semester_code');
+  if (normCode(codeInp.value)) {
+    let klasse;
+    try {
+      klasse = await semesterForCode(codeInp.value);
+    } catch (e) {
+      showDialog('Dein Browser kann den Code nicht prüfen. Bitte nutze einen aktuellen Browser.');
+      return null;
     }
-  } else {
-    const inp = document.getElementById('class_name');
-    if (inp) inp.value = value;
+    if (!klasse) {
+      showDialog('Dieser Code passt zu keinem Semester. Groß- und Kleinschreibung, Leerzeichen und Bindestriche spielen keine Rolle.');
+      return null;
+    }
+    codeInp.value = '';
+    return klasse;
   }
+  const r = await semesterForName(name);
+  if (r.klasse) return r.klasse;
+  showDialog(r.offline
+    ? 'Gerade keine Verbindung zum Server, deshalb finden wir deinen Namen nicht. Mit dem Code deines Semesters kommst du trotzdem rein.'
+    : 'Diesen Namen finden wir nicht. Prüfe die Schreibweise, so wie bei deinen bisherigen Übungen. Bist du neu, gib zusätzlich den Code deines Semesters ein.');
+  return null;
 }
 
 function getVisibleUnitIdsForClass(className) {
@@ -771,17 +830,28 @@ function showScreen(name) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function goToTopicSelection() {
-  const name = document.getElementById('student_name').value.trim();
-  const klasse = getClassNameInput();
+let loginBusy = false;
 
+async function goToTopicSelection() {
+  if (loginBusy) return;
+  const name = document.getElementById('student_name').value.trim();
   if (!name) { showDialog('Bitte trage deinen Namen ein.'); return; }
-  if (!klasse) {
-    showDialog(availableCourses && availableCourses.length
-      ? 'Bitte wähle dein Semester aus der Liste.'
-      : 'Bitte trage dein Semester ein.');
-    return;
+
+  // Nachschlagen dauert kurz: Knopf sperren, damit niemand doppelt tippt
+  const btn = document.getElementById('login-btn');
+  loginBusy = true;
+  btn.disabled = true;
+  btn.textContent = 'Moment …';
+  let klasse;
+  try {
+    klasse = await resolveSemester(name);
+  } finally {
+    loginBusy = false;
+    btn.disabled = false;
+    btn.textContent = 'Weiter';
   }
+  if (!klasse) return;
+
   session.student_name = name;
   session.class_name = klasse;
   // Datum wird automatisch auf heute gesetzt (Feld entfernt)
@@ -2222,30 +2292,9 @@ function rememberLastLogin(name, klasse) {
   try { localStorage.setItem(LAST_LOGIN_KEY, JSON.stringify({ name, class_name: klasse })); } catch (e) {}
 }
 
-// ============= KLASSEN-AUTOFILL (Supabase-RPC klasse_fuer_name) =============
-// Fragt bei vollständigem Namen die zuletzt verwendete Klasse ab. Existiert die
-// RPC-Funktion (noch) nicht oder findet nichts, passiert einfach nichts —
-// die manuelle Eingabe bleibt der Fallback.
-let classAutoFilled = false;
-let classLookupTimer = null;
-
-function initClassAutofill() {
-  const nameInput = document.getElementById('student_name');
-  if (!nameInput) return;
-  nameInput.addEventListener('input', () => {
-    clearTimeout(classLookupTimer);
-    classLookupTimer = setTimeout(tryClassAutofill, 600);
-  });
-  // Eigene Auswahl gilt als manuell: Hinweis weg, Autofill überschreibt sie nicht mehr
-  const sel = document.getElementById('class_name_select');
-  if (sel) sel.addEventListener('change', () => {
-    classAutoFilled = false;
-    hideClassHint();
-  });
-  const inp = document.getElementById('class_name');
-  if (inp) inp.addEventListener('input', () => { classAutoFilled = false; });
-}
-
+// ============= NAME NACHSCHLAGEN (Supabase-RPC klasse_fuer_name) =============
+// Liefert das Semester der jüngsten Einsendung zu diesem Namen (Groß/klein und
+// Randleerzeichen egal, sonst exakte Schreibweise). { ok: false } = keine Verbindung.
 async function lookupClassForName(name) {
   try {
     const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/klasse_fuer_name', {
@@ -2257,78 +2306,62 @@ async function lookupClassForName(name) {
       },
       body: JSON.stringify({ p_name: name })
     });
-    if (!res.ok) return null;
+    if (!res.ok) return { ok: false };
     const data = await res.json();
-    return (typeof data === 'string' && data.trim()) ? data.trim() : null;
+    return { ok: true, klasse: (typeof data === 'string' && data.trim()) ? data.trim() : null };
   } catch (e) {
-    return null;
+    return { ok: false };
   }
 }
 
-async function tryClassAutofill() {
+let nameLookupTimer = null;
+
+function initNameHint() {
+  const nameInput = document.getElementById('student_name');
+  if (!nameInput) return;
+  nameInput.addEventListener('input', () => {
+    clearTimeout(nameLookupTimer);
+    hideNameHint();
+    nameLookupTimer = setTimeout(updateNameHint, 600);
+  });
+  if (nameInput.value.trim()) updateNameHint();
+}
+
+// Schon beim Tippen zeigen, ob der Name bekannt ist — so fällt ein Tippfehler vor „Weiter“ auf
+async function updateNameHint() {
+  if (!hasCourses()) return;
   const nameInput = document.getElementById('student_name');
   const name = nameInput.value.trim();
-  // Erst nachschlagen, wenn Vor- UND Nachname dastehen
-  if (name.split(/\s+/).length < 2) {
-    hideClassHint();
-    return;
-  }
-  // Manuelle Eingaben nie überschreiben — nur leere oder selbst befüllte Felder
-  if (getClassNameInput() && !classAutoFilled) return;
-
-  const klasse = await lookupClassForName(name);
+  if (name.split(/\s+/).length < 2) { hideNameHint(); return; }
+  const r = await semesterForName(name);
   // Falls währenddessen weitergetippt wurde: Ergebnis verwerfen
   if (nameInput.value.trim() !== name) return;
-  if (getClassNameInput() && !classAutoFilled) return;
-
-  if (klasse) {
-    restoreClassValue(klasse);
-    // Im Dropdown-Modus greift das nur, wenn das Semester in kurse.json steht
-    if (getClassNameInput() === klasse) {
-      classAutoFilled = true;
-      showClassHint(true);
-    } else {
-      classAutoFilled = false;
-      showClassHint(false);
-    }
-  } else {
-    // Veraltete Auto-Füllung entfernen, damit kein fremdes Semester stehen bleibt
-    if (classAutoFilled) {
-      restoreClassValue('');
-      classAutoFilled = false;
-    }
-    showClassHint(false);
-  }
-}
-
-function showClassHint(ok) {
-  const hint = document.getElementById('class-hint');
-  if (!hint) return;
-  if (ok) {
-    hint.textContent = '✓ Semester automatisch erkannt — bitte kurz prüfen.';
+  const hint = document.getElementById('name-hint');
+  if (r.klasse) {
+    hint.textContent = '✓ Willkommen zurück! Dein Semester: ' + r.klasse;
     hint.className = 'class-hint ok';
-  } else if (availableCourses && availableCourses.length) {
-    // Dropdown: nichts falsch gemacht (z. B. erste Anmeldung), nur auswählen
-    hint.textContent = 'Bitte wähle dein Semester aus der Liste.';
-    hint.className = 'class-hint info';
+  } else if (r.offline) {
+    hideNameHint();
   } else {
-    hint.textContent = '✗ Semester nicht automatisch erkannt. Bitte beachte die korrekte Schreibweise, z. B. PT60 oder PT59 Ai.';
-    hint.className = 'class-hint err';
+    hint.textContent = 'Diesen Namen kennen wir noch nicht. Neu hier? Dann gib unten den Code deines Semesters ein. Sonst prüfe die Schreibweise.';
+    hint.className = 'class-hint info';
   }
 }
 
-function hideClassHint() {
-  const hint = document.getElementById('class-hint');
+function hideNameHint() {
+  const hint = document.getElementById('name-hint');
   if (hint) hint.className = 'class-hint hidden';
 }
 
+function loadLastLogin() {
+  try { return JSON.parse(localStorage.getItem(LAST_LOGIN_KEY)) || null; } catch (e) { return null; }
+}
+
 function prefillLastLogin() {
-  try {
-    const d = JSON.parse(localStorage.getItem(LAST_LOGIN_KEY));
-    if (!d) return;
-    if (d.name) document.getElementById('student_name').value = d.name;
-    if (d.class_name) restoreClassValue(d.class_name);
-  } catch (e) {}
+  const d = loadLastLogin();
+  if (!d) return;
+  if (d.name) document.getElementById('student_name').value = d.name;
+  if (d.class_name && !hasCourses()) document.getElementById('class_name').value = d.class_name;
 }
 
 // ============= DIALOG (Ersatz für native confirm/alert) =============
