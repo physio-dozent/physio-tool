@@ -529,8 +529,9 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
     <div id="pane-sichtbarkeit" class="tab-pane">
       <div class="card">
         <h2>Sichtbarkeit pro Semester</h2>
-        <p class="help-text">Lege fest, welches Semester welche Lerneinheiten zu sehen bekommt. Semester, die du hier anlegst, erscheinen im Schüler-Login als Dropdown — Schüler können dann keine falschen Schreibweisen mehr eintippen.</p>
+        <p class="help-text">Lege fest, welches Semester welche Lerneinheiten zu sehen bekommt. Schüler:innen wählen ihr Semester nicht selbst: Die App erkennt es am Code (erste Anmeldung) oder am Namen (letzte Einsendung).</p>
         <p class="help-text"><strong>Speichern:</strong> Änderungen werden lokal vorgehalten. Klicke unten auf <em>„kurse.json herunterladen"</em>, lade die Datei ins GitHub-Repo unter <code>einheiten/kurse.json</code> hoch und committe. Erst dann wirken die Änderungen für die Schüler.</p>
+        <p class="help-text"><strong>Semester-Code:</strong> Neue Schüler:innen geben beim ersten Mal Name und Code ein und landen im Semester des Codes. Danach reicht der Name. Ohne Code kann ein Semester keine neuen Schüler:innen aufnehmen, bekannte Namen kommen weiter rein. In <code>kurse.json</code> steht nur ein Prüfwert, nicht der Code selbst. Ein neuer Code gilt nach dem Hochladen für alle weiteren Erstanmeldungen.</p>
         <p class="help-text"><strong>Fallback:</strong> Solange noch kein Semester angelegt ist (oder die Datei nicht im Repo liegt), bleibt der Schüler-Login bei Freitext und alle Einheiten sind sichtbar — wie bisher.</p>
 
         <div id="sichtbarkeit-status" style="margin:14px 0;"></div>
@@ -1166,8 +1167,9 @@ function renderUnify() {
 }
 
 // ============= SICHTBARKEIT (kurse.json verwalten) =============
-// coursesState: [{ name, visible_units: [...] }] — wird beim Tab-Open geladen, im Speicher editiert,
-// per Download-Button als kurse.json exportiert.
+// coursesState: [{ name, visible_units: [...], code_sha256? }] — wird beim Tab-Open geladen, im
+// Speicher editiert, per Download-Button als kurse.json exportiert. Weitere Felder aus der Datei
+// bleiben beim Download erhalten.
 let coursesState = null;
 let coursesDirty = false;
 // Fehlertext, wenn kurse.json existiert, aber nicht lesbar ist. Dann sind Bearbeiten und
@@ -1199,9 +1201,73 @@ async function loadKurseJson() {
     return;
   }
   coursesState = data.klassen.map(c => ({
+    ...c,
     name: String(c.name || ''),
     visible_units: Array.isArray(c.visible_units) ? [...c.visible_units] : []
   }));
+}
+
+// ============= SEMESTER-CODE =============
+// Muss mit normCode()/hashCode() in index.html übereinstimmen.
+const CODE_HASH_PREFIX = 'skilllab-semestercode:';
+// Kurze Codes ließen sich aus dem öffentlichen Prüfwert durch Ausprobieren zurückrechnen
+const MIN_CODE_LENGTH = 12;
+
+function normCode(code) {
+  return String(code || '').normalize('NFC').toLowerCase()
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+async function hashCode(code) {
+  const bytes = new TextEncoder().encode(CODE_HASH_PREFIX + normCode(code));
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function setCourseCode(idx) {
+  const cls = coursesState[idx];
+  if (!cls || coursesLoadError) return;
+  const code = prompt(`Neuer Semester-Code für ${cls.name}\n\nMindestens ${MIN_CODE_LENGTH} Buchstaben oder Ziffern, am besten drei Wörter. Groß/klein, Leerzeichen und Bindestriche zählen nicht.\n\nNotiere ihn dir: Das Dashboard speichert nur einen Prüfwert und kann den Code später nicht mehr anzeigen.`);
+  if (code === null) return;
+  if (normCode(code).length < MIN_CODE_LENGTH) {
+    alert(`Zu kurz: ${normCode(code).length} Buchstaben/Ziffern, mindestens ${MIN_CODE_LENGTH} nötig. Der Code wurde nicht geändert.`);
+    return;
+  }
+  const again = prompt('Zur Kontrolle den Code noch einmal eingeben:');
+  if (again === null) return;
+  if (normCode(again) !== normCode(code)) {
+    alert('Die beiden Eingaben stimmen nicht überein. Der Code wurde nicht geändert.');
+    return;
+  }
+  const hash = await hashCode(code);
+  // Der Code bestimmt das Semester, also darf er nur zu einem gehören
+  const other = coursesState.find((c, i) => i !== idx && c.code_sha256 === hash);
+  if (other) {
+    alert(`Diesen Code hat schon ${other.name}. Bitte einen anderen wählen.`);
+    return;
+  }
+  cls.code_sha256 = hash;
+  coursesDirty = true;
+  renderSichtbarkeit();
+}
+
+async function testCourseCode(idx) {
+  const cls = coursesState[idx];
+  if (!cls || !cls.code_sha256) return;
+  const code = prompt(`Code für ${cls.name} testen (prüft gegen den hier eingestellten Code):`);
+  if (code === null) return;
+  const ok = (await hashCode(code)) === cls.code_sha256;
+  alert(ok ? `✓ Der Code passt zu ${cls.name}.` : `✗ Der Code passt nicht zu ${cls.name}.`);
+}
+
+function removeCourseCode(idx) {
+  const cls = coursesState[idx];
+  if (!cls || coursesLoadError) return;
+  if (!confirm(`Code für "${cls.name}" entfernen?\n\nDanach können keine neuen Schüler:innen diesem Semester beitreten. Bekannte Namen kommen weiter rein.`)) return;
+  delete cls.code_sha256;
+  coursesDirty = true;
+  renderSichtbarkeit();
 }
 
 function setCourseEditingLocked(locked) {
@@ -1269,6 +1335,17 @@ async function renderSichtbarkeit() {
           <button class="btn-secondary" style="padding:5px 12px;font-size:13px;color:var(--wrong);border-color:var(--wrong);" onclick="removeCourse(${idx})">Semester löschen</button>
         </div>
       </div>`;
+    const hasCode = !!cls.code_sha256;
+    html += `<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;margin-bottom:8px;border-radius:4px;background:${hasCode ? 'var(--correct-bg)' : 'var(--bg)'};border:1px solid var(--line-soft);">
+        <div style="font-size:13px;color:${hasCode ? 'var(--correct)' : 'var(--ink-soft)'};">${hasCode
+          ? '<strong>Semester-Code gesetzt</strong> — neue Schüler:innen geben ihn bei der ersten Anmeldung ein.'
+          : '<strong>Kein Semester-Code</strong> — neue Schüler:innen können diesem Semester nicht beitreten, bekannte Namen kommen weiter rein.'}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="setCourseCode(${idx})">${hasCode ? 'Code ändern' : 'Code festlegen'}</button>
+          ${hasCode ? `<button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="testCourseCode(${idx})">Code testen</button>
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;color:var(--wrong);border-color:var(--wrong);" onclick="removeCourseCode(${idx})">Code entfernen</button>` : ''}
+        </div>
+      </div>`;
     // Pro Topic eine Gruppe von Checkboxen
     Object.keys(topicsMap).forEach(tid => {
       const grp = topicsMap[tid];
@@ -1304,7 +1381,7 @@ function addCourse() {
 function removeCourse(idx) {
   const cls = coursesState[idx];
   if (!cls) return;
-  if (!confirm(`Semester "${cls.name}" wirklich aus der Vorgabeliste entfernen?\n\nHinweis: Bestehende Einsendungen dieses Semesters bleiben in der Datenbank erhalten — nur die Vorgabe-Liste und das Dropdown im Schüler-Login werden bereinigt.`)) return;
+  if (!confirm(`Semester "${cls.name}" wirklich aus der Vorgabeliste entfernen?\n\nHinweis: Bestehende Einsendungen dieses Semesters bleiben in der Datenbank erhalten. Schüler:innen dieses Semesters können sich danach aber nicht mehr anmelden.`)) return;
   coursesState.splice(idx, 1);
   coursesDirty = true;
   renderSichtbarkeit();
@@ -1359,6 +1436,7 @@ function downloadKurseJson() {
   if (coursesLoadError || coursesState === null) return;
   const payload = {
     klassen: (coursesState || []).map(c => ({
+      ...c,
       name: c.name,
       visible_units: Array.isArray(c.visible_units) ? [...c.visible_units] : []
     }))
