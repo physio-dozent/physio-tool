@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/33369918/README.md)
 # Physiotherapie Lerntool
 
 Ein webbasiertes Lerntool für den Physiotherapie-Unterricht: Quiz, Kurzfälle und Clinical-Reasoning-Fallbeispiele.
