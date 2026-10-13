@@ -394,16 +394,22 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
     <button class="btn-secondary" id="logout-btn" onclick="logout()" style="display:none;">Abmelden</button>
   </header>
 
-  <section id="screen-pw">
+  <section id="screen-login">
     <div class="card password-screen">
       <h1>Anmeldung</h1>
-      <p style="color:var(--ink-soft);margin-bottom:16px;">Dieses Dashboard ist passwortgeschützt.</p>
-      <div style="margin-bottom:14px;">
-        <label for="pw">Dozenten-Passwort</label>
-        <input type="password" id="pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPw()">
-        <div class="error" id="pw-error" style="display:none;">Falsches Passwort.</div>
-      </div>
-      <button class="btn-primary" onclick="checkPw()">Einloggen</button>
+      <p style="color:var(--ink-soft);margin-bottom:16px;">Melde dich mit deinem Dozenten-Konto an.</p>
+      <form onsubmit="event.preventDefault(); signIn();">
+        <div style="margin-bottom:14px;">
+          <label for="login-email">E-Mail</label>
+          <input type="email" id="login-email" autocomplete="username" required>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label for="login-pw">Passwort</label>
+          <input type="password" id="login-pw" autocomplete="current-password" placeholder="••••••••" required>
+          <div class="error" id="login-error" style="display:none;"></div>
+        </div>
+        <button type="submit" class="btn-primary" id="login-btn">Einloggen</button>
+      </form>
     </div>
   </section>
 
@@ -546,45 +552,94 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
   <div class="modal" id="modal-body"></div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"
+        integrity="sha384-Rj26LVGvoeRVR6+mwQmFfcR3QOBEwT+ZmuCWpuiqeTzJpCs0ER4ITAWGb4Hiy3Ok"
+        crossorigin="anonymous"></script>
 <script>
 const SUPABASE_URL = 'https://oosqtqanwsijbmkxgyao.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9vc3F0cWFud3NpamJta3hneWFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyODI4NTYsImV4cCI6MjA5Mzg1ODg1Nn0.zSJsXeYRb8y5_XTN0-K9fdB2k1TnGMEK6imlIcqznTs';
-const DOZENT_TOKEN = 'IxK7-pZq3-nVwR-9oLm-2bTfYj';
-const DOCENT_PW_HASH = '4f028341151474aa328cf8e7f1ac564f78c356904cfefb6826b82d2f982a05e9';
+
+// Dozenten-Login über Supabase Auth. Die Sitzung liegt nur im sessionStorage:
+// Tab schließen = abgemeldet (wie beim früheren Passwort-Gate).
+const sb = window.supabase
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: { storage: window.sessionStorage, persistSession: true, autoRefreshToken: true }
+    })
+  : null;
 
 let allRows = [];
 let unitsIndex = [];
 let unitsCache = {};
 let currentTab = 'einsendungen';
 
-window.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem('docent_ok') === '1') showMain();
+window.addEventListener('DOMContentLoaded', async () => {
+  if (!sb) {
+    showLoginError('Die Anmeldung konnte nicht geladen werden (supabase-js fehlt). Bitte Seite neu laden.');
+    document.getElementById('login-btn').disabled = true;
+    return;
+  }
+  sb.auth.onAuthStateChange(event => {
+    if (event === 'SIGNED_OUT') showLogin();
+  });
+  const { data } = await sb.auth.getSession();
+  if (data.session) showMain();
 });
 
-async function checkPw() {
-  const pw = document.getElementById('pw').value;
-  const hash = await sha256(pw);
-  if (hash === DOCENT_PW_HASH) {
-    sessionStorage.setItem('docent_ok', '1');
+async function signIn() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-pw').value;
+  const btn = document.getElementById('login-btn');
+  document.getElementById('login-error').style.display = 'none';
+  btn.disabled = true;
+  try {
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) {
+      if (error.code === 'invalid_credentials') showLoginError('E-Mail oder Passwort ist falsch.');
+      else if (error.code === 'email_not_confirmed') showLoginError('Die E-Mail-Adresse ist noch nicht bestätigt.');
+      else if (error.name === 'AuthRetryableFetchError') showLoginError('Supabase ist gerade nicht erreichbar. Bitte später erneut versuchen.');
+      else showLoginError('Anmeldung fehlgeschlagen: ' + error.message);
+      return;
+    }
+    document.getElementById('login-pw').value = '';
     showMain();
-  } else {
-    document.getElementById('pw-error').style.display = 'block';
+  } finally {
+    btn.disabled = false;
   }
 }
 
-function logout() {
-  sessionStorage.removeItem('docent_ok');
+async function logout() {
+  if (sb) await sb.auth.signOut();
   location.reload();
 }
 
-async function sha256(text) {
-  const buf = new TextEncoder().encode(text);
-  const h = await crypto.subtle.digest('SHA-256', buf);
-  return Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2, '0')).join('');
+function showLogin(message) {
+  document.getElementById('screen-main').style.display = 'none';
+  document.getElementById('logout-btn').style.display = 'none';
+  document.getElementById('screen-login').style.display = 'block';
+  if (message) showLoginError(message);
+}
+
+function showLoginError(message) {
+  const el = document.getElementById('login-error');
+  el.textContent = message;
+  el.style.display = 'block';
+}
+
+// Kopfzeilen für Supabase-Abrufe: das Login-Token statt des Anon-Keys, damit die Dozenten-Policies greifen.
+async function authHeaders(extra) {
+  const { data } = await sb.auth.getSession();
+  if (!data.session) {
+    showLogin('Deine Sitzung ist abgelaufen. Bitte melde dich erneut an.');
+    throw new Error('Nicht angemeldet.');
+  }
+  return Object.assign({
+    'apikey': SUPABASE_ANON_KEY,
+    'Authorization': 'Bearer ' + data.session.access_token
+  }, extra);
 }
 
 async function showMain() {
-  document.getElementById('screen-pw').style.display = 'none';
+  document.getElementById('screen-login').style.display = 'none';
   document.getElementById('screen-main').style.display = 'block';
   document.getElementById('logout-btn').style.display = 'inline-block';
   await loadUnitsIndex();
@@ -615,12 +670,12 @@ async function loadData() {
   document.getElementById('table-einsendungen').innerHTML = '<div class="empty"><span class="loading-bar"></span> Lade Daten…</div>';
   try {
     const res = await fetch(SUPABASE_URL + '/rest/v1/submissions?select=*&order=created_at.desc&limit=5000', {
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-        'x-dozent-zugang': DOZENT_TOKEN
-      }
+      headers: await authHeaders()
     });
+    if (res.status === 401) {
+      showLogin('Deine Sitzung ist abgelaufen. Bitte melde dich erneut an.');
+      return;
+    }
     if (!res.ok) {
       const txt = await res.text();
       throw new Error('HTTP ' + res.status + ': ' + txt);
@@ -632,7 +687,7 @@ async function loadData() {
     document.getElementById('table-einsendungen').innerHTML = `<div class="empty" style="color:var(--wrong);">
       <strong>Daten konnten nicht geladen werden.</strong><br>
       ${escapeHtml(err.message)}<br><br>
-      <small>Stelle sicher, dass die Lese-Policy mit dem Header-Token in Supabase eingerichtet ist.</small>
+      <small>Stelle sicher, dass die Lese-Policy „Dozent liest (Login)“ in Supabase eingerichtet ist.</small>
     </div>`;
   }
 }
@@ -1400,21 +1455,21 @@ async function doMerge(type, oldValue, classContext) {
   if (!confirm(`Wirklich umbenennen?\n\n${affectedDescription}\n\nDieser Vorgang ist nicht rückgängig zu machen.`)) return;
 
   try {
-    const res = await fetch(url, {
+    // return=representation: RLS blockt still (0 Zeilen, kein Fehler), deshalb die geänderten IDs zählen.
+    const res = await fetch(url + '&select=id', {
       method: 'PATCH',
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+      headers: await authHeaders({
         'Content-Type': 'application/json',
-        'x-dozent-zugang': DOZENT_TOKEN,
-        'Prefer': 'return=minimal'
-      },
+        'Prefer': 'return=representation'
+      }),
       body: JSON.stringify(payload)
     });
     if (!res.ok) {
       const txt = await res.text();
       throw new Error('HTTP ' + res.status + ': ' + txt);
     }
+    const changed = await res.json();
+    if (!changed.length) throw new Error('Supabase hat keine Einsendung geändert.');
     // Lokal aktualisieren
     if (type === 'student') {
       allRows.forEach(r => {
@@ -1433,7 +1488,7 @@ async function doMerge(type, oldValue, classContext) {
     populateGlobalFilters();
     renderActiveTab();
   } catch (err) {
-    alert('Umbenennen fehlgeschlagen: ' + err.message + '\n\nPrüfe, ob in Supabase eine UPDATE-Policy mit dem Header-Token "x-dozent-zugang" eingerichtet ist.');
+    alert('Umbenennen fehlgeschlagen: ' + err.message + '\n\nPrüfe, ob in Supabase die UPDATE-Policy „Dozent aendert (Login)“ eingerichtet ist.');
   }
 }
 
@@ -1556,19 +1611,16 @@ async function deleteSubmission(id, fromModal) {
   const confirmText = `Diese Einsendung wirklich löschen?\n\nSchüler: ${r.student_name}\nSemester: ${r.class_name}\nDatum: ${r.session_date}\nLerneinheit: ${r.unit_title}\n\nDieser Vorgang kann nicht rückgängig gemacht werden.`;
   if (!confirm(confirmText)) return;
   try {
-    const res = await fetch(SUPABASE_URL + '/rest/v1/submissions?id=eq.' + encodeURIComponent(id), {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/submissions?id=eq.' + encodeURIComponent(id) + '&select=id', {
       method: 'DELETE',
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-        'x-dozent-zugang': DOZENT_TOKEN,
-        'Prefer': 'return=minimal'
-      }
+      headers: await authHeaders({ 'Prefer': 'return=representation' })
     });
     if (!res.ok) {
       const txt = await res.text();
       throw new Error('HTTP ' + res.status + ': ' + txt);
     }
+    const deleted = await res.json();
+    if (!deleted.length) throw new Error('Supabase hat nichts gelöscht.');
     // Lokal aus Array entfernen, neu rendern
     allRows = allRows.filter(x => x.id !== id);
     if (fromModal) closeModal();
