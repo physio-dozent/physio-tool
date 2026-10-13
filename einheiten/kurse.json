@@ -20,7 +20,8 @@
         "huefte-shortcase-002",
         "huefte-shortcase-003",
         "huefte-shortcase-004"
-      ]
+      ],
+      "code_sha256": "1fb4b88edbfca9a1295943e60ac04eecdf39a135f98688afbdc071f9a8bc61db"
     },
     {
       "name": "PT59 Ai",
@@ -42,7 +43,8 @@
         "huefte-shortcase-002",
         "huefte-shortcase-003",
         "huefte-shortcase-004"
-      ]
+      ],
+      "code_sha256": "a11eed1c0b0d578dc9823bcbac3df0452bb85a83defd2212d0c5b042a770bfaf"
     },
     {
       "name": "PT60",
@@ -51,7 +53,8 @@
         "schmerz-shortcase-001",
         "schmerz-shortcase-002",
         "schmerz-shortcase-003"
-      ]
+      ],
+      "code_sha256": "1e345e44494b77420929dcd55e510778ff803303fb61d859bff2f1e7da25480b"
     }
   ]
 }
