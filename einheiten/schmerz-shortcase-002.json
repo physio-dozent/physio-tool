@@ -21,10 +21,10 @@
       "text": "Welcher therapeutische Ansatz ist bei Frau Müller mit ihrem Vermeider-Profil initial am sinnvollsten?",
       "multi": false,
       "options": [
-        "Komplette Ruhigstellung des Knies in einer Schiene, bis die Bewegungsangst spontan abklingt.",
-        "Strukturierte, graduierte Belastungssteigerung in vertrauten Aktivitäten (z. B. wieder Treppensteigen, kurze Joggingrunden), kombiniert mit aktiver Aufklärung zu Schmerz ≠ Schaden und gezielter Adressierung der Laientheorie.",
+        "Komplette Ruhigstellung des Knies in einer Schiene, bis die Bewegungsangst von selbst wieder abklingt.",
+        "Graduierte Belastungssteigerung in vertrauten Aktivitäten wie Treppensteigen, dazu Aufklärung zu Schmerz ≠ Schaden.",
         "Sofortige Verordnung umfangreicher passiver Maßnahmen (Massage, Wärme, Elektrotherapie), bis sich das Knie „beruhigt“ hat.",
-        "Möglichst hohe Belastungssteigerung in kurzer Zeit, um die Angst durch Konfrontation zu desensibilisieren."
+        "Möglichst hohe Belastungssteigerung in kurzer Zeit, um die Bewegungsangst durch Konfrontation zu desensibilisieren."
       ],
       "correct": 1,
       "explanation": "Beim Vermeider — der durch Schon- und Vermeidungsverhalten Funktionskapazität verloren hat — ist eine strukturierte, graduierte Belastungssteigerung unter Berücksichtigung dominanter psychosozialer Faktoren angezeigt. Dazu gehören aktive Aufklärung zum aktuellen Schmerzverständnis und das gezielte Adressieren der Laientheorie zum „überlasteten Knorpel“. Ruhigstellung würde das Vermeidungsverhalten verstärken; sehr abrupte Hochbelastung würde Vertrauen und Adhärenz untergraben."
@@ -34,9 +34,9 @@
       "multi": false,
       "options": [
         "Als evidenzbasierte und unproblematische Empfehlung, weil Schonung bei jeder Form von Bagatelltrauma die Standardtherapie ist.",
-        "Als ungünstige Botschaft aus dem Versorgungssystem, die als Kontext-Treiber wirkt und Kinesiophobie und Fear-Avoidance-Verhalten begünstigt — sie hat aktiv zur aktuellen Vermeider-Dynamik beigetragen.",
-        "Als rein nozizeptiver Treiber, weil sie auf eine reale strukturelle Schädigung im Knie hindeutet.",
-        "Als irrelevant für die heutige Situation, weil die Aussage sechs Monate zurückliegt."
+        "Als ungünstige Botschaft (Nocebo) aus dem Versorgungssystem, die als Kontext-Treiber Bewegungsangst und Vermeidung begünstigt.",
+        "Als rein nozizeptiver Treiber, weil die Aussage auf eine reale strukturelle Schädigung im Knie hindeutet.",
+        "Als irrelevant für die heutige Situation, weil die Aussage sechs Monate zurückliegt und keine Diagnose enthielt."
       ],
       "correct": 1,
       "explanation": "Im multidimensionalen Treibermodell zählen ungünstige Botschaften von Ärztinnen und Therapeuten zu den Kontext-Treibern. Eine pauschale Schon-Empfehlung bei einem Bagatelltrauma kann Bewegungsangst und Fear-Avoidance-Verhalten verstärken — bei Frau Müller hat sie die heutige Dynamik mit angestoßen. Solche Botschaften wirken oft über Jahre, weil Patientinnen und Patienten sie als „medizinisch autoritativ“ verinnerlichen."

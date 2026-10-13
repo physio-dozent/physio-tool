@@ -12,7 +12,7 @@
         "Sein Glaube, jede falsche Bewegung könne den Bandscheibenvorfall verschlimmern.",
         "Der schlechte Schlaf mit mehrfachem nächtlichen Erwachen seit Beschwerdebeginn.",
         "Die hohe tägliche Arbeitsbelastung von zehn bis zwölf Stunden ohne Pausen.",
-        "Das Wandern in der Eifel, das ihm früher Spaß gemacht hat."
+        "Das wöchentliche Wandern in der Pfalz, das ihm früher viel Spaß gemacht hat."
       ],
       "correct": [0, 1, 2],
       "explanation": "Schmerzbezogene Überzeugungen, Schlafprobleme und chronische Überlastung ohne Pausen wirken im Modell der Schmerz-Tasse von Greg Lehman als DIMs (Danger in Me) und füllen die Tasse. Das Wandern wäre dagegen ein SIM (Safety in Me) — eine bedeutungsvolle, schmerzfreie Aktivität, die zur Kapazität beitragen würde und idealerweise wieder aufgenommen wird („Build Shit Back Up“)."
@@ -21,9 +21,9 @@
       "text": "Welcher Schmerzmechanismus passt am ehesten zu Markus' Beschwerdebild — wiederkehrende, schwankende Schmerzen seit sieben Monaten, ohne akute Verletzung, mit einem älteren MRT-Befund 'leichter Bandscheibenvorfall L4/L5'?",
       "multi": false,
       "options": [
-        "Rein nozizeptiver Schmerz im akut-entzündlichen Sinne.",
-        "Peripher neuropathischer Schmerz im Versorgungsgebiet eines Nervs.",
-        "Schmerz mit Anteilen einer veränderten nozizeptiven Funktion bzw. zentralen Sensibilisierung, eingebettet in psychosoziale Einflussfaktoren.",
+        "Rein nozizeptiver Schmerz im Sinne eines akut-entzündlichen Geschehens.",
+        "Peripher neuropathischer Schmerz mit Ausstrahlung im Versorgungsgebiet eines Nervs.",
+        "Veränderte periphere bzw. zentrale Sensibilisierung mit nozizeptivem Anteil.",
         "Schmerz, der ausschließlich durch den Bandscheibenvorfall L4/L5 erklärt wird."
       ],
       "correct": 2,
@@ -33,10 +33,10 @@
       "text": "Welcher Behandlungsansatz erscheint bei Markus initial am sinnvollsten?",
       "multi": false,
       "options": [
-        "Sofortige OP-Empfehlung zur strukturellen Behandlung des Bandscheibenvorfalls.",
-        "Vollständige Ruhigstellung und strikte Schon-Empfehlung, bis die Schmerzen abklingen.",
-        "Eine Kombination aus 'Calm Shit Down' (Schlafhygiene, Stress-Management, Aufklärung zum MRT-Befund und zu Schmerz ≠ Schaden, sanfte schmerzfreie Bewegungen) und 'Build Shit Back Up' (Belastungsaufbau über vertraute Aktivitäten wie das Wandern, variierte Übungen mit angemessenen Pausen).",
-        "Ausschließlich passive Maßnahmen wie Massage und Wärmebehandlung, bis ein Kontroll-MRT vorliegt."
+        "Sofortige Empfehlung einer Operation, um den Bandscheibenvorfall L4/L5 als vermutete Schmerzursache zu beheben.",
+        "Vollständige Ruhigstellung und strikte Schon-Empfehlung, bis die Schmerzen ganz abgeklungen sind.",
+        "„Calm Shit Down“ (Schlaf, Stress, Aufklärung zum MRT) und „Build Shit Back Up“ über vertraute Aktivitäten wie Wandern.",
+        "Ausschließlich passive Maßnahmen wie Massage und Wärme, bis ein Kontroll-MRT den Zustand der Bandscheibe geklärt hat."
       ],
       "correct": 2,
       "explanation": "Der Doppelansatz 'Calm Shit Down & Build Shit Back Up' nach Greg Lehman (2018) kann dir hier als Praxisrahmen helfen. Bei Markus heißt das konkret: einerseits DIMs in der Schmerz-Tasse reduzieren (Schlafhygiene, Stress-Management, Aufklärung zum MRT-Befund) und andererseits die Belastungskapazität wieder ausbauen über bekannte, vertraute Aktivitäten wie das Wandern, mit variierten Übungen und genügend Pausen. Strikte Schon-Empfehlung würde nach dem Angst-Vermeidungs-Modell (Vlaeyen & Linton 2000) eine weitere Schwächung der Strukturen begünstigen."

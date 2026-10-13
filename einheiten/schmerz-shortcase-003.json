@@ -33,9 +33,9 @@
       "text": "Welcher initiale Therapieansatz erscheint bei Tom am sinnvollsten?",
       "multi": false,
       "options": [
-        "Sofortige MRT-Verordnung und vollständige Sportkarenz, bis ein bildgebender Befund vorliegt.",
-        "Gezielte Patientenedukation zum aktuellen Schmerzverständnis (Schmerz ≠ Schaden, asymptomatische Strukturveränderungen, Bedeutung des Kontextes), Korrektur der Laientheorie zur Supraspinatussehne und schrittweise Wiederaufnahme schmerzarmer Belastungen — insbesondere Schwimmen — bei klinisch unauffälligem Untersuchungsbefund.",
-        "Maximale Belastungssteigerung am Bankdrücken in der ersten Therapie-Einheit, um die Angst zu desensibilisieren.",
+        "Sofortige MRT-Verordnung zur Abklärung der Supraspinatussehne und vollständige Sportkarenz bis zum Befund.",
+        "Aufklärung zu Schmerz ≠ Schaden, Korrektur seiner Laientheorie und schrittweise Rückkehr zu schmerzarmer Belastung wie Schwimmen.",
+        "Maximale Belastungssteigerung am Bankdrücken schon in der ersten Therapie-Einheit, um die Angst vor Bewegung zu desensibilisieren.",
         "Ausschließlich passive Maßnahmen (Massage, Wärme, Ultraschall) und Verschreibung von Schmerzmedikation, ohne Gespräch über die Sorgen."
       ],
       "correct": 1,
