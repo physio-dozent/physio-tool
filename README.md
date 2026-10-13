@@ -1,3 +1,4 @@
+[README.md](https://github.com/user-attachments/files/33369918/README.md)
 # Physiotherapie Lerntool
 
 Ein webbasiertes Lerntool für den Physiotherapie-Unterricht: Quiz, Kurzfälle und Clinical-Reasoning-Fallbeispiele.
@@ -12,9 +13,10 @@ Ein webbasiertes Lerntool für den Physiotherapie-Unterricht: Quiz, Kurzfälle u
 ```
 /
 ├── index.html              ← Schüler-Frontend
-├── dashboard.html          ← Auswertungs-Dashboard für den Dozenten
+├── dashboard.html          ← Auswertungs-Dashboard für den Dozenten (Login über Supabase Auth)
 └── einheiten/
     ├── index.json          ← Liste aller verfügbaren Lerneinheiten
+    ├── kurse.json          ← Semester und freigeschaltete Einheiten (nur über das Dashboard erzeugen)
     ├── demo-quiz.json      ← Beispiel-Quiz
     ├── demo-shortcase.json ← Beispiel-Kurzfall
     └── demo-reasoning.json ← Beispiel-Reasoning-Fall
@@ -26,12 +28,12 @@ Ein webbasiertes Lerntool für den Physiotherapie-Unterricht: Quiz, Kurzfälle u
 2. Den Eintrag in `einheiten/index.json` ergänzen
 3. Beide Dateien per GitHub-Web-Interface hochladen → die Änderungen sind nach 1–2 Minuten live
 
-## Dashboard-Passwort wechseln
+## Anmeldung im Dashboard
 
-Standardpasswort: `aendern-bitte`
+Das Dashboard nutzt **Supabase Auth** (E-Mail + Passwort). Im Quelltext steht kein Passwort und kein
+Zugangs-Token mehr. Welche Konten Einsendungen lesen, ändern und löschen dürfen, legen die
+Row-Level-Security-Policies der Tabelle `submissions` in Supabase fest (Prüfung der Nutzer-ID).
 
-Zum Wechseln:
-1. Datei `passwort-generator.html` lokal im Browser öffnen
-2. Neues Passwort eingeben → SHA-256-Hash kopieren
-3. In `dashboard.html` die Zeile `const DOCENT_PW_HASH = '...'` ersetzen
-4. Datei committen
+- Das Dozenten-Konto wird im Supabase-Dashboard unter Authentication → Users verwaltet.
+- Die Sitzung gilt nur im geöffneten Tab. Tab schließen oder „Abmelden“ beendet sie.
+- Schüler:innen brauchen kein Konto, ihre Einsendungen laufen weiter ohne Anmeldung.
