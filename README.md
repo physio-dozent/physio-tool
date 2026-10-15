@@ -15,7 +15,7 @@ Ein webbasiertes Lerntool für den Physiotherapie-Unterricht: Quiz, Kurzfälle u
 ├── dashboard.html          ← Auswertungs-Dashboard für den Dozenten (Login über Supabase Auth)
 └── einheiten/
     ├── index.json          ← Liste aller verfügbaren Lerneinheiten
-    ├── kurse.json          ← Semester und freigeschaltete Einheiten (nur über das Dashboard erzeugen)
+    ├── kurse.json          ← Semester, freigeschaltete Einheiten, Prüfwerte der Semester-Codes (nur über das Dashboard erzeugen)
     ├── demo-quiz.json      ← Beispiel-Quiz
     ├── demo-shortcase.json ← Beispiel-Kurzfall
     └── demo-reasoning.json ← Beispiel-Reasoning-Fall
@@ -26,6 +26,13 @@ Ein webbasiertes Lerntool für den Physiotherapie-Unterricht: Quiz, Kurzfälle u
 1. JSON-Datei nach Vorlage erstellen und in den Ordner `einheiten/` legen
 2. Den Eintrag in `einheiten/index.json` ergänzen
 3. Beide Dateien per GitHub-Web-Interface hochladen → die Änderungen sind nach 1–2 Minuten live
+
+## Anmeldung der Schüler:innen
+
+Schüler:innen geben ihren Namen ein, beim ersten Mal zusätzlich den Code ihres Semesters. Das Semester
+wählen sie nicht selbst: Die App leitet es aus dem Code ab, später aus dem Namen (letzte Einsendung).
+Codes legt der Dozent im Dashboard-Tab *Sichtbarkeit* fest. Der Ablauf steht in `index.html` im Block
+`ANMELDUNG`.
 
 ## Anmeldung im Dashboard
 
