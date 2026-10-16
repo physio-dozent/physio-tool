@@ -9,8 +9,8 @@
       "text": "Welche der folgenden Treiber-Kategorien sind bei Frau Hoffmann aktuell dominant und sollten im Therapieplan adressiert werden?",
       "multi": true,
       "options": [
-        "Nozizeptive Treiber (mechanisch bedingte Schmerzen bei Treppensteigen, morgendliche Steifigkeit, Krepitation).",
-        "Kognitiv-emotionale Treiber (Bewegungsangst durch Nocebo-Botschaft, Grübeln, „muss bald ein neues Knie haben“-Überzeugung).",
+        "Nozizeptive Treiber (Treppenschmerz, Morgensteifigkeit, Krepitation).",
+        "Kognitiv-emotionale Treiber (Bewegungsangst nach Nocebo-Botschaft, Grübeln).",
         "Komorbidität-Treiber (Schlafstörungen, Gewichtszunahme, Dekonditionierung).",
         "Peripher neuropathische Treiber mit eindeutigen radikulären Plus-Symptomen."
       ],
@@ -22,9 +22,9 @@
       "multi": false,
       "options": [
         "„Ihre Bekannte hat recht — wenn der Knorpel einmal weg ist, ist er weg. Der baut sich auch durch Sport nicht mehr auf und muss geschont werden.“",
-        "„Bewegung schützt Ihr Knie. Sport kann die Entstehung und das Fortschreiten der Arthrose verhindern und Schmerzen deutlich reduzieren. Knorpelveränderungen hängen nur geringfügig mit den Schmerzen zusammen.“",
+        "„Bewegung schützt Ihr Knie. Sport kann das Fortschreiten der Arthrose verhindern, und Schmerz bedeutet nicht Schaden.“",
         "„Versuchen Sie die OP hinauszuzögern, aber ein neues Knie wird in Ihrem Fall unvermeidbar sein. Belasten Sie das Knie bis dahin so wenig wie möglich.“",
-        "„Wandern ist bei Menschen mit Übergewicht zu belastend für den Knorpel und kann ihrem Kniegelenk noch mehr schaden.“"
+        "„Wandern ist bei Übergewicht zu belastend für den Knorpel und kann Ihrem Kniegelenk noch mehr schaden.“"
       ],
       "correct": 1,
       "explanation": "Die zentrale Botschaft adressiert direkt die Nocebo-Aussage: Bewegung schützt, Schmerz ist nicht gleich Schaden, Krepitieren ist unbedenklich, und strukturierte Bewegungstherapie reduziert nachweislich Schmerzen (Skou & Roos, 2017: 25 % Schmerzreduktion bei über 10.000 Teilnehmenden, vergleichbar mit NSAR und doppelt so stark wie Paracetamol). Eine Schon-Empfehlung würde die Inaktivität, Dekonditionierung und Bewegungsangst verstärken — der schlechteste Weg in dieser Konstellation."
@@ -33,13 +33,13 @@
       "text": "Welcher Therapierahmen entspricht bei Frau Hoffmann am ehesten der aktuellen Leitlinien-Empfehlung (Katz et al., 2021; Bowden et al., 2020; Kemper, 2019)?",
       "multi": false,
       "options": [
-        "Passive Maßnahmen (Manuelle Therapie, Massage, Wärme), bis der Schmerz fast weg ist und das Knie sauber läuft. Sonst machen Übungen die Schmerzen nur schlimmer.",
-        "Sofortige Indikationsstellung zur Knie-TEP wegen Arthrose Grad 2 (nach Kellgren-Lawrence).",
-        "Bewegungs- und Übungstherapie 2–3 Mal pro Woche für 20–60 Minuten unter Supervision, kombiniert mit Patientenedukation und Selbstmanagement-Strategien (Gewichtsreduktion, Schmerzmonitoring). Einzeltherapie oder als strukturiertes Gruppenangebot.",
-        "Strikte Schon-Empfehlung mit gegebenenfalls Hilfsmitteln wie Stützen und Aussetzen aller körperlich belastenden Aktivitäten."
+        "Passive Maßnahmen wie Massage und Wärme, bis der Schmerz fast weg ist, weil Übungen ihn sonst nur verschlimmern.",
+        "Sofortige Indikationsstellung zur Knie-TEP wegen der Arthrose Grad 2 (nach Kellgren-Lawrence).",
+        "Übungstherapie 2–3 Mal pro Woche für 20–60 Minuten, dazu Edukation und Selbstmanagement wie Gewichtsreduktion.",
+        "Strikte Schonung mit Unterarmstützen und Pause aller körperlich belastenden Aktivitäten."
       ],
       "correct": 2,
-      "explanation": "Die internationalen Leitlinien empfehlen als Basistherapie für alle Patientinnen und Patienten Bewegungs- und Übungstherapie (2–3x/Woche, 20–60 Min), Edukation und Selbstmanagement. Das GLAD:D-Programm (Skou & Roos 2017) mit 2 Edukations- und 12 NEMEX-Einheiten ist ein evidenzbasiertes Beispiel — sogar bei hochgradiger Arthrose entschieden sich 75 % der Teilnehmenden, eine geplante OP zu verschieben (Skou 2015). Eine TEP ist bei Grad 2 nicht indiziert (Indikation ab Grad 3). Strikte Schon-Empfehlung und rein passive Maßnahmen verstärken Dekonditionierung und Fear-Avoidance."
+      "explanation": "Die internationalen Leitlinien empfehlen als Basistherapie für alle Patientinnen und Patienten Bewegungs- und Übungstherapie (2–3x/Woche, 20–60 Min), Edukation und Selbstmanagement. Das GLA:D-Programm (Skou & Roos 2017) mit 2 Edukations- und 12 NEMEX-Einheiten ist ein evidenzbasiertes Beispiel — sogar bei hochgradiger Arthrose entschieden sich 75 % der Teilnehmenden, eine geplante OP zu verschieben (Skou 2015). Eine TEP ist bei Grad 2 nicht indiziert (Indikation ab Grad 3). Strikte Schon-Empfehlung und rein passive Maßnahmen verstärken Dekonditionierung und Fear-Avoidance."
     }
   ]
 }
