@@ -52,25 +52,14 @@
         "schmerz-quiz-001",
         "schmerz-shortcase-001",
         "schmerz-shortcase-002",
-        "schmerz-shortcase-003"
-      ],
-      "code_sha256": "1e345e44494b77420929dcd55e510778ff803303fb61d859bff2f1e7da25480b",
-      "lernpfad": true
-    },
-    {
-      "name": "Test Lernpfad",
-      "visible_units": [
-        "schmerz-quiz-001",
-        "schmerz-shortcase-001",
-        "schmerz-shortcase-002",
         "schmerz-shortcase-003",
         "knie-quiz-001",
         "knie-shortcase-001",
         "knie-shortcase-002",
         "knie-shortcase-003"
       ],
-      "lernpfad": true,
-      "code_sha256": "2b79a80527015010c7cf9baa170c93f735ea5ea80c5bd747380f13d7ea064726"
+      "code_sha256": "1e345e44494b77420929dcd55e510778ff803303fb61d859bff2f1e7da25480b",
+      "lernpfad": true
     }
   ]
 }
