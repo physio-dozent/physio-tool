@@ -34,6 +34,19 @@ wählen sie nicht selbst: Die App leitet es aus dem Code ab, später aus dem Nam
 Codes legt der Dozent im Dashboard-Tab *Sichtbarkeit* fest. Der Ablauf steht in `index.html` im Block
 `ANMELDUNG`.
 
+## Lernpfad
+
+Je Semester schaltbar im Dashboard-Tab *Sichtbarkeit* (`"lernpfad": true` in `kurse.json`). Dann öffnen
+die angehakten Themen nacheinander in der Reihenfolge von `index.json`: Das erste ist offen, das nächste
+öffnet, sobald im vorherigen der Quiz-Durchschnitt aller vollständigen Runden mindestens 70 % beträgt und
+ein Kurzfall mindestens 70 % erreicht hat. Einmal offen, bleibt offen. Den Stand liefert die
+Supabase-Funktion `lernpfad_fuer_name` (nur die offenen Themen), ergänzt um den Verlauf auf dem Gerät.
+Die Regel steht im Block `LERNPFAD: REGEL`, byte-gleich in `index.html` und `dashboard.html`. Ihre Anzeige
+für Schüler:innen (Ablauf, Quellen, Begriffe im Kopfkommentar) steht in `index.html` im Block
+`LERNPFAD: ANZEIGE`. Im Dashboard zeigt der Tab *Schüler-Verlauf*, wer welches Thema offen hat (Block
+`LERNPFAD: FREISCHALTSTAND`, gerechnet aus den Einsendungen wie die Supabase-Funktion). Einen Überblick über
+alle Blöcke gibt in beiden Dateien der `WEGWEISER` am Anfang des Skripts.
+
 ## Anmeldung im Dashboard
 
 Das Dashboard nutzt **Supabase Auth** (E-Mail + Passwort). Im Quelltext steht kein Passwort und kein
