@@ -203,6 +203,18 @@ button { font-family: inherit; }
 .tbar { height: 7px; border-radius: 99px; background: var(--ring-track); overflow: hidden; }
 .tbar > i { display: block; height: 100%; border-radius: 99px; background: var(--tc); }
 .tpct { font-size: 12px; font-weight: 700; color: var(--tc); margin-top: 7px; display: block; }
+/* Lernpfad: gesperrtes Thema mit Schloss, Ziel und Stand */
+.topic-card.locked { background: var(--bg); border: 1.5px dashed var(--line); box-shadow: none; }
+.topic-card.locked:hover { transform: none; box-shadow: none; border-color: var(--ink-mute); }
+.topic-card.locked .ticon { position: relative; background: var(--ring-track); color: var(--ink-mute); }
+.topic-card .tlock {
+  position: absolute; right: -6px; bottom: -6px; width: 22px; height: 22px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--ink-soft); color: #fff; border: 2px solid var(--bg);
+}
+.topic-card.locked h3 { color: var(--ink-soft); }
+.topic-card.locked .tmeta { margin-bottom: 8px; }
+.tgoal { font-size: 12.5px; color: var(--ink-soft); }
+.tstand { font-size: 12px; font-weight: 700; color: var(--ink-soft); margin-top: 6px; display: block; }
 
 .mixed-banner {
   grid-column: 1 / -1;
@@ -558,6 +570,17 @@ button { font-family: inherit; }
 </div>
 
 <script>
+// ============= WEGWEISER =============
+// Eine Sitzung läuft so durch die Blöcke dieser Datei (jeder beginnt mit „// ============= NAME“):
+//   1. Start: INITIALISIERUNG lädt kurse.json und bietet eine unfertige Sitzung zur Wiederaufnahme an.
+//   2. Anmeldung: ANMELDUNG leitet das Semester ab (Ablauf im Blockkopf), SEMESTER-VORGABE liest kurse.json.
+//   3. Themenliste: NAVIGATION (loadIndex, renderTopicsList) mit PERSÖNLICHE STARTSEITE und GEMISCHTES QUIZ.
+//      Hat das Semester einen Lernpfad, sperrt LERNPFAD: ANZEIGE Themen nach der Regel in LERNPFAD: REGEL.
+//   4. Thema und Einheit wählen: selectTopic, renderUnitList, selectUnit (Block PERSÖNLICHE STARTSEITE).
+//   5. Bearbeiten: HELPER zieht und mischt die Fragen, INHALT RENDERN zeigt Quiz, Kurzfall, Reasoning-Fall.
+//   6. Absenden: ABSENDEN schickt an Supabase, schreibt den GERÄTE-VERLAUF (localStorage), zeigt das Ergebnis.
+// Nebenher: ZWISCHENSPEICHERN sichert die laufende Sitzung, MASTERY rechnet „gemeistert“ aus dem Verlauf.
+
 // ============= KONFIGURATION =============
 const SUPABASE_URL = 'https://oosqtqanwsijbmkxgyao.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9vc3F0cWFud3NpamJta3hneWFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyODI4NTYsImV4cCI6MjA5Mzg1ODg1Nn0.zSJsXeYRb8y5_XTN0-K9fdB2k1TnGMEK6imlIcqznTs';
@@ -741,8 +764,8 @@ async function goToTopicSelection() {
 
   session.student_name = name;
   session.class_name = klasse;
-  // Datum wird automatisch auf heute gesetzt (Feld entfernt)
-  session.session_date = new Date().toISOString().split('T')[0];
+  // Datum automatisch heute, lokal statt UTC (sonst landet 0–2 Uhr auf dem Vortag)
+  session.session_date = localDay();
   rememberLastLogin(name, klasse);
 
   showScreen('topics');
@@ -934,6 +957,320 @@ function getVisibleUnitIdsForClass(className) {
   return Array.isArray(cls.visible_units) ? cls.visible_units : [];
 }
 
+// ============= LERNPFAD: REGEL =============
+// Ab PT60 öffnen die Themen nacheinander (Schalter „Lernpfad“ je Semester, kurse.json: lernpfad: true).
+// Pfad = Themen der freigeschalteten Einheiten in der Reihenfolge von index.json, das erste ist offen.
+// Ein Thema öffnet, wenn im vorherigen einmal BEIDES galt (handoff.md, Slice 1b):
+//   – Ø aller vollständigen Runden im Themen-Quiz ≥ 70 %, ganzzahlig: 10 · Σ richtig ≥ 7 · Σ gestellt.
+//     Vollständig = jede gestellte Frage beantwortet. Gemischtes Quiz zählt nicht.
+//   – irgendein Kurzfall-Versuch ≥ 70 % (bei 3 Fragen = 3/3).
+// „Einmal frei, bleibt frei“: Es reicht ein Zeitpunkt, zu dem beides galt.
+//
+// Die Regel steht an drei Stellen und wird nur an allen dreien zugleich geändert (handoff.md, Falle 23):
+//   – dieser Block, byte-gleich in index.html (Schülerseite) und dashboard.html (Freischaltstand je Person),
+//   – als SQL in supabase-sql/slice1b-lernpfad.sql (lernpfad_regel, gerufen von der RPC lernpfad_fuer_name).
+// Geändert wird nur hier in index.html, dann kopiert supabase-sql/slice1b-tests/kopiere_regel.py den Block ins
+// Dashboard. Prüfung: node supabase-sql/slice1b-tests/pruefe_js.mjs testet den Block in beiden Dateien gegen
+// testfaelle.json und meldet rot, wenn die zwei Kopien nicht byte-gleich sind. SQL: slice1b-lernpfad-test.sql.
+// Der Block bleibt ohne DOM und localStorage, damit er in Node testbar ist.
+//
+// Aufbau in Aufrufreihenfolge:
+//   a) lernpfadPfadAus: der Pfad eines Semesters aus index.json und den angehakten Einheiten.
+//   b) zwei Übersetzer in eine einheitliche „Regel-Zeile“: lernpfadZeileAusEinsendung (Supabase-Einsendung)
+//      und lernpfadZeileAusVerlauf (Geräteverlauf; das Dashboard braucht ihn nicht, er bleibt für die Gleichheit).
+//   c) lernpfadAuswerten: die Regel selbst.
+// Aufrufer: in index.html Block LERNPFAD: ANZEIGE, in dashboard.html Block LERNPFAD: FREISCHALTSTAND.
+// lernpfadAuswerten ist bewusst eine einzige Funktion. Ihre Schritte (1–4 darin) entsprechen den Teilabfragen
+// von lernpfad_regel in SQL: pfad, einheit, quiz + kurzfall + geschafft, erste_luecke. SQL rechnet dasselbe
+// mengenweise (laufende Summen), JS geht die Zeilen der Reihe nach durch.
+
+// 70 %, ganzzahlig verglichen. Die Texte in LERNPFAD: ANZEIGE und im Dashboard nennen „70 %“ ausdrücklich.
+const LERNPFAD_ZAEHLER = 7, LERNPFAD_NENNER = 10; // 70 %
+
+// a) Pfad eines Semesters: Themen der sichtbaren Einheiten in der Reihenfolge von index.json, je Thema ALLE
+//    seine Einheiten-IDs aus index.json. Auch die nicht angehakten zählen: Hakt der Dozent später eine Einheit
+//    an, soll das nichts sperren, was schon offen war (dieselbe Festlegung wie in der RPC).
+//    einheiten = Inhalt von index.json; sichtbar = visible_units des Semesters, null = keine Vorgabe (alle).
+//    → [{ thema, einheiten: [unit_id, …] }, …]
+function lernpfadPfadAus(einheiten, sichtbar) {
+  const themen = [];
+  einheiten.forEach(u => {
+    if (u.hidden || !(sichtbar === null || sichtbar.includes(u.id))) return;
+    const tid = u.topic || 'sonstige';
+    if (!themen.includes(tid)) themen.push(tid);
+  });
+  return themen.map(t => ({ thema: t, einheiten: einheiten.filter(u => (u.topic || 'sonstige') === t).map(u => u.id) }));
+}
+
+// b) Supabase-Einsendung → Regel-Zeile (beantwortet = Antworten, die nicht null und nicht [] sind)
+function lernpfadZeileAusEinsendung(r) {
+  const a = r && r.answers;
+  const qs = a && a.questions;
+  let beantwortet = 0;
+  if (qs && typeof qs === 'object' && !Array.isArray(qs)) {
+    Object.values(qs).forEach(v => { if (v != null && !(Array.isArray(v) && v.length === 0)) beantwortet++; });
+  }
+  return {
+    unit_id: r && r.unit_id,
+    typ: r && r.content_type,
+    richtig: r && typeof r.score_correct === 'number' ? r.score_correct : null,
+    gestellt: r && typeof r.score_total === 'number' ? r.score_total : null,
+    beantwortet,
+    gemischt: !!(a && a.mixed_session === true)
+  };
+}
+
+// b) Eintrag im Geräteverlauf → Regel-Zeile. Einträge von vor Slice 1b haben kein „answered“
+// und zählen deshalb nicht als vollständige Quiz-Runde (ihre Einsendungen zählt die RPC).
+function lernpfadZeileAusVerlauf(e) {
+  return {
+    unit_id: e && e.unit_id,
+    typ: e && e.type,
+    richtig: e && typeof e.score_correct === 'number' ? e.score_correct : null,
+    gestellt: e && typeof e.score_total === 'number' ? e.score_total : null,
+    beantwortet: e && typeof e.answered === 'number' ? e.answered : 0,
+    gemischt: !!(e && (e.unit_id === 'gemischt' || e.asked_by_unit))
+  };
+}
+
+// c) Die Regel. zeilen: Regel-Zeilen in zeitlicher Reihenfolge; pfad: Ergebnis von lernpfadPfadAus
+// → { offen: [thema, …] in Pfad-Reihenfolge, stand: { thema: { richtig, gestellt, runden, kurzfall, geschafft } } }
+function lernpfadAuswerten(zeilen, pfad) {
+  // 1. Pfad bereinigen: nur Einträge mit Thema (so defensiv wie in SQL, wo der Pfad vom Gerät kommt)
+  const themen = (Array.isArray(pfad) ? pfad : [])
+    .filter(p => p && typeof p === 'object' && typeof p.thema === 'string');
+  // 2. Zuordnung Einheit → Thema(s)
+  const themenVon = new Map(); // unit_id → [thema, …]
+  themen.forEach(p => (Array.isArray(p.einheiten) ? p.einheiten : []).forEach(id => {
+    const key = String(id);
+    if (!themenVon.has(key)) themenVon.set(key, []);
+    if (!themenVon.get(key).includes(p.thema)) themenVon.get(key).push(p.thema);
+  }));
+  // 3. Zeilen in zeitlicher Reihenfolge durchgehen und je Thema mitzählen. „geschafft“ wird gesetzt,
+  //    sobald nach einer Zeile beides gilt, und danach nie mehr zurückgenommen (einmal frei, bleibt frei).
+  //    Object.create(null): ein Thema namens „__proto__“ wird ein normaler Schlüssel (Testfall in pruefe_js.mjs).
+  const stand = Object.create(null);
+  themen.forEach(p => { stand[p.thema] = { richtig: 0, gestellt: 0, runden: 0, kurzfall: false, geschafft: false }; });
+  (zeilen || []).forEach(z => {
+    if (!z || typeof z.unit_id !== 'string' || !themenVon.has(z.unit_id)) return;
+    // gewertet = Zeile hat ein Ergebnis mit mindestens einer gestellten Frage
+    const gewertet = z.richtig != null && z.gestellt != null && z.gestellt > 0;
+    themenVon.get(z.unit_id).forEach(t => {
+      const s = stand[t];
+      if (z.typ === 'quiz' && gewertet && !z.gemischt && z.beantwortet >= z.gestellt) {
+        s.richtig += z.richtig;
+        s.gestellt += z.gestellt;
+        s.runden++;
+      } else if (z.typ === 'short_case' && gewertet && LERNPFAD_NENNER * z.richtig >= LERNPFAD_ZAEHLER * z.gestellt) {
+        s.kurzfall = true;
+      }
+      if (s.kurzfall && s.runden > 0 && LERNPFAD_NENNER * s.richtig >= LERNPFAD_ZAEHLER * s.gestellt) s.geschafft = true;
+    });
+  });
+  // 4. Kette: offen sind alle Themen bis einschließlich des ersten, das noch nicht geschafft ist
+  const offen = [];
+  for (const p of themen) {
+    offen.push(p.thema);
+    if (!stand[p.thema].geschafft) break;
+  }
+  return { offen, stand };
+}
+
+// ============= LERNPFAD: ANZEIGE =============
+// Was die Schülerseite mit der Regel oben macht. Gilt nur für Semester mit "lernpfad": true in kurse.json,
+// für alle anderen liefert lernpfadOffeneThemen() null und die App verhält sich wie ohne Lernpfad.
+//
+// Ablauf (Aufrufer außerhalb dieses Blocks in Klammern):
+//   1. Themenliste laden (loadIndex): erst die RPC lernpfad_fuer_name anstoßen (ladeLernpfadVomServer),
+//      höchstens LERNPFAD_RPC_WARTEN_MS warten, dann die Liste bauen. Antwortet die RPC später, wird die
+//      Liste neu gebaut, damit die Kacheln nicht schon beim ersten Anzeigen umspringen.
+//   2. Liste bauen (renderTopicsList): lernpfadOffeneThemen() entscheidet je Thema. Offen = normale Kachel,
+//      gesperrt = lernpfadKachel (Schloss, Ziel, Stand). Gemischtes Quiz und Empfehlungen nur aus offenen
+//      Themen, ebenso startMixedQuiz.
+//   3. Gesperrtes Thema angetippt, oder selectTopic darauf (auch bei der Wiederaufnahme einer Sitzung):
+//      lernpfadHinweis erklärt das Ziel und bietet „Zu <vorheriges Thema>“ an.
+//   4. Runde abgeschickt (submitContent): der Eintrag im Geräteverlauf bekommt „answered“. Beim nächsten
+//      Bauen der Liste zählt die Runde mit, ihre Einsendung zählt die RPC.
+//
+// Offen ist ein Thema, wenn EINE von drei Quellen es sagt (das Günstigere zählt):
+//   – Server: die RPC rechnet die Regel über die Einsendungen aller Geräte. Bei Fehler (auch: SQL noch
+//     nicht eingefügt) fällt diese Quelle weg.
+//   – Geräteverlauf: dieselbe Regel über die Ergebnisse in physio_profiles_v1.
+//   – Gemerkte Freischaltung: physio_lernpfad_v1, alles, was auf diesem Gerät schon einmal offen war.
+// Die RPC liefert nur Themen, keine Prozente: Den Stand auf der gesperrten Kachel rechnet das Gerät
+// aus seinem Verlauf.
+//
+// Begriffe: „Thema“ = topic in index.json. „Sichtbar“ = vom Dozenten in kurse.json angehakt
+// (visible_units, gleich für das ganze Semester). „Offen“ = im Lernpfad für diese Person erreichbar.
+// „Pfad“ = [{ thema, einheiten }] in der Reihenfolge von index.json. Der Lernpfad-Code ist deutsch
+// benannt, der ältere App-Code englisch (renderTopicsList, selectTopic …).
+const LERNPFAD_KEY = 'physio_lernpfad_v1'; // { normalisierter Name: [thema, …] }, nur wachsend
+const LERNPFAD_RPC_WARTEN_MS = 4000;       // so lange wartet die Themenliste höchstens auf die RPC
+
+// ----- Gilt ein Pfad, und welcher? -----
+function lernpfadAktiv() {
+  const cls = (availableCourses || []).find(c => c.name === session.class_name);
+  return !!(cls && cls.lernpfad === true);
+}
+
+// Pfad des angemeldeten Semesters. Wie er entsteht, steht bei lernpfadPfadAus (Block LERNPFAD: REGEL),
+// dieselbe Funktion nutzt das Dashboard.
+function lernpfadPfad() {
+  return lernpfadPfadAus(availableUnits, getVisibleUnitIdsForClass(session.class_name));
+}
+
+// ----- Quelle 1: Server (RPC lernpfad_fuer_name) -----
+// lernpfadAnfrage = laufende Anfrage { key, promise }, damit für denselben Schlüssel nur eine unterwegs ist
+let lernpfadServer = { key: '', offen: null }; // offen: Themen laut RPC, null = keine Antwort
+let lernpfadAnfrage = null;
+
+// Wofür eine Server-Antwort gilt: Name, Semester und Pfad. Meldet sich jemand anders an oder ändert sich
+// der Pfad, passt der Schlüssel nicht mehr und die alte Antwort wird ignoriert.
+function lernpfadSchluessel() {
+  return normName(session.student_name) + '|' + session.class_name + '|' + JSON.stringify(lernpfadPfad());
+}
+
+// Freischaltung vom Server holen (einmal je Anmeldung und Pfad, nach einem Fehler beim nächsten Laden erneut).
+// Gespeichert wird in lernpfadServer; lesen tut es lernpfadOffeneThemen.
+function ladeLernpfadVomServer() {
+  if (!lernpfadAktiv() || !session.student_name) return Promise.resolve();
+  const key = lernpfadSchluessel();
+  // schon erfolgreich geholt bzw. läuft gerade
+  if (lernpfadServer.key === key && lernpfadServer.offen) return Promise.resolve();
+  if (lernpfadAnfrage && lernpfadAnfrage.key === key) return lernpfadAnfrage.promise;
+  const promise = (async () => {
+    let offen = null;
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/lernpfad_fuer_name', {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ p_name: session.student_name, p_pfad: lernpfadPfad() })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) offen = data.filter(t => typeof t === 'string');
+      }
+    } catch (e) { /* keine Verbindung: Geräteverlauf gilt */ }
+    // Antwort nur übernehmen, wenn sie noch zur aktuellen Anmeldung und zum aktuellen Pfad passt
+    if (lernpfadAnfrage && lernpfadAnfrage.key === key) lernpfadAnfrage = null;
+    if (key === lernpfadSchluessel()) lernpfadServer = { key, offen };
+  })();
+  lernpfadAnfrage = { key, promise };
+  return promise;
+}
+
+// ----- Quelle 2: Geräteverlauf · Quelle 3: gemerkte Freischaltung -----
+function lernpfadVerlauf(pfad) {
+  const prof = getProfile(session.student_name);
+  return lernpfadAuswerten((prof && prof.results ? prof.results : []).map(lernpfadZeileAusVerlauf), pfad);
+}
+
+function lernpfadGemerkt() {
+  try {
+    const l = (JSON.parse(localStorage.getItem(LERNPFAD_KEY)) || {})[normName(session.student_name)];
+    return Array.isArray(l) ? l.filter(t => typeof t === 'string') : [];
+  } catch (e) { return []; }
+}
+
+// Fügt Themen zur gemerkten Freischaltung hinzu, entfernt nie etwas („einmal frei, bleibt frei“)
+function lernpfadMerken(themen) {
+  try {
+    const all = JSON.parse(localStorage.getItem(LERNPFAD_KEY)) || {};
+    const key = normName(session.student_name);
+    const alt = Array.isArray(all[key]) ? all[key] : [];
+    const neu = [...new Set(alt.concat(themen))];
+    if (key && neu.length !== alt.length) {
+      all[key] = neu;
+      localStorage.setItem(LERNPFAD_KEY, JSON.stringify(all));
+    }
+  } catch (e) { /* Speicher voll oder geblockt */ }
+}
+
+// ----- Zusammenführen: die eine Funktion, die alle Aufrufer fragen -----
+// Set der offenen Themen, oder null, wenn für das Semester kein Lernpfad gilt.
+// Vereinigt die drei Quellen (Server-Antwort nur, wenn sie zum aktuellen Schlüssel gehört), das erste
+// Thema ist immer offen. Nebenwirkung: merkt das Ergebnis auf dem Gerät (lernpfadMerken), damit es auch
+// ohne Server erhalten bleibt.
+function lernpfadOffeneThemen() {
+  if (!lernpfadAktiv()) return null;
+  const pfad = lernpfadPfad();
+  const imPfad = new Set(pfad.map(p => p.thema));
+  const server = lernpfadServer.key === lernpfadSchluessel() && Array.isArray(lernpfadServer.offen) ? lernpfadServer.offen : [];
+  const offen = new Set(lernpfadVerlauf(pfad).offen.concat(server, lernpfadGemerkt()).filter(t => imPfad.has(t)));
+  if (pfad.length) offen.add(pfad[0].thema);
+  lernpfadMerken([...offen]); // einmal frei, bleibt frei — auch wenn die RPC später ausfällt
+  return offen;
+}
+
+// ----- Gesperrte Kachel und Hinweis -----
+// Ziel-Texte nennen 70 % und 3/3 ausdrücklich (LERNPFAD_ZAEHLER/NENNER im Block REGEL, Kurzfälle mit 3 Fragen).
+function lernpfadTitel(thema) {
+  const u = availableUnits.find(x => (x.topic || 'sonstige') === thema);
+  return (u && u.topic_title) || thema;
+}
+
+// Thema direkt davor im Pfad (das, dessen Ziel erreicht werden muss)
+function lernpfadVorgaenger(thema) {
+  const pfad = lernpfadPfad();
+  const i = pfad.findIndex(p => p.thema === thema);
+  return i > 0 ? pfad[i - 1].thema : null;
+}
+
+// „Quiz-Ø 62 % · Kurzfall noch offen“ — aus dem Geräteverlauf, abgerundet (69,5 % ist noch nicht 70 %)
+function lernpfadStandText(thema) {
+  const s = lernpfadVerlauf(lernpfadPfad()).stand[thema];
+  if (!s) return '';
+  const quiz = s.runden
+    ? `Quiz-Ø ${Math.floor(100 * s.richtig / s.gestellt)} %${LERNPFAD_NENNER * s.richtig >= LERNPFAD_ZAEHLER * s.gestellt ? ' ✓' : ''}`
+    : 'Quiz noch ohne vollständige Runde';
+  return quiz + ' · ' + (s.kurzfall ? 'Kurzfall ✓' : 'Kurzfall noch offen');
+}
+
+const LERNPFAD_SCHLOSS = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+
+// Kachel eines gesperrten Themas t ({ id, title } aus renderTopicsList), offen = Set aus lernpfadOffeneThemen.
+// Den Stand zeigt sie nur, wenn der Vorgänger selbst offen ist (sonst: „Erst … freischalten“).
+function lernpfadKachel(t, offen) {
+  const vor = lernpfadVorgaenger(t.id);
+  const vorOffen = vor && offen.has(vor);
+  const div = document.createElement('div');
+  div.className = 'topic-card locked';
+  div.style.setProperty('--tc', topicColor(t.id));
+  div.onclick = () => lernpfadHinweis(t.id);
+  div.innerHTML = `
+    <div class="ticon">${topicIcon(t.id, 24)}<span class="tlock">${LERNPFAD_SCHLOSS}</span></div>
+    <h3>${escapeHtml(t.title)}</h3>
+    <div class="tmeta">Gesperrt · öffnet nach ${escapeHtml(lernpfadTitel(vor))}</div>
+    <div class="tgoal">Ziel: Quiz-Ø ≥ 70 % und ein Kurzfall 3/3</div>
+    <span class="tstand">${vorOffen ? 'Dein Stand: ' + escapeHtml(lernpfadStandText(vor)) : 'Erst ' + escapeHtml(lernpfadTitel(vor)) + ' freischalten'}</span>
+  `;
+  return div;
+}
+
+// Dialog „… ist noch gesperrt“: Ziel, Stand und Knopf zum Vorgänger, falls der offen ist
+async function lernpfadHinweis(thema) {
+  const vor = lernpfadVorgaenger(thema);
+  const offen = lernpfadOffeneThemen() || new Set();
+  const vorTitel = lernpfadTitel(vor);
+  let text = `🔒 ${lernpfadTitel(thema)} ist noch gesperrt.\n\n`
+    + `Es öffnet, sobald du in „${vorTitel}“ beides geschafft hast:\n`
+    + '• im Quiz einen Durchschnitt von mindestens 70 % über alle vollständigen Runden\n'
+    + '• einen Kurzfall mit mindestens 70 % (bei 3 Fragen: 3 von 3), Wiederholen ist erlaubt\n\n';
+  if (vor && offen.has(vor)) {
+    text += `Dein Stand auf diesem Gerät: ${lernpfadStandText(vor)}\n\n`
+      + 'Abgebrochene Runden und das Gemischte Quiz zählen nicht. Einmal offen, bleibt offen.';
+    const los = await showDialog(text, { okText: 'Zu ' + vorTitel, cancelText: 'Schließen' });
+    if (los) selectTopic(vor, vorTitel);
+  } else {
+    text += `Dafür muss zuerst „${vorTitel}“ offen sein.`;
+    showDialog(text);
+  }
+}
+
 // ============= NAVIGATION =============
 function showScreen(name) {
   ['login', 'topics', 'units', 'content', 'result'].forEach(s => {
@@ -979,7 +1316,16 @@ async function loadIndex() {
     const res = await fetch(UNITS_INDEX + '?t=' + Date.now());
     if (!res.ok) throw new Error('Index nicht gefunden');
     availableUnits = await res.json();
+    // Lernpfad: kurz auf die Freischaltung vom Server warten, damit Kacheln nicht umspringen
+    const anfrage = ladeLernpfadVomServer();
+    const rechtzeitig = await Promise.race([
+      anfrage.then(() => true),
+      new Promise(r => setTimeout(() => r(false), LERNPFAD_RPC_WARTEN_MS))
+    ]);
     renderTopicsList();
+    if (!rechtzeitig) anfrage.then(() => {
+      if (!document.getElementById('screen-topics').classList.contains('hidden')) renderTopicsList();
+    });
   } catch (err) {
     if (topicList) {
       topicList.innerHTML = '<div class="status status-error">Themen konnten nicht geladen werden. Bitte deinen Dozenten ansprechen.</div>';
@@ -1016,8 +1362,12 @@ function renderTopicsList() {
   topics.forEach(t => {
     t.count = visibleUnits.filter(u => (u.topic || 'sonstige') === t.id).length;
   });
+  // Lernpfad: null = kein Pfad (alles offen), sonst Set der offenen Themen
+  const offen = lernpfadOffeneThemen();
+  const istOffen = tid => !offen || offen.has(tid);
   list.innerHTML = '';
   topics.forEach(t => {
+    if (!istOffen(t.id)) { list.appendChild(lernpfadKachel(t, offen)); return; }
     const unitsOfTopic = visibleUnits.filter(u => (u.topic || 'sonstige') === t.id);
     const stats = topicMasteryStats(unitsOfTopic);
     const color = topicColor(t.id);
@@ -1041,8 +1391,8 @@ function renderTopicsList() {
     list.appendChild(div);
   });
 
-  // Gemischtes Quiz: Interleaving über alle freigeschalteten Themen (ab 2 Quiz-Einheiten)
-  const quizUnits = visibleUnits.filter(u => u.type === 'quiz');
+  // Gemischtes Quiz: Interleaving über alle freigeschalteten (und im Lernpfad offenen) Themen, ab 2 Quiz-Einheiten
+  const quizUnits = visibleUnits.filter(u => u.type === 'quiz' && istOffen(u.topic || 'sonstige'));
   if (quizUnits.length >= 2) {
     const div = document.createElement('div');
     div.className = 'mixed-banner';
@@ -1058,14 +1408,17 @@ function renderTopicsList() {
     list.appendChild(div);
   }
 
-  renderPersonalCard(topics);
+  renderPersonalCard(topics.filter(t => istOffen(t.id)));
 }
 
 // ============= GEMISCHTES QUIZ (Interleaving) =============
 async function startMixedQuiz() {
+  // Quiz-Einheiten, die sichtbar sind und (mit Lernpfad) zu einem offenen Thema gehören
   const allowedIds = getVisibleUnitIdsForClass(session.class_name);
+  const offen = lernpfadOffeneThemen();
   const quizMetas = availableUnits.filter(u =>
     u.type === 'quiz' && !u.hidden && (allowedIds === null || allowedIds.includes(u.id))
+    && (!offen || offen.has(u.topic || 'sonstige'))
   );
   if (quizMetas.length < 2) { showDialog('Für ein gemischtes Quiz braucht es mindestens zwei freigeschaltete Quiz-Einheiten.'); return; }
   try {
@@ -1217,6 +1570,14 @@ function buildRecommendations(profile, topics) {
 }
 
 function selectTopic(topicId, topicTitle) {
+  // Lernpfad: gesperrtes Thema → Hinweis statt Einheitenliste. War es das gespeicherte Thema einer
+  // Wiederaufnahme, wird es aus der Sitzung entfernt, damit die nächste Wiederaufnahme nicht wieder hier landet.
+  const offen = lernpfadOffeneThemen();
+  if (offen && !offen.has(topicId)) {
+    if (session.topic === topicId) { session.topic = ''; session.topic_title = ''; saveSession(); }
+    lernpfadHinweis(topicId);
+    return;
+  }
   session.topic = topicId;
   session.topic_title = topicTitle;
   saveSession();
@@ -1927,6 +2288,11 @@ async function submitContent(silentReturn) {
     } else if (u.type === 'quiz' || u.type === 'short_case') {
       entry.asked_q = askedIndices;
       entry.wrong_q = wrongIdx;
+      // Lernpfad: Runde zählt nur vollständig (wie answers.questions in der Einsendung)
+      entry.answered = askedIndices.filter(idx => {
+        const a = session.answers.questions ? session.answers.questions[idx] : null;
+        return a != null && !(Array.isArray(a) && a.length === 0);
+      }).length;
     }
     const meta = recordResult(entry);
     if (silentReturn) {
