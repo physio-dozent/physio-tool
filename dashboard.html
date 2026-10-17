@@ -207,6 +207,8 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
 .score-pill.mid { background: var(--warn-bg); color: var(--warn); }
 .score-pill.low { background: var(--wrong-bg); color: var(--wrong); }
 .score-pill.na { background: var(--line-soft); color: var(--ink-muted); }
+.score-pill.open { background: var(--accent-bg); color: var(--accent); }
+.freischalt-stand { font-size: 12px; color: var(--ink-muted); margin-top: 3px; }
 
 .tag {
   display: inline-block;
@@ -465,7 +467,7 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
     <div id="pane-schueler" class="tab-pane">
       <div class="card">
         <h2>Schüler-Verlauf</h2>
-        <p class="help-text">Wähle einen Schüler, um seine komplette Lernentwicklung zu sehen — chronologisch, mit Quiz-Quote, Fall-Bearbeitungen und allen abgegebenen Antworten.</p>
+        <p class="help-text">Wähle einen Schüler, um seine komplette Lernentwicklung zu sehen — chronologisch, mit Quiz-Quote, Fall-Bearbeitungen und allen abgegebenen Antworten. Bei Semestern mit Lernpfad steht darüber, welche Themen die Person offen hat. Ohne Auswahl zeigt eine Übersicht das für alle Personen.</p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
           <div>
             <label for="sel-student">Schüler</label>
@@ -532,6 +534,7 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
         <p class="help-text">Lege fest, welches Semester welche Lerneinheiten zu sehen bekommt. Schüler:innen wählen ihr Semester nicht selbst: Die App erkennt es am Code (erste Anmeldung) oder am Namen (letzte Einsendung).</p>
         <p class="help-text"><strong>Speichern:</strong> Änderungen werden lokal vorgehalten. Klicke unten auf <em>„kurse.json herunterladen"</em>, lade die Datei ins GitHub-Repo unter <code>einheiten/kurse.json</code> hoch und committe. Erst dann wirken die Änderungen für die Schüler.</p>
         <p class="help-text"><strong>Semester-Code:</strong> Neue Schüler:innen geben beim ersten Mal Name und Code ein und landen im Semester des Codes. Danach reicht der Name. Ohne Code kann ein Semester keine neuen Schüler:innen aufnehmen, bekannte Namen kommen weiter rein. In <code>kurse.json</code> steht nur ein Prüfwert, nicht der Code selbst. Ein neuer Code gilt nach dem Hochladen für alle weiteren Erstanmeldungen.</p>
+        <p class="help-text"><strong>Lernpfad:</strong> Ist er an, öffnen die Themen eines Semesters nacheinander in der Reihenfolge der Liste unten. Das erste Thema ist offen. Das nächste öffnet je Person, sobald im vorherigen der Quiz-Durchschnitt aller vollständigen Runden mindestens 70 % beträgt und ein Kurzfall mindestens 70 % erreicht hat (bei 3 Fragen 3 von 3). Abgebrochene Runden und das Gemischte Quiz zählen nicht, einmal offen bleibt offen. Die Häkchen bestimmen, welche Themen im Pfad sind. Neue Semester starten mit Lernpfad. Ohne Lernpfad sind alle angehakten Einheiten sofort sichtbar.</p>
         <p class="help-text"><strong>Fallback:</strong> Solange noch kein Semester angelegt ist (oder die Datei nicht im Repo liegt), bleibt der Schüler-Login bei Freitext und alle Einheiten sind sichtbar — wie bisher.</p>
 
         <div id="sichtbarkeit-status" style="margin:14px 0;"></div>
@@ -557,9 +560,39 @@ tr.clickable.row-reasoning_case:hover { background: var(--type-reasoning-bg); }
         integrity="sha384-Rj26LVGvoeRVR6+mwQmFfcR3QOBEwT+ZmuCWpuiqeTzJpCs0ER4ITAWGb4Hiy3Ok"
         crossorigin="anonymous"></script>
 <script>
+// ============= WEGWEISER =============
+// Das Dashboard läuft so durch die Blöcke dieser Datei (jeder beginnt mit „// ============= NAME“):
+//   1. Anmeldung: ANMELDUNG prüft beim Laden die Supabase-Sitzung, signIn meldet an, showMain öffnet die Hauptansicht.
+//   2. Daten: DATEN LADEN holt den Einheiten-Katalog (index.json) und alle Einsendungen, einmal je Anmeldung.
+//      Dazwischen liest ladeFreischaltKurse die kurse.json für den Lernpfad-Stand (Block LERNPFAD: FREISCHALTSTAND).
+//   3. Filter und Tabs: FILTER & TABS füllt die Filter oben und zeichnet den offenen Tab (renderActiveTab).
+//      Die Tabs lesen getFilteredRows(). Ausnahmen: VEREINHEITLICHEN und der Lernpfad-Stand lesen immer alle Einsendungen.
+//   4. Tabs, je ein Block in der Reihenfolge der Reiter: TAB: EINSENDUNGEN, TAB: SCHÜLER-VERLAUF (dazu
+//      LERNPFAD: REGEL und LERNPFAD: FREISCHALTSTAND), TAB: SEMESTER-VERLAUF, TAB: SCHWACHSTELLEN, TAB: REASONING,
+//      VEREINHEITLICHEN, SICHTBARKEIT (dazu SICHTBARKEIT: SEMESTER-CODE und SICHTBARKEIT: LERNPFAD-SCHALTER).
+//   5. Klick auf eine Einsendung: DETAIL & LÖSCHEN (Fenster mit allen Antworten, Löschen).
+// Nebenher: CSV-EXPORT, DIAGRAMM (Linien für die Verlauf-Tabs), UTILS (Formatieren, HTML maskieren).
+// Alle Abrufe laufen per REST mit authHeaders() (Login-Token). Ändern und Löschen zählen die betroffenen
+// Zeilen, weil RLS sonst still blockt (handoff.md, Falle 15).
+// Namen mit „Klasse“/„class“ (renderKlasse, class_name) stammen aus der Zeit vor „Semester“ und bleiben.
+
+// ============= KONFIGURATION =============
 const SUPABASE_URL = 'https://oosqtqanwsijbmkxgyao.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9vc3F0cWFud3NpamJta3hneWFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyODI4NTYsImV4cCI6MjA5Mzg1ODg1Nn0.zSJsXeYRb8y5_XTN0-K9fdB2k1TnGMEK6imlIcqznTs';
+// So viele Einsendungen holt loadData höchstens (neueste zuerst). Der Lernpfad-Stand warnt, wenn es so viele sind.
+const EINSENDUNGEN_MAX = 5000;
 
+// ============= STATE =============
+// allRows: alle Einsendungen aus Supabase, neueste zuerst (loadData, höchstens 5000).
+// unitsIndex: einheiten/index.json. unitsCache: schon geladene Einheiten-Dateien (getUnit).
+let allRows = [];
+let unitsIndex = [];
+let unitsCache = {};
+let currentTab = 'einsendungen';
+
+// ============= ANMELDUNG =============
+// Ablauf: Seite lädt → gibt es eine Sitzung im sessionStorage? → showMain. Sonst Maske → signIn → showMain.
+// Abmelden-Knopf (logout: signOut, Seite neu laden) oder abgelaufene Sitzung (authHeaders, HTTP 401) → showLogin.
 // Dozenten-Login über Supabase Auth. Die Sitzung liegt nur im sessionStorage:
 // Tab schließen = abgemeldet (wie beim früheren Passwort-Gate).
 const sb = window.supabase
@@ -567,11 +600,6 @@ const sb = window.supabase
       auth: { storage: window.sessionStorage, persistSession: true, autoRefreshToken: true }
     })
   : null;
-
-let allRows = [];
-let unitsIndex = [];
-let unitsCache = {};
-let currentTab = 'einsendungen';
 
 window.addEventListener('DOMContentLoaded', async () => {
   if (!sb) {
@@ -639,14 +667,20 @@ async function authHeaders(extra) {
   }, extra);
 }
 
+// Nach der Anmeldung: Hauptansicht zeigen, dann Daten laden (Block DATEN LADEN; kurse.json für den
+// Lernpfad-Stand im Block LERNPFAD: FREISCHALTSTAND). loadData zeichnet am Ende den offenen Tab.
 async function showMain() {
   document.getElementById('screen-login').style.display = 'none';
   document.getElementById('screen-main').style.display = 'block';
   document.getElementById('logout-btn').style.display = 'inline-block';
   await loadUnitsIndex();
+  await ladeFreischaltKurse();
   await loadData();
 }
 
+// ============= DATEN LADEN =============
+// index.json zuerst (Titel und Dateien der Einheiten), danach die Einsendungen. Einheiten-Dateien mit den
+// Fragen lädt getUnit erst bei Bedarf (Schwachstellen, Detail).
 async function loadUnitsIndex() {
   try {
     const res = await fetch('einheiten/index.json?t=' + Date.now());
@@ -670,7 +704,7 @@ async function getUnit(unitId) {
 async function loadData() {
   document.getElementById('table-einsendungen').innerHTML = '<div class="empty"><span class="loading-bar"></span> Lade Daten…</div>';
   try {
-    const res = await fetch(SUPABASE_URL + '/rest/v1/submissions?select=*&order=created_at.desc&limit=5000', {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/submissions?select=*&order=created_at.desc&limit=' + EINSENDUNGEN_MAX, {
       headers: await authHeaders()
     });
     if (res.status === 401) {
@@ -693,6 +727,9 @@ async function loadData() {
   }
 }
 
+// ============= FILTER & TABS =============
+// Filter oben (Semester, Datum, Einheit) → onGlobalFilter → Auswahlliste im Schüler-Verlauf neu → renderActiveTab.
+// switchTab merkt den Reiter in currentTab, renderActiveTab ruft die render-Funktion des Reiters auf.
 function populateGlobalFilters() {
   const classes = [...new Set(allRows.map(r => r.class_name))].sort();
   const units = [...new Set(allRows.map(r => r.unit_id))]
@@ -756,6 +793,7 @@ function renderActiveTab() {
   else if (currentTab === 'sichtbarkeit') renderSichtbarkeit();
 }
 
+// ============= TAB: EINSENDUNGEN =============
 function renderEinsendungen() {
   const fs = (document.getElementById('f-search').value || '').toLowerCase().trim();
   let rows = getFilteredRows();
@@ -800,11 +838,13 @@ function renderEinsendungen() {
   document.getElementById('table-einsendungen').innerHTML = html;
 }
 
+// ============= TAB: SCHÜLER-VERLAUF =============
 function renderSchueler() {
   const sel = document.getElementById('sel-student').value;
   const wrap = document.getElementById('schueler-content');
-  if (!sel) { wrap.innerHTML = ''; return; }
-  
+  // Ohne Auswahl: Lernpfad-Übersicht (Block LERNPFAD: FREISCHALTSTAND)
+  if (!sel) { wrap.innerHTML = freischaltUebersichtHtml(); return; }
+
   const [name, klasse] = sel.split('|');
   let rows = getFilteredRows().filter(r => r.student_name === name && r.class_name === klasse);
   rows.sort((a, b) => a.created_at.localeCompare(b.created_at));
@@ -816,8 +856,9 @@ function renderSchueler() {
   const reasoningCount = rows.filter(r => r.content_type === 'reasoning_case').length;
   const firstDate = rows[0].session_date;
   const lastDate = rows[rows.length - 1].session_date;
-  
-  let html = `
+
+  // Zuerst der Lernpfad-Stand (immer aus allen Einsendungen), darunter der Verlauf laut Filter
+  let html = freischaltPersonHtml(name, klasse) + `
     <div class="stats">
       <div class="stat"><div class="stat-label">Einsendungen</div><div class="stat-value">${rows.length}</div></div>
       <div class="stat"><div class="stat-label">Ø Quiz-Quote</div><div class="stat-value">${avgPct !== null ? avgPct + '%' : '—'}</div></div>
@@ -850,6 +891,300 @@ function renderSchueler() {
   wrap.innerHTML = html;
 }
 
+// ============= LERNPFAD: REGEL =============
+// Ab PT60 öffnen die Themen nacheinander (Schalter „Lernpfad“ je Semester, kurse.json: lernpfad: true).
+// Pfad = Themen der freigeschalteten Einheiten in der Reihenfolge von index.json, das erste ist offen.
+// Ein Thema öffnet, wenn im vorherigen einmal BEIDES galt (handoff.md, Slice 1b):
+//   – Ø aller vollständigen Runden im Themen-Quiz ≥ 70 %, ganzzahlig: 10 · Σ richtig ≥ 7 · Σ gestellt.
+//     Vollständig = jede gestellte Frage beantwortet. Gemischtes Quiz zählt nicht.
+//   – irgendein Kurzfall-Versuch ≥ 70 % (bei 3 Fragen = 3/3).
+// „Einmal frei, bleibt frei“: Es reicht ein Zeitpunkt, zu dem beides galt.
+//
+// Die Regel steht an drei Stellen und wird nur an allen dreien zugleich geändert (handoff.md, Falle 23):
+//   – dieser Block, byte-gleich in index.html (Schülerseite) und dashboard.html (Freischaltstand je Person),
+//   – als SQL in supabase-sql/slice1b-lernpfad.sql (lernpfad_regel, gerufen von der RPC lernpfad_fuer_name).
+// Geändert wird nur hier in index.html, dann kopiert supabase-sql/slice1b-tests/kopiere_regel.py den Block ins
+// Dashboard. Prüfung: node supabase-sql/slice1b-tests/pruefe_js.mjs testet den Block in beiden Dateien gegen
+// testfaelle.json und meldet rot, wenn die zwei Kopien nicht byte-gleich sind. SQL: slice1b-lernpfad-test.sql.
+// Der Block bleibt ohne DOM und localStorage, damit er in Node testbar ist.
+//
+// Aufbau in Aufrufreihenfolge:
+//   a) lernpfadPfadAus: der Pfad eines Semesters aus index.json und den angehakten Einheiten.
+//   b) zwei Übersetzer in eine einheitliche „Regel-Zeile“: lernpfadZeileAusEinsendung (Supabase-Einsendung)
+//      und lernpfadZeileAusVerlauf (Geräteverlauf; das Dashboard braucht ihn nicht, er bleibt für die Gleichheit).
+//   c) lernpfadAuswerten: die Regel selbst.
+// Aufrufer: in index.html Block LERNPFAD: ANZEIGE, in dashboard.html Block LERNPFAD: FREISCHALTSTAND.
+// lernpfadAuswerten ist bewusst eine einzige Funktion. Ihre Schritte (1–4 darin) entsprechen den Teilabfragen
+// von lernpfad_regel in SQL: pfad, einheit, quiz + kurzfall + geschafft, erste_luecke. SQL rechnet dasselbe
+// mengenweise (laufende Summen), JS geht die Zeilen der Reihe nach durch.
+
+// 70 %, ganzzahlig verglichen. Die Texte in LERNPFAD: ANZEIGE und im Dashboard nennen „70 %“ ausdrücklich.
+const LERNPFAD_ZAEHLER = 7, LERNPFAD_NENNER = 10; // 70 %
+
+// a) Pfad eines Semesters: Themen der sichtbaren Einheiten in der Reihenfolge von index.json, je Thema ALLE
+//    seine Einheiten-IDs aus index.json. Auch die nicht angehakten zählen: Hakt der Dozent später eine Einheit
+//    an, soll das nichts sperren, was schon offen war (dieselbe Festlegung wie in der RPC).
+//    einheiten = Inhalt von index.json; sichtbar = visible_units des Semesters, null = keine Vorgabe (alle).
+//    → [{ thema, einheiten: [unit_id, …] }, …]
+function lernpfadPfadAus(einheiten, sichtbar) {
+  const themen = [];
+  einheiten.forEach(u => {
+    if (u.hidden || !(sichtbar === null || sichtbar.includes(u.id))) return;
+    const tid = u.topic || 'sonstige';
+    if (!themen.includes(tid)) themen.push(tid);
+  });
+  return themen.map(t => ({ thema: t, einheiten: einheiten.filter(u => (u.topic || 'sonstige') === t).map(u => u.id) }));
+}
+
+// b) Supabase-Einsendung → Regel-Zeile (beantwortet = Antworten, die nicht null und nicht [] sind)
+function lernpfadZeileAusEinsendung(r) {
+  const a = r && r.answers;
+  const qs = a && a.questions;
+  let beantwortet = 0;
+  if (qs && typeof qs === 'object' && !Array.isArray(qs)) {
+    Object.values(qs).forEach(v => { if (v != null && !(Array.isArray(v) && v.length === 0)) beantwortet++; });
+  }
+  return {
+    unit_id: r && r.unit_id,
+    typ: r && r.content_type,
+    richtig: r && typeof r.score_correct === 'number' ? r.score_correct : null,
+    gestellt: r && typeof r.score_total === 'number' ? r.score_total : null,
+    beantwortet,
+    gemischt: !!(a && a.mixed_session === true)
+  };
+}
+
+// b) Eintrag im Geräteverlauf → Regel-Zeile. Einträge von vor Slice 1b haben kein „answered“
+// und zählen deshalb nicht als vollständige Quiz-Runde (ihre Einsendungen zählt die RPC).
+function lernpfadZeileAusVerlauf(e) {
+  return {
+    unit_id: e && e.unit_id,
+    typ: e && e.type,
+    richtig: e && typeof e.score_correct === 'number' ? e.score_correct : null,
+    gestellt: e && typeof e.score_total === 'number' ? e.score_total : null,
+    beantwortet: e && typeof e.answered === 'number' ? e.answered : 0,
+    gemischt: !!(e && (e.unit_id === 'gemischt' || e.asked_by_unit))
+  };
+}
+
+// c) Die Regel. zeilen: Regel-Zeilen in zeitlicher Reihenfolge; pfad: Ergebnis von lernpfadPfadAus
+// → { offen: [thema, …] in Pfad-Reihenfolge, stand: { thema: { richtig, gestellt, runden, kurzfall, geschafft } } }
+function lernpfadAuswerten(zeilen, pfad) {
+  // 1. Pfad bereinigen: nur Einträge mit Thema (so defensiv wie in SQL, wo der Pfad vom Gerät kommt)
+  const themen = (Array.isArray(pfad) ? pfad : [])
+    .filter(p => p && typeof p === 'object' && typeof p.thema === 'string');
+  // 2. Zuordnung Einheit → Thema(s)
+  const themenVon = new Map(); // unit_id → [thema, …]
+  themen.forEach(p => (Array.isArray(p.einheiten) ? p.einheiten : []).forEach(id => {
+    const key = String(id);
+    if (!themenVon.has(key)) themenVon.set(key, []);
+    if (!themenVon.get(key).includes(p.thema)) themenVon.get(key).push(p.thema);
+  }));
+  // 3. Zeilen in zeitlicher Reihenfolge durchgehen und je Thema mitzählen. „geschafft“ wird gesetzt,
+  //    sobald nach einer Zeile beides gilt, und danach nie mehr zurückgenommen (einmal frei, bleibt frei).
+  //    Object.create(null): ein Thema namens „__proto__“ wird ein normaler Schlüssel (Testfall in pruefe_js.mjs).
+  const stand = Object.create(null);
+  themen.forEach(p => { stand[p.thema] = { richtig: 0, gestellt: 0, runden: 0, kurzfall: false, geschafft: false }; });
+  (zeilen || []).forEach(z => {
+    if (!z || typeof z.unit_id !== 'string' || !themenVon.has(z.unit_id)) return;
+    // gewertet = Zeile hat ein Ergebnis mit mindestens einer gestellten Frage
+    const gewertet = z.richtig != null && z.gestellt != null && z.gestellt > 0;
+    themenVon.get(z.unit_id).forEach(t => {
+      const s = stand[t];
+      if (z.typ === 'quiz' && gewertet && !z.gemischt && z.beantwortet >= z.gestellt) {
+        s.richtig += z.richtig;
+        s.gestellt += z.gestellt;
+        s.runden++;
+      } else if (z.typ === 'short_case' && gewertet && LERNPFAD_NENNER * z.richtig >= LERNPFAD_ZAEHLER * z.gestellt) {
+        s.kurzfall = true;
+      }
+      if (s.kurzfall && s.runden > 0 && LERNPFAD_NENNER * s.richtig >= LERNPFAD_ZAEHLER * s.gestellt) s.geschafft = true;
+    });
+  });
+  // 4. Kette: offen sind alle Themen bis einschließlich des ersten, das noch nicht geschafft ist
+  const offen = [];
+  for (const p of themen) {
+    offen.push(p.thema);
+    if (!stand[p.thema].geschafft) break;
+  }
+  return { offen, stand };
+}
+
+// ============= LERNPFAD: FREISCHALTSTAND =============
+// Wer welches Thema offen hat, im Tab Schüler-Verlauf: mit Auswahl eine Tabelle für die Person, ohne Auswahl
+// eine Übersicht je Semester mit Lernpfad. Gerechnet wird mit dem Block LERNPFAD: REGEL darüber (byte-gleich
+// mit index.html) über dieselben Einsendungen, die auch die RPC lernpfad_fuer_name nimmt.
+//
+// Ablauf (Aufrufer außerhalb dieses Blocks in Klammern):
+//   1. Nach der Anmeldung (showMain): ladeFreischaltKurse liest kurse.json so, wie sie im Repo liegt.
+//   2. Tab zeichnen (renderSchueler): mit Auswahl freischaltPersonHtml über dem bisherigen Verlauf,
+//      ohne Auswahl freischaltUebersichtHtml.
+//   3. Für jede Person: freischaltStand = freischaltPfad (Pfad des Semesters, nur wenn sein Lernpfad an ist)
+//      + freischaltZeilen (ihre Einsendungen wie in der RPC) → lernpfadAuswerten → offen + stand je Thema.
+//
+// Wie die RPC (supabase-sql/slice1b-lernpfad.sql), damit Dashboard und Server dasselbe sagen:
+//   – alle Einsendungen zum Namen, Groß/klein und Leerzeichen am Rand egal (lower(trim())), über alle Semester,
+//   – nur Quiz und Kurzfälle, in der Reihenfolge created_at, dann id,
+//   – die Filter oben wirken NICHT auf den Stand. Sie bestimmen nur, wer in Auswahl und Übersicht steht.
+// Unterschied zur App: Sie vereinigt die RPC-Antwort mit ihrem Geräteverlauf und der gemerkten Freischaltung
+// (index.html, LERNPFAD: ANZEIGE). Auf dem Gerät kann deshalb mehr offen sein, z. B. nach einer Runde ohne
+// Verbindung. Weniger nur, solange die RPC dort nicht antwortet.
+// Begriffe wie im Block REGEL: „offen“ = für die Person erreichbar, „geschafft“ = im Thema galten einmal
+// Quiz-Ø ≥ 70 % und ein Kurzfall ≥ 70 % zugleich (öffnet das nächste Thema und bleibt, auch wenn der Ø sinkt).
+
+// kurse.json, wie sie im Repo liegt (also was die Schülerseite liest), nicht der bearbeitete Stand im Tab
+// Sichtbarkeit. { klassen: [...] } oder { fehler: 'Text' }; null = noch nicht geladen. Neu laden = Seite neu laden.
+let freischaltKurse = null;
+
+async function ladeFreischaltKurse() {
+  try {
+    const res = await fetch('einheiten/kurse.json?t=' + Date.now());
+    if (res.status === 404) { freischaltKurse = { klassen: [] }; return; }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = JSON.parse(await res.text());
+    freischaltKurse = data && Array.isArray(data.klassen) ? { klassen: data.klassen } : { fehler: 'das Feld „klassen“ fehlt' };
+  } catch (err) {
+    freischaltKurse = { fehler: err.message };
+  }
+}
+
+// ----- Rechnen -----
+// Pfad eines Semesters wie auf der Schülerseite (lernpfadAktiv + lernpfadPfad in index.html), null = kein Lernpfad
+function freischaltPfad(klasse) {
+  const klassen = freischaltKurse && Array.isArray(freischaltKurse.klassen) ? freischaltKurse.klassen : [];
+  const cls = klassen.find(c => c && c.name === klasse);
+  if (!cls || cls.lernpfad !== true) return null;
+  return lernpfadPfadAus(unitsIndex || [], Array.isArray(cls.visible_units) ? cls.visible_units : []);
+}
+
+// Name wie lower(trim()) in SQL: trim entfernt dort nur Leerzeichen (String.trim auch Tabs und Umbrüche)
+function freischaltNameSchluessel(name) {
+  return String(name == null ? '' : name).replace(/^ +| +$/g, '').toLowerCase();
+}
+
+// Reihenfolge wie „order by created_at, id“ in der RPC. created_at kommt als ISO-Text in UTC und wird als Text
+// verglichen, damit die Mikrosekunden erhalten bleiben (Date kennt nur Millisekunden).
+function freischaltReihenfolge(a, b) {
+  const ta = String(a.created_at || ''), tb = String(b.created_at || '');
+  if (ta !== tb) return ta < tb ? -1 : 1;
+  if (typeof a.id === 'number' && typeof b.id === 'number') return a.id - b.id;
+  return String(a.id) < String(b.id) ? -1 : (String(a.id) > String(b.id) ? 1 : 0);
+}
+
+// Einsendungen einer Person als Regel-Zeilen (aus allen geladenen Einsendungen, nicht den gefilterten)
+function freischaltZeilen(name) {
+  const schluessel = freischaltNameSchluessel(name);
+  return allRows
+    .filter(r => freischaltNameSchluessel(r.student_name) === schluessel && (r.content_type === 'quiz' || r.content_type === 'short_case'))
+    .sort(freischaltReihenfolge)
+    .map(lernpfadZeileAusEinsendung);
+}
+
+// → { pfad, offen: Set, stand } oder null, wenn das Semester keinen Lernpfad hat
+function freischaltStand(name, klasse) {
+  const pfad = freischaltPfad(klasse);
+  if (!pfad) return null;
+  const { offen, stand } = lernpfadAuswerten(freischaltZeilen(name), pfad);
+  return { pfad, offen: new Set(offen), stand };
+}
+
+// ----- Texte -----
+function freischaltTitel(thema) {
+  const u = (unitsIndex || []).find(x => (x.topic || 'sonstige') === thema);
+  return (u && u.topic_title) || thema;
+}
+
+function freischaltStatusHtml(st, thema) {
+  if (!st.offen.has(thema)) return '<span class="score-pill na">🔒 gesperrt</span>';
+  if (st.stand[thema].geschafft) return '<span class="score-pill high">✓ geschafft</span>';
+  return '<span class="score-pill open">offen</span>';
+}
+
+// Ø abgerundet wie auf der Schülerseite (69,5 % ist noch nicht 70 %), ✓ ab 70 %
+function freischaltQuizText(s) {
+  if (!s.runden) return '–';
+  const ok = LERNPFAD_NENNER * s.richtig >= LERNPFAD_ZAEHLER * s.gestellt;
+  return `${Math.floor(100 * s.richtig / s.gestellt)} %${ok ? ' ✓' : ''} (${s.runden} ${s.runden === 1 ? 'Runde' : 'Runden'})`;
+}
+
+// Hinweis, wenn kein Stand möglich ist oder ältere Einsendungen fehlen könnten ('' = alles in Ordnung)
+function freischaltWarnungHtml() {
+  if (freischaltKurse && freischaltKurse.fehler) {
+    return `<p class="help-text" style="color:var(--wrong);">Lernpfad-Stand nicht verfügbar: kurse.json im Repo ist nicht lesbar (${escapeHtml(freischaltKurse.fehler)}). Solange das so ist, sehen Schüler:innen alle Einheiten ohne Lernpfad.</p>`;
+  }
+  if (allRows.length >= EINSENDUNGEN_MAX) {
+    return `<p class="help-text" style="color:var(--warn);">⚠ Es sind ${EINSENDUNGEN_MAX} Einsendungen geladen, mehr holt das Dashboard nicht. Ältere fehlen, der Lernpfad-Stand kann deshalb zu niedrig sein.</p>`;
+  }
+  return '';
+}
+
+const FREISCHALT_ERKLAERUNG = 'Laut Einsendungen aller Geräte, gleiche Regel wie in der App. „Geschafft“ = Quiz-Ø ≥ 70 % (vollständige Runden) und ein Kurzfall ≥ 70 % galten einmal zugleich; das öffnet das nächste Thema und bleibt, auch wenn der Ø später sinkt. Auf dem Gerät der Person kann mehr offen sein (z. B. Runden ohne Verbindung).';
+
+// ----- Anzeige: eine Person (über dem bisherigen Verlauf) -----
+function freischaltPersonHtml(name, klasse) {
+  const warnung = freischaltWarnungHtml();
+  if (freischaltKurse && freischaltKurse.fehler) return warnung;
+  const st = freischaltStand(name, klasse);
+  if (!st) return `<p class="help-text">${escapeHtml(klasse)}: kein Lernpfad, alle angehakten Einheiten sind sichtbar.</p>`;
+  let html = `<div class="section-title">Lernpfad ${escapeHtml(klasse)}</div>` + warnung;
+  if (!st.pfad.length) return html + '<p class="help-text">Im Tab Sichtbarkeit ist für dieses Semester noch kein Thema angehakt.</p>';
+  html += '<table><thead><tr><th>Thema</th><th>Status</th><th>Quiz-Ø (vollständige Runden)</th><th>Kurzfall ≥ 70 %</th></tr></thead><tbody>';
+  st.pfad.forEach(p => {
+    const s = st.stand[p.thema];
+    html += `<tr>
+      <td>${escapeHtml(freischaltTitel(p.thema))}</td>
+      <td>${freischaltStatusHtml(st, p.thema)}</td>
+      <td>${freischaltQuizText(s)}</td>
+      <td>${s.kurzfall ? '✓' : '–'}</td>
+    </tr>`;
+  });
+  return html + `</tbody></table><p class="help-text" style="margin-top:8px;">${FREISCHALT_ERKLAERUNG}</p>`;
+}
+
+// ----- Anzeige: Übersicht ohne Auswahl -----
+// Personen = die Einträge der Auswahlliste (Name + Semester aus den gefilterten Einsendungen), je Semester mit
+// Lernpfad eine Tabelle in der Reihenfolge von kurse.json. Klick auf eine Zeile wählt die Person aus.
+function freischaltUebersichtHtml() {
+  const hinweis = '<p class="help-text">Wähle oben eine Person für ihren ganzen Verlauf.</p>';
+  if (freischaltKurse && freischaltKurse.fehler) return hinweis + freischaltWarnungHtml();
+  const eintraege = [...new Set(getFilteredRows().map(r => r.student_name + '|' + r.class_name))]
+    .map(key => { const [name, klasse] = key.split('|'); return { key, name, klasse }; });
+  const klassen = freischaltKurse && Array.isArray(freischaltKurse.klassen) ? freischaltKurse.klassen : [];
+  let html = '';
+  klassen.forEach(cls => {
+    if (!cls || cls.lernpfad !== true) return;
+    const personen = eintraege.filter(e => e.klasse === cls.name).sort((a, b) => a.name.localeCompare(b.name, 'de'));
+    const pfad = freischaltPfad(cls.name);
+    if (!personen.length || !pfad.length) return;
+    html += `<div class="section-title">Lernpfad ${escapeHtml(cls.name)} · ${personen.length} ${personen.length === 1 ? 'Person' : 'Personen'}</div>`;
+    html += '<div class="table-wrap"><table><thead><tr><th>Name</th>'
+      + pfad.map(p => `<th>${escapeHtml(freischaltTitel(p.thema))}</th>`).join('') + '</tr></thead><tbody>';
+    personen.forEach(e => {
+      const st = freischaltStand(e.name, e.klasse);
+      html += `<tr class="clickable" onclick="freischaltPersonWaehlen(${JSON.stringify(e.key).replace(/"/g, '&quot;')})"><td>${escapeHtml(e.name)}</td>`;
+      pfad.forEach(p => {
+        const s = st.stand[p.thema];
+        // Beim offenen, noch nicht geschafften Thema zusätzlich der Stand: daran arbeitet die Person gerade
+        const arbeitet = st.offen.has(p.thema) && !s.geschafft;
+        html += `<td>${freischaltStatusHtml(st, p.thema)}${arbeitet
+          ? `<div class="freischalt-stand">Quiz-Ø ${freischaltQuizText(s)} · Kurzfall ${s.kurzfall ? '✓' : '–'}</div>` : ''}</td>`;
+      });
+      html += '</tr>';
+    });
+    html += '</tbody></table></div>';
+  });
+  if (!html) {
+    return hinweis + '<p class="help-text">Eine Lernpfad-Übersicht erscheint hier für Semester, bei denen im Tab Sichtbarkeit der Lernpfad an ist und die unter den gefilterten Einsendungen vorkommen. Gerade ist das keins.</p>' + freischaltWarnungHtml();
+  }
+  return hinweis + freischaltWarnungHtml() + html + `<p class="help-text" style="margin-top:8px;">${FREISCHALT_ERKLAERUNG}</p>`;
+}
+
+function freischaltPersonWaehlen(key) {
+  document.getElementById('sel-student').value = key;
+  renderSchueler();
+}
+
+// ============= TAB: SEMESTER-VERLAUF =============
 function renderKlasse() {
   const wrap = document.getElementById('klasse-content');
   const rows = getFilteredRows();
@@ -929,6 +1264,8 @@ function renderKlasse() {
   wrap.innerHTML = html;
 }
 
+// ============= TAB: SCHWACHSTELLEN =============
+// Je Einheit und Frage die Trefferquote und häufigste Fehlantworten. Braucht die Fragen (getUnit), deshalb async.
 async function renderSchwachstellen() {
   const wrap = document.getElementById('schwachstellen-content');
   const rows = getFilteredRows().filter(r => r.content_type === 'quiz' || r.content_type === 'short_case');
@@ -1007,6 +1344,7 @@ async function renderSchwachstellen() {
   wrap.innerHTML = html;
 }
 
+// ============= TAB: REASONING =============
 function renderReasoning() {
   const wrap = document.getElementById('reasoning-content');
   const unitId = document.getElementById('sel-reasoning-unit').value;
@@ -1083,6 +1421,8 @@ function renderReasoning() {
 }
 
 // ============= VEREINHEITLICHEN =============
+// Ablauf: renderUnify listet Namen und Semester aus ALLEN Einsendungen (Filter gelten hier nicht) →
+// „Umbenennen“ öffnet openMergeModal → doMerge ändert in Supabase (PATCH) und danach allRows.
 function renderUnify() {
   const fs = (document.getElementById('f-unify-search').value || '').toLowerCase().trim();
 
@@ -1163,299 +1503,6 @@ function renderUnify() {
     });
     html += '</tbody></table>';
     classesWrap.innerHTML = html;
-  }
-}
-
-// ============= SICHTBARKEIT (kurse.json verwalten) =============
-// coursesState: [{ name, visible_units: [...], code_sha256? }] — wird beim Tab-Open geladen, im
-// Speicher editiert, per Download-Button als kurse.json exportiert. Weitere Felder aus der Datei
-// bleiben beim Download erhalten.
-let coursesState = null;
-let coursesDirty = false;
-// Fehlertext, wenn kurse.json existiert, aber nicht lesbar ist. Dann sind Bearbeiten und
-// Download gesperrt — eine neue Datei würde sonst alle bestehenden Semester verlieren.
-let coursesLoadError = null;
-
-async function loadKurseJson() {
-  coursesState = [];
-  coursesDirty = false;
-  coursesLoadError = null;
-  let res;
-  try {
-    res = await fetch('einheiten/kurse.json?t=' + Date.now());
-  } catch (err) {
-    coursesLoadError = 'Datei nicht abrufbar (' + err.message + ')';
-    return;
-  }
-  if (res.status === 404) return; // noch keine Datei im Repo: leere Liste ist korrekt
-  if (!res.ok) { coursesLoadError = 'Datei nicht abrufbar (HTTP ' + res.status + ')'; return; }
-  let data;
-  try {
-    data = JSON.parse(await res.text());
-  } catch (err) {
-    coursesLoadError = 'ungültiges JSON: ' + err.message;
-    return;
-  }
-  if (!data || !Array.isArray(data.klassen)) {
-    coursesLoadError = 'das Feld „klassen“ fehlt oder ist keine Liste';
-    return;
-  }
-  coursesState = data.klassen.map(c => ({
-    ...c,
-    name: String(c.name || ''),
-    visible_units: Array.isArray(c.visible_units) ? [...c.visible_units] : []
-  }));
-}
-
-// ============= SEMESTER-CODE =============
-// Muss mit normCode()/hashCode() in index.html übereinstimmen.
-const CODE_HASH_PREFIX = 'skilllab-semestercode:';
-// Kurze Codes ließen sich aus dem öffentlichen Prüfwert durch Ausprobieren zurückrechnen
-const MIN_CODE_LENGTH = 12;
-
-function normCode(code) {
-  return String(code || '').normalize('NFC').toLowerCase()
-    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
-    .replace(/[^a-z0-9]/g, '');
-}
-
-async function hashCode(code) {
-  const bytes = new TextEncoder().encode(CODE_HASH_PREFIX + normCode(code));
-  const digest = await crypto.subtle.digest('SHA-256', bytes);
-  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-async function setCourseCode(idx) {
-  const cls = coursesState[idx];
-  if (!cls || coursesLoadError) return;
-  const code = prompt(`Neuer Semester-Code für ${cls.name}\n\nMindestens ${MIN_CODE_LENGTH} Buchstaben oder Ziffern, am besten drei Wörter. Groß/klein, Leerzeichen und Bindestriche zählen nicht.\n\nNotiere ihn dir: Das Dashboard speichert nur einen Prüfwert und kann den Code später nicht mehr anzeigen.`);
-  if (code === null) return;
-  if (normCode(code).length < MIN_CODE_LENGTH) {
-    alert(`Zu kurz: ${normCode(code).length} Buchstaben/Ziffern, mindestens ${MIN_CODE_LENGTH} nötig. Der Code wurde nicht geändert.`);
-    return;
-  }
-  const again = prompt('Zur Kontrolle den Code noch einmal eingeben:');
-  if (again === null) return;
-  if (normCode(again) !== normCode(code)) {
-    alert('Die beiden Eingaben stimmen nicht überein. Der Code wurde nicht geändert.');
-    return;
-  }
-  const hash = await hashCode(code);
-  // Der Code bestimmt das Semester, also darf er nur zu einem gehören
-  const other = coursesState.find((c, i) => i !== idx && c.code_sha256 === hash);
-  if (other) {
-    alert(`Diesen Code hat schon ${other.name}. Bitte einen anderen wählen.`);
-    return;
-  }
-  cls.code_sha256 = hash;
-  coursesDirty = true;
-  renderSichtbarkeit();
-}
-
-async function testCourseCode(idx) {
-  const cls = coursesState[idx];
-  if (!cls || !cls.code_sha256) return;
-  const code = prompt(`Code für ${cls.name} testen (prüft gegen den hier eingestellten Code):`);
-  if (code === null) return;
-  const ok = (await hashCode(code)) === cls.code_sha256;
-  alert(ok ? `✓ Der Code passt zu ${cls.name}.` : `✗ Der Code passt nicht zu ${cls.name}.`);
-}
-
-function removeCourseCode(idx) {
-  const cls = coursesState[idx];
-  if (!cls || coursesLoadError) return;
-  if (!confirm(`Code für "${cls.name}" entfernen?\n\nDanach können keine neuen Schüler:innen diesem Semester beitreten. Bekannte Namen kommen weiter rein.`)) return;
-  delete cls.code_sha256;
-  coursesDirty = true;
-  renderSichtbarkeit();
-}
-
-function setCourseEditingLocked(locked) {
-  ['new-course-name', 'course-add-btn', 'course-download-btn'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.disabled = locked;
-  });
-}
-
-async function renderSichtbarkeit() {
-  const wrap = document.getElementById('sichtbarkeit-content');
-  if (!wrap) return;
-  // Nach einem Lesefehler bei jedem Öffnen neu versuchen (z. B. nach dem Hochladen der reparierten Datei)
-  if (coursesState === null || coursesLoadError) {
-    wrap.innerHTML = '<div class="empty"><span class="loading-bar"></span> Lade Konfiguration…</div>';
-    await loadKurseJson();
-  }
-  setCourseEditingLocked(!!coursesLoadError);
-  if (coursesLoadError) {
-    const statusEl = document.getElementById('sichtbarkeit-status');
-    if (statusEl) {
-      statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--wrong-bg);border-left:3px solid var(--wrong);border-radius:4px;font-size:13px;color:var(--wrong);"><strong>kurse.json im Repo ist nicht lesbar</strong> — ' + escapeHtml(coursesLoadError) + '.<br>Bearbeiten und Herunterladen sind gesperrt, weil eine neue Datei sonst alle bestehenden Semester verlieren würde. Solange der Fehler besteht, sehen Schüler:innen ein Freitextfeld und alle Einheiten. Repariere die Datei im Repo und öffne diesen Tab danach erneut.</div>';
-    }
-    wrap.innerHTML = '';
-    return;
-  }
-  // Lerneinheiten aus dem Frontend-Index (nicht versteckte)
-  const allUnits = (unitsIndex || []).filter(u => !u.hidden);
-  // Topics gruppieren
-  const topicsMap = {};
-  allUnits.forEach(u => {
-    const tid = u.topic || 'sonstige';
-    if (!topicsMap[tid]) topicsMap[tid] = { title: u.topic_title || tid, units: [] };
-    topicsMap[tid].units.push(u);
-  });
-
-  const statusEl = document.getElementById('sichtbarkeit-status');
-  if (statusEl) {
-    if (coursesDirty) {
-      statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--warn-bg);border-left:3px solid var(--warn);border-radius:4px;font-size:13px;color:var(--warn);"><strong>Ungespeicherte Änderungen</strong> — vergiss nicht, <em>kurse.json</em> herunterzuladen und ins Repo hochzuladen.</div>';
-    } else {
-      statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--correct-bg);border-left:3px solid var(--correct);border-radius:4px;font-size:13px;color:var(--correct);">Konfiguration synchron mit Repo-Datei.</div>';
-    }
-  }
-
-  if (!coursesState.length) {
-    wrap.innerHTML = '<div class="empty">Noch keine Semester angelegt. Solange das so bleibt, fällt der Schüler-Login auf Freitext zurück und alle Einheiten sind sichtbar.</div>';
-    return;
-  }
-
-  let html = '';
-  coursesState.forEach((cls, idx) => {
-    const selectedCount = (cls.visible_units || []).length;
-    const totalCount = allUnits.length;
-    html += `<div class="card" style="margin-bottom:14px;padding:18px 20px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
-        <div>
-          <h3 style="margin:0;">${escapeHtml(cls.name)}</h3>
-          <div style="font-size:13px;color:var(--ink-muted);margin-top:2px;">${selectedCount} von ${totalCount} Einheiten freigeschaltet</div>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="setAllUnitsForCourse(${idx}, true)">Alle freischalten</button>
-          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="setAllUnitsForCourse(${idx}, false)">Alle abwählen</button>
-          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="renameCourseInState(${idx})">Semester umbenennen</button>
-          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;color:var(--wrong);border-color:var(--wrong);" onclick="removeCourse(${idx})">Semester löschen</button>
-        </div>
-      </div>`;
-    const hasCode = !!cls.code_sha256;
-    html += `<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;margin-bottom:8px;border-radius:4px;background:${hasCode ? 'var(--correct-bg)' : 'var(--bg)'};border:1px solid var(--line-soft);">
-        <div style="font-size:13px;color:${hasCode ? 'var(--correct)' : 'var(--ink-soft)'};">${hasCode
-          ? '<strong>Semester-Code gesetzt</strong> — neue Schüler:innen geben ihn bei der ersten Anmeldung ein.'
-          : '<strong>Kein Semester-Code</strong> — neue Schüler:innen können diesem Semester nicht beitreten, bekannte Namen kommen weiter rein.'}</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="setCourseCode(${idx})">${hasCode ? 'Code ändern' : 'Code festlegen'}</button>
-          ${hasCode ? `<button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="testCourseCode(${idx})">Code testen</button>
-          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;color:var(--wrong);border-color:var(--wrong);" onclick="removeCourseCode(${idx})">Code entfernen</button>` : ''}
-        </div>
-      </div>`;
-    // Pro Topic eine Gruppe von Checkboxen
-    Object.keys(topicsMap).forEach(tid => {
-      const grp = topicsMap[tid];
-      html += `<div style="margin-top:10px;"><div style="font-weight:600;color:var(--ink-soft);margin-bottom:6px;">${escapeHtml(grp.title)}</div>`;
-      grp.units.forEach(u => {
-        const checked = (cls.visible_units || []).includes(u.id) ? 'checked' : '';
-        const typeLabel = u.type === 'quiz' ? 'Quiz' : (u.type === 'short_case' ? 'Kurzfall' : 'Reasoning-Fall');
-        html += `<label style="display:flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer;">
-          <input type="checkbox" ${checked} onchange="toggleCourseUnit(${idx}, ${JSON.stringify(u.id).replace(/"/g, '&quot;')})">
-          <span style="flex:1;">${escapeHtml(u.title)}</span>
-          <span style="font-size:12px;color:var(--ink-muted);font-family:'JetBrains Mono',monospace;">${typeLabel}</span>
-        </label>`;
-      });
-      html += `</div>`;
-    });
-    html += `</div>`;
-  });
-  wrap.innerHTML = html;
-}
-
-function addCourse() {
-  if (coursesLoadError) return;
-  const inp = document.getElementById('new-course-name');
-  const name = (inp.value || '').trim();
-  if (!name) { alert('Bitte einen Semester-Namen eingeben.'); return; }
-  if (coursesState.some(c => c.name === name)) { alert('Semester mit diesem Namen existiert bereits.'); return; }
-  coursesState.push({ name, visible_units: [] });
-  coursesDirty = true;
-  inp.value = '';
-  renderSichtbarkeit();
-}
-
-function removeCourse(idx) {
-  const cls = coursesState[idx];
-  if (!cls) return;
-  if (!confirm(`Semester "${cls.name}" wirklich aus der Vorgabeliste entfernen?\n\nHinweis: Bestehende Einsendungen dieses Semesters bleiben in der Datenbank erhalten. Schüler:innen dieses Semesters können sich danach aber nicht mehr anmelden.`)) return;
-  coursesState.splice(idx, 1);
-  coursesDirty = true;
-  renderSichtbarkeit();
-}
-
-function renameCourseInState(idx) {
-  const cls = coursesState[idx];
-  if (!cls) return;
-  const neu = prompt('Neuer Name für dieses Semester (nur in der Vorgabe-Liste, ändert keine Einsendungen):', cls.name);
-  if (neu === null) return;
-  const trimmed = neu.trim();
-  if (!trimmed) { alert('Leerer Name nicht erlaubt.'); return; }
-  if (trimmed === cls.name) return;
-  if (coursesState.some((c, i) => i !== idx && c.name === trimmed)) { alert('Semester mit diesem Namen existiert bereits.'); return; }
-  cls.name = trimmed;
-  coursesDirty = true;
-  renderSichtbarkeit();
-}
-
-function toggleCourseUnit(idx, unitId) {
-  const cls = coursesState[idx];
-  if (!cls) return;
-  if (!Array.isArray(cls.visible_units)) cls.visible_units = [];
-  const pos = cls.visible_units.indexOf(unitId);
-  if (pos >= 0) cls.visible_units.splice(pos, 1);
-  else cls.visible_units.push(unitId);
-  coursesDirty = true;
-  // Status-Banner aktualisieren, aber Liste nicht komplett neu rendern (Fokus bleibt erhalten)
-  const statusEl = document.getElementById('sichtbarkeit-status');
-  if (statusEl) {
-    statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--warn-bg);border-left:3px solid var(--warn);border-radius:4px;font-size:13px;color:var(--warn);"><strong>Ungespeicherte Änderungen</strong> — vergiss nicht, <em>kurse.json</em> herunterzuladen und ins Repo hochzuladen.</div>';
-  }
-  // Zähler oben auf der Karte aktualisieren wäre nett — der Einfachheit halber rerendern:
-  // Nur die Zähler-Zeile. Wir rerendern aber alles, da das State-Change klein ist.
-  // Performance reicht aus. Fokus geht dabei verloren — Trade-off akzeptabel.
-  renderSichtbarkeit();
-}
-
-function setAllUnitsForCourse(idx, on) {
-  const cls = coursesState[idx];
-  if (!cls) return;
-  if (on) {
-    cls.visible_units = (unitsIndex || []).filter(u => !u.hidden).map(u => u.id);
-  } else {
-    cls.visible_units = [];
-  }
-  coursesDirty = true;
-  renderSichtbarkeit();
-}
-
-function downloadKurseJson() {
-  if (coursesLoadError || coursesState === null) return;
-  const payload = {
-    klassen: (coursesState || []).map(c => ({
-      ...c,
-      name: c.name,
-      visible_units: Array.isArray(c.visible_units) ? [...c.visible_units] : []
-    }))
-  };
-  const json = JSON.stringify(payload, null, 2) + '\n';
-  const blob = new Blob([json], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'kurse.json';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  coursesDirty = false;
-  // Status-Banner aktualisieren
-  const statusEl = document.getElementById('sichtbarkeit-status');
-  if (statusEl) {
-    statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--correct-bg);border-left:3px solid var(--correct);border-radius:4px;font-size:13px;color:var(--correct);"><strong>Heruntergeladen.</strong> Lade die Datei jetzt in dein GitHub-Repo unter <code>einheiten/kurse.json</code> hoch und committe — erst dann ist die Änderung für Schüler wirksam.</div>';
   }
 }
 
@@ -1570,48 +1617,368 @@ async function doMerge(type, oldValue, classContext) {
   }
 }
 
-function renderLineChart(data, unit) {
-  if (!data.length) return '<div class="empty">Nicht genug Daten.</div>';
-  const w = 700, h = 220, pad = 36;
-  const innerW = w - pad * 2, innerH = h - pad * 2;
-  const xs = data.map((_, i) => pad + (data.length === 1 ? innerW / 2 : (i / (data.length - 1)) * innerW));
-  const ys = data.map(d => pad + innerH - (d.value / 100) * innerH);
-  
-  let path = '';
-  xs.forEach((x, i) => { path += (i === 0 ? 'M' : 'L') + x + ',' + ys[i] + ' '; });
-  
-  let dots = '';
-  xs.forEach((x, i) => {
-    dots += `<circle cx="${x}" cy="${ys[i]}" r="4" fill="var(--accent)" />`;
-    dots += `<text x="${x}" y="${ys[i] - 10}" text-anchor="middle" font-size="11" fill="var(--ink-soft)" font-family="JetBrains Mono, monospace">${data[i].value}${unit}</text>`;
-  });
-  
-  let axes = `<line x1="${pad}" y1="${pad+innerH}" x2="${pad+innerW}" y2="${pad+innerH}" stroke="var(--line)" stroke-width="1"/>`;
-  axes += `<line x1="${pad}" y1="${pad}" x2="${pad}" y2="${pad+innerH}" stroke="var(--line)" stroke-width="1"/>`;
-  [25, 50, 75].forEach(v => {
-    const y = pad + innerH - (v / 100) * innerH;
-    axes += `<line x1="${pad}" y1="${y}" x2="${pad+innerW}" y2="${y}" stroke="var(--line-soft)" stroke-width="1" stroke-dasharray="3,3"/>`;
-    axes += `<text x="${pad-6}" y="${y+4}" text-anchor="end" font-size="10" fill="var(--ink-muted)">${v}${unit}</text>`;
-  });
-  
-  const showLabels = data.length <= 8 ? data.map((_, i) => i) :
-    [0, Math.floor(data.length / 2), data.length - 1];
-  let xLabels = '';
-  showLabels.forEach(i => {
-    const lbl = data[i].label.length > 18 ? data[i].label.slice(0, 16) + '…' : data[i].label;
-    xLabels += `<text x="${xs[i]}" y="${h - 6}" text-anchor="middle" font-size="10" fill="var(--ink-muted)">${escapeHtml(lbl)}</text>`;
-  });
-  
-  return `<div class="chart-card card">
-    <svg class="chart-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">
-      ${axes}
-      <path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2"/>
-      ${dots}
-      ${xLabels}
-    </svg>
-  </div>`;
+// ============= SICHTBARKEIT (kurse.json verwalten) =============
+// coursesState: [{ name, visible_units: [...], code_sha256?, lernpfad? }] — wird beim Tab-Open geladen,
+// im Speicher editiert, per Download-Button als kurse.json exportiert. Weitere Felder aus der Datei
+// bleiben beim Download erhalten. lernpfad: true = Themen öffnen nacheinander (index.html, Blöcke
+// „LERNPFAD: REGEL“ und „LERNPFAD: ANZEIGE“); fehlt das Feld, ist der Pfad aus (PT59 Fs/Ai, Stand 15.10.).
+// Ablauf: Tab öffnen → loadKurseJson (einmal, nach einem Lesefehler bei jedem Öffnen erneut) →
+// renderSichtbarkeit zeichnet je Semester Code-Zeile, Lernpfad-Zeile und Häkchen → jede Änderung ändert
+// coursesState und zeichnet neu → downloadKurseJson. Dieser bearbeitete Stand gilt erst nach dem Hochladen.
+let coursesState = null;
+let coursesDirty = false;
+// Fehlertext, wenn kurse.json existiert, aber nicht lesbar ist. Dann sind Bearbeiten und
+// Download gesperrt — eine neue Datei würde sonst alle bestehenden Semester verlieren.
+let coursesLoadError = null;
+
+async function loadKurseJson() {
+  coursesState = [];
+  coursesDirty = false;
+  coursesLoadError = null;
+  let res;
+  try {
+    res = await fetch('einheiten/kurse.json?t=' + Date.now());
+  } catch (err) {
+    coursesLoadError = 'Datei nicht abrufbar (' + err.message + ')';
+    return;
+  }
+  if (res.status === 404) return; // noch keine Datei im Repo: leere Liste ist korrekt
+  if (!res.ok) { coursesLoadError = 'Datei nicht abrufbar (HTTP ' + res.status + ')'; return; }
+  let data;
+  try {
+    data = JSON.parse(await res.text());
+  } catch (err) {
+    coursesLoadError = 'ungültiges JSON: ' + err.message;
+    return;
+  }
+  if (!data || !Array.isArray(data.klassen)) {
+    coursesLoadError = 'das Feld „klassen“ fehlt oder ist keine Liste';
+    return;
+  }
+  coursesState = data.klassen.map(c => ({
+    ...c,
+    name: String(c.name || ''),
+    visible_units: Array.isArray(c.visible_units) ? [...c.visible_units] : []
+  }));
 }
 
+function setCourseEditingLocked(locked) {
+  ['new-course-name', 'course-add-btn', 'course-download-btn'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.disabled = locked;
+  });
+}
+
+async function renderSichtbarkeit() {
+  const wrap = document.getElementById('sichtbarkeit-content');
+  if (!wrap) return;
+  // Nach einem Lesefehler bei jedem Öffnen neu versuchen (z. B. nach dem Hochladen der reparierten Datei)
+  if (coursesState === null || coursesLoadError) {
+    wrap.innerHTML = '<div class="empty"><span class="loading-bar"></span> Lade Konfiguration…</div>';
+    await loadKurseJson();
+  }
+  setCourseEditingLocked(!!coursesLoadError);
+  if (coursesLoadError) {
+    const statusEl = document.getElementById('sichtbarkeit-status');
+    if (statusEl) {
+      statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--wrong-bg);border-left:3px solid var(--wrong);border-radius:4px;font-size:13px;color:var(--wrong);"><strong>kurse.json im Repo ist nicht lesbar</strong> — ' + escapeHtml(coursesLoadError) + '.<br>Bearbeiten und Herunterladen sind gesperrt, weil eine neue Datei sonst alle bestehenden Semester verlieren würde. Solange der Fehler besteht, sehen Schüler:innen ein Freitextfeld und alle Einheiten. Repariere die Datei im Repo und öffne diesen Tab danach erneut.</div>';
+    }
+    wrap.innerHTML = '';
+    return;
+  }
+  // Lerneinheiten aus dem Frontend-Index (nicht versteckte)
+  const allUnits = (unitsIndex || []).filter(u => !u.hidden);
+  // Topics gruppieren
+  const topicsMap = {};
+  allUnits.forEach(u => {
+    const tid = u.topic || 'sonstige';
+    if (!topicsMap[tid]) topicsMap[tid] = { title: u.topic_title || tid, units: [] };
+    topicsMap[tid].units.push(u);
+  });
+
+  const statusEl = document.getElementById('sichtbarkeit-status');
+  if (statusEl) {
+    if (coursesDirty) {
+      statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--warn-bg);border-left:3px solid var(--warn);border-radius:4px;font-size:13px;color:var(--warn);"><strong>Ungespeicherte Änderungen</strong> — vergiss nicht, <em>kurse.json</em> herunterzuladen und ins Repo hochzuladen.</div>';
+    } else {
+      statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--correct-bg);border-left:3px solid var(--correct);border-radius:4px;font-size:13px;color:var(--correct);">Konfiguration synchron mit Repo-Datei.</div>';
+    }
+  }
+
+  if (!coursesState.length) {
+    wrap.innerHTML = '<div class="empty">Noch keine Semester angelegt. Solange das so bleibt, fällt der Schüler-Login auf Freitext zurück und alle Einheiten sind sichtbar.</div>';
+    return;
+  }
+
+  let html = '';
+  coursesState.forEach((cls, idx) => {
+    const selectedCount = (cls.visible_units || []).length;
+    const totalCount = allUnits.length;
+    html += `<div class="card" style="margin-bottom:14px;padding:18px 20px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
+        <div>
+          <h3 style="margin:0;">${escapeHtml(cls.name)}</h3>
+          <div style="font-size:13px;color:var(--ink-muted);margin-top:2px;">${selectedCount} von ${totalCount} Einheiten freigeschaltet</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="setAllUnitsForCourse(${idx}, true)">Alle freischalten</button>
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="setAllUnitsForCourse(${idx}, false)">Alle abwählen</button>
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="renameCourseInState(${idx})">Semester umbenennen</button>
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;color:var(--wrong);border-color:var(--wrong);" onclick="removeCourse(${idx})">Semester löschen</button>
+        </div>
+      </div>`;
+    const hasCode = !!cls.code_sha256;
+    html += `<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;margin-bottom:8px;border-radius:4px;background:${hasCode ? 'var(--correct-bg)' : 'var(--bg)'};border:1px solid var(--line-soft);">
+        <div style="font-size:13px;color:${hasCode ? 'var(--correct)' : 'var(--ink-soft)'};">${hasCode
+          ? '<strong>Semester-Code gesetzt</strong> — neue Schüler:innen geben ihn bei der ersten Anmeldung ein.'
+          : '<strong>Kein Semester-Code</strong> — neue Schüler:innen können diesem Semester nicht beitreten, bekannte Namen kommen weiter rein.'}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="setCourseCode(${idx})">${hasCode ? 'Code ändern' : 'Code festlegen'}</button>
+          ${hasCode ? `<button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="testCourseCode(${idx})">Code testen</button>
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;color:var(--wrong);border-color:var(--wrong);" onclick="removeCourseCode(${idx})">Code entfernen</button>` : ''}
+        </div>
+      </div>`;
+    html += lernpfadZeileHtml(cls, idx, allUnits);
+    // Pro Topic eine Gruppe von Checkboxen
+    Object.keys(topicsMap).forEach(tid => {
+      const grp = topicsMap[tid];
+      html += `<div style="margin-top:10px;"><div style="font-weight:600;color:var(--ink-soft);margin-bottom:6px;">${escapeHtml(grp.title)}</div>`;
+      grp.units.forEach(u => {
+        const checked = (cls.visible_units || []).includes(u.id) ? 'checked' : '';
+        const typeLabel = u.type === 'quiz' ? 'Quiz' : (u.type === 'short_case' ? 'Kurzfall' : 'Reasoning-Fall');
+        html += `<label style="display:flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer;">
+          <input type="checkbox" ${checked} onchange="toggleCourseUnit(${idx}, ${JSON.stringify(u.id).replace(/"/g, '&quot;')})">
+          <span style="flex:1;">${escapeHtml(u.title)}</span>
+          <span style="font-size:12px;color:var(--ink-muted);font-family:'JetBrains Mono',monospace;">${typeLabel}</span>
+        </label>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div>`;
+  });
+  wrap.innerHTML = html;
+}
+
+function addCourse() {
+  if (coursesLoadError) return;
+  const inp = document.getElementById('new-course-name');
+  const name = (inp.value || '').trim();
+  if (!name) { alert('Bitte einen Semester-Namen eingeben.'); return; }
+  if (coursesState.some(c => c.name === name)) { alert('Semester mit diesem Namen existiert bereits.'); return; }
+  // Neue Semester starten mit Lernpfad (Philipp 12.10.)
+  coursesState.push({ name, visible_units: [], lernpfad: true });
+  coursesDirty = true;
+  inp.value = '';
+  renderSichtbarkeit();
+}
+
+function removeCourse(idx) {
+  const cls = coursesState[idx];
+  if (!cls) return;
+  if (!confirm(`Semester "${cls.name}" wirklich aus der Vorgabeliste entfernen?\n\nHinweis: Bestehende Einsendungen dieses Semesters bleiben in der Datenbank erhalten. Schüler:innen dieses Semesters können sich danach aber nicht mehr anmelden.`)) return;
+  coursesState.splice(idx, 1);
+  coursesDirty = true;
+  renderSichtbarkeit();
+}
+
+function renameCourseInState(idx) {
+  const cls = coursesState[idx];
+  if (!cls) return;
+  const neu = prompt('Neuer Name für dieses Semester (nur in der Vorgabe-Liste, ändert keine Einsendungen):', cls.name);
+  if (neu === null) return;
+  const trimmed = neu.trim();
+  if (!trimmed) { alert('Leerer Name nicht erlaubt.'); return; }
+  if (trimmed === cls.name) return;
+  if (coursesState.some((c, i) => i !== idx && c.name === trimmed)) { alert('Semester mit diesem Namen existiert bereits.'); return; }
+  cls.name = trimmed;
+  coursesDirty = true;
+  renderSichtbarkeit();
+}
+
+function toggleCourseUnit(idx, unitId) {
+  const cls = coursesState[idx];
+  if (!cls) return;
+  if (!Array.isArray(cls.visible_units)) cls.visible_units = [];
+  const pos = cls.visible_units.indexOf(unitId);
+  if (pos >= 0) cls.visible_units.splice(pos, 1);
+  else cls.visible_units.push(unitId);
+  coursesDirty = true;
+  // Status-Banner sofort auf „Ungespeicherte Änderungen“
+  const statusEl = document.getElementById('sichtbarkeit-status');
+  if (statusEl) {
+    statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--warn-bg);border-left:3px solid var(--warn);border-radius:4px;font-size:13px;color:var(--warn);"><strong>Ungespeicherte Änderungen</strong> — vergiss nicht, <em>kurse.json</em> herunterzuladen und ins Repo hochzuladen.</div>';
+  }
+  // Ganze Liste neu zeichnen, damit der Zähler oben auf der Karte stimmt. Der Fokus der Checkbox geht
+  // dabei verloren, bewusst in Kauf genommen (die Liste ist klein).
+  renderSichtbarkeit();
+}
+
+function setAllUnitsForCourse(idx, on) {
+  const cls = coursesState[idx];
+  if (!cls) return;
+  if (on) {
+    cls.visible_units = (unitsIndex || []).filter(u => !u.hidden).map(u => u.id);
+  } else {
+    cls.visible_units = [];
+  }
+  coursesDirty = true;
+  renderSichtbarkeit();
+}
+
+function downloadKurseJson() {
+  if (coursesLoadError || coursesState === null) return;
+  const payload = {
+    klassen: (coursesState || []).map(c => ({
+      ...c,
+      name: c.name,
+      visible_units: Array.isArray(c.visible_units) ? [...c.visible_units] : []
+    }))
+  };
+  const json = JSON.stringify(payload, null, 2) + '\n';
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'kurse.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  coursesDirty = false;
+  // Status-Banner aktualisieren
+  const statusEl = document.getElementById('sichtbarkeit-status');
+  if (statusEl) {
+    statusEl.innerHTML = '<div style="padding:10px 14px;background:var(--correct-bg);border-left:3px solid var(--correct);border-radius:4px;font-size:13px;color:var(--correct);"><strong>Heruntergeladen.</strong> Lade die Datei jetzt in dein GitHub-Repo unter <code>einheiten/kurse.json</code> hoch und committe — erst dann ist die Änderung für Schüler wirksam.</div>';
+  }
+}
+
+// ============= SICHTBARKEIT: SEMESTER-CODE =============
+// Muss mit normCode()/hashCode() in index.html übereinstimmen.
+const CODE_HASH_PREFIX = 'skilllab-semestercode:';
+// Kurze Codes ließen sich aus dem öffentlichen Prüfwert durch Ausprobieren zurückrechnen
+const MIN_CODE_LENGTH = 12;
+
+function normCode(code) {
+  return String(code || '').normalize('NFC').toLowerCase()
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+async function hashCode(code) {
+  const bytes = new TextEncoder().encode(CODE_HASH_PREFIX + normCode(code));
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function setCourseCode(idx) {
+  const cls = coursesState[idx];
+  if (!cls || coursesLoadError) return;
+  const code = prompt(`Neuer Semester-Code für ${cls.name}\n\nMindestens ${MIN_CODE_LENGTH} Buchstaben oder Ziffern, am besten drei Wörter. Groß/klein, Leerzeichen und Bindestriche zählen nicht.\n\nNotiere ihn dir: Das Dashboard speichert nur einen Prüfwert und kann den Code später nicht mehr anzeigen.`);
+  if (code === null) return;
+  if (normCode(code).length < MIN_CODE_LENGTH) {
+    alert(`Zu kurz: ${normCode(code).length} Buchstaben/Ziffern, mindestens ${MIN_CODE_LENGTH} nötig. Der Code wurde nicht geändert.`);
+    return;
+  }
+  const again = prompt('Zur Kontrolle den Code noch einmal eingeben:');
+  if (again === null) return;
+  if (normCode(again) !== normCode(code)) {
+    alert('Die beiden Eingaben stimmen nicht überein. Der Code wurde nicht geändert.');
+    return;
+  }
+  const hash = await hashCode(code);
+  // Der Code bestimmt das Semester, also darf er nur zu einem gehören
+  const other = coursesState.find((c, i) => i !== idx && c.code_sha256 === hash);
+  if (other) {
+    alert(`Diesen Code hat schon ${other.name}. Bitte einen anderen wählen.`);
+    return;
+  }
+  cls.code_sha256 = hash;
+  coursesDirty = true;
+  renderSichtbarkeit();
+}
+
+async function testCourseCode(idx) {
+  const cls = coursesState[idx];
+  if (!cls || !cls.code_sha256) return;
+  const code = prompt(`Code für ${cls.name} testen (prüft gegen den hier eingestellten Code):`);
+  if (code === null) return;
+  const ok = (await hashCode(code)) === cls.code_sha256;
+  alert(ok ? `✓ Der Code passt zu ${cls.name}.` : `✗ Der Code passt nicht zu ${cls.name}.`);
+}
+
+function removeCourseCode(idx) {
+  const cls = coursesState[idx];
+  if (!cls || coursesLoadError) return;
+  if (!confirm(`Code für "${cls.name}" entfernen?\n\nDanach können keine neuen Schüler:innen diesem Semester beitreten. Bekannte Namen kommen weiter rein.`)) return;
+  delete cls.code_sha256;
+  coursesDirty = true;
+  renderSichtbarkeit();
+}
+
+// ============= SICHTBARKEIT: LERNPFAD-SCHALTER =============
+// Hier wird der Lernpfad je Semester nur ein- und ausgeschaltet und als Pfad angezeigt. Wer welches Thema
+// offen hat, zeigt der Tab Schüler-Verlauf (Block LERNPFAD: FREISCHALTSTAND).
+// Aufruf: renderSichtbarkeit → lernpfadZeileHtml je Semester; Knopf → toggleLernpfad → neu rendern.
+// Texte nennen „70 %“ ausdrücklich (Regel: Block LERNPFAD: REGEL, LERNPFAD_ZAEHLER/NENNER).
+// Ausschalten löscht das Feld (statt false), damit kurse.json für PT59 byte-gleich bleibt.
+function toggleLernpfad(idx) {
+  const cls = coursesState[idx];
+  if (!cls || coursesLoadError) return;
+  if (cls.lernpfad === true) delete cls.lernpfad;
+  else cls.lernpfad = true;
+  coursesDirty = true;
+  renderSichtbarkeit();
+}
+
+// Themen im Pfad = Themen mit mindestens einem Häkchen, Reihenfolge wie index.json (wie lernpfadPfadAus im
+// Block LERNPFAD: REGEL; allUnits ist schon ohne versteckte Einheiten). quiz/kurzfall = ist davon etwas angehakt?
+// Fehlt eins in einem Thema vor dem letzten, kann das nächste nie öffnen → Warnung in lernpfadZeileHtml.
+function lernpfadThemen(cls, allUnits) {
+  const visible = new Set(cls.visible_units || []);
+  const themen = [];
+  allUnits.forEach(u => {
+    if (!visible.has(u.id)) return;
+    const tid = u.topic || 'sonstige';
+    let t = themen.find(x => x.id === tid);
+    if (!t) { t = { id: tid, title: u.topic_title || tid, quiz: false, kurzfall: false }; themen.push(t); }
+    if (u.type === 'quiz') t.quiz = true;
+    if (u.type === 'short_case') t.kurzfall = true;
+  });
+  return themen;
+}
+
+// Die Lernpfad-Zeile auf der Semester-Karte (grün = an, mit Pfad und Warnungen). Nicht zu verwechseln mit den
+// „Regel-Zeilen“ im Block LERNPFAD: REGEL (eine je Einsendung).
+function lernpfadZeileHtml(cls, idx, allUnits) {
+  const an = cls.lernpfad === true;
+  let detail = '';
+  if (an) {
+    const themen = lernpfadThemen(cls, allUnits);
+    if (!themen.length) {
+      detail = 'Noch kein Thema angehakt.';
+    } else {
+      detail = 'Pfad: ' + themen.map(t => escapeHtml(t.title)).join(' → ')
+        + (themen.length === 1 ? ' (nur ein Thema, nichts gesperrt)' : '');
+      // Ohne Quiz oder Kurzfall im vorherigen Thema kann das nächste nie öffnen
+      themen.slice(0, -1).forEach((t, i) => {
+        const fehlt = [!t.quiz && 'kein Quiz', !t.kurzfall && 'kein Kurzfall'].filter(Boolean).join(' und ');
+        if (fehlt) detail += `<br><span style="color:var(--wrong);">⚠ In ${escapeHtml(t.title)} ist ${fehlt} angehakt, deshalb kann ${escapeHtml(themen[i + 1].title)} nie öffnen.</span>`;
+      });
+    }
+  }
+  return `<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;margin-bottom:8px;border-radius:4px;background:${an ? 'var(--correct-bg)' : 'var(--bg)'};border:1px solid var(--line-soft);">
+        <div style="font-size:13px;color:${an ? 'var(--correct)' : 'var(--ink-soft)'};">${an
+          ? '<strong>Lernpfad an</strong> — Themen öffnen nacheinander (Quiz-Ø ≥ 70 % + ein Kurzfall ≥ 70 %).<br>' + detail
+          : '<strong>Lernpfad aus</strong> — alle angehakten Einheiten sind sofort sichtbar.'}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn-secondary" style="padding:5px 12px;font-size:13px;" onclick="toggleLernpfad(${idx})">${an ? 'Lernpfad ausschalten' : 'Lernpfad einschalten'}</button>
+        </div>
+      </div>`;
+}
+
+// ============= DETAIL & LÖSCHEN =============
+// Klick auf eine Zeile → showDetail zeigt alle Antworten im Fenster #modal. Das Fenster nutzt auch
+// VEREINHEITLICHEN (openMergeModal), closeModal schließt es für beide. Löschen geht aus Tabelle und Fenster.
 async function showDetail(id) {
   const r = allRows.find(x => x.id === id);
   if (!r) return;
@@ -1709,6 +2076,8 @@ async function deleteSubmission(id, fromModal) {
   }
 }
 
+// ============= CSV-EXPORT =============
+// Knopf „CSV-Export (gefiltert)“: die gefilterten Einsendungen als CSV (Semikolon, UTF-8 mit BOM für Excel)
 function exportCsv() {
   const rows = getFilteredRows();
   const header = ['Datum', 'Semester', 'Name', 'Lerneinheit', 'Typ', 'Score-Richtig', 'Score-Total', 'Score-Prozent', 'Eingegangen', 'Antworten-JSON'];
@@ -1733,6 +2102,51 @@ function exportCsv() {
   URL.revokeObjectURL(url);
 }
 
+// ============= DIAGRAMM =============
+// Liniendiagramm (SVG) für Schüler- und Semester-Verlauf. data: [{ label, value }], value in Prozent.
+function renderLineChart(data, unit) {
+  if (!data.length) return '<div class="empty">Nicht genug Daten.</div>';
+  const w = 700, h = 220, pad = 36;
+  const innerW = w - pad * 2, innerH = h - pad * 2;
+  const xs = data.map((_, i) => pad + (data.length === 1 ? innerW / 2 : (i / (data.length - 1)) * innerW));
+  const ys = data.map(d => pad + innerH - (d.value / 100) * innerH);
+  
+  let path = '';
+  xs.forEach((x, i) => { path += (i === 0 ? 'M' : 'L') + x + ',' + ys[i] + ' '; });
+  
+  let dots = '';
+  xs.forEach((x, i) => {
+    dots += `<circle cx="${x}" cy="${ys[i]}" r="4" fill="var(--accent)" />`;
+    dots += `<text x="${x}" y="${ys[i] - 10}" text-anchor="middle" font-size="11" fill="var(--ink-soft)" font-family="JetBrains Mono, monospace">${data[i].value}${unit}</text>`;
+  });
+  
+  let axes = `<line x1="${pad}" y1="${pad+innerH}" x2="${pad+innerW}" y2="${pad+innerH}" stroke="var(--line)" stroke-width="1"/>`;
+  axes += `<line x1="${pad}" y1="${pad}" x2="${pad}" y2="${pad+innerH}" stroke="var(--line)" stroke-width="1"/>`;
+  [25, 50, 75].forEach(v => {
+    const y = pad + innerH - (v / 100) * innerH;
+    axes += `<line x1="${pad}" y1="${y}" x2="${pad+innerW}" y2="${y}" stroke="var(--line-soft)" stroke-width="1" stroke-dasharray="3,3"/>`;
+    axes += `<text x="${pad-6}" y="${y+4}" text-anchor="end" font-size="10" fill="var(--ink-muted)">${v}${unit}</text>`;
+  });
+  
+  const showLabels = data.length <= 8 ? data.map((_, i) => i) :
+    [0, Math.floor(data.length / 2), data.length - 1];
+  let xLabels = '';
+  showLabels.forEach(i => {
+    const lbl = data[i].label.length > 18 ? data[i].label.slice(0, 16) + '…' : data[i].label;
+    xLabels += `<text x="${xs[i]}" y="${h - 6}" text-anchor="middle" font-size="10" fill="var(--ink-muted)">${escapeHtml(lbl)}</text>`;
+  });
+  
+  return `<div class="chart-card card">
+    <svg class="chart-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">
+      ${axes}
+      <path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      ${dots}
+      ${xLabels}
+    </svg>
+  </div>`;
+}
+
+// ============= UTILS =============
 function formatScore(r) {
   if (r.score_total == null || r.score_total === 0) return '<span class="score-pill na">—</span>';
   const pct = (r.score_correct / r.score_total) * 100;
