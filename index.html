@@ -1207,7 +1207,9 @@ function lernpfadOffeneThemen() {
 }
 
 // ----- Gesperrte Kachel und Hinweis -----
-// Ziel-Texte nennen 70 % und 3/3 ausdrücklich (LERNPFAD_ZAEHLER/NENNER im Block REGEL, Kurzfälle mit 3 Fragen).
+// Ziel-Texte nennen beim Quiz 70 % (LERNPFAD_ZAEHLER/NENNER im Block REGEL) und beim Kurzfall „vollständig richtig“
+// statt „3/3“ oder „70 %“ (Philipp 26.10., „3/3“ war missverständlich). Das stimmt, solange jeder Kurzfall 3 Fragen
+// hat: Dann sind 70 % nur mit 3 von 3 erreichbar. Bekommt ein Kurzfall mehr Fragen (3 von 4 = 75 % reicht), Texte anpassen.
 function lernpfadTitel(thema) {
   const u = availableUnits.find(x => (x.topic || 'sonstige') === thema);
   return (u && u.topic_title) || thema;
@@ -1245,7 +1247,7 @@ function lernpfadKachel(t, offen) {
     <div class="ticon">${topicIcon(t.id, 24)}<span class="tlock">${LERNPFAD_SCHLOSS}</span></div>
     <h3>${escapeHtml(t.title)}</h3>
     <div class="tmeta">Gesperrt · öffnet nach ${escapeHtml(lernpfadTitel(vor))}</div>
-    <div class="tgoal">Ziel: Quiz-Ø ≥ 70 % und ein Kurzfall 3/3</div>
+    <div class="tgoal">Ziel: Quiz-Ø ≥ 70 % und ein Kurzfall vollständig richtig</div>
     <span class="tstand">${vorOffen ? 'Dein Stand: ' + escapeHtml(lernpfadStandText(vor)) : 'Erst ' + escapeHtml(lernpfadTitel(vor)) + ' freischalten'}</span>
   `;
   return div;
@@ -1259,7 +1261,7 @@ async function lernpfadHinweis(thema) {
   let text = `🔒 ${lernpfadTitel(thema)} ist noch gesperrt.\n\n`
     + `Es öffnet, sobald du in „${vorTitel}“ beides geschafft hast:\n`
     + '• im Quiz einen Durchschnitt von mindestens 70 % über alle vollständigen Runden\n'
-    + '• einen Kurzfall mit mindestens 70 % (bei 3 Fragen: 3 von 3), Wiederholen ist erlaubt\n\n';
+    + '• einen Kurzfall vollständig richtig, Wiederholen ist erlaubt\n\n';
   if (vor && offen.has(vor)) {
     text += `Dein Stand auf diesem Gerät: ${lernpfadStandText(vor)}\n\n`
       + 'Abgebrochene Runden und das Gemischte Quiz zählen nicht. Einmal offen, bleibt offen.';
