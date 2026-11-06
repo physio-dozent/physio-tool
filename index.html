@@ -578,7 +578,8 @@ button { font-family: inherit; }
 //      Hat das Semester einen Lernpfad, sperrt LERNPFAD: ANZEIGE Themen nach der Regel in LERNPFAD: REGEL.
 //   4. Thema und Einheit wählen: selectTopic, renderUnitList, selectUnit (Block PERSÖNLICHE STARTSEITE).
 //   5. Bearbeiten: HELPER zieht und mischt die Fragen, INHALT RENDERN zeigt Quiz, Kurzfall, Reasoning-Fall.
-//   6. Absenden: ABSENDEN schickt an Supabase, schreibt den GERÄTE-VERLAUF (localStorage), zeigt das Ergebnis.
+//   6. Absenden: ABSENDEN schickt an Supabase, schreibt den GERÄTE-VERLAUF (localStorage), zeigt das Ergebnis
+//      (Ablauf im Blockkopf).
 // Nebenher: ZWISCHENSPEICHERN sichert die laufende Sitzung, MASTERY rechnet „gemeistert“ aus dem Verlauf.
 
 // ============= KONFIGURATION =============
@@ -1089,7 +1090,7 @@ function lernpfadAuswerten(zeilen, pfad) {
 //      Themen, ebenso startMixedQuiz.
 //   3. Gesperrtes Thema angetippt, oder selectTopic darauf (auch bei der Wiederaufnahme einer Sitzung):
 //      lernpfadHinweis erklärt das Ziel und bietet „Zu <vorheriges Thema>“ an.
-//   4. Runde abgeschickt (submitContent): der Eintrag im Geräteverlauf bekommt „answered“. Beim nächsten
+//   4. Runde abgeschickt (buildHistoryEntry): der Eintrag im Geräteverlauf bekommt „answered“. Beim nächsten
 //      Bauen der Liste zählt die Runde mit, ihre Einsendung zählt die RPC.
 //
 // Offen ist ein Thema, wenn EINE von drei Quellen es sagt (das Günstigere zählt):
@@ -2134,13 +2135,26 @@ function updateProgress() {
 }
 
 // ============= ABSENDEN =============
-// Wird mit silentReturn=true vom "Zurück"-Button aufgerufen — dann werden Antworten gespeichert
-// und zur Themen-Maske bzw. Unit-Liste zurück navigiert, ohne den Ergebnis-Screen anzuzeigen.
+// Hier endet jede Runde. Zwei Knöpfe führen nach submitContent:
+//   – „Abschließen & Ergebnis“ (Reasoning-Fall: „Antworten absenden“): submitContent()
+//   – „← Speichern & zurück“ (goBackToUnits): submitContent(true). Auch das sendet, sobald etwas eingegeben
+//     ist, es entfällt nur die Ergebnisseite (silentReturn).
+//
+// Ablauf in submitContent:
+//   1. Zurück ohne Eingabe → nichts senden, zurück zur Liste
+//   2. Fragen offen        → nachfragen (nicht beim Zurück)
+//   3. Punkte berechnen    → nur die in dieser Runde gestellten Fragen
+//   4. Einsendung bauen    → Knöpfe sperren, groupMixedAnswers, buildPayload
+//   5. An Supabase senden  → postSubmission
+//   6. Geräte-Verlauf      → buildHistoryEntry, recordResult
+//   7. Weiter              → showResult, beim Zurück returnToList
+// Scheitert das Senden, gibt es keinen Verlaufs-Eintrag, die Knöpfe werden wieder frei und die Antworten
+// bleiben erhalten. Eine gemischte Runde wird zu einer Einsendung je Quell-Einheit (mixedGroups).
 async function submitContent(silentReturn) {
   const u = session.unit;
   if (!u) return;
 
-  // Zurück ohne eine einzige Eingabe: nichts senden, nur navigieren
+  // 1. Zurück ohne eine einzige Eingabe: nichts senden, nur navigieren
   if (silentReturn) {
     const hasAny = (session.answers.questions && Object.keys(session.answers.questions).length > 0)
       || session.answers.reasoning
@@ -2157,7 +2171,7 @@ async function submitContent(silentReturn) {
     ? session.displayPlan.map(p => p.originalQIdx)
     : (u.questions ? u.questions.map((_, i) => i) : []);
 
-  // Validierung — beim Zurück-Modus überspringen, weil unvollständige Antworten erlaubt sind
+  // 2. Validierung — beim Zurück-Modus überspringen, weil unvollständige Antworten erlaubt sind
   if (!silentReturn && (u.type === 'quiz' || u.type === 'short_case')) {
     const total = askedIndices.length;
     const answered = session.answers.questions ? Object.keys(session.answers.questions).length : 0;
@@ -2167,7 +2181,7 @@ async function submitContent(silentReturn) {
     }
   }
 
-  // Auswertung berechnen — nur die in dieser Session gestellten Fragen
+  // 3. Auswertung berechnen — nur die in dieser Session gestellten Fragen
   let scoreCorrect = null, scoreTotal = null;
   const wrongIdx = [];
   if ((u.type === 'quiz' || u.type === 'short_case') && u.questions) {
@@ -2181,7 +2195,7 @@ async function submitContent(silentReturn) {
     });
   }
 
-  // Daten an Supabase senden
+  // 4. Knöpfe sperren, Einsendung bauen
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
   btn.innerHTML = '<span class="loading"></span> Sende…';
@@ -2190,113 +2204,17 @@ async function submitContent(silentReturn) {
     stepBtn.disabled = true;
     stepBtn.innerHTML = '<span class="loading"></span> Sende…';
   }
-
-  // Gemischtes Quiz: pro Quell-Einheit eine Zeile senden, mit Original-Indizes —
-  // so bleiben Schwachstellen-Analyse und Dashboard vollständig konsistent.
-  let payload;
-  const mixedGroups = {};
-  if (u.mixed && session.mixedMap) {
-    askedIndices.forEach(idx => {
-      const src = session.mixedMap[idx];
-      if (!src) return;
-      const q = u.questions[idx];
-      const ans = session.answers.questions ? session.answers.questions[idx] : null;
-      if (!mixedGroups[src.unit_id]) {
-        mixedGroups[src.unit_id] = { unit_id: src.unit_id, unit_title: src.unit_title, questions: {}, conf: {}, correct: 0, total: 0, asked: [], wrong: [] };
-      }
-      const g = mixedGroups[src.unit_id];
-      if (ans != null) g.questions[src.origIdx] = ans;
-      if (session.confidence && session.confidence[idx]) g.conf[src.origIdx] = session.confidence[idx];
-      g.total++;
-      g.asked.push(src.origIdx);
-      if (isAnswerCorrect(q, ans)) g.correct++;
-      else g.wrong.push(src.origIdx);
-    });
-    payload = Object.values(mixedGroups).map(g => ({
-      student_name: session.student_name,
-      class_name: session.class_name,
-      session_date: session.session_date,
-      unit_id: g.unit_id,
-      unit_title: g.unit_title,
-      content_type: 'quiz',
-      answers: Object.assign(
-        { questions: g.questions, markings: [], mixed_session: true },
-        Object.keys(g.conf).length ? { confidence: g.conf } : {}
-      ),
-      score_correct: g.correct,
-      score_total: g.total
-    }));
-  } else {
-    payload = {
-      student_name: session.student_name,
-      class_name: session.class_name,
-      session_date: session.session_date,
-      unit_id: session.unit.id,
-      unit_title: session.unit.title,
-      content_type: session.unit.type,
-      answers: {
-        ...session.answers,
-        markings: Object.values(session.markings),
-        ...(session.confidence && Object.keys(session.confidence).length ? { confidence: session.confidence } : {}),
-        ...(session.prediction != null && session.prediction >= 0 ? { prediction: session.prediction } : {})
-      },
-      score_correct: scoreCorrect,
-      score_total: scoreTotal
-    };
-  }
+  const mixedGroups = groupMixedAnswers(u, askedIndices);
+  const payload = buildPayload(u, mixedGroups, scoreCorrect, scoreTotal);
 
   try {
-    const res = await fetch(SUPABASE_URL + '/rest/v1/submissions', {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify(payload)
-    });
-    if (!res.ok) {
-      const errText = await res.text();
-      throw new Error(errText || 'Speichern fehlgeschlagen');
-    }
+    // 5. An Supabase senden
+    await postSubmission(payload);
     clearSavedSession();
-    // Ergebnis lokal im Geräte-Verlauf festhalten (für persönliche Startseite
-    // und den Wiederholungs-Pool: falsch beantwortete Fragen kommen bevorzugt wieder)
-    const entry = {
-      ts: new Date().toISOString(),
-      day: localDay(),
-      unit_id: session.unit.id,
-      unit_title: session.unit.title,
-      topic: session.topic,
-      topic_title: session.topic_title,
-      type: session.unit.type,
-      score_correct: scoreCorrect,
-      score_total: scoreTotal
-    };
-    if (!u.mixed && u.questions && (u.type === 'quiz' || u.type === 'short_case')) {
-      entry.pool_size = u.questions.length;
-    }
-    if (session.prediction != null && session.prediction >= 0) {
-      entry.prediction = session.prediction;
-    }
-    if (u.mixed && session.mixedMap) {
-      entry.asked_by_unit = {};
-      entry.wrong_by_unit = {};
-      Object.values(mixedGroups).forEach(g => {
-        entry.asked_by_unit[g.unit_id] = g.asked;
-        entry.wrong_by_unit[g.unit_id] = g.wrong;
-      });
-    } else if (u.type === 'quiz' || u.type === 'short_case') {
-      entry.asked_q = askedIndices;
-      entry.wrong_q = wrongIdx;
-      // Lernpfad: Runde zählt nur vollständig (wie answers.questions in der Einsendung)
-      entry.answered = askedIndices.filter(idx => {
-        const a = session.answers.questions ? session.answers.questions[idx] : null;
-        return a != null && !(Array.isArray(a) && a.length === 0);
-      }).length;
-    }
+    // 6. Geräte-Verlauf
+    const entry = buildHistoryEntry(u, askedIndices, wrongIdx, mixedGroups, scoreCorrect, scoreTotal);
     const meta = recordResult(entry);
+    // 7. Weiter
     if (silentReturn) {
       // Antworten gespeichert — zurück zur Liste, kein Ergebnis-Screen
       showAutosavePill('✓ Antworten gespeichert');
@@ -2320,6 +2238,124 @@ async function submitContent(silentReturn) {
     }
     showDialog('Fehler beim Speichern: ' + err.message + '\n\nDeine Antworten sind lokal noch erhalten. Versuche es bitte gleich noch einmal.');
   }
+}
+
+// Gemischtes Quiz: Antworten je Quell-Einheit sammeln, mit Original-Indizes. Die Gruppen brauchen
+// buildPayload und buildHistoryEntry. Bei jeder anderen Einheit bleibt das Ergebnis leer.
+function groupMixedAnswers(u, askedIndices) {
+  const mixedGroups = {};
+  if (u.mixed && session.mixedMap) {
+    askedIndices.forEach(idx => {
+      const src = session.mixedMap[idx];
+      if (!src) return;
+      const q = u.questions[idx];
+      const ans = session.answers.questions ? session.answers.questions[idx] : null;
+      if (!mixedGroups[src.unit_id]) {
+        mixedGroups[src.unit_id] = { unit_id: src.unit_id, unit_title: src.unit_title, questions: {}, conf: {}, correct: 0, total: 0, asked: [], wrong: [] };
+      }
+      const g = mixedGroups[src.unit_id];
+      if (ans != null) g.questions[src.origIdx] = ans;
+      if (session.confidence && session.confidence[idx]) g.conf[src.origIdx] = session.confidence[idx];
+      g.total++;
+      g.asked.push(src.origIdx);
+      if (isAnswerCorrect(q, ans)) g.correct++;
+      else g.wrong.push(src.origIdx);
+    });
+  }
+  return mixedGroups;
+}
+
+// Inhalt für Supabase: eine Zeile, beim gemischten Quiz eine Liste mit einer Zeile je Quell-Einheit —
+// so bleiben Schwachstellen-Analyse und Dashboard vollständig konsistent.
+function buildPayload(u, mixedGroups, scoreCorrect, scoreTotal) {
+  if (u.mixed && session.mixedMap) {
+    return Object.values(mixedGroups).map(g => ({
+      student_name: session.student_name,
+      class_name: session.class_name,
+      session_date: session.session_date,
+      unit_id: g.unit_id,
+      unit_title: g.unit_title,
+      content_type: 'quiz',
+      answers: Object.assign(
+        { questions: g.questions, markings: [], mixed_session: true },
+        Object.keys(g.conf).length ? { confidence: g.conf } : {}
+      ),
+      score_correct: g.correct,
+      score_total: g.total
+    }));
+  }
+  return {
+    student_name: session.student_name,
+    class_name: session.class_name,
+    session_date: session.session_date,
+    unit_id: session.unit.id,
+    unit_title: session.unit.title,
+    content_type: session.unit.type,
+    answers: {
+      ...session.answers,
+      markings: Object.values(session.markings),
+      ...(session.confidence && Object.keys(session.confidence).length ? { confidence: session.confidence } : {}),
+      ...(session.prediction != null && session.prediction >= 0 ? { prediction: session.prediction } : {})
+    },
+    score_correct: scoreCorrect,
+    score_total: scoreTotal
+  };
+}
+
+async function postSubmission(payload) {
+  const res = await fetch(SUPABASE_URL + '/rest/v1/submissions', {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(errText || 'Speichern fehlgeschlagen');
+  }
+}
+
+// Ergebnis lokal im Geräte-Verlauf festhalten (für persönliche Startseite
+// und den Wiederholungs-Pool: falsch beantwortete Fragen kommen bevorzugt wieder)
+function buildHistoryEntry(u, askedIndices, wrongIdx, mixedGroups, scoreCorrect, scoreTotal) {
+  const entry = {
+    ts: new Date().toISOString(),
+    day: localDay(),
+    unit_id: session.unit.id,
+    unit_title: session.unit.title,
+    topic: session.topic,
+    topic_title: session.topic_title,
+    type: session.unit.type,
+    score_correct: scoreCorrect,
+    score_total: scoreTotal
+  };
+  if (!u.mixed && u.questions && (u.type === 'quiz' || u.type === 'short_case')) {
+    entry.pool_size = u.questions.length;
+  }
+  if (session.prediction != null && session.prediction >= 0) {
+    entry.prediction = session.prediction;
+  }
+  if (u.mixed && session.mixedMap) {
+    entry.asked_by_unit = {};
+    entry.wrong_by_unit = {};
+    Object.values(mixedGroups).forEach(g => {
+      entry.asked_by_unit[g.unit_id] = g.asked;
+      entry.wrong_by_unit[g.unit_id] = g.wrong;
+    });
+  } else if (u.type === 'quiz' || u.type === 'short_case') {
+    entry.asked_q = askedIndices;
+    entry.wrong_q = wrongIdx;
+    // Lernpfad: Runde zählt nur vollständig (wie answers.questions in der Einsendung)
+    entry.answered = askedIndices.filter(idx => {
+      const a = session.answers.questions ? session.answers.questions[idx] : null;
+      return a != null && !(Array.isArray(a) && a.length === 0);
+    }).length;
+  }
+  return entry;
 }
 
 // Vom "Zurück"-Button aufgerufen — sendet die Antworten und navigiert zurück.
