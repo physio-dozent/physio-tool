@@ -8,16 +8,16 @@
       "text": "Wie lauten die ungefähren Norm-Bewegungsausmaße des Hüftgelenks für Flexion–Extension nach der Neutral-Null-Methode?",
       "multi": false,
       "options": [
-        "90/0/0",
-        "110/0/5",
+        "100/0/5–10",
+        "120/0/20–30",
         "140/0/10–15",
-        "160/0/30"
+        "160/0/20–30"
       ],
       "correct": 2,
       "explanation": "Die in der Praxis verwendeten Norm-Bewegungsausmaße der Hüfte sind 140/0/10–15° für Flexion–Extension, 40/0/30° für Abduktion–Adduktion und 30/0/50° für Innenrotation–Außenrotation."
     },
     {
-      "text": "Welcher Muskel ist der stärkste Hüftflexor und von welchem Nerven entspringt seine Innervation?",
+      "text": "Welcher Muskel ist der stärkste Hüftflexor und von welchem Nerv wird er innerviert?",
       "multi": false,
       "options": [
         "M. rectus femoris — innerviert vom N. obturatorius (L2–L4).",
@@ -34,8 +34,8 @@
       "options": [
         "Die Kapsel wird ventral aus L2–L4 und dorsal aus L5–S2 versorgt.",
         "Die hüftumgebende Muskulatur wird segmental aus L1–S2 innerviert.",
-        "Periphere Hauptnerven sind N. gluteus superior und inferior, N. femoralis und N. obturatorius.",
-        "Die vegetative Versorgung der Hüfte erfolgt aus L2–S1."
+        "Periphere Hauptnerven: N. gluteus sup./inf., N. femoralis und N. obturatorius.",
+        "Die vegetative Versorgung der Hüfte erfolgt aus den Segmenten L2–S1."
       ],
       "correct": [0, 1, 2],
       "explanation": "Ventral wird die Kapsel aus L2–L4 versorgt, dorsal aus L5–S2. Die hüftumgebende Muskulatur ist segmental aus L1–S2 innerviert. Periphere Hauptnerven sind N. gluteus superior und inferior, N. femoralis und N. obturatorius. Die vegetative Versorgung kommt aus Th9–L2, nicht aus L2–S1."
@@ -105,7 +105,7 @@
       "multi": false,
       "options": [
         "Passive Adduktion in maximaler Hüftflexion bis zum Schmerz — positiv bei Reproduktion des Leistenschmerzes.",
-        "Isometrische Adduktion für 5 Sekunden in definierter Position; Schmerzangabe NRS > 6 weisen auf einen relevanten Funktionsverlust hin.",
+        "Maximaler isometrischer Adduktionsdruck für 5 s — NRS > 6 zeigt relevanten Funktionsverlust.",
         "Passive Hüftabduktion mit Überdruck am Ende des Bewegungsausmaßes — positiv bei Dehnschmerz medial.",
         "Konzentrische Adduktion gegen Widerstand über 30 Sekunden — positiv bei rascher Ermüdung."
       ],
@@ -118,7 +118,7 @@
       "options": [
         "Er ist der sensitivste Einzeltest und Goldstandard für die Diagnose einer adduktoren-bedingten Leistenproblematik.",
         "Er hat hohe Spezifität und schließt eine adduktoren-bedingte Ursache nahezu sicher aus.",
-        "Sein zusätzlicher Wert für die Klassifizierung adduktoren-bedingter Leistenschmerzen ist gering. Besser: Palpation + isometrische ADD.",
+        "Er bringt für die Klassifikation kaum Zusatznutzen, Palpation und isometrische Adduktion sind ergiebiger.",
         "Er sollte als einziger Test zur Verlaufskontrolle eingesetzt werden, da er objektiv messbar ist."
       ],
       "correct": 2,
@@ -140,7 +140,7 @@
       "text": "Wie lässt sich eine „symphysale Instabilität“ von einer „symphysalen Dysfunktion“ pathophysiologisch unterscheiden?",
       "multi": false,
       "options": [
-        "Die Instabilität zeigt eine Erweiterung des Symphysenspalts, während bei der Dysfunktion keine relevante strukturelle Spalterweiterung vorliegt.",
+        "Bei der Instabilität ist der Symphysenspalt erweitert, bei der Dysfunktion nicht relevant.",
         "Beide Begriffe meinen dasselbe und werden synonym verwendet.",
         "Die Instabilität ist eine reine Weichteilreizung, während die Dysfunktion immer eine knöcherne Verletzung darstellt.",
         "Die Dysfunktion betrifft ausschließlich Männer, die Instabilität ausschließlich Frauen postpartum."
@@ -164,10 +164,10 @@
       "text": "Welche Maßnahme ist bei einer symptomatischen symphysalen Instabilität ein zentraler Therapie-Baustein?",
       "multi": false,
       "options": [
-        "Strikte Bettruhe für zwei Wochen.",
-        "Externe Stabilisierung (Gurt) kaudal der SIAS, bei vertikalen Aktivitäten getragen und schrittweise ausgeschlichen.",
+        "Strikte Bettruhe für zwei Wochen, danach schrittweise Rückkehr in den Alltag.",
+        "Externe Stabilisierung mit Gurt kaudal der SIAS, der nach und nach ausgeschlichen wird.",
         "Endgradige Mobilisation der Symphyse zur Förderung der Knorpelregeneration.",
-        "Intensives Kräfttraining der Adduktoren mehrfach täglich zur Stabilisation des Beckenrings."
+        "Intensives Krafttraining der Adduktoren mehrfach täglich zur Stabilisation des Beckenrings."
       ],
       "correct": 1,
       "explanation": "Zentraler Baustein ist eine externe Stabilisierung mit Gurt kaudal der SIAS (nicht auf Symphysenhöhe), bei allen vertikalen Aktivitäten getragen — bei zurückkehrender Stabilität wird der Gurt schrittweise ausgeschlichen. Ergänzend: Edukation zur Aktivitätsanpassung, Kräftigung von M. transversus abdominis und Beckenboden, ggf. Sitzring."
@@ -189,9 +189,9 @@
       "multi": true,
       "options": [
         "Palpation, Thomas-Handgriff und passive Hüft-Extension auf Schmerzprovokation.",
-        "Hip-Extension-Celing-Test (HEC) bzw. alternativ resistive Hüft-Flexion im Sitz.",
-        "FADDIR-Test mit Kompression auf Reproduktion des Klickens.",
-        "Femoraler Slump bzw. Prone Knee Bend zur Differenzialdiagnostik einer N.-femoralis-Beteiligung."
+        "HEC-Test (Hüft-Flexion + ARO) bzw. alternativ resistive Hüft-Flexion im Sitz.",
+        "FADDIR-Test mit Kompression auf Reproduktion des Klickens und des Leistenschmerzes.",
+        "Femoraler Slump bzw. Prone Knee Bend zur Abgrenzung einer N.-femoralis-Beteiligung."
       ],
       "correct": [0, 1, 3],
       "explanation": "Bei iliopsoas-bedingten Leistenschmerzen sind Palpation, Thomas-Handgriff, passive Hüft-Extension, der HEC-Test (Hüft-Flexion mit Außenrotation) bzw. alternativ resistive Hüft-Flexion im Sitz typische Untersuchungselemente. Femoraler Slump und Prone Knee Bend dienen der Differenzialdiagnostik des N. femoralis. Der FADDIR-Test wird dagegen für FAI / Labrum eingesetzt."
@@ -201,7 +201,7 @@
       "multi": false,
       "options": [
         "Neigung des Oberkörpers über das betroffene Standbein — willkürliche Strategie zur Verkürzung des Körpergewichts-Lastarms.",
-        "Absinken des Beckens auf der kontralateralen Seite im Einbeinstand — Kraft Hüft-Abduktoren < Lastarm des Körpergewichts.",
+        "Absinken des Beckens auf der kontralateralen Seite im Einbeinstand — Kraft der Hüft-Abduktoren reicht nicht aus.",
         "Vorwärtskippung des gesamten Rumpfes ab Standbeinphase — Folge einer Insuffizienz der dorsalen Kette.",
         "Außenrotation des Standbeins während der mittleren Standphase — kompensiert eine Schwäche der Abduktoren."
       ],
@@ -225,7 +225,7 @@
       "multi": false,
       "options": [
         "Der Befund allein ist bereits die Diagnose FAI und sollte rasch operiert werden.",
-        "Asymptomatische CAM-Morphologien sind häufig — eine FAI-Diagnose erfordert zusätzlich passende klinische Symptomatik und positive Tests.",
+        "CAM ohne Symptome ist häufig, FAI setzt Klinik und positive Tests voraus.",
         "Eine asymptomatische CAM-Morphologie schließt eine künftige Hüftarthrose sicher aus.",
         "Es besteht ein dringender Therapiebedarf, weil bildgebende Befunde immer kausal mit Beschwerden korrelieren."
       ],
@@ -254,7 +254,7 @@
         "Verbesserung der Hüft-ROM in alle Richtungen bis zum normalen Ausmaß."
       ],
       "correct": [0, 1],
-      "explanation": "Eine konservative Therapie sollte vorwiegend aus aktivem Training bestehen und weniger eine Mobilitäts-Steigerung verfolgen. Bausteine sind Patientenaufklärung, progressive Kraft- und Kontroll-Arbeit, Modifikation provozierender Aktivitäten sowie Heimübungsprogramm. Eine Schon-Empfehlung würde Dekonditionierung und Fear-Avoidance fördern."
+      "explanation": "Eine konservative Therapie sollte vorwiegend aus aktivem Training bestehen und weniger eine Mobilitäts-Steigerung verfolgen. Bausteine sind Patientenaufklärung, progressive Kraft- und Kontroll-Arbeit, Modifikation provozierender Aktivitäten sowie Heimübungsprogramm. Aktiv bleiben ohne jede Anpassung widerspricht der Aktivitätsmodifikation, bei der schmerzhafte Aktivitäten reduziert oder verändert werden. Eine ROM-Steigerung bis zum normalen Ausmaß ist nicht das Ziel, weil die Grenze knöchern ist."
     },
     {
       "text": "Welche Symptome sind nach den klinischen Kriterien typisch für eine Hüftarthrose?",
@@ -284,7 +284,7 @@
       "text": "Welche Aussage zur Bedeutung von Aktivität und Belastung für die Entstehung einer Hüftarthrose entspricht der aktuellen Evidenz?",
       "multi": false,
       "options": [
-        "Sportliche Belastungen steigeren das Risiko einer Hüftarthrose unabhängig von Dauer & Intensität.",
+        "Sportliche Belastungen steigern das Risiko einer Hüftarthrose unabhängig von Dauer & Intensität.",
         "Der Zusammenhang zwischen mechanischer Belastung und Arthroseentwicklung ist teilweise unklar und komplex.",
         "Menschen mit weniger Bewegung haben grundsätzlich ein geringeres Risiko für eine Hüftarthrose.",
         "Walking ist nachweislich risikoärmer als Joggen, weil die Stoßbelastung geringer ist und führt zu weniger Hüftarthrose."
@@ -302,16 +302,16 @@
         "Zuerst sollte passiv am Gelenk gearbeitet werden und bei voller Gelenkbeweglichkeit erst aktiv."
       ],
       "correct": [0, 1, 2],
-      "explanation": "Leitlinien empfehlen Edukation (inklusive Aufklärung über Mythen), aktive Therapie mit mind. 12 Einheiten unter Supervision, dann eigenständig mit Fokus auf Kraft- & Koordinationsübungen 2–3x pro Woche und Ausdauer ca. 30 Min. täglich. Dazu ergänzende Maßnahmen wie topische NSAR, Achtsamkeitsübungen und Manuelle Therapie (Bannuru u. a., 2019; Kraus u. a., 2019; Fernandes u. a., 2013). Eine Schon-Empfehlung widerspricht dem Konzept der mechanischen Belastung als Therapie."
+      "explanation": "Leitlinien empfehlen Edukation (inklusive Aufklärung über Mythen), aktive Therapie mit 12 Einheiten unter Supervision, dann eigenständig mit Fokus auf Kraft- & Koordinationsübungen 2–3x pro Woche und Ausdauer ca. 30 Min. täglich. Dazu ergänzende Maßnahmen wie topische NSAR, Achtsamkeitsübungen und Manuelle Therapie (Bannuru u. a., 2019; Kraus u. a., 2019; Fernandes u. a., 2013). Passives Arbeiten am Gelenk als erster Schritt widerspricht dem Konzept der mechanischen Belastung als Therapie: Die aktive Therapie steht im Mittelpunkt, Manuelle Therapie ergänzt sie."
     },
     {
       "text": "Welche Komplikation ist beim posterioren / dorsalen Zugangsweg einer Hüft-TEP besonders zu beachten?",
       "multi": false,
       "options": [
-        "Erhöhte Luxationsgefahr nach dorsal — daher mind. sechs Wochen postoperativ keine forcierte Flexion, Extension, Adduktion und Rotation.",
+        "Erhöhte Luxationsgefahr nach dorsal, daher mindestens sechs Wochen keine forcierten Bewegungen.",
         "Hauptproblem ist eine erhöhte Frakturrate des Schenkelhalses während der OP.",
         "Der posteriore Zugang erspart jede Bewegungseinschränkung — sechs Wochen Vorgaben sind nicht nötig.",
-        "Beim posterioren Zugang ist ausschließlich die Außenrotation eingeschränkt, nicht aber Flexion oder Adduktion."
+        "Beim posterioren Zugang gilt die Vorgabe nur für die Außenrotation, nicht für Flexion oder Adduktion."
       ],
       "correct": 0,
       "explanation": "Beim posterioren Zugang werden M. gluteus maximus gespalten, die Außenrotatoren abgelöst und die posteriore Kapsel durchtrennt — daraus resultiert eine erhöhte Luxationsgefahr nach dorsal. Konsequenz: Mindestens sechs Wochen postoperativ keine forcierte Flexion, Extension, Adduktion und keine forcierte Innen- bzw. Außenrotation. Das Nachbehandlungsschema ist konsequent einzuhalten."
@@ -321,7 +321,7 @@
       "multi": false,
       "options": [
         "Es erfolgt eine umfangreiche Durchtrennung der lateralen Muskulatur und der posterioren Kapsel.",
-        "Die OP nutzt eine Lücke zwischen M. sartorius/rectus femoris & M. tensor fasciae latae und durchtrennt nur die vordere Kapsel.",
+        "Die OP nutzt eine Lücke zwischen den Muskeln und durchtrennt nur die vordere Kapsel.",
         "Der anteriore Zugang ist mit einer besonders hohen Luxationsgefahr nach dorsal verbunden.",
         "Beim anterioren Zugang ist die Vorgabe: nicht über 90° Hüft-Flex, keine Add/IRO/ARO sinnvoll."
       ],
@@ -334,7 +334,7 @@
       "options": [
         "Eine Bursitis trochanterica ist die häufigste isolierte Ursache und sollte primär behandelt werden.",
         "Eine Tendinitis o. Tendinopathie des M. gluteus medius (+ evtl. M. gluteus min.) ist die wahrscheinlichere primäre Ursache.",
-        "Die Ursache eines lateralen Hüftschmerzes ist meistens ein Hypertonie des M. iliopsoas und auf eine Coxa saltans interna zurückzuführen.",
+        "Die Ursache eines lateralen Hüftschmerzes ist meistens eine Hypertonie des M. iliopsoas und auf eine Coxa saltans interna zurückzuführen.",
         "Eine Irritation des Ramus dorsalis von Th12 aufgrund eines Bandscheibenvorfalls ist die häufigste Einzelursache."
       ],
       "correct": 1,
@@ -345,7 +345,7 @@
       "multi": false,
       "options": [
         "Niedrige Sensitivität, hohe Spezifität — eignet sich vor allem als Einschlusstest.",
-        "Sehr hohe Sensitivität (ca. 100 %) und hohe Spezifität (ca. 97 %) — eignet sich gut zum Ein- und Ausschluss.",
+        "Sehr hohe Sensitivität, hohe Spezifität — eignet sich zum Ein- und Ausschluss.",
         "Hohe Sensitivität, niedrige Spezifität — vor allem als Ausschlusstest geeignet.",
         "Niedrige Sensitivität und niedrige Spezifität — diagnostisch wenig hilfreich."
       ],

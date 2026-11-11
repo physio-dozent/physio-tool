@@ -98,7 +98,7 @@
         "Kortison-Gabe für die ersten 7 Tage zur Entzündungs-Unterdrückung."
       ],
       "correct": [0, 1, 2],
-      "explanation": "Das PEACE-Konzept nach Dubois und Jesculier (2019) umfasst: Protektion (Belastungs- und ROM-Reduktion in den ersten 3 Tagen), Hochlagern (Elevation über Herzhöhe), Vermeide NSAR, Kompression (elastische Bandage/Taping) und Edukation. NSAR können die Wundheilung negativ beeinflussen und sollen gerade vermieden werden."
+      "explanation": "Das PEACE-Konzept nach Dubois und Esculier (2019) umfasst: Protektion (Belastungs- und ROM-Reduktion in den ersten 3 Tagen), Hochlagern (Elevation über Herzhöhe), Vermeide NSAR, Kompression (elastische Bandage/Taping) und Edukation. NSAR können die Wundheilung negativ beeinflussen und sollen gerade vermieden werden."
     },
     {
       "text": "Welche Bausteine bilden das LOVE-Konzept im subakuten Verlauf einer Weichteilverletzung?",
@@ -110,7 +110,7 @@
         "Lagerung, Oszillation, Vasoaktiva, Entspannung."
       ],
       "correct": 1,
-      "explanation": "Das LOVE-Konzept (Dubois und Jesculier, 2019) bedeutet: Belaste schrittweise (Load — auf den Körper hören und sicher steigern), Optimismus (positive Erwartungshaltung zur Regeneration), Vaskularisation (kardiovaskuläres Training zur Förderung der Durchblutung) und Training (aktive Förderung von Beweglichkeit, Kraft und Propriozeption)."
+      "explanation": "Das LOVE-Konzept (Dubois und Esculier, 2019) bedeutet: Belaste schrittweise (Load — auf den Körper hören und sicher steigern), Optimismus (positive Erwartungshaltung zur Regeneration), Vaskularisation (kardiovaskuläres Training zur Förderung der Durchblutung) und Training (aktive Förderung von Beweglichkeit, Kraft und Propriozeption)."
     },
     {
       "text": "Welche Ziele und Inhalte sind typisch für die Entzündungsphase (bis ca. 2. Woche) eines konservativ behandelten Supinationstraumas?",
@@ -141,12 +141,12 @@
       "multi": false,
       "options": [
         "Anterior-Drawer-Test, Talar-Tilt-Test und Thompson-Test.",
-        "Palpation, External-Rotation-Test und Squeeze-Test.",
-        "Lachmann-Test, Pivot-Shift-Test und Apley-Test.",
+        "Palpation, External-Rotation- und Squeeze-Test.",
+        "Lachman-Test, Pivot-Shift-Test und McMurray-Test.",
         "Mulder-Click-Test, Tinel-Zeichen und Ottawa-Rules."
       ],
       "correct": 1,
-      "explanation": "Spezifisch für die Syndesmose sind Palpation (Sensitivität ca. 92 %), External-Rotation-Test (Spezifität ca. 78 %) und Squeeze-Test (Spezifität ca. 85 %) — Netterström-Wedin u. a. (2021). Anterior-Drawer und Talar-Tilt sind dagegen Außenband-Tests. Lachmann und Pivot-Shift betreffen das Kniegelenk."
+      "explanation": "Spezifisch für die Syndesmose sind Palpation (Sensitivität ca. 92 %), External-Rotation-Test (Spezifität ca. 78 %) und Squeeze-Test (Spezifität ca. 85 %) — Netterström-Wedin u. a. (2021). Anterior-Drawer und Talar-Tilt sind dagegen Außenband-Tests. Lachman-, Pivot-Shift- und McMurray-Test betreffen das Kniegelenk, die Ottawa Rules dienen dem Fraktur-Ausschluss."
     },
     {
       "text": "Welche Bewegungs-Kombination ist in den ersten 7 Tagen nach Syndesmosen-Verletzung Grad I unbedingt zu vermeiden?",
@@ -191,10 +191,10 @@
         "Passive und aktive Mobilisation des OSG vor allem in Dorsalextension.",
         "Manuelle Therapie zur Korrektur der Instabilität, meist ohne Aktivierung der intrinsischen Fußmuskulatur.",
         "Krafttraining der Unterschenkelmuskulatur und angrenzender Gelenke (v.a. Hüfte).",
-        "Langsam progressives Sprungtraining im Wechsel mit Schonung des Sprunggelenks für mindestens 12 Wochen."
+        "Konsequente Schonung des Sprunggelenks für mindestens 12 Wochen, Sprünge erst danach."
       ],
       "correct": [0, 2],
-      "explanation": "Das FIRE-Programm umfasst Mobilisation des OSG (vor allem D-Ext durch z. B. Talus-Dorsalschub, Triceps-surae-Dehnung, multidimensionale aktive Mobi), sensorische Stimulation der Fußsohle, Aktivierung der intrinsischen Fußmuskulatur (kurzer Fuß nach Janda, D1-Ext, D1-ABD, D2-5-Ext), Krafttraining der Unterschenkelmuskulatur (isolierte Pro-/Supination, P-Flex + Supination) und angrenzender Gelenke (v. a. Hüfte) sowie statisches und dynamisches Balancetraining. Frühes Sprungtraining & eine strikte Schon-Empfehlung würde Überlastung bzw. Dekonditionierung und Fear-Avoidance fördern und ist nicht Teil des Programms."
+      "explanation": "Das FIRE-Programm umfasst Mobilisation des OSG (vor allem D-Ext durch z. B. Talus-Dorsalschub, Triceps-surae-Dehnung, multidimensionale aktive Mobi), sensorische Stimulation der Fußsohle, Aktivierung der intrinsischen Fußmuskulatur (kurzer Fuß nach Janda, D1-Ext, D1-ABD, D2-5-Ext), Krafttraining der Unterschenkelmuskulatur (isolierte Pro-/Supination, P-Flex + Supination) und angrenzender Gelenke (v. a. Hüfte) sowie statisches und dynamisches Balancetraining mit Springen, Landen und Richtungswechseln. Geübt wird etwa 2-mal pro Woche über mindestens 3 Monate. Manuelle Therapie dient darin der Mobilisation in D-Ext, nicht der Korrektur der Instabilität, und die intrinsische Fußmuskulatur wird gezielt aktiviert. Eine wochenlange Schonung gehört nicht dazu: Sie würde Muskelschwäche, reduzierte Aktivität und Kinesiophobie verstärken (Teufelskreis nach Hertel und Corbett)."
     },
     {
       "text": "Welche Aussage zur Spezifität von Gleichgewichtstraining auf instabilen Unterlagen entspricht der aktuellen Studienlage?",
@@ -212,9 +212,9 @@
       "text": "Welche Wirkung hat eine Außenknöchel-Orthese (z. B. E.A.S.Y. — „External Ankle Stabilizer for one Year“) nach Barelds (2018) auf das Verletzungsrisiko?",
       "multi": false,
       "options": [
-        "Primärprävention ca. 47 % Risikoreduktion, Sekundärprävention (mit Vorverletzung) ca. 63 % Risikoreduktion.",
-        "Primärprävention ca. 90 % Risikoreduktion, Sekundärprävention ca. 10 % Risikoreduktion.",
-        "Beide Effekte sind klinisch irrelevant, die Risikoreduktion liegt unter 5 %.",
+        "Ohne Vorverletzung ca. 47 % weniger Verletzungsrisiko, mit Vorverletzung ca. 63 %.",
+        "Ohne Vorverletzung ca. 90 % weniger Verletzungsrisiko, mit Vorverletzung nur ca. 10 %.",
+        "Beide Effekte sind klinisch irrelevant, die Reduktion des Verletzungsrisikos liegt unter 5 %.",
         "Außenknöchel-Orthesen erhöhen das Verletzungsrisiko um etwa 20 % durch Bewegungseinschränkung."
       ],
       "correct": 0,
@@ -224,13 +224,13 @@
       "text": "Welche Aussage zur Aktivierung der intrinsischen Fußmuskulatur durch die typischen Reha-Übungen ist korrekt?",
       "multi": false,
       "options": [
-        "D1- & D2–5-Flexion aktiviert die intrinsische Fußmuskulatur — andere Übungen haben keine klinisch relevante Wirkung.",
-        "„Kurzer Fuß“ nach Janda, Spreizübung, D1-Extension und D2–5-Extension aktivieren die intrinsische Fußmuskulatur in unterschiedlichem Ausmaß (zwischen ca. 9 und 35 %).",
+        "Nur D1- und D2–5-Flexion aktivieren sie, andere Übungen haben keine klinisch relevante Wirkung.",
+        "„Kurzer Fuß“, Spreizübung, D1- und D2–5-Extension aktivieren sie unterschiedlich stark.",
         "Die intrinsische Fußmuskulatur lässt sich klinisch nur über elektrische Stimulation aktivieren.",
         "Die Aktivierung der intrinsischen Fußmuskulatur hat keinen Einfluss auf das Längs- und Quergewölbe."
       ],
       "correct": 1,
-      "explanation": "Die intrinsische Fußmuskulatur unterstützt das mediale Längsgewölbe, kontrolliert Verformung und unterstützt die posturale Kontrolle. „Kurzer Fuß“ nach Janda und Spreizübung (D1-ABD) erreichen ca. 17–35 % Aktivierung, D1-Extension ca. 13–18 %, D2–5-Extension ca. 9–22 %. Empfehlung: 2 × 15 Wiederholungen pro Übung."
+      "explanation": "Die intrinsische Fußmuskulatur unterstützt das mediale Längsgewölbe, kontrolliert Ausmaß und Geschwindigkeit der Gewölbeverformung und unterstützt die posturale Kontrolle. Alle intrinsischen Muskeln zeigen bei den vier typischen Übungen erhöhte Aktivierung, aber unterschiedlich stark: „Kurzer Fuß“ nach Janda und Spreizübung (D1-ABD) ca. 17–35 %, D1-Extension ca. 13–18 %, D2–5-Extension ca. 9–22 %. Empfehlung: 2 × 15 Wiederholungen pro Übung."
     },
     {
       "text": "Wie unterscheiden sich Achillessehnen-Tendinitis und -Tendinopathie nach gängiger Terminologie?",
@@ -272,7 +272,7 @@
       "text": "Wie wird der Thompson-Test bei Verdacht auf Achillessehnen-Ruptur durchgeführt und interpretiert?",
       "multi": false,
       "options": [
-        "Patient in Bauchlage mit frei hängendem Fuß; Untersucher kneift die Wadenmuskulatur — positiv bei ausbleibender Plantarflexion.",
+        "Patient in Bauchlage, Fuß frei hängend; Untersucher kneift in die Wade — Test positiv ohne Plantarflexion.",
         "Patient in Rückenlage; Untersucher forciert eine Dorsalextension — Test positiv bei vermehrter Dorsalextension.",
         "Patient in Seitlage; Untersucher provoziert eine Außenrotation des Talus — Test positiv bei Schmerz.",
         "Patient steht einbeinig; Untersucher beobachtet die Stand-Halte-Dauer — Test positiv bei Abbruch unter 30 Sekunden."
@@ -320,22 +320,22 @@
       "text": "Welches Belastungs-Profil beschreibt die Berliner Methode beim Sehnen-Krafttraining nach Radovanović (2022)?",
       "multi": false,
       "options": [
-        "3 Sekunden Belastung, 3 Sekunden Pause, 5 Sätze mit je 4 Wiederholungen, Intensität ≥ 85 % der isometrischen Maximalkraft, 2–4-mal pro Woche.",
-        "10 Sekunden Belastung, 10 Sekunden Pause, 1 Satz mit 50 Wiederholungen, Intensität 30 % der Maximalkraft, einmal täglich.",
-        "1 Sekunde Belastung, 1 Sekunde Pause, 5 Sätze mit je 30 Wiederholungen, ballistisch ausgeführt.",
+        "3 s Belastung, 3 s Pause, 5 Sätze à 4 Wiederholungen, Intensität ≥ 85 % der isometrischen Maximalkraft.",
+        "10 s Belastung, 10 s Pause, 1 Satz à 50 Wiederholungen, Intensität 30 % der Maximalkraft, einmal täglich.",
+        "1 s Belastung, 1 s Pause, 5 Sätze à 30 Wiederholungen, ballistisch und so schnell wie möglich ausgeführt.",
         "Reine Isometrie ohne Pausen, kontinuierlich 5 Minuten gehalten, einmal pro Woche."
       ],
       "correct": 0,
-      "explanation": "Die Berliner Methode (Radovanović u. a., 2022) nutzt einen Wechsel von 3 Sekunden Belastung und 3 Sekunden Pause bei einer Intensität von ≥ 85 % der isometrischen Maximalkraft, mit 5 Sätzen à 4 Wiederholungen, 2-mal pro Woche steigerbar auf 4-mal pro Woche. Schmerzabhängige Steuerung (NRS ≤ 5)."
+      "explanation": "Die Berliner Methode (Radovanović u. a., 2022) nutzt einen Wechsel von 3 Sekunden Belastung und 3 Sekunden Pause bei einer Intensität von ≥ 85 % der isometrischen Maximalkraft, mit 5 Sätzen à 4 Wiederholungen und 60–120 Sekunden Serienpause, 2-mal pro Woche, steigerbar auf 4-mal pro Woche. Schmerzabhängige Steuerung (NRS ≤ 5)."
     },
     {
       "text": "Welche Aussage zum klassischen exzentrischen Training nach Alfredson bei Achillessehnen-Tendinopathie ist korrekt?",
       "multi": false,
       "options": [
-        "1-mal wöchentlich, 1 Satz à 5 Wiederholungen, mit maximaler Kadenz und ohne Schmerz-Toleranz.",
-        "Geschwindigkeit 3–0–1 oder 3–0–0, 3 Sätze à 15 Wiederholungen, 2-mal täglich (zwei verschiedene Übungen), schmerzabhängige Steuerung (NRS ≤ 5).",
-        "Geschwindigkeit 0,5–0,5–0,5, 10 Sätze à 30 Wiederholungen, einmal pro Woche.",
-        "Reine konzentrische Übungen mit Stufe, einmal monatlich."
+        "Kadenz 1–0–1, 1 Satz à 5 Wiederholungen, einmal pro Woche, ohne Schmerz.",
+        "Kadenz 3–0–1, 3 Sätze à 15 Wiederholungen, 2-mal täglich.",
+        "Kadenz 0,5–0,5–0,5, 10 Sätze à 30 Wiederholungen, einmal pro Woche.",
+        "Rein konzentrisches Fersenheben auf einer Stufe, einmal im Monat."
       ],
       "correct": 1,
       "explanation": "Das exzentrische Training nach Alfredson (1998, 2004) sieht eine Kadenz von 3–0–1 oder 3–0–0 vor, 3 Sätze à 15 Wiederholungen, 2-mal täglich mit zwei verschiedenen Übungen (Knie gestreckt und Knie gebeugt). Steuerung über Schmerzempfinden (NRS ≤ 5). Belastungsschmerz kann sich in den ersten 1–3 Wochen leicht verstärken, sollte sich aber nach 24 Stunden zurückbilden."
@@ -345,7 +345,7 @@
       "multi": false,
       "options": [
         "Eine Operation bringt deutlich bessere funktionelle Ergebnisse als die konservative Therapie und sollte primär gewählt werden.",
-        "Eine Operation bringt bei einer Außenbandruptur keine Vorteile im Vergleich zur konservativen Therapie, aber ein höheres Komplikationsrisiko.",
+        "Eine Operation bringt funktionell keine Vorteile gegenüber der konservativen Therapie, aber mehr Komplikationen.",
         "Eine Operation ist indiziert, sobald der Anterior-Drawer-Test positiv ist und eine Instabilität vorliegt.",
         "Eine Operation ist nur bei rein medialen Bandverletzungen indiziert, da die Außenbänder nur sehr schwierig genäht werden können."
       ],

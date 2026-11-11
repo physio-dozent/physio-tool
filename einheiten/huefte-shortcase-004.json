@@ -21,25 +21,25 @@
       "text": "Welche Edukations-Botschaft zur Rolle des Übergewichts ist bei Herrn Berger fachlich am korrektesten und gleichzeitig motivierend?",
       "multi": false,
       "options": [
-        "„Sie sind einfach zu schwer fürs Gelenk — wenn Sie 20 kg abnehmen, ist die Arthrose weg.",
-        "„Fettmasse wirkt nicht nur als Gewicht. Sie befeuert systemische Entzündungs-Prozesse im ganzen Körper — auch im Gelenk. Eine Gewichtsreduktion reduziert beides: Belastung und Entzündungslast. Gleichzeitig schützt regelmäßige Bewegung das Gelenk und lindert Schmerzen.",
-        "„Mit Ihrem Gewicht hat die Hüfte sowieso keine Chance — Bewegung würde alles nur schneller verschlimmern.",
-        "„Übergewicht hat keinen relevanten Einfluss auf die Arthrose — entscheidend ist allein die genetische Veranlagung."
+        "„Sie sind einfach zu schwer fürs Gelenk — wenn Sie 20 kg abnehmen, ist die Arthrose weg.“",
+        "„Fettmasse ist mehr als Gewicht: Sie befeuert Entzündungen im Körper. Abnehmen und regelmäßige Bewegung helfen Ihnen.“",
+        "„Mit Ihrem Gewicht hat die Hüfte sowieso keine Chance — Bewegung würde alles nur schneller verschlimmern.“",
+        "„Übergewicht hat keinen relevanten Einfluss auf die Arthrose — entscheidend ist allein die genetische Veranlagung.“"
       ],
       "correct": 1,
-      "explanation": "Der dominierende Mechanismus zwischen Fettleibigkeit und Hüftarthrose ist nicht die mechanische Belastung, sondern ein systemischer Entzündungsstoffwechsel, der von der freien Körperfettmasse befeuert wird — bezeichnet als „metabolische Arthrose“ (Kluzek u. a., 2015; Courties u. a., 2015; Reyes u. a., 2016). Eine reine Reduktions-Botschaft („Sie sind zu schwer“) wäre demotivierend und unvollständig — die Schon-Botschaft des Nachbarn („mehr gehen = Hüfte fertig“) ist ein klassisches Nocebo, das verstärkt werden würde."
+      "explanation": "Der dominierende Mechanismus zwischen Fettleibigkeit und Hüftarthrose ist nicht die mechanische Belastung, sondern ein systemischer Entzündungsstoffwechsel, der von der freien Körperfettmasse befeuert wird — bezeichnet als „metabolische Arthrose“ (Kluzek u. a., 2015; Courties u. a., 2015; Reyes u. a., 2016). Eine Gewichtsreduktion senkt deshalb Belastung und Entzündungslast, regelmäßige Bewegung schützt zusätzlich das Gelenk und lindert Schmerzen. Eine reine Reduktions-Botschaft („Sie sind zu schwer“) wäre demotivierend und unvollständig — die Schon-Botschaft des Nachbarn („mehr gehen = Hüfte fertig“) ist ein klassisches Nocebo, das verstärkt werden würde."
     },
     {
       "text": "Welche Therapie-Bausteine bilden bei Herrn Berger den leitlinien-empfohlenen Kern (vgl. Bannuru, Kraus, Fernandes)?",
       "multi": true,
       "options": [
-        "Edukation: Was ist Arthrose, Mythen auflösen, Risikofaktoren (v. a. Fettleibigkeit), typische Symptome, Wichtigkeit mechanischer Belastung, Selbstmanagement.",
-        "Aktive Therapie: ca. 12 Einheiten unter Supervision, dann eigenständig — ROM-Verbesserung je nach Ziel, Kraft- und Koordinationstraining 2–3 Mal pro Woche, Ausdauer 30 Minuten täglich.",
+        "Edukation: Was ist Arthrose, Mythen auflösen, Risikofaktoren, Wichtigkeit mechanischer Belastung.",
+        "Aktive Therapie: 12 Einheiten unter Supervision, dann eigenständig Kraft, Koordination und Ausdauer.",
         "Ergänzende Maßnahmen: topische NSAR, Achtsamkeitsübungen (z. B. Yoga, Tai-Chi), Manuelle Therapie.",
-        "Strikte Schon-Empfehlung, Spazierstock und Aussetzen aller körperlichen Aktivitäten bis zur Knie-TEP."
+        "Strikte Schon-Empfehlung, Spazierstock und Aussetzen aller körperlichen Aktivitäten bis zur Hüft-TEP."
       ],
       "correct": [0, 1, 2],
-      "explanation": "Leitlinien-Empfehlung: Edukation (inkl. Mythen-Aufklärung und Bedeutung mechanischer Belastung als Therapie), aktive Therapie mit definiertem Volumen unter Supervision und schrittweise selbstständig, plus ergänzende Maßnahmen wie topische NSAR, Achtsamkeitsübungen und Manuelle Therapie (Bannuru u. a., 2019; Kraus u. a., 2019; Fernandes u. a., 2013). Strikte Schon-Empfehlungen verstärken Dekonditionierung, Fear-Avoidance und Komorbiditäten — sie sind hier kontraproduktiv und stützen das Nocebo des Nachbarn."
+      "explanation": "Leitlinien-Empfehlung: Edukation (Was ist Arthrose, Mythen-Aufklärung, Risikofaktoren wie Fettleibigkeit, typische Symptome, Bedeutung mechanischer Belastung als Therapie, Selbstmanagement), aktive Therapie (12 Einheiten unter Supervision, dann eigenständig: ROM je nach Ziel, Kraft- und Koordinationstraining 2–3 Mal pro Woche, Ausdauer 30 Minuten täglich) plus ergänzende Maßnahmen wie topische NSAR, Achtsamkeitsübungen und Manuelle Therapie (Bannuru u. a., 2019; Kraus u. a., 2019; Fernandes u. a., 2013). Strikte Schon-Empfehlungen verstärken Dekonditionierung, Fear-Avoidance und Komorbiditäten — sie sind hier kontraproduktiv und stützen das Nocebo des Nachbarn."
     }
   ]
 }

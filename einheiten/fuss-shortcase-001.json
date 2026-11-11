@@ -9,10 +9,10 @@
       "text": "Welche klinische Klassifikation passt am ehesten zu Yannicks Befund-Konstellation?",
       "multi": false,
       "options": [
-        "Reine Teilruptur Lig. talofibulare anterius — Schwellung und Palpationsschmerz, alle Stabilitätstests negativ, Gelenk stabil.",
-        "Totalruptur Lig. talofibulare anterius mit Teilruptur Lig. calcaneofibulare — Schwellung, Palpationsschmerz, positiver Anterior-Drawer, negativer Talar-Tilt, Gelenk klinisch instabil.",
-        "Totalruptur Lig. talofibulare anterius und Lig. calcaneofibulare — alle Stabilitätstests positiv, hochgradig instabiles Gelenk.",
-        "Syndesmosenverletzung Grad II — positiver External-Rotation- und Squeeze-Test, kein Schaden an den Außenbändern."
+        "Teilruptur Lig. talofibulare anterius, Lig. calcaneofibulare intakt, Gelenk klinisch stabil.",
+        "Totalruptur Lig. talofibulare anterius mit Teilruptur Lig. calcaneofibulare, Gelenk klinisch instabil.",
+        "Totalruptur von Lig. talofibulare anterius und Lig. calcaneofibulare, Gelenk klinisch hochgradig instabil.",
+        "Syndesmosenverletzung Grad II mit leichter Instabilität, Außenbänder ohne Schaden."
       ],
       "correct": 1,
       "explanation": "Schwellung und Palpationsschmerz, positiver Anterior-Drawer mit weichem Endgefühl, aber negativer Talar-Tilt passen zur Konstellation Totalruptur TFA + Teilruptur CF — das Gelenk ist klinisch instabil. Eine reine TFA-Teilruptur wäre Anterior-Drawer-negativ; eine kombinierte Totalruptur TFA + CF wäre auch Talar-Tilt-positiv. Die negativen Syndesmosen-Tests sprechen klar gegen eine high ankle sprain."

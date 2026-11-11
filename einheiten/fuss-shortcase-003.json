@@ -21,9 +21,9 @@
       "text": "Welche Test-Strategie ist bei Verdacht auf CAI sinnvoll, um sowohl mechanische als auch funktionelle Anteile zu erfassen?",
       "multi": false,
       "options": [
-        "Ausschließlich Anterior-Drawer und Talar-Tilt — funktionelle Tests sind bei CAI nicht aussagekräftig.",
-        "Anterior-Drawer und Talar-Tilt für mechanische Anteile, ergänzt um funktionelle Tests wie Y-Balance, Hop-Tests und PROMS (z. B. Cumberland Ankle Instability Tool) für funktionelle Anteile.",
-        "Ausschließlich PROM-Fragebögen — klinische Tests sind bei chronischer Instabilität nicht mehr verwertbar.",
+        "Anterior-Drawer und Talar-Tilt reichen, funktionelle Tests sind bei CAI nicht aussagekräftig.",
+        "Anterior-Drawer und Talar-Tilt, ergänzt um Y-Balance, Hop-Tests und Fragebögen (PROMs).",
+        "PROM-Fragebögen reichen, klinische Tests sind bei chronischer Instabilität nicht verwertbar.",
         "Ottawa Ankle Rules — sie sind das Standard-Instrument zur Quantifizierung der Instabilität."
       ],
       "correct": 1,

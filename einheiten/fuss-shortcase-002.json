@@ -22,20 +22,20 @@
       "multi": false,
       "options": [
         "Komplette Sportpause für mindestens drei Monate und parallel hochdosierte NSAR — danach langsam wieder einsteigen.",
-        "Edukation zum Schmerzüberwachungsmodell und ein aktives Übungsprogramm sind das primäre Management — Belastung wird dosiert und schmerzgesteuert (NRS bis 5 akzeptabel), gleichzeitig wird die Trainingssteigerung als ursächlicher Faktor angepasst.",
-        "Symptomatische Schmerzmittel-Einnahme erlauben weiterzulaufen wie geplant — die Sehne passt sich von selbst an.",
+        "Edukation und aktives Übungsprogramm mit schmerzgesteuerter Belastung, der Laufumfang wird angepasst.",
+        "Symptomatische Schmerzmittel-Einnahme erlaubt es, weiterzulaufen wie geplant — die Sehne passt sich von selbst an.",
         "Sofortige Operation, um den Risiko-Verlauf einer drohenden Ruptur zu unterbinden."
       ],
       "correct": 1,
-      "explanation": "Das primäre Management einer Achillessehnen-Tendinopathie besteht aus Edukation und aktiven Übungen (Malliaras u. a., 2020; Rhim u. a., 2020; van der Vlist u. a., 2021). Schmerzüberwachung mit NRS bis 5 während und 24 Stunden nach Belastung ist akzeptabel — eine vorübergehende Zunahme ist toleriert, solange sich der Schmerz innerhalb von 24 Stunden zurückbildet. NSAR werden bei Tendinopathien gerade nicht empfohlen. Eine OP ist hier nicht indiziert; vollständige Sportpause ist nicht das Ziel, sondern dosierte Belastungssteuerung."
+      "explanation": "Das primäre Management einer Achillessehnen-Tendinopathie besteht aus Edukation und aktiven Übungen (Malliaras u. a., 2020; Rhim u. a., 2020; van der Vlist u. a., 2021). Die Edukation erklärt unter anderem das Schmerzüberwachungsmodell: NRS bis 5 während und 24 Stunden nach Belastung ist akzeptabel, eine vorübergehende Zunahme ist toleriert, solange sich der Schmerz innerhalb von 24 Stunden zurückbildet. Gleichzeitig wird die zu schnelle Trainingssteigerung als ursächlicher Faktor angepasst. NSAR werden bei Tendinopathien gerade nicht empfohlen. Eine OP ist hier nicht indiziert; vollständige Sportpause ist nicht das Ziel, sondern dosierte Belastungssteuerung."
     },
     {
       "text": "Welche Bausteine gehören in den initialen aktiven Therapieplan (Phase 1–2) für Herrn Becker?",
       "multi": true,
       "options": [
-        "Isometrisches Training als Einstieg, wenn dynamische Übungen noch nicht schmerzfrei toleriert werden — statisch 10–45 Sekunden, mehrere Sätze, Schmerz NRS ≤ 5.",
-        "Exzentrisches Wadentraining nach Alfredson oder Heavy-Slow-Resistance-Training mit langsamer Kadenz (z. B. 3–0–3), schmerzgesteuert.",
-        "Identifikation und Anpassung der Trainingssteigerung als ursächlicher Faktor — Lauf-Umfang und -Intensität schrittweise und dosiert wieder aufbauen.",
+        "Isometrie als Einstieg, solange dynamische Übungen noch nicht vertragen werden (statisch 10–45 s, NRS ≤ 5).",
+        "Exzentrisches Training nach Alfredson oder Heavy-Slow-Resistance-Training, jeweils schmerzgesteuert.",
+        "Die zu schnelle Steigerung als Ursache angehen: Laufumfang und -tempo schrittweise wieder aufbauen.",
         "Immobilisation der Achillessehne in einem Gipsverband für ca. sechs Wochen und striktes Bett-Ruhe-Konzept."
       ],
       "correct": [0, 1, 2],

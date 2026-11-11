@@ -11,8 +11,8 @@
       "options": [
         "Reduzierte und schmerzhafte Hüft-IRO aus 90° Hüftflexion im Seitenvergleich.",
         "Positiver FADDIR-Test mit Reproduktion des typischen Leistenschmerzes.",
-        "Klicken und kurze Verriegelung im Drehmoment, langsamer Beginn mit Beschwerden über zwei Jahre.",
-        "Klar positiver Squeeze-Test der Adduktoren mit NRS 7/10."
+        "Klicken und kurze Verriegelung im Drehmoment, langsamer Beginn über zwei Jahre.",
+        "Klar positiver Squeeze-Test der Adduktoren mit NRS 7/10 und Druckschmerz am Ursprung."
       ],
       "correct": [0, 1, 2],
       "explanation": "Reduzierte Hüft-IRO im Seitenvergleich, positiver FADDIR mit typischem Leistenschmerz, Klicken und Symptomverlauf über mehrere Jahre passen zu FAI mit Labrum-Beteiligung. Der MRT-Befund untermauert die Hypothese — die klinischen Symptome müssen aber vorhanden sein (Kemp, 2018; Griffin, 2016). Ein deutlich positiver Squeeze-Test wäre Hinweis auf eine adduktoren-bedingte Komponente — hier ist er mit NRS 2/10 nicht relevant."
@@ -21,13 +21,13 @@
       "text": "Frau Vogel fragt direkt nach einer Operation. Welche Antwort entspricht der aktuellen Evidenzlage am besten?",
       "multi": false,
       "options": [
-        "„Mit Ihrem MRT-Befund führt kein Weg an der baldigen Operation vorbei.",
-        "„Es gibt zunehmende Hinweise, dass eine optimal aufgebaute konservative Therapie bei moderaten Beschwerden, ohne operationsbedürftige Begleitverletzungen und mit guter Compliance ein erfolgsversprechender erster Schritt sein kann. Erst wenn diese ausgereizt ist, sprechen wir über eine OP.",
-        "„Eine Operation würde Ihre CAM-Morphologie und alle Folgen zuverlässig rückgängig machen — sie ist die schnellste Lösung.",
-        "„Bei Klicken in der Hüfte ist die Arthroskopie immer indiziert, unabhängig von Symptomen und Funktionseinschränkungen."
+        "„Mit Ihrem MRT-Befund führt kein Weg an der baldigen Operation vorbei, Training bringt hier nichts.“",
+        "„Eine gut aufgebaute konservative Therapie ist bei Ihren Voraussetzungen ein sinnvoller erster Schritt.“",
+        "„Eine Operation würde Ihre CAM-Morphologie und alle Folgen zuverlässig rückgängig machen — sie ist die schnellste Lösung.“",
+        "„Bei Klicken in der Hüfte ist die Arthroskopie immer indiziert, unabhängig von Symptomen und Funktionseinschränkungen.“"
       ],
       "correct": 1,
-      "explanation": "Die aktuelle Studienlage zeigt zunehmend erfolgsversprechende konservative Therapieansätze auch bei sportlich aktiven Patientinnen und Patienten mit FAI (Yazbek u. a., 2011; Emara u. a., 2011; Reiman u. a., 2015; Bizzini u. a., 2015). Voraussetzungen: keine operationsbedürftigen Begleitverletzungen, moderater Schmerz und geringe funktionelle Einschränkung, gute Compliance. Vor jeder operativen Behandlung sollten physiotherapeutische Interventionen in Betracht gezogen werden (Freke u. a., 2016; Ardern u. a., 2016)."
+      "explanation": "Die aktuelle Studienlage zeigt zunehmend erfolgsversprechende konservative Therapieansätze auch bei sportlich aktiven Patientinnen und Patienten mit FAI (Yazbek u. a., 2011; Emara u. a., 2011; Reiman u. a., 2015; Bizzini u. a., 2015). Voraussetzungen: keine operationsbedürftigen Begleitverletzungen, moderater Schmerz und geringe funktionelle Einschränkung, gute Compliance. Vor jeder operativen Behandlung sollten physiotherapeutische Interventionen in Betracht gezogen werden (Freke u. a., 2016; Ardern u. a., 2016). Erst wenn die konservative Therapie ausgereizt ist, wird über eine OP gesprochen."
     },
     {
       "text": "Welche Bausteine sollten im konservativen Therapieprotokoll bei Frau Vogel enthalten sein?",
