@@ -56,7 +56,16 @@
         "knie-quiz-001",
         "knie-shortcase-001",
         "knie-shortcase-002",
-        "knie-shortcase-003"
+        "knie-shortcase-003",
+        "fuss-quiz-001",
+        "fuss-shortcase-001",
+        "fuss-shortcase-002",
+        "fuss-shortcase-003",
+        "huefte-shortcase-004",
+        "huefte-shortcase-003",
+        "huefte-shortcase-002",
+        "huefte-shortcase-001",
+        "huefte-quiz-001"
       ],
       "code_sha256": "1e345e44494b77420929dcd55e510778ff803303fb61d859bff2f1e7da25480b",
       "lernpfad": true
